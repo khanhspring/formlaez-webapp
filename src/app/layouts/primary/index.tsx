@@ -8,9 +8,9 @@ export default function PrimaryLayout() {
         <>
             <div className="flex min-h-[100vh] items-stretch">
                 <SideBar />
-                <div className="flex-1 flex flex-col dark:bg-cinder-900">
+                <div className="w-full md:w-[calc(100%_-_90px)] flex flex-col dark:bg-cinder-900">
                     <Header />
-                    <main className="flex-1 w-full py-7 px-7">
+                    <main className="w-full py-7 px-7">
                         <Outlet />
                     </main>
                     <div className="w-full">

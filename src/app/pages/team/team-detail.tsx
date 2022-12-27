@@ -22,7 +22,7 @@ function TeamDetail() {
             <div className="flex items-center justify-between min-h-[40px] mt-3">
                 <div className="flex items-center gap-3">
                     <span>Total 72</span>
-                    <div className="relative">
+                    <div className="relative hidden md:block">
                         <div className="absolute w-7 h-full flex items-center justify-center text-xs text-gray-500">
                             <i className="fi fi-rr-search"></i>
                         </div>

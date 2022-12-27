@@ -4,7 +4,7 @@ import ZigzagIcon from '../../components/icons/zigzag-icon';
 
 function SideBar() {
     return (
-        <div className="w-[90px] flex min-h-screen">
+        <div className="w-[90px] hidden md:flex min-h-screen">
             <div className="w-full flex flex-col justify-start dark:bg-cinder-700">
                 <div className="sticky top-0 px-3 flex items-center w-full h-[65px] dark:bg-cinder-800">
                     <Link to="/" className="flex w-full items-center justify-center">

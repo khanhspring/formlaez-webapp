@@ -5,7 +5,7 @@ import FieldTable from "../../components/fields/field-table";
 function Page() {
 
     return (
-        <div className="mx-auto w-full max-w-sm flex flex-col mt-2">
+        <div className="w-full max-w-2xl m-auto flex flex-col mt-2">
             <FieldItem type="text" />
             <FieldItem type="input-text" />
             <FieldItem type="text" />
