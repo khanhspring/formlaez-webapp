@@ -1,0 +1,17 @@
+@import url('https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.fi {
+    display: inline-flex;
+    align-items: center;
+}
+
+.public-DraftEditorPlaceholder-root {
+    position: absolute;
+    opacity: 0.1;
+    font-weight: lighter;
+}
