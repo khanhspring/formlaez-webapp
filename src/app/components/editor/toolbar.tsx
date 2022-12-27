@@ -41,16 +41,16 @@ const Toolbar: FC<Props> = ({ onInlineClick, onBlockClick, editorState }) => {
             <ToolbarButton onToggle={onInlineClick} type="CODE" editorState={editorState}>
                 <i className="fi fi-sr-code-simple"></i>
             </ToolbarButton>
-            <ToolbarButton onToggle={onBlockClick} type="text-left" editorState={editorState}>
+            <ToolbarButton onToggle={onInlineClick} type="align-left" editorState={editorState}>
                 <i className="fi fi-sr-align-left"></i>
             </ToolbarButton>
-            <ToolbarButton onToggle={onBlockClick} type="text-center" editorState={editorState}>
+            <ToolbarButton onToggle={onInlineClick} type="align-center" editorState={editorState}>
                 <AlignCenterIcon className="w-4" />
             </ToolbarButton>
-            <ToolbarButton onToggle={onBlockClick} type="text-right" editorState={editorState}>
+            <ToolbarButton onToggle={onInlineClick} type="align-right" editorState={editorState}>
                 <i className="fi fi-sr-symbol"></i>
             </ToolbarButton>
-            <ToolbarButton onToggle={onBlockClick} type="text-justify" editorState={editorState}>
+            <ToolbarButton onToggle={onInlineClick} type="align-justify" editorState={editorState}>
                 <AlignJustifyIcon className="w-4" />
             </ToolbarButton>
         </div>

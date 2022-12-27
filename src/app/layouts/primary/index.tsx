@@ -10,7 +10,7 @@ export default function PrimaryLayout() {
                 <SideBar />
                 <div className="w-full md:w-[calc(100%_-_90px)] flex flex-col dark:bg-cinder-900">
                     <Header />
-                    <main className="w-full py-7 px-7">
+                    <main className="w-full flex-1 py-7 px-7">
                         <Outlet />
                     </main>
                     <div className="w-full">

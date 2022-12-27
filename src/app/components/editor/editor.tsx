@@ -1,8 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
 
-import { DefaultDraftBlockRenderMap, DraftHandleValue, Editor as DraftEditor, EditorState, RichUtils } from "draft-js";
-import Toolbar from "./toolbar";
+import { ContentBlock, convertFromHTML, convertToRaw, DefaultDraftBlockRenderMap, DraftHandleValue, Editor as DraftEditor, EditorState, Modifier, RichUtils } from "draft-js";
 import Immutable from "immutable";
+import Toolbar from "./toolbar";
+import { type } from "os";
+import DraftUtils from "./drafjs.util";
 
 type Props = {
     autoFocus?: boolean;
@@ -25,6 +27,9 @@ const Editor: FC<Props> = ({ autoFocus, placeholder }) => {
     }, [autoFocus]);
 
     useEffect(() => {
+    }, [editorState]);
+
+    useEffect(() => {
         const selection = editorState.getSelection();
         if (selection.getHasFocus() && selection.getStartOffset() !== selection.getEndOffset()) {
             setShowToolbar(true);
@@ -33,7 +38,28 @@ const Editor: FC<Props> = ({ autoFocus, placeholder }) => {
         }
     }, [editorState]);
 
-    const onInlineClick = (e: any) => {
+    const onInlineClick = (e: string) => {
+        if (e.startsWith('align-')) {
+            const currentTextAlign = DraftUtils.getBlockData(editorState, 'text-align');
+
+            const textAlign = e.split("-")[1];
+
+            let value = undefined;
+            let state = editorState;
+            if (!currentTextAlign || currentTextAlign !== textAlign) {
+                if (currentTextAlign) {
+                    state = RichUtils.toggleInlineStyle(editorState, `align-${currentTextAlign}`);
+                }
+                value = textAlign;
+            }
+
+            const data = Immutable.Map({ 'text-align': value });
+            const newEditorState = DraftUtils.setBlockData(state, data);
+            let nextState = RichUtils.toggleInlineStyle(newEditorState, e);
+            setEditorState(nextState);
+            return;
+        }
+
         let nextState = RichUtils.toggleInlineStyle(editorState, e);
         setEditorState(nextState);
     };
@@ -54,19 +80,10 @@ const Editor: FC<Props> = ({ autoFocus, placeholder }) => {
 
     const [showToolbar, setShowToolbar] = useState(false);
 
-    function myBlockStyleFn(contentBlock: any): string {
-        const type = contentBlock.getType();
-        if (type === 'text-left') {
-            return '';
-        }
-        if (type === 'text-center') {
-            return 'text-center';
-        }
-        if (type === 'text-right') {
-            return 'text-right';
-        }
-        if (type === 'text-justify') {
-            return 'text-justify';
+    const blockStyleFn = (block: ContentBlock): string => {
+        const blockAlignment = block.getData() && block.getData().get('text-align');
+        if (blockAlignment) {
+            return `text-${blockAlignment}`;
         }
         return '';
     }
@@ -91,9 +108,9 @@ const Editor: FC<Props> = ({ autoFocus, placeholder }) => {
                     onChange={(editorState: any) => setEditorState(editorState)}
                     stripPastedStyles={false}
                     placeholder={placeholder}
-                    blockStyleFn={myBlockStyleFn}
                     handleKeyCommand={handleKeyCommand}
                     blockRenderMap={extendedBlockRenderMap}
+                    blockStyleFn={blockStyleFn}
                 />
             </div>
         </div>
