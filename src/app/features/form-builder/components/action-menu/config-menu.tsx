@@ -1,24 +1,33 @@
-import { FC } from "react";
+import copy from 'copy-to-clipboard';
+import Switch from "rc-switch";
+import { FC, useCallback } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
+import { toast } from "react-toastify";
+import confirm from "../../../../components/common/confirm/confirm";
 import { useAppDispatch } from "../../../../hooks/redux-hook";
 import { ActionContext } from "../../../../models/form";
-import { removeField, removeSection, setCurrentItem } from "../../slice";
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { toast } from "react-toastify";
-import * as _ from 'lodash';
-import confirm from "../../../../components/common/confirm/confirm";
-import Switch from "rc-switch";
-import { useUpdateBasicInfo } from "../../hooks/useUpdateBasicInfo";
+import { useUpdateField } from '../../hooks/useUpdateField';
+import { duplicateField, duplicateSection, removeField, removeSection, setCurrentItem } from "../../slice";
 import FieldUtil from "../../utils/field-util";
 
 type Props = {
     context: ActionContext;
     onMenuClick: () => void;
+    visible?: boolean;
 }
 
-const ConfigMenu: FC<Props> = ({ context, onMenuClick }) => {
+const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
 
     const dispatch = useAppDispatch();
-    const { required, hideTitle, onRequiredChange, onHideTitleChange } = useUpdateBasicInfo(context?.field, context);
+    const { values, updateDebounce, update } = useUpdateField(context.field as any, context);
+
+    const variableName = context.type === 'Group' ? context.section?.variableName : context.field?.variableName;
+    const onCopy = useCallback(() => {
+        copy(variableName || '');
+        onMenuClick?.();
+        toast.success("Copied", { autoClose: 1000 });
+    }, [onMenuClick, variableName])
+    useHotkeys('ctrl+c, meta+c', onCopy, { preventDefault: true, enabled: visible });
 
     const handleDelete = () => {
         onMenuClick?.();
@@ -39,41 +48,56 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick }) => {
             onOk: handleDelete
         });
     }
-
-    const onCopy = () => {
-        onMenuClick?.();
-        toast.success("Copied", { autoClose: 1000 });
-    }
+    useHotkeys('delete, backspace', onDelete, { preventDefault: true, enabled: visible });
 
     const changeRequire = () => {
-        onRequiredChange?.(!required);
+        update({required: !values.required});
     }
 
     const changeHideTitle = () => {
-        onHideTitleChange?.(!hideTitle);
+        update({hideTitle: !values.hideTitle});
     }
 
     const onEditProperties = () => {
         onMenuClick?.();
         dispatch(setCurrentItem(context));
     }
+    useHotkeys('ctrl+e, meta+e', onEditProperties, { preventDefault: true, enabled: visible });
 
-    const variableName = context.type === 'Group' ? context.section?.variableName : context.field?.variableName;
+    const onDuplicate = () => {
+        console.log(context);
+        onMenuClick?.();
+        if (context.type === 'Group' || context.type === 'SingleField') {
+            dispatch(duplicateSection({ sectionIndex: context.sectionIndex }));
+            return;
+        }
+        if (context.type === 'GroupField') {
+            dispatch(duplicateField({ sectionIndex: context.sectionIndex, fieldIndex: context.fieldIndex }));
+            return;
+        }
+    }
+    useHotkeys('ctrl+d, meta+d', onDuplicate, { preventDefault: true, enabled: visible });
+
     const isFormControl = FieldUtil.isFormControl(context.field);
+
+    if (!visible) {
+        return <></>
+    }
 
     return (
         <div className="w-[250px] bg-cinder-700 rounded py-2 px-1 flex flex-col gap-0.5">
             {
                 (isFormControl || context.type === 'Group') &&
-                <CopyToClipboard text={variableName || ''} onCopy={onCopy}>
-                    <div className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600">
-                        <div className="flex gap-2">
-                            <i className="fi fi-rr-square-code"></i>
-                            <span>Copy code</span>
-                        </div>
-                        <span className="text-xs text-gray-300">Ctrl+C</span>
+                <div
+                    className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600"
+                    onClick={onCopy}
+                >
+                    <div className="flex gap-2">
+                        <i className="fi fi-rr-square-code"></i>
+                        <span>Copy code</span>
                     </div>
-                </CopyToClipboard>
+                    <span className="text-xs text-gray-300">Ctrl+C</span>
+                </div>
             }
             {
                 (isFormControl || context.type === 'Group') &&
@@ -88,7 +112,10 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick }) => {
                     <span className="text-xs text-gray-300">Ctrl+E</span>
                 </div>
             }
-            <div className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600">
+            <div
+                className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600"
+                onClick={onDuplicate}
+            >
                 <div className="flex gap-2">
                     <i className="fi fi-rr-duplicate"></i>
                     <span>Duplicate</span>
@@ -121,7 +148,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick }) => {
                             <span>Required</span>
                         </div>
                         <div className="text-xs">
-                            <Switch checked={required} />
+                            <Switch checked={values.required} />
                         </div>
                     </div>
                     <div
@@ -133,7 +160,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick }) => {
                             <span>Hide label</span>
                         </div>
                         <div className="text-xs">
-                            <Switch checked={hideTitle} />
+                            <Switch checked={values.hideTitle} />
                         </div>
                     </div>
                 </>

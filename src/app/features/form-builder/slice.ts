@@ -5,6 +5,8 @@ import {
   ActionContext,
   AddFormField,
   AddFormSection,
+  DuplicateFormField,
+  DuplicateSection,
   Form,
   RemoveFormField,
   RemoveFormSection,
@@ -15,6 +17,7 @@ import {
 } from "../../models/form";
 import FormService from "../../services/form-service";
 import FormUtil from "./utils/form-util";
+import * as _ from "lodash";
 
 export const loadForm = createAsyncThunk(
   "form/loadForm",
@@ -246,11 +249,11 @@ export const removeField = createAsyncThunk(
       thunkAPI.abort();
       return;
     }
-    const [formResult, removedSection] = result;
+    const [formResult, removedField] = result;
     thunkAPI.dispatch(updateForm(formResult));
 
     try {
-      return await FormService.removeField(removedSection.code);
+      return await FormService.removeField(removedField.code);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -284,7 +287,6 @@ export const updateField = createAsyncThunk(
     thunkAPI.dispatch(updateForm(formResult));
 
     try {
-      console.log(updatedField);
       return await FormService.updateField(updatedField);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
@@ -327,6 +329,73 @@ export const updateSection = createAsyncThunk(
   }
 );
 
+
+export const duplicateSection = createAsyncThunk(
+  "form/duplicateSection",
+  async (command: DuplicateSection, thunkAPI) => {
+    const state = thunkAPI.getState() as any;
+    const formBuilderState = state.formBuilder as FormBuilderState;
+
+    if (!formBuilderState?.form) {
+      thunkAPI.abort();
+      return;
+    }
+
+    const result = FormUtil.duplicateSection(
+      formBuilderState.form,
+      command.sectionIndex
+    );
+
+    if (!result) {
+      thunkAPI.abort();
+      return;
+    }
+    const [formResult, newSection] = result;
+    thunkAPI.dispatch(updateForm(formResult));
+
+    try {
+      return await FormService.addFormSection(newSection);
+    } catch (err) {
+      thunkAPI.dispatch(loadForm(formBuilderState.form.code));
+      throw err;
+    }
+  }
+);
+
+export const duplicateField = createAsyncThunk(
+  "form/duplicateField",
+  async (command: DuplicateFormField, thunkAPI) => {
+    const state = thunkAPI.getState() as any;
+    const formBuilderState = state.formBuilder as FormBuilderState;
+
+    if (!formBuilderState?.form) {
+      thunkAPI.abort();
+      return;
+    }
+
+    const result = FormUtil.duplicateField(
+      formBuilderState.form,
+      command.sectionIndex,
+      command.fieldIndex
+    );
+
+    if (!result) {
+      thunkAPI.abort();
+      return;
+    }
+    const [formResult, newField] = result;
+    thunkAPI.dispatch(updateForm(formResult));
+
+    try {
+      return await FormService.addGroupField(newField);
+    } catch (err) {
+      thunkAPI.dispatch(loadForm(formBuilderState.form.code));
+      throw err;
+    }
+  }
+);
+
+
 export interface FormBuilderState {
   form?: Form;
   currentItem?: ActionContext;
@@ -336,12 +405,12 @@ const initialState: FormBuilderState = {};
 
 const showError = () => toast.error("Something went wrong. Please try again!");
 
-export const counterSlice = createSlice({
+export const formBuilderSlice = createSlice({
   name: "formBuilder",
   initialState,
   reducers: {
     updateForm: (state, action: PayloadAction<Form | undefined>) => {
-      state.form = action.payload;
+      state.form = _.cloneDeep(action.payload);
     },
     clearCurrentItem: (state, action: PayloadAction<undefined>) => {
       state.currentItem = undefined;
@@ -391,11 +460,10 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { updateForm, clearCurrentItem, setCurrentItem, resetState } =
-  counterSlice.actions;
+export const { updateForm, clearCurrentItem, setCurrentItem, resetState } = formBuilderSlice.actions;
 
 export const selectForm = (state: RootState) => state.formBuilder.form;
 export const selectCurrentItem = (state: RootState) =>
   state.formBuilder.currentItem;
 
-export default counterSlice.reducer;
+export default formBuilderSlice.reducer;

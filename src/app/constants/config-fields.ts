@@ -1,7 +1,7 @@
 import { ConfigField, ConfigSection } from "../models/form";
 import { nanoid } from "nanoid";
 
-const newId = () => {
+export const newId = () => {
     return nanoid(5).toLowerCase();
 }
 
@@ -134,7 +134,7 @@ export const FormControlConfigFields: ConfigField[] = [
             variableName: newId(),
             title: "Switch",
             placeholder: "Switch",
-            required: true,
+            required: false,
         })
     },
     {

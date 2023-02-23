@@ -4,7 +4,7 @@ import { FC, useRef } from "react";
 import Textarea from "../../../../components/form/form-controls/textarea";
 import FormItem from "../../../../components/form/form-item";
 import { ActionContext, FormField } from "../../../../models/form";
-import { useUpdateBasicInfo } from "../../hooks/useUpdateBasicInfo";
+import { useUpdateField } from "../../hooks/useUpdateField";
 
 type Props = {
     field: FormField;
@@ -13,11 +13,12 @@ type Props = {
 
 const MultipleChoiceField: FC<Props> = ({ field, context }) => {
 
-    const { label, onLabelChange, onOptionsChange } = useUpdateBasicInfo(field, context);
+    const {values, updateDebounce} = useUpdateField(field, context);
+
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const onValuesChange = (changed: any, values: any) => {
-        onOptionsChange?.(values.options);
+    const onValuesChange = (changed: any, formValues: any) => {
+        updateDebounce({options: formValues.options});
     }
 
     return (
@@ -30,9 +31,9 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
                         <span className="pr-1 pt-[7px] text-lg leading-3 text-red-500">*</span>
                     }
                     <input
-                        value={label}
+                        value={values.title}
                         className="flex-1 w-full text-gray-100 bg-transparent outline-none"
-                        onChange={onLabelChange}
+                        onChange={(e) => updateDebounce({title: e.target.value})}
                         placeholder="Multiple choice"
                     />
                 </div>
@@ -44,7 +45,7 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
                 <Form
                     onValuesChange={onValuesChange}
                     className="flex flex-col items-start gap-2"
-                    initialValues={{options: [...field.options || []]}}
+                    initialValues={{options: [...values.options || []]}}
                 >
                     <Form.List
                         name="options"

@@ -1,11 +1,22 @@
-import * as _ from "lodash";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 
 type InputFunc = (...args: any) => void;
-type DebouncedType = _.DebouncedFunc<InputFunc>;
+type ResultType = (...args: any) => void;
 
-export const useDebounced = (func: InputFunc, wait: number = 700): DebouncedType => {
-  const debouncedFunc = useRef(_.debounce(func, wait)).current;
+export const useDebounced = (
+  func: InputFunc,
+  wait: number = 700
+): ResultType => {
+  const timeout = useRef<any>(null);
+
+  const debouncedFunc = useCallback((...args: any) => {
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+    timeout.current = setTimeout(() => {
+      func(...args);
+    }, wait);
+  }, [func, wait]);
 
   return debouncedFunc;
 };

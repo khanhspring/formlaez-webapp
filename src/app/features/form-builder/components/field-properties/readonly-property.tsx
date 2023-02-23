@@ -3,7 +3,7 @@ import Switch from "rc-switch";
 import { FC } from "react";
 import FormItem from "../../../../components/form/form-item";
 import { ActionContext, FormField } from "../../../../models/form";
-import { useUpdateProperties } from "../../hooks/useUpdateProperties";
+import { useUpdateField } from "../../hooks/useUpdateField";
 import FieldUtil from "../../utils/field-util";
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 
 const ReadonlyProperty: FC<Props> = ({ field, context }) => {
 
-    const { updatePropertyImmediately } = useUpdateProperties(field, context);
+    const {values, update} = useUpdateField(field, context);
     const [form] = useForm();
 
     if (!FieldUtil.isFormControl(field)) {
@@ -21,14 +21,14 @@ const ReadonlyProperty: FC<Props> = ({ field, context }) => {
     }
 
     const onChange = ({ readonly }: { readonly: boolean }) => {
-        updatePropertyImmediately({ readonly })
+        update({ readonly })
     }
 
     return (
         <Form
             form={form}
             onValuesChange={onChange}
-            initialValues={{ readonly: field.readonly }}
+            initialValues={{ readonly: values.readonly }}
         >
             <FormItem
                 title="Readonly"

@@ -2,7 +2,7 @@ import * as _ from "lodash";
 import { FC, useState } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { FormSection } from "../../../../models/form";
-import { useUpdateGroupBasicInfo } from "../../hooks/useUpdateGroupBasicInfo";
+import { useUpdateSection } from "../../hooks/useUpdateSection";
 import ConfigAction from "../config-action";
 import EmptyGroup from "../empty-group";
 import FieldItem from "./field-item";
@@ -15,7 +15,7 @@ type Props = {
 const FieldGroup: FC<Props> = ({ section, sectionIndex, ...dragHandleProps }) => {
 
     const [isHover, setIsHover] = useState(false);
-    const { title, onTitleChange } = useUpdateGroupBasicInfo(section, { type: 'Group', section, sectionIndex });
+    const { values, updateDebounce } = useUpdateSection(section, { type: 'Group', section, sectionIndex });
 
     const fields = section.fields || [];
 
@@ -77,9 +77,9 @@ const FieldGroup: FC<Props> = ({ section, sectionIndex, ...dragHandleProps }) =>
                 />
                 <div className="bg-cinder-700 px-3 py-2 rounded-t">
                     <input
-                        value={title}
+                        value={values.title}
                         className="flex-1 w-full text-gray-100 bg-transparent outline-none"
-                        onChange={onTitleChange}
+                        onChange={(e) => updateDebounce({ title: e.target.value })}
                         placeholder="Group"
                     />
                 </div>

@@ -1,13 +1,12 @@
 import * as _ from "lodash";
 import { FC, useEffect, useRef } from "react";
 import { DragDropContext, Draggable, Droppable, DropResult, ResponderProvided } from "react-beautiful-dnd";
-import Drawer from "../../components/drawer/drawer";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
 import { Form } from "../../models/form";
 import EmptyForm from "./components/empty-form";
 import PropertiesDrawer from "./components/properties-drawer";
 import SectionItem from "./components/sections/section-item";
-import { clearCurrentItem, reorderField, reorderSection, resetState, selectCurrentItem, selectForm, updateForm } from "./slice";
+import { reorderField, reorderSection, resetState, selectForm, updateForm } from "./slice";
 
 // disable all react-beautiful-dnd development warnings
 // @ts-ignore
@@ -30,7 +29,7 @@ const FormBuilder: FC<Props> = ({ initForm }) => {
             mounted.current = false;
             dispatch(resetState());
         }
-    }, []);
+    }, [dispatch, initForm]);
 
 
     const sections = (form?.pages && form.pages[0]?.sections) || [];

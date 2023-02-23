@@ -5,7 +5,7 @@ import Button from "../../../../components/common/button";
 import Input from "../../../../components/form/form-controls/input";
 import FormItem from "../../../../components/form/form-item";
 import { ActionContext, FormField } from "../../../../models/form";
-import { useUpdateMedia } from "../../hooks/useUpdateMedia";
+import { useUpdateField } from "../../hooks/useUpdateField";
 
 type Props = {
     field: FormField;
@@ -15,11 +15,11 @@ type Props = {
 const ImageField: FC<Props> = ({ field, context }) => {
 
     const [embedUrlVisible, setEmbedUrlVisible] = useState(false);
-    const { url, onUrlChange } = useUpdateMedia(field, context);
+    const { values, update } = useUpdateField(field, context);
     const [form] = useForm();
 
     const onFinish = ({ embedUrl }: any) => {
-        onUrlChange(embedUrl);
+        update({url: embedUrl});
         setEmbedUrlVisible(false);
     }
 
@@ -50,7 +50,7 @@ const ImageField: FC<Props> = ({ field, context }) => {
         </div>
     )
 
-    if (!url) {
+    if (!values.url) {
         return (
             <Popup
                 content={imageConfig}
@@ -69,7 +69,7 @@ const ImageField: FC<Props> = ({ field, context }) => {
 
     return (
         <div className="w-full">
-            <img src={url} alt={url} className="w-full rounded" />
+            <img src={values.url} alt={values.url} className="w-full rounded" />
         </div>
     );
 }

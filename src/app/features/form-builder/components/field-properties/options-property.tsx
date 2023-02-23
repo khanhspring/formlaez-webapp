@@ -6,7 +6,7 @@ import Textarea from "../../../../components/form/form-controls/textarea";
 import FormItem from "../../../../components/form/form-item";
 import FormItemLabel from "../../../../components/form/form-item-label";
 import { ActionContext, FormField, FormFieldType } from "../../../../models/form";
-import { useUpdateBasicInfo } from "../../hooks/useUpdateBasicInfo";
+import { useUpdateField } from "../../hooks/useUpdateField";
 
 type Props = {
     field: FormField;
@@ -17,25 +17,24 @@ const SupportedTypes: FormFieldType[] = ["Dropdown"]
 
 const OptionsProperty: FC<Props> = ({ field, context }) => {
 
-    const { options, onOptionsChange } = useUpdateBasicInfo(field, context);
+    const {values, updateDebounce} = useUpdateField(field, context);
 
     if (!SupportedTypes.includes(field.type)) {
         return <></>
     }
 
-    const onValuesChange = (changed: any, values: any) => {
-        console.log(changed, values);
-        onOptionsChange?.([...values.options]);
+    const onValuesChange = (changed: any, formValues: any) => {
+        updateDebounce({options: formValues.options});
     }
 
     return (
         <div className="w-full">
-            <FormItemLabel content={`Options (${options?.length})`} />
+            <FormItemLabel content={`Options (${values.options?.length})`} />
             <div>
                 <Form
                     onValuesChange={onValuesChange}
                     className="w-full mt-2"
-                    initialValues={{ options: [...field.options || []] }}
+                    initialValues={{ options: [...values.options || []] }}
                 >
                     <Form.List
                         name="options"

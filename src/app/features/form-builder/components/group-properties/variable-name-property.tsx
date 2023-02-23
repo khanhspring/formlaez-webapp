@@ -3,7 +3,7 @@ import { FC, useRef } from "react";
 import Input from "../../../../components/form/form-controls/input";
 import FormItem from "../../../../components/form/form-item";
 import { ActionContext, FormSection } from "../../../../models/form";
-import { useUpdateGroupProperties } from "../../hooks/useUpdateGroupProperties";
+import { useUpdateSection } from "../../hooks/useUpdateSection";
 
 type Props = {
     section: FormSection;
@@ -12,7 +12,7 @@ type Props = {
 
 const VariableNameProperty: FC<Props> = ({ section, context }) => {
 
-    const { updatePropertyImmediately } = useUpdateGroupProperties(section, context);
+    const {values, update} = useUpdateSection(section, context);
     const timeout = useRef<any>(null);
     const [form] = useForm();
 
@@ -23,7 +23,7 @@ const VariableNameProperty: FC<Props> = ({ section, context }) => {
         timeout.current = setTimeout(() => {
             form.validateFields(['variableName'])
             .then((values) => {
-                updatePropertyImmediately({ variableName: values.variableName })
+                update({ variableName: values.variableName })
             })
             .catch();
         }, 1000)
@@ -33,7 +33,7 @@ const VariableNameProperty: FC<Props> = ({ section, context }) => {
         <Form
             form={form}
             onValuesChange={onChange}
-            initialValues={{ variableName: section.variableName }}
+            initialValues={{ variableName: values.variableName }}
         >
             <FormItem
                 title="Variable name"

@@ -3,8 +3,7 @@ import { FC, useRef } from "react";
 import Input from "../../../../components/form/form-controls/input";
 import FormItem from "../../../../components/form/form-item";
 import { ActionContext, FormField } from "../../../../models/form";
-import { doNothing } from "../../../../util/common";
-import { useUpdateProperties } from "../../hooks/useUpdateProperties";
+import { useUpdateField } from "../../hooks/useUpdateField";
 import FieldUtil from "../../utils/field-util";
 
 type Props = {
@@ -14,7 +13,7 @@ type Props = {
 
 const VariableNameProperty: FC<Props> = ({ field, context }) => {
 
-    const { updatePropertyImmediately } = useUpdateProperties(field, context);
+    const {values, update} = useUpdateField(field, context);
     const timeout = useRef<any>(null);
     const [form] = useForm();
 
@@ -29,7 +28,7 @@ const VariableNameProperty: FC<Props> = ({ field, context }) => {
         timeout.current = setTimeout(() => {
             form.validateFields(['variableName'])
             .then((values) => {
-                updatePropertyImmediately({ variableName: values.variableName })
+                update({ variableName: values.variableName })
             })
             .catch();
         }, 1000)
@@ -39,7 +38,7 @@ const VariableNameProperty: FC<Props> = ({ field, context }) => {
         <Form
             form={form}
             onValuesChange={onChange}
-            initialValues={{ variableName: field.variableName }}
+            initialValues={{ variableName: values.variableName }}
         >
             <FormItem
                 title="Variable name"

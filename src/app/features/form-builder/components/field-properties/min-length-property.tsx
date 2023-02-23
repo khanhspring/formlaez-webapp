@@ -1,9 +1,9 @@
 import Form from "rc-field-form";
 import { FC } from "react";
-import FormItem from "../../../../components/form/form-item";
 import InputNumber from "../../../../components/form/form-controls/input-number";
+import FormItem from "../../../../components/form/form-item";
 import { ActionContext, FormField, FormFieldType } from "../../../../models/form";
-import { useUpdateProperties } from "../../hooks/useUpdateProperties";
+import { useUpdateField } from "../../hooks/useUpdateField";
 
 type Props = {
     field: FormField;
@@ -14,20 +14,20 @@ const SupportedTypes: FormFieldType[] = ["InputText", "LongText", 'Email']
 
 const MinLengthProperty: FC<Props> = ({ field, context }) => {
 
-    const { updatePropertyImmediately } = useUpdateProperties(field, context);
+    const {values, update} = useUpdateField(field, context);
 
     if (!SupportedTypes.includes(field.type)) {
         return <></>
     }
 
     const onChange = ({ minLength }: { minLength: number }) => {
-        updatePropertyImmediately({ minLength })
+        update({ minLength })
     }
 
     return (
         <Form
             onValuesChange={onChange}
-            initialValues={{ minLength: field.minLength }}
+            initialValues={{ minLength: values.minLength }}
         >
             <FormItem
                 title="Min length"

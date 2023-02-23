@@ -1,11 +1,11 @@
-import Form, { useForm } from "rc-field-form";
 import { Popup } from "ez-rc-popup";
+import Form, { useForm } from "rc-field-form";
 import { FC, useState } from "react";
 import Button from "../../../../components/common/button";
+import Input from "../../../../components/form/form-controls/input";
 import FormItem from "../../../../components/form/form-item";
 import { ActionContext, FormField } from "../../../../models/form";
-import { useUpdateMedia } from "../../hooks/useUpdateMedia";
-import Input from "../../../../components/form/form-controls/input";
+import { useUpdateField } from "../../hooks/useUpdateField";
 
 const youtubeUrlRegex = /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/;
 type Props = {
@@ -16,14 +16,16 @@ type Props = {
 const VideoField: FC<Props> = ({ field, context }) => {
 
     const [embedUrlVisible, setEmbedUrlVisible] = useState(false);
-    const { url, onUrlChange } = useUpdateMedia(field, context);
+
+    const { values, update } = useUpdateField(field, context);
+
     const [form] = useForm();
 
     const onFinish = ({ embedUrl }: { embedUrl: string }) => {
         setEmbedUrlVisible(false);
         const match = embedUrl.match(youtubeUrlRegex);
         const youtubeId = match?.[3];
-        onUrlChange(`https://www.youtube.com/embed/${youtubeId}`);
+        update({url: `https://www.youtube.com/embed/${youtubeId}`});
     }
 
     const resetForm = () => {
@@ -53,7 +55,7 @@ const VideoField: FC<Props> = ({ field, context }) => {
         </div>
     )
 
-    if (!url) {
+    if (!values.url) {
         return (
             <Popup
                 content={videoConfig}
@@ -75,7 +77,7 @@ const VideoField: FC<Props> = ({ field, context }) => {
             <iframe
                 width="100%"
                 height="325"
-                src={`${url}?modestbranding=0&rel=0`}
+                src={`${values.url}?modestbranding=0&rel=0`}
                 title="YouTube video player"
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
             ></iframe>

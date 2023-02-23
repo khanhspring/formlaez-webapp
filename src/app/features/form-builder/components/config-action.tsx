@@ -28,7 +28,7 @@ const ConfigAction: FC<Props> = ({ invisible = false, context, ...dragHandleProp
     )
 
     const menu = (
-        <ConfigMenu onMenuClick={() => setConfigMenuVisible(false)} context={context} />
+        <ConfigMenu onMenuClick={() => setConfigMenuVisible(false)} context={context} visible={configMenuVisible} />
     )
 
     return (

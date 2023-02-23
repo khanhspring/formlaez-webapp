@@ -52,7 +52,7 @@ const router = createBrowserRouter([
         element: lazyLoad('form', 'form-settings')
       }
     ],
-    errorElement: <Error404 />
+    errorElement: <Error404 />,
   },
   {
     element: <BlankLayout />,
@@ -60,7 +60,15 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: lazyLoad('login')
-      }
+      },
+      {
+        path: "teams/:teamCode/forms/:formCode/preview",
+        element: lazyLoad('form', 'form-preview')
+      },
+      {
+        path: "private/forms/:formCode/preview",
+        element: lazyLoad('form', 'form-preview')
+      },
     ]
   },
   {
@@ -100,7 +108,7 @@ function App() {
         limit={3}
         autoClose={3500}
       />
-      <RouterProvider router={router} />
+      <RouterProvider router={router} fallbackElement={<>Loading...</>} />
     </>
   );
 }

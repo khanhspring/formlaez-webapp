@@ -17,7 +17,6 @@ import RatingField from "./rating-field";
 import SwitchField from "./switch-field";
 import TextField from "./text-field";
 import VideoField from "./video-field";
-import * as _ from "lodash";
 
 type Props = {
     type: FormFieldType;
@@ -31,28 +30,6 @@ const FieldItem: FC<Props> = ({ type, sectionIndex, index, section, field, ...dr
 
     const [isHover, setIsHover] = useState(false);
 
-    const renderField = (actionContext: ActionContext) => {
-        switch (type) {
-            case 'Text': return <TextField />;
-            case 'Image': return <ImageField field={field} context={actionContext}/>;
-            case 'Video': return <VideoField field={field} context={actionContext}/>;
-            case 'Pdf': return <PdfField field={field} context={actionContext}/>;
-            case 'Line': return <LineField />;
-
-            case 'InputText': return <InputTextField field={field} context={actionContext} />;
-            case 'InputNumber': return <InputNumberField field={field} context={actionContext}/>;
-            case 'Datetime': return <DatetimePickerField field={field} context={actionContext}/>;
-            case 'LongText': return <LongTextField field={field} context={actionContext}/>;
-            case 'Email': return <EmailField field={field} context={actionContext} />;
-            case 'Rating': return <RatingField field={field} context={actionContext}/>;
-            case 'OpinionScale': return <OpinionScaleField field={field} context={actionContext}/>;
-            case 'Switch': return <SwitchField field={field} context={actionContext}/>;
-            case 'Dropdown': return <DropdownField field={field} context={actionContext}/>;
-            case 'PictureChoice': return <PictureChoiceField field={field} context={actionContext}/>;
-            case 'MultipleChoice': return <MultipleChoiceField field={field} context={actionContext}/>;
-        }
-    }
-
     const actionType = (section.type === 'Group' || section.type === 'Table') ? 'GroupField' : 'SingleField';
     const actionContext: ActionContext = {
         type: actionType,
@@ -60,7 +37,29 @@ const FieldItem: FC<Props> = ({ type, sectionIndex, index, section, field, ...dr
         fieldIndex: index,
         field: field,
         section: section
-    };
+    }
+
+    const renderField = () => {
+        switch (type) {
+            case 'Text': return <TextField />;
+            case 'Image': return <ImageField field={field} context={actionContext} />;
+            case 'Video': return <VideoField field={field} context={actionContext} />;
+            case 'Pdf': return <PdfField field={field} context={actionContext} />;
+            case 'Line': return <LineField />;
+
+            case 'InputText': return <InputTextField field={field} context={actionContext} />;
+            case 'InputNumber': return <InputNumberField field={field} context={actionContext} />;
+            case 'Datetime': return <DatetimePickerField field={field} context={actionContext} />;
+            case 'LongText': return <LongTextField field={field} context={actionContext} />;
+            case 'Email': return <EmailField field={field} context={actionContext} />;
+            case 'Rating': return <RatingField field={field} context={actionContext} />;
+            case 'OpinionScale': return <OpinionScaleField field={field} context={actionContext} />;
+            case 'Switch': return <SwitchField field={field} context={actionContext} />;
+            case 'Dropdown': return <DropdownField field={field} context={actionContext} />;
+            case 'PictureChoice': return <PictureChoiceField field={field} context={actionContext} />;
+            case 'MultipleChoice': return <MultipleChoiceField field={field} context={actionContext} />;
+        }
+    }
 
     return (
         <div
@@ -74,7 +73,7 @@ const FieldItem: FC<Props> = ({ type, sectionIndex, index, section, field, ...dr
                 context={actionContext}
             />
             <div className="w-full">
-                {renderField(actionContext)}
+                {renderField()}
             </div>
         </div>
     );

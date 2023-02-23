@@ -1,5 +1,6 @@
 import { nanoid } from "@reduxjs/toolkit";
 import * as _ from "lodash";
+import { newId } from "../../../constants/config-fields";
 import { Form, FormField, FormSection } from "../../../models/form";
 
 const addSingleField = (
@@ -278,6 +279,83 @@ const updateSection = (
   return [formClone, updatedSection];
 };
 
+const duplicateSection = (
+  form: Form,
+  sectionIndex?: number
+): [Form, FormSection] | undefined => {
+  if (!_.isNumber(sectionIndex)) {
+    return;
+  }
+
+  const formClone = _.cloneDeep(form);
+  if (!formClone) {
+    return;
+  }
+
+  const page = formClone.pages[0];
+  const sections = page.sections || [];
+
+  if (sections.length === 0 || sections.length <= sectionIndex) {
+    return;
+  }
+
+  const sectionClone = _.cloneDeep(sections[sectionIndex]);
+  sectionClone.id = undefined;
+  sectionClone.code = nanoid();
+  sectionClone.variableName = newId();
+
+  sectionClone.fields?.forEach(field => {
+    field.id = undefined;
+    field.code = nanoid();
+    field.variableName = newId();
+  })
+
+  sections.splice(sectionIndex + 1, 0, sectionClone);
+
+  return [formClone, sectionClone];
+};
+
+const duplicateField = (
+  form: Form,
+  sectionIndex?: number,
+  fieldIndex?: number
+): [Form, FormField] | undefined => {
+  if (!_.isNumber(sectionIndex)) {
+    return;
+  }
+
+  if (!_.isNumber(fieldIndex)) {
+    return;
+  }
+
+  const formClone = _.cloneDeep(form);
+  if (!formClone) {
+    return;
+  }
+
+  const page = formClone.pages[0];
+  const sections = page.sections || [];
+
+  if (sections.length === 0) {
+    return;
+  }
+
+  const section = sections[sectionIndex];
+  const fields = section?.fields || [];
+
+  if (fields.length === 0) {
+    return;
+  }
+
+  const fieldClone = _.cloneDeep(fields[fieldIndex]);
+  fieldClone.id = undefined;
+  fieldClone.code = nanoid();
+  fieldClone.variableName = newId();
+
+  fields.splice(fieldIndex + 1, 0, fieldClone);
+  return [formClone, fieldClone];
+};
+
 const FormUtil = {
   addSingleField,
   addGroupField,
@@ -287,7 +365,9 @@ const FormUtil = {
   removeSection,
   removeField,
   updateField,
-  updateSection
+  updateSection,
+  duplicateSection,
+  duplicateField
 };
 
 export default FormUtil;

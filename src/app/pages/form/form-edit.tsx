@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import FormBuilder from "../../features/form-builder";
-import { EMPTY_FORM, FORM } from "../../features/form-builder/data";
+import { EMPTY_FORM } from "../../features/form-builder/data";
 
 function FormEdit() {
 
@@ -16,10 +16,12 @@ function FormEdit() {
                     <span>Hợp đồng lao động vô thời hạn</span>
                 </div>
                 <div className="flex items-center justify-end flex-1 gap-5">
-                    <button className="flex items-center gap-1 text-sm">
-                        <i className="fi fi-rr-eye"></i>
-                        <span>Preview</span>
-                    </button>
+                    <Link to={"/private/forms/example/preview"} target="_blank">
+                        <button className="flex items-center gap-1 text-sm">
+                            <i className="fi fi-rr-eye"></i>
+                            <span>Preview</span>
+                        </button>
+                    </Link>
                     <button className="flex items-center gap-1 text-sm">
                         <i className="fi fi-rr-heart"></i>
                         <span className="hidden">Favorite</span>
@@ -30,7 +32,7 @@ function FormEdit() {
                     </button>
                 </div>
             </div>
-            <div className="w-full max-w-[580px] m-auto flex flex-col mt-10 pb-80">
+            <div className="w-full max-w-[580px] m-auto flex flex-col mt-10 pb-72">
                 <FormBuilder initForm={EMPTY_FORM} />
             </div>
         </>

@@ -3,7 +3,7 @@ import { FC, useRef } from "react";
 import Input from "../../../../components/form/form-controls/input";
 import FormItem from "../../../../components/form/form-item";
 import { ActionContext, FormField, FormFieldType } from "../../../../models/form";
-import { useUpdateProperties } from "../../hooks/useUpdateProperties";
+import { useUpdateField } from "../../hooks/useUpdateField";
 
 type Props = {
     field: FormField;
@@ -14,7 +14,8 @@ const SupportedTypes: FormFieldType[] = ['Email']
 
 const AcceptedDomainsProperty: FC<Props> = ({ field, context }) => {
 
-    const { updatePropertyImmediately } = useUpdateProperties(field, context);
+    const {values, update} = useUpdateField(field, context);
+
     const timeout = useRef<any>(null);
     const [form] = useForm();
 
@@ -29,7 +30,7 @@ const AcceptedDomainsProperty: FC<Props> = ({ field, context }) => {
         timeout.current = setTimeout(() => {
             form.validateFields(['acceptedDomains'])
                 .then((values) => {
-                    updatePropertyImmediately({ acceptedDomains: values.acceptedDomains })
+                    update({ acceptedDomains: values.acceptedDomains })
                 })
                 .catch();
         }, 1000)
@@ -39,7 +40,7 @@ const AcceptedDomainsProperty: FC<Props> = ({ field, context }) => {
         <Form
             form={form}
             onValuesChange={onChange}
-            initialValues={{ variableName: field.acceptedDomains }}
+            initialValues={{ variableName: values.acceptedDomains }}
         >
             <FormItem
                 title="Accepted domains"

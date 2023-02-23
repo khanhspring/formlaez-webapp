@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useState } from 'react';
+import React, { FC, PropsWithChildren, useState } from 'react';
 
 type Props = PropsWithChildren & {
     className?: string;
@@ -6,7 +6,7 @@ type Props = PropsWithChildren & {
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const Button: FC<Props> = ({ className, status = 'primary', onClick = () => {}, children }) => {
+const Button= React.forwardRef<HTMLButtonElement, Props>(({ className, status = 'primary', onClick = () => {}, children }, ref) => {
 
     const [pressing, setPressing] = useState(false);
 
@@ -15,6 +15,7 @@ const Button: FC<Props> = ({ className, status = 'primary', onClick = () => {}, 
             onMouseDown={() => setPressing(true)}
             onMouseUp={() => setPressing(false)}
             onClick={onClick}
+            ref={ref}
             className={
                 'px-2.5 py-1.5 rounded  text-sm transition flex gap-1'
                 + ` ${status === 'primary' ? ' bg-blue-700 hover:bg-blue-600' : ''}`
@@ -35,6 +36,6 @@ const Button: FC<Props> = ({ className, status = 'primary', onClick = () => {}, 
             {children}
         </button>
     );
-}
+});
 
 export default Button;

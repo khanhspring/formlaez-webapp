@@ -1,5 +1,5 @@
 import Dialog from 'rc-dialog';
-import React, { FC, PropsWithChildren, ReactElement, ReactNode, useEffect, useState } from 'react';
+import React, { FC, PropsWithChildren, ReactElement, ReactNode, useEffect, useState, useRef } from 'react';
 import Button from './button';
 
 type Props = PropsWithChildren & {
@@ -26,8 +26,12 @@ type MousePosition = { x: number; y: number } | null;
 const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Cancel', hideOk, hideCancel, onOk = () => { }, onClose = () => { }, ...rest }) => {
 
     const [mousePosition, setMousePosition] = useState<MousePosition>();
+    const btnOkRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
+        if (visible) {
+            btnOkRef.current?.focus();
+        }
         function handleClick(e: MouseEvent) {
             const mousePosition = {
                 x: e.pageX,
@@ -69,7 +73,7 @@ const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Canc
                     !hideCancel && <Button status='secondary' onClick={onClose}>{cancelText}</Button>
                 }
                 {
-                    !hideOk && <Button onClick={onOk}>{okText}</Button>
+                    !hideOk && <Button onClick={onOk} ref={btnOkRef}>{okText}</Button>
                 }
             </div>
         </Dialog>

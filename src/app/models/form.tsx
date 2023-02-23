@@ -134,3 +134,12 @@ export type UpdateFormSection = {
     section: FormSection;
     sectionIndex?: number;
 }
+
+export type DuplicateSection = {
+    sectionIndex?: number;
+}
+
+export type DuplicateFormField = {
+    sectionIndex?: number;
+    fieldIndex?: number;
+}
