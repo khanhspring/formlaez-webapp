@@ -1,10 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 
-import { ContentBlock, convertFromHTML, convertToRaw, DefaultDraftBlockRenderMap, DraftHandleValue, Editor as DraftEditor, EditorState, Modifier, RichUtils } from "draft-js";
+import { ContentBlock, DefaultDraftBlockRenderMap, DraftHandleValue, Editor as DraftEditor, EditorState, RichUtils } from "draft-js";
 import Immutable from "immutable";
-import Toolbar from "./toolbar";
-import { type } from "os";
 import DraftUtils from "./drafjs.util";
+import Toolbar from "./toolbar";
 
 type Props = {
     autoFocus?: boolean;
@@ -82,8 +81,14 @@ const Editor: FC<Props> = ({ autoFocus, placeholder }) => {
 
     const blockStyleFn = (block: ContentBlock): string => {
         const blockAlignment = block.getData() && block.getData().get('text-align');
-        if (blockAlignment) {
-            return `text-${blockAlignment}`;
+        if (blockAlignment === 'center') {
+            return "text-center";
+        }
+        if (blockAlignment === 'right') {
+            return "text-right";
+        }
+        if (blockAlignment === 'justify') {
+            return "text-justify";
         }
         return '';
     }
@@ -101,7 +106,7 @@ const Editor: FC<Props> = ({ autoFocus, placeholder }) => {
             <div className={`sticky top-[100px] w-full h-0 translate-y-[-30px] ${showToolbar ? 'block' : 'hidden'}`}>
                 <Toolbar onBlockClick={onBlockClick} onInlineClick={onInlineClick} editorState={editorState} />
             </div>
-            <div className="w-full max-w-none prose dark:prose-invert prose-headings:mt-0">
+            <div className="w-full max-w-none prose dark:prose-invert prose-sm prose-headings:mt-0">
                 <DraftEditor
                     ref={editor}
                     editorState={editorState}

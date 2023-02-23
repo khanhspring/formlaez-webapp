@@ -1,0 +1,31 @@
+table.resizable {
+  border: 1px solid #2B2B40;
+  width: fit-content;
+  background-color: #151521;
+}
+
+table.resizable tr {
+  width: fit-content;
+  height: 30px;
+}
+
+table.resizable th,
+table.resizable td {
+  border: 1px solid #2B2B40;
+  padding: 0.25rem;
+}
+
+table.resizable th {
+  padding: 2px 4px;
+  position: relative;
+  font-weight: bold;
+  text-align: center;
+  height: 37px;
+  background-color: #1E1E2D;
+  font-size: 14px;
+}
+
+table.resizable td {
+  height: 30px;
+}
+

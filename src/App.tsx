@@ -4,6 +4,8 @@ import BlankLayout from "./app/layouts/blank";
 import PrimaryLayout from "./app/layouts/primary";
 import Workspace from "./app/pages/private";
 import Error404 from "./app/pages/error/404";
+import OnlyFooterLayout from "./app/layouts/only-footer";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -26,12 +28,28 @@ const router = createBrowserRouter([
         element: lazyLoad('team', 'team-detail')
       },
       {
-        path: "/pages/:pageCode",
-        element: lazyLoad('page')
+        path: "private/forms/:formCode",
+        element: lazyLoad('form')
       },
       {
-        path: "teams/:teamCode/pages/:pageCode",
-        element: lazyLoad('page')
+        path: "teams/:teamCode/forms/:formCode",
+        element: lazyLoad('form')
+      },
+      {
+        path: "private/forms/:formCode/print-templates",
+        element: lazyLoad('form', 'print-templates')
+      },
+      {
+        path: "teams/:teamCode/forms/:formCode/print-templates",
+        element: lazyLoad('form', 'print-templates')
+      },
+      {
+        path: "private/forms/:formCode/settings",
+        element: lazyLoad('form', 'form-settings')
+      },
+      {
+        path: "teams/:teamCode/forms/:formCode/settings",
+        element: lazyLoad('form', 'form-settings')
       }
     ],
     errorElement: <Error404 />
@@ -45,15 +63,45 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    element: <OnlyFooterLayout />,
+    children: [
+      {
+        path: "teams/:teamCode/forms/:formCode/edit",
+        element: lazyLoad('form', 'form-edit')
+      },
+      {
+        path: "private/forms/:formCode/edit",
+        element: lazyLoad('form', 'form-edit')
+      },
+      {
+        path: "private/forms/:formCode/full",
+        element: lazyLoad('form', 'data-full-screen')
+      },
+      {
+        path: "teams/:teamCode/forms/:formCode/full",
+        element: lazyLoad('form', 'data-full-screen')
+      }
+    ]
+  },
 ]);
 
 function App() {
   return (
-    <div className="dark">
-      <div className="min-h-[100vh] antialiased text-black dark:text-white bg-white dark:bg-cinder-900">
-        <RouterProvider router={router} />
-      </div>
-    </div>
+    <>
+      <ToastContainer
+        hideProgressBar
+        closeButton={false}
+        theme="dark"
+        toastClassName="min-h-0"
+        bodyClassName="py-0 px-1"
+        className="text-sm w-auto"
+        position="top-center"
+        limit={3}
+        autoClose={3500}
+      />
+      <RouterProvider router={router} />
+    </>
   );
 }
 

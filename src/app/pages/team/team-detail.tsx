@@ -4,7 +4,7 @@ import FormItem from '../../components/common/form-item';
 function TeamDetail() {
     return (
         <div className="w-full flex flex-col gap-2">
-            <div className="py-2 border-b dark:bg-cinder-900 border-cinder-600 z-20 sticky top-[65px] flex items-center justify-between">
+            <div className="py-2 border-b dark:bg-cinder-900 border-cinder-600 z-20 sticky top-[64px] flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <div className="flex items-center justify-center w-6 h-6 bg-gradient-to-r from-yellow-600 to-red-600 rounded-full transition group-hover:ring-2">
                         <span className="font-semibold">V</span>
@@ -49,268 +49,268 @@ function TeamDetail() {
                 </div>
             </div>
             <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem favorite={true} />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem favorite={true} />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
-                <Link to="/teams/vuejs-team/pages/example-page">
+                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
             </div>
