@@ -7,6 +7,12 @@ function findFormByCode(formCode: string): Promise<Form> {
   );
 }
 
+function updateForm(request: Form): Promise<any> {
+  return new Promise<any>((resolve, rejected) =>
+    setTimeout(() => resolve({ id: 1 }), 500)
+  );
+}
+
 function addFormSection(request: FormSection): Promise<any> {
   return new Promise<any>((resolve, rejected) =>
     setTimeout(() => resolve({ id: 1 }), 500)
@@ -57,6 +63,7 @@ function updateSection(request: any): Promise<any> {
 
 const FormService = {
   findFormByCode,
+  updateForm,
   addFormSection,
   addGroupField,
   reorderSection,

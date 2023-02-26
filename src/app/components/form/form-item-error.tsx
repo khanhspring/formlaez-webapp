@@ -11,13 +11,11 @@ const FormItemError: FC<Props> = ({ meta }) => {
         return <></>
     }
 
+    const [error] = meta.errors || [];
+
     return (
-        <div className="min-h-[22px] mb-0.5">
-            {
-                meta.errors?.map((item, index) =>
-                    <p key={index} className="text-sm text-rose-700 leading-[22px]">{item}</p>
-                )
-            }
+        <div className="min-h-[20px]">
+            <p className="text-[13px] text-rose-700 leading-5">{error}</p>
         </div>
     );
 }

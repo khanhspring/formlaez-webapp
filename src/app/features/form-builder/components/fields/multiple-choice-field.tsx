@@ -13,12 +13,12 @@ type Props = {
 
 const MultipleChoiceField: FC<Props> = ({ field, context }) => {
 
-    const {values, updateDebounce} = useUpdateField(field, context);
+    const { values, updateDebounce } = useUpdateField(field, context);
 
     const containerRef = useRef<HTMLDivElement>(null);
 
     const onValuesChange = (changed: any, formValues: any) => {
-        updateDebounce({options: formValues.options});
+        updateDebounce({ options: formValues.options });
     }
 
     return (
@@ -28,14 +28,22 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
                 <div className="flex items-center">
                     {
                         field.required &&
-                        <span className="pr-1 pt-[7px] text-lg leading-3 text-red-500">*</span>
+                        <span className="text-rose-700 text-lg leading-3 pt-1.5 w-3.5 h-3.5 bg-cinder-700/70 rounded-full flex items-center justify-center mr-1">
+                            *
+                        </span>
                     }
                     <input
                         value={values.title}
                         className="flex-1 w-full text-gray-100 bg-transparent outline-none"
-                        onChange={(e) => updateDebounce({title: e.target.value})}
+                        onChange={(e) => updateDebounce({ title: e.target.value })}
                         placeholder="Multiple choice"
                     />
+                </div>
+            }
+            {
+                values.multipleSelection &&
+                <div className="wf-full">
+                    <span className="text-xs text-gray-500">(Choose as many as you like)</span>
                 </div>
             }
             <div
@@ -45,7 +53,7 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
                 <Form
                     onValuesChange={onValuesChange}
                     className="flex flex-col items-start gap-2"
-                    initialValues={{options: [...values.options || []]}}
+                    initialValues={{ options: [...values.options || []] }}
                 >
                     <Form.List
                         name="options"
@@ -78,7 +86,7 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
 
                                     <button
                                         aria-label="Add"
-                                        onClick={() => add({code: nanoid(), label: 'Unlabeled option'})}
+                                        onClick={() => add({ code: nanoid(), label: 'Unlabeled option' })}
                                         className="w-6 h-6 rounded-full border border-cinder-600 bg-cinder-600/50 items-center justify-center transition flex"
                                     >
                                         <i className="fi fi-rr-plus-small"></i>

@@ -19,7 +19,7 @@ type Props = {
 const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
 
     const dispatch = useAppDispatch();
-    const { values, updateDebounce, update } = useUpdateField(context.field as any, context);
+    const { values, update } = useUpdateField(context.field as any, context);
 
     const variableName = context.type === 'Group' ? context.section?.variableName : context.field?.variableName;
     const onCopy = useCallback(() => {
@@ -51,11 +51,11 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
     useHotkeys('delete, backspace', onDelete, { preventDefault: true, enabled: visible });
 
     const changeRequire = () => {
-        update({required: !values.required});
+        update({ required: !values.required });
     }
 
     const changeHideTitle = () => {
-        update({hideTitle: !values.hideTitle});
+        update({ hideTitle: !values.hideTitle });
     }
 
     const onEditProperties = () => {
@@ -65,7 +65,6 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
     useHotkeys('ctrl+e, meta+e', onEditProperties, { preventDefault: true, enabled: visible });
 
     const onDuplicate = () => {
-        console.log(context);
         onMenuClick?.();
         if (context.type === 'Group' || context.type === 'SingleField') {
             dispatch(duplicateSection({ sectionIndex: context.sectionIndex }));
@@ -77,6 +76,13 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
         }
     }
     useHotkeys('ctrl+d, meta+d', onDuplicate, { preventDefault: true, enabled: visible });
+
+    const changeMultipleSelection = () => {
+        update({ multipleSelection: !values.multipleSelection });
+    }
+    const changeShowTime = () => {
+        update({ showTime: !values.showTime });
+    }
 
     const isFormControl = FieldUtil.isFormControl(context.field);
 
@@ -161,6 +167,40 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                         </div>
                         <div className="text-xs">
                             <Switch checked={values.hideTitle} />
+                        </div>
+                    </div>
+                </>
+            }
+            {
+                context.field?.type === 'MultipleChoice' &&
+                <>
+                    <div
+                        className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600"
+                        onClick={changeMultipleSelection}
+                    >
+                        <div className="flex gap-2">
+                            <i className="fi fi-rr-list-check"></i>
+                            <span>Multiple selection</span>
+                        </div>
+                        <div className="text-xs">
+                            <Switch checked={values.multipleSelection} />
+                        </div>
+                    </div>
+                </>
+            }
+            {
+                context.field?.type === 'Datetime' &&
+                <>
+                    <div
+                        className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600"
+                        onClick={changeShowTime}
+                    >
+                        <div className="flex gap-2">
+                            <i className="fi fi-rr-clock"></i>
+                            <span>Show time</span>
+                        </div>
+                        <div className="text-xs">
+                            <Switch checked={values.showTime} />
                         </div>
                     </div>
                 </>

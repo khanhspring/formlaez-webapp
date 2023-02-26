@@ -21,6 +21,7 @@ const EmptyGroup: FC<Props> = ({ form, section, sectionIndex }) => {
                 fieldIndex: -1,
                 section: section
             }}
+            visible={addNewMenuVisible}
         />
     )
 

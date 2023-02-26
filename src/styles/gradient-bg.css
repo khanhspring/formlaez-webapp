@@ -1,0 +1,15 @@
+.bg-gradient-nepal {
+    background: #de6161;
+    background: -webkit-linear-gradient(to right, #2657eb, #de6161);
+    background: linear-gradient(to right, #2657eb, #de6161);
+}
+
+.bg-gradient-visions-of-grandeur {
+    background: #000046;
+    background: -webkit-linear-gradient(to right, #1CB5E0, #000046);
+    background: linear-gradient(to right, #1CB5E0, #000046);
+}
+
+.bg-gradient-pink-purple-blue {
+    background-image: linear-gradient(to right top, #eb51a8, #db5fbf, #c66ed3, #ac7be2, #8f87ec, #6f97f8, #48a5fe, #00b2ff, #00c6ff, #00d9ff, #00eaf8, #10f9ea);
+}

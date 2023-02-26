@@ -1,6 +1,7 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useRef, useCallback } from "react";
 
-import { ContentBlock, DefaultDraftBlockRenderMap, DraftHandleValue, Editor as DraftEditor, EditorState, RichUtils } from "draft-js";
+import { ContentBlock, ContentState, convertFromHTML, convertFromRaw, convertToRaw, DefaultDraftBlockRenderMap, DraftHandleValue, Editor as DraftEditor, EditorState, RichUtils } from "draft-js";
+import { stateToHTML } from "draft-js-export-html";
 import Immutable from "immutable";
 import DraftUtils from "./drafjs.util";
 import Toolbar from "./toolbar";
@@ -8,10 +9,15 @@ import Toolbar from "./toolbar";
 type Props = {
     autoFocus?: boolean;
     placeholder?: string;
+    onHtmlChange?: (content?: string) => void;
+    initHtmlContent?: string;
+    initContent?: any;
 }
 
-const Editor: FC<Props> = ({ autoFocus, placeholder }) => {
+const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initContent, onHtmlChange }) => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+    const updateTimeout = useRef<any>(null);
 
     const editor = React.useRef<any>(null);
 
@@ -80,6 +86,7 @@ const Editor: FC<Props> = ({ autoFocus, placeholder }) => {
     const [showToolbar, setShowToolbar] = useState(false);
 
     const blockStyleFn = (block: ContentBlock): string => {
+        onAfterChange();
         const blockAlignment = block.getData() && block.getData().get('text-align');
         if (blockAlignment === 'center') {
             return "text-center";
@@ -99,6 +106,35 @@ const Editor: FC<Props> = ({ autoFocus, placeholder }) => {
         }
     });
 
+    const onStateChange = (newEditorState: EditorState) => {
+        setEditorState(newEditorState);
+        onAfterChange(newEditorState);
+    }
+
+    const onAfterChange = useCallback((newEditorState?: EditorState) => {
+        if (updateTimeout.current) {
+            clearTimeout(updateTimeout.current);
+        }
+        updateTimeout.current = setTimeout(() => {
+            const currentContent = newEditorState ? newEditorState.getCurrentContent() : editorState.getCurrentContent();
+            const currentHtmlContent = stateToHTML(currentContent);
+            onHtmlChange?.(currentHtmlContent);
+        }, 1500)
+    }, [editorState, onHtmlChange]);
+
+    useEffect(() => {
+        if (initHtmlContent) {
+            const editorState = EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(initHtmlContent, undefined, blockRenderMap).contentBlocks));
+            setEditorState(editorState);
+            return;
+        }
+        if (initContent) {
+            const editorState = EditorState.createWithContent(convertFromRaw(initContent));
+            setEditorState(editorState);
+            return;
+        }
+    }, []);
+
     const extendedBlockRenderMap = DefaultDraftBlockRenderMap.merge(blockRenderMap);
 
     return (
@@ -110,7 +146,7 @@ const Editor: FC<Props> = ({ autoFocus, placeholder }) => {
                 <DraftEditor
                     ref={editor}
                     editorState={editorState}
-                    onChange={(editorState: any) => setEditorState(editorState)}
+                    onChange={onStateChange}
                     stripPastedStyles={false}
                     placeholder={placeholder}
                     handleKeyCommand={handleKeyCommand}

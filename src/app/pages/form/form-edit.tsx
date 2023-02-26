@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import FormBuilder from "../../features/form-builder";
 import { EMPTY_FORM } from "../../features/form-builder/data";
+import { FORM_LAYOUT } from "../../features/form-generator/data";
 
 function FormEdit() {
 
@@ -32,8 +33,8 @@ function FormEdit() {
                     </button>
                 </div>
             </div>
-            <div className="w-full max-w-[580px] m-auto flex flex-col mt-10 pb-72">
-                <FormBuilder initForm={EMPTY_FORM} />
+            <div className="w-full flex flex-col pb-72">
+                <FormBuilder initForm={FORM_LAYOUT} />
             </div>
         </>
     );

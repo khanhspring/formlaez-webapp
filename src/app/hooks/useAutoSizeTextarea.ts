@@ -28,7 +28,6 @@ const useAutoSizeTextarea = (
 
       const span = createHiddenSpan();
       copyStyles(element, span);
-      copyStyles(element, textarea);
       span.innerHTML = element.value;
       textarea.style.height = "";
       textarea.style.overflow = "hidden";

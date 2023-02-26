@@ -15,7 +15,11 @@ const SingleFieldSection: FC<Props> = ({ section }) => {
     const field = section.fields[0];
 
     return (
-        <FieldItem field={field} fieldIndex={0} />
+        <FieldItem
+            field={field}
+            fieldIndex={0}
+            name={field.variableName}
+        />
     );
 }
 

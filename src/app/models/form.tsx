@@ -14,6 +14,9 @@ export type Form = {
     title: string;
     description?: string;
     pages: FormPage[];
+    coverType?: 'Color' | 'Image' | 'None',
+    coverColor?: string,
+    coverImageUrl?: string
 }
 
 export type FormPage = {
@@ -48,6 +51,8 @@ export type FormField = {
     description?: string;
     placeholder?: string;
 
+    content?: string;
+
     hideTitle?: boolean;
 
     url?: string;
@@ -65,6 +70,9 @@ export type FormField = {
     readonly?: boolean;
 
     options?: FormFieldOption[];
+    multipleSelection?: boolean;
+
+    showTime?: boolean;
 }
 
 export type FormFieldOption = {
@@ -142,4 +150,13 @@ export type DuplicateSection = {
 export type DuplicateFormField = {
     sectionIndex?: number;
     fieldIndex?: number;
+}
+
+export type UpdateFormInfo = {
+    id: number;
+    title: string;
+    description?: string;
+    coverType?: 'Color' | 'Image' | 'None',
+    coverColor?: string,
+    coverImageUrl?: string
 }

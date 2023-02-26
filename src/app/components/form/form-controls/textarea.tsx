@@ -1,16 +1,18 @@
-import { ChangeEvent, FC, ReactElement, RefObject, TextareaHTMLAttributes, useRef, useState } from "react";
+import * as _ from "lodash";
+import { FC, RefObject, TextareaHTMLAttributes, useRef } from "react";
 import useAutoSizeTextarea from "../../../hooks/useAutoSizeTextarea";
 import { orElseEmptyString } from "../../../util/common";
 import { FieldStatus } from "../form-types";
 
 type Props = TextareaHTMLAttributes<any> & {
-    prefix?: string | ReactElement;
     status?: FieldStatus;
     container?: RefObject<any>;
     autoHeight?: boolean;
     autoWidth?: boolean;
     autoSize?: boolean;
     maxWidth?: number;
+    rows?: number;
+    value?: string;
 }
 
 const Textarea: FC<Props> = ({
@@ -22,15 +24,9 @@ const Textarea: FC<Props> = ({
     autoWidth = false,
     autoSize = false,
     maxWidth,
+    rows = 1,
     ...rest
 }) => {
-
-    const [internalValue, setInternalValue] = useState(value);
-    const onValueChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const value = e.target.value;
-        setInternalValue(value);
-        rest.onChange?.(e);
-    }
 
     const ref = useRef<HTMLTextAreaElement>(null);
     useAutoSizeTextarea(ref, { container, maxWidth, autoHeight: autoHeight || autoSize, autoWidth: autoWidth || autoSize });
@@ -38,16 +34,17 @@ const Textarea: FC<Props> = ({
     return (
         <textarea
             {...rest}
-            onChange={onValueChange}
             ref={ref}
-            rows={1}
-            value={orElseEmptyString(internalValue)}
+            onChange={rest.onChange}
+            rows={rows}
+            value={orElseEmptyString(value)}
             className={
-                'rounded outline-none px-4 py-2 text-sm border-none resize-none dark:bg-cinder-700 placeholder:text-gray-500'
+                'border  dark:bg-cinder-700 rounded outline-none px-4 py-2 text-sm resize-none placeholder:text-gray-500 '
                 + `${status && status === 'error' ? 'dark:border-rose-700' : ''} `
                 + `${status && status === 'warning' ? 'dark:border-yellow-700' : ''} `
                 + `${status && status === 'success' ? 'dark:border-green-700' : ''} `
-                + className
+                + `${!status || _.isEmpty(status) ? 'dark:border-cinder-600' : ''} `
+                + `${className} `
             }
         />
     );

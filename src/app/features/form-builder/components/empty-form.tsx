@@ -14,6 +14,7 @@ const EmptyForm: FC<Props> = ({ form }) => {
         <AddNewMenu
             onMenuClick={() => setAddNewMenuVisible(false)}
             context={{ type: 'Group', sectionIndex: -1 }}
+            visible={addNewMenuVisible}
         />
     )
 

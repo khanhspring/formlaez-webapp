@@ -18,7 +18,9 @@ const EmailField: FC<Props> = ({ field, context }) => {
                 <div className="flex items-center">
                     {
                         field.required &&
-                        <span className="pr-1 pt-[7px] text-lg leading-3 text-red-500">*</span>
+                        <span className="text-rose-700 text-lg leading-3 pt-1.5 w-3.5 h-3.5 bg-cinder-700/70 rounded-full flex items-center justify-center mr-1">
+                            *
+                        </span>
                     }
                     <input
                         value={values.title}

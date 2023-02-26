@@ -6,19 +6,43 @@
 @import url('/node_modules/rc-switch/assets/index.css');
 @import url('/node_modules/rc-dialog/assets/index.css');
 @import url('/node_modules/rc-drawer/assets/index.css');
-@import url('drawer-motion.css');
+@import url('/node_modules/rc-picker/assets/index.css');
+@import url('/node_modules/rc-input-number/assets/index.css');
 @import url('/node_modules/simplebar-react/dist/simplebar.min.css');
 @import url('/node_modules/ez-rc-tooltip/dist/index.css');
 @import url('/node_modules/ez-rc-popup/dist/index.css');
 @import url('/node_modules/react-toastify/dist/ReactToastify.css');
+@import url('rc-select.css');
+@import url('drawer-motion.css');
+@import url('gradient-bg.css');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 50px #1E1E2D inset !important;
+    -webkit-text-fill-color: white !important;
+}
+
 .fi {
     display: inline-flex;
     align-items: center;
+}
+
+.text-shadow-gray {
+    text-shadow: 2px 3px 0px #898999;
+}
+
+hr {
+    background-image: url("../assets/images/hr.svg");
+    border: none;
+    height: 4px;
+    margin: auto;
+    width: 75%;
 }
 
 .public-DraftEditorPlaceholder-root {
@@ -30,6 +54,10 @@
 .rc-switch-checked {
     background-color: rgb(29 78 216);
     border-color: rgb(29 78 216);
+}
+
+.rc-switch:focus {
+    box-shadow: none;
 }
 
 .simplebar-scrollbar:before {
@@ -60,4 +88,206 @@
 
 .Toastify__toast-icon {
     width: 15px;
+}
+
+.rc-picker-input {
+    display: flex;
+    align-items: center;
+}
+
+.rc-picker-input>input {
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+.rc-picker-input>input::placeholder {
+    color: #6b7280;
+}
+
+.rc-picker-suffix {
+    display: flex;
+    align-items: center;
+}
+
+.rc-picker-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: #2B2B40;
+    right: -3px;
+    width: 20px;
+    height: 20px;
+}
+
+.rc-picker-panel {
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+}
+
+.rc-picker-header {
+    padding: 10px 10px;
+}
+
+.rc-picker-body {
+    padding: 10px 10px;
+    border-top: 1px solid #2B2B40;
+}
+
+.rc-picker-date-panel .rc-picker-cell-inner {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    margin: 4px;
+    font-size: 14px;
+}
+
+.rc-picker-cell {
+    color: #6b7280;
+}
+
+.rc-picker-cell-in-view {
+    color: #fff;
+}
+
+.rc-picker-cell-inner:hover {
+    background-color: #2B2B40;
+}
+
+.rc-picker-cell-selected .rc-picker-cell-inner {
+    background-color: #2563eb;
+}
+
+.rc-picker-cell-today>.rc-picker-cell-inner {
+    border-color: #1d4ed8;
+}
+
+.rc-picker-content thead th {
+    font-size: 13px;
+    font-weight: normal;
+    height: 26px;
+}
+
+.rc-picker-header-view {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+
+}
+
+.rc-picker-time-panel .rc-picker-content {
+    max-height: 263px;
+}
+
+.rc-picker-time-panel-column>li .rc-picker-time-panel-cell-inner {
+    color: #fff;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding-left: 22px;
+}
+
+.rc-picker-time-panel-column>li .rc-picker-time-panel-cell-inner:hover {
+    background-color: #2B2B40;
+}
+
+.rc-picker-time-panel .rc-picker-content {
+    border-top: 1px solid #2B2B40;
+}
+
+.rc-picker-time-panel-column {
+    border-right: 1px solid #2B2B40;
+    width: 60px;
+}
+
+.rc-picker-time-panel-column:last-child {
+    border-right: none;
+}
+
+.rc-picker-datetime-panel .rc-picker-time-panel {
+    border-left: 1px solid #2B2B40;
+}
+
+.rc-picker-footer {
+    border-top: 1px solid #2B2B40;
+    padding: 5px 10px;
+}
+
+.rc-picker-footer,
+.rc-picker-picker-footer {
+    background: transparent;
+}
+
+.rc-picker-now-btn,
+.rc-picker-ok button {
+    font-size: 14px;
+    cursor: pointer;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5px;
+    border-radius: 3px;
+    border: 1px solid #2B2B40;
+}
+
+.rc-picker-now-btn:hover,
+.rc-picker-ok button:hover {
+    background-color: #2B2B40;
+}
+
+.rc-picker-time-panel-cell-selected .rc-picker-time-panel-cell-inner {
+    background-color: #2B2B40;
+}
+
+.rc-input-number-input {
+    text-align: left;
+    background-color: transparent;
+    padding: 8px 16px;
+    font-size: 14px;
+    line-height: 20px;
+    color: white;
+}
+
+.rc-input-number-input::placeholder {
+    color: #6b7280;
+}
+
+.rc-input-number-handler-wrap {
+    display: flex;
+    flex-direction: column;
+    border-color: #2B2B40;
+    width: 30px;
+}
+
+.rc-input-number-handler-wrap .rc-input-number-handler {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-color: #2B2B40;
+}
+
+.rc-input-number-handler:hover {
+    background-color: #2B2B40;
+}
+
+.rc-input-number:hover .rc-input-number-handler-wrap {
+    border-color: #2B2B40;
+}
+
+.rc-input-number:hover .rc-input-number-handler {
+    border-color: #2B2B40;
+}
+
+.rc-input-number-handler-up-inner:hover,
+.rc-input-number-handler-down-inner:hover {
+    color: #fff;
 }

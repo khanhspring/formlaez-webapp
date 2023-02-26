@@ -31,6 +31,10 @@ const ConfigAction: FC<Props> = ({ invisible = false, context, ...dragHandleProp
         <ConfigMenu onMenuClick={() => setConfigMenuVisible(false)} context={context} visible={configMenuVisible} />
     )
 
+    const addMenu = (
+        <AddNewMenu onMenuClick={() => setAddNewMenuVisible(false)} context={context} visible={addNewMenuVisible}/>
+    )
+
     return (
         <div className="absolute top-0 right-full h-full w-5 flex items-center justify-end pr-[3px]">
             {
@@ -46,7 +50,7 @@ const ConfigAction: FC<Props> = ({ invisible = false, context, ...dragHandleProp
                             </span>
                         </Tooltip>
                     </Popup>
-                    <Popup trigger="click" content={<AddNewMenu onMenuClick={() => setAddNewMenuVisible(false)} context={context} />} placement="left" open={addNewMenuVisible} onOpenChange={setAddNewMenuVisible} className="bg-transparent">
+                    <Popup trigger="click" content={addMenu} placement="left" open={addNewMenuVisible} onOpenChange={setAddNewMenuVisible} className="bg-transparent">
                         <Tooltip content={addNewMenuTooltip} clickToClose>
                             <span className="w-4 h-5 flex items-center justify-center rounded-sm cursor-pointer dark:hover:bg-cinder-700 transition group">
                                 <i className="fi fi-rr-plus text-gray-500 group-hover:text-gray-500 text-xs"></i>

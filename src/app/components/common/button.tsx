@@ -4,9 +4,16 @@ type Props = PropsWithChildren & {
     className?: string;
     status?: 'primary' | 'secondary' | 'danger' | 'warning';
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    htmlType?: 'submit' | 'reset' | 'button';
 }
 
-const Button= React.forwardRef<HTMLButtonElement, Props>(({ className, status = 'primary', onClick = () => {}, children }, ref) => {
+const Button = React.forwardRef<HTMLButtonElement, Props>(({
+    className,
+    status = 'primary',
+    onClick = () => { },
+    children,
+    htmlType = 'submit'
+}, ref) => {
 
     const [pressing, setPressing] = useState(false);
 
@@ -32,6 +39,7 @@ const Button= React.forwardRef<HTMLButtonElement, Props>(({ className, status = 
 
                 + ` ${className}`
             }
+            type={htmlType}
         >
             {children}
         </button>

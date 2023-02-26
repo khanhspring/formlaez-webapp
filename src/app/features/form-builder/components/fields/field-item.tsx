@@ -41,12 +41,13 @@ const FieldItem: FC<Props> = ({ type, sectionIndex, index, section, field, ...dr
 
     const renderField = () => {
         switch (type) {
-            case 'Text': return <TextField />;
+            case 'Text': return <TextField field={field} context={actionContext}/>;
             case 'Image': return <ImageField field={field} context={actionContext} />;
             case 'Video': return <VideoField field={field} context={actionContext} />;
             case 'Pdf': return <PdfField field={field} context={actionContext} />;
             case 'Line': return <LineField />;
 
+            // form controls
             case 'InputText': return <InputTextField field={field} context={actionContext} />;
             case 'InputNumber': return <InputNumberField field={field} context={actionContext} />;
             case 'Datetime': return <DatetimePickerField field={field} context={actionContext} />;

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import * as _ from "lodash";
 import { toast } from "react-toastify";
 import { RootState } from "../../../store";
 import {
@@ -13,11 +14,11 @@ import {
   ReorderFormField,
   ReorderFormSection,
   UpdateFormField,
-  UpdateFormSection,
+  UpdateFormInfo,
+  UpdateFormSection
 } from "../../models/form";
 import FormService from "../../services/form-service";
 import FormUtil from "./utils/form-util";
-import * as _ from "lodash";
 
 export const loadForm = createAsyncThunk(
   "form/loadForm",
@@ -268,7 +269,7 @@ export const updateField = createAsyncThunk(
     const formBuilderState = state.formBuilder as FormBuilderState;
 
     if (!formBuilderState?.form) {
-      thunkAPI.abort();
+      // thunkAPI.abort(); // TODO: error on click back
       return;
     }
 
@@ -320,7 +321,6 @@ export const updateSection = createAsyncThunk(
     thunkAPI.dispatch(updateForm(formResult));
 
     try {
-      console.log(updatedSection);
       return await FormService.updateSection(updatedSection);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
@@ -328,7 +328,6 @@ export const updateSection = createAsyncThunk(
     }
   }
 );
-
 
 export const duplicateSection = createAsyncThunk(
   "form/duplicateSection",
@@ -395,6 +394,34 @@ export const duplicateField = createAsyncThunk(
   }
 );
 
+export const updateFormInfo = createAsyncThunk(
+  "form/updateFormInfo",
+  async (command: UpdateFormInfo, thunkAPI) => {
+    const state = thunkAPI.getState() as any;
+    const formBuilderState = state.formBuilder as FormBuilderState;
+
+    if (!formBuilderState?.form) {
+      thunkAPI.abort();
+      return;
+    }
+
+    const form = _.cloneDeep(formBuilderState?.form);
+    form.title = command.title;
+    form.description = command.description;
+    form.coverType = command.coverType;
+    form.coverColor = command.coverColor;
+    form.coverImageUrl = command.coverImageUrl;
+
+    thunkAPI.dispatch(updateForm(form));
+
+    try {
+      return await FormService.updateForm(form);
+    } catch (err) {
+      thunkAPI.dispatch(loadForm(formBuilderState.form.code));
+      throw err;
+    }
+  }
+);
 
 export interface FormBuilderState {
   form?: Form;
@@ -410,6 +437,7 @@ export const formBuilderSlice = createSlice({
   initialState,
   reducers: {
     updateForm: (state, action: PayloadAction<Form | undefined>) => {
+      // console.log(JSON.stringify(action.payload));e
       state.form = _.cloneDeep(action.payload);
     },
     clearCurrentItem: (state, action: PayloadAction<undefined>) => {
@@ -427,40 +455,74 @@ export const formBuilderSlice = createSlice({
         state.form = action.payload;
       })
       .addCase(loadForm.rejected, (state, action) => {
+        console.log(action.error)
         showError();
       })
 
       .addCase(addSingleField.rejected, (state, action) => {
+        console.log(action.error)
         showError();
       })
 
       .addCase(addGroupField.rejected, (state, action) => {
+        console.log(action.error)
         showError();
       })
 
       .addCase(addSection.rejected, (state, action) => {
+        console.log(action.error)
         showError();
       })
 
       .addCase(reorderField.rejected, (state, action) => {
+        console.log(action.error)
         showError();
       })
 
       .addCase(reorderSection.rejected, (state, action) => {
+        console.log(action.error)
         showError();
       })
 
       .addCase(removeSection.rejected, (state, action) => {
+        console.log(action.error)
         showError();
       })
 
       .addCase(removeField.rejected, (state, action) => {
+        console.log(action.error)
+        showError();
+      })
+
+      .addCase(updateField.rejected, (state, action) => {
+        console.log(action.error)
+        showError();
+      })
+
+      .addCase(updateSection.rejected, (state, action) => {
+        console.log(action.error)
+        showError();
+      })
+
+      .addCase(duplicateSection.rejected, (state, action) => {
+        console.log(action.error)
+        showError();
+      })
+
+      .addCase(duplicateField.rejected, (state, action) => {
+        console.log(action.error)
+        showError();
+      })
+
+      .addCase(updateFormInfo.rejected, (state, action) => {
+        console.log(action.error)
         showError();
       });
   },
 });
 
-export const { updateForm, clearCurrentItem, setCurrentItem, resetState } = formBuilderSlice.actions;
+export const { updateForm, clearCurrentItem, setCurrentItem, resetState } =
+  formBuilderSlice.actions;
 
 export const selectForm = (state: RootState) => state.formBuilder.form;
 export const selectCurrentItem = (state: RootState) =>
