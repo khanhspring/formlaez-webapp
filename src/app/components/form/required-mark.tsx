@@ -11,7 +11,7 @@ const RequiredMark: FC<Props> = ({visible}) => {
     }
 
     return (
-        <span className="text-rose-700 text-lg leading-3 w-3.5 h-3.5 bg-cinder-700/70 rounded-full flex items-center justify-center pt-2 mr-1">*</span>
+        <span className="text-rose-700 text-lg leading-3 w-3.5 h-3.5 bg-cinder-700/70 rounded-full flex items-center justify-center pt-1.5 mr-1">*</span>
     )
 }
 

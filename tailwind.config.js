@@ -9,7 +9,6 @@ module.exports = {
     extend: {
       fontFamily: {
         intel: ['Inter', 'Helvetica', 'sans-serif'],
-        roboto: ['Roboto', 'Helvetica', 'sans-serif']
       },
       colors: {
         cinder: {

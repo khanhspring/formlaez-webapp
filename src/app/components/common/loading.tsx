@@ -1,7 +1,6 @@
-import { FC, useEffect } from 'react';
-import { useNavigation } from 'react-router-dom';
-import loading from "../../../assets/images/loading.svg";
 import NProgress from "nprogress";
+import { FC, useEffect } from 'react';
+import loading from "../../../assets/images/loading.svg";
 
 type Props = {
     className?: string;
@@ -11,24 +10,16 @@ type Props = {
 
 const Loading: FC<Props> = ({ center, className, hideProgress }) => {
 
-    const navigation = useNavigation();
-
     useEffect(() => {
-        if (hideProgress) {
-            return;
-        }
-        if (navigation?.state === 'loading') {
+        if (!hideProgress) {
             NProgress.inc();
-        }
-        if (navigation?.state === 'idle') {
-            NProgress.done();
         }
         return () => {
             if (!hideProgress) {
                 NProgress.done();
             }
         }
-    }, [hideProgress, navigation]);
+    }, [hideProgress]);
 
     if (center) {
         return (

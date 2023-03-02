@@ -3,8 +3,6 @@
 @import url('https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css');
 @import url('https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css');
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
-
 @import url('/node_modules/rc-switch/assets/index.css');
 @import url('/node_modules/rc-dialog/assets/index.css');
 @import url('/node_modules/rc-drawer/assets/index.css');
@@ -345,6 +343,11 @@ hr {
 .html-block section {
     margin-top: 12px;
     margin-bottom: 12px;
+}
+
+#nprogress .spinner {
+    top: 24px;
+    right: 40px;
 }
 
 .cursor::after {
