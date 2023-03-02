@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState, useRef, useCallback } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 
-import { ContentBlock, ContentState, convertFromHTML, convertFromRaw, convertToRaw, DefaultDraftBlockRenderMap, DraftHandleValue, Editor as DraftEditor, EditorState, RichUtils } from "draft-js";
+import { ContentBlock, ContentState, convertFromHTML, convertFromRaw, DefaultDraftBlockRenderMap, DraftHandleValue, Editor as DraftEditor, EditorState, RichUtils } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import Immutable from "immutable";
 import DraftUtils from "./drafjs.util";
@@ -97,12 +97,17 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
         if (blockAlignment === 'justify') {
             return "text-justify";
         }
+
+        if (block.getType() === 'unstyled') {
+            return "my-3";
+        }
+
         return '';
     }
 
     const blockRenderMap = Immutable.Map({
-        'paragraph': {
-            element: 'p'
+        'unstyled': {
+            element: 'section',
         }
     });
 
@@ -117,7 +122,7 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
         }
         updateTimeout.current = setTimeout(() => {
             const currentContent = newEditorState ? newEditorState.getCurrentContent() : editorState.getCurrentContent();
-            const currentHtmlContent = stateToHTML(currentContent);
+            const currentHtmlContent = stateToHTML(currentContent, {defaultBlockTag: 'section'});
             onHtmlChange?.(currentHtmlContent);
         }, 1500)
     }, [editorState, onHtmlChange]);

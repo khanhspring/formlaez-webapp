@@ -32,7 +32,7 @@ RestClient.interceptors.response.use(
   function (error) {
     if (error.response?.status === 401) {
       TokenStorageService.removeToken();
-      window.location.href = process.env.REACT_APP_AUTH_LOGOUT_URL || '';
+      window.location.href = process.env.REACT_APP_AUTH_LOGOUT_URL || '/errors/401';
       return;
     }
     if (error.response?.status === 403) {

@@ -2,6 +2,7 @@ import Avatar from "../../components/common/avatar";
 import Breadcrumb from "../../components/common/breadcrumb";
 
 function Header() {
+
     return (
         <div className="sticky top-0 z-40 w-full h-[65px] dark:bg-cinder-700">
             <div className="flex h-full items-center justify-between">

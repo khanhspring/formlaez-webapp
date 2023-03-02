@@ -1,5 +1,5 @@
 import { Tooltip } from 'ez-rc-tooltip';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, useRouteLoaderData } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import Logo from '../../components/common/logo';
 import ZigzagIcon from '../../components/icons/zigzag-icon';
@@ -7,7 +7,7 @@ import StringUtils from '../../util/string-utils';
 
 function SideBar() {
 
-    const userSession: any = useLoaderData();
+    const userSession: any = useRouteLoaderData('root');
     const currentWorkspace = userSession?.lastAccessedWorkspace?.workspace;
 
     const shortName = StringUtils.firstLetters(currentWorkspace?.name) || 'W';

@@ -268,7 +268,9 @@ export const FORM_LAYOUT: Form = {
               type: "Text",
               variableName: "wlowy",
               content:
-                '<p>It is passed as a parameter to <code>EditorState.push</code>, and denotes the type of change operation that is being performed by transitioning to the new <code>ContentState</code>.</p>\n<p><em>Behind the scenes, this value is used to determine appropriate undo/redo handling, spellcheck behavior, and more. Therefore, while it is possible to provide an arbitrary string value as the </em><code><em>changeType</em></code><em> parameter here, you should avoid doing so.</em></p>\n<p>We highly recommend that you install <a href="http://flowtype.org/">Flow</a> to perform static typechecking on your project. Flow will enforce the use of an appropriate <code>EditorChangeType</code> value.</p>',
+                `<section>It is passed as a parameter to <code>EditorState.push</code> and denotes the type of change operation that is being performed by transitioning to the new <code>ContentState</code>. &nbsp;</section>
+                <section><em>Behind the scenes, this value is used to determine appropriate undo/redo handling, spellcheck behavior, and more. Therefore, while it is possible to provide an arbitrary string value as the </em><code><em>change type</em></code><em> parameter here, you should avoid doing so.</em> &nbsp;</section>
+                <section>We highly recommend that you install <a href="http://flowtype.org/">Flow</a> to perform static type checking on your project. The flow will enforce the use of an appropriate <code>EditorChangeType</code> value.</section>`,
             },
           ],
         }

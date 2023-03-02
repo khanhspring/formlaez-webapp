@@ -5,6 +5,7 @@ import Textarea from "../../../../components/form/form-controls/textarea";
 import FormItem from "../../../../components/form/form-item";
 import { ActionContext, FormField } from "../../../../models/form";
 import { useUpdateField } from "../../hooks/useUpdateField";
+import RequiredMark from "../required-mark";
 
 type Props = {
     field: FormField;
@@ -26,12 +27,7 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
             {
                 !(field.hideTitle === true) &&
                 <div className="flex items-center">
-                    {
-                        field.required &&
-                        <span className="text-rose-700 text-lg leading-3 pt-1.5 w-3.5 h-3.5 bg-cinder-700/70 rounded-full flex items-center justify-center mr-1">
-                            *
-                        </span>
-                    }
+                    <RequiredMark visible={field.required}/>
                     <input
                         value={values.title}
                         className="flex-1 w-full text-gray-100 bg-transparent outline-none"
