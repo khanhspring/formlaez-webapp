@@ -3,15 +3,21 @@
 @import url('https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css');
 @import url('https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css');
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
 @import url('/node_modules/rc-switch/assets/index.css');
 @import url('/node_modules/rc-dialog/assets/index.css');
 @import url('/node_modules/rc-drawer/assets/index.css');
 @import url('/node_modules/rc-picker/assets/index.css');
 @import url('/node_modules/rc-input-number/assets/index.css');
+@import url('/node_modules/rc-pagination/assets/index.css');
 @import url('/node_modules/simplebar-react/dist/simplebar.min.css');
 @import url('/node_modules/ez-rc-tooltip/dist/index.css');
 @import url('/node_modules/ez-rc-popup/dist/index.css');
 @import url('/node_modules/react-toastify/dist/ReactToastify.css');
+
+@import url('/node_modules/nprogress/nprogress.css');
+
 @import url('rc-select.css');
 @import url('drawer-motion.css');
 @import url('gradient-bg.css');
@@ -290,4 +296,72 @@ hr {
 .rc-input-number-handler-up-inner:hover,
 .rc-input-number-handler-down-inner:hover {
     color: #fff;
+}
+
+/** rc-pagination **/
+.rc-pagination .rc-pagination-item {
+    background-color: rgba(43, 43, 64, 0.7);
+    border: none;
+    line-height: 28px;
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+}
+
+.rc-pagination .rc-pagination-item:hover {
+    background-color: #2B2B40;
+    border: none;
+    line-height: 28px;
+    width: 28px;
+    height: 28px;
+}
+
+.rc-pagination .rc-pagination-item-active,
+.rc-pagination .rc-pagination-item-active:hover {
+    background-color: #0284c7;
+}
+
+.rc-pagination .rc-pagination-item a {
+    color: #fff;
+}
+
+.rc-pagination-jump-prev button,
+.rc-pagination-jump-next button {
+    color: #fff;
+}
+
+.rc-pagination-prev .fi,
+.rc-pagination-next .fi {
+    text-align: center;
+    line-height: 28px;
+    height: 28px;
+    color: #fff;
+}
+
+.rc-pagination-disabled .fi {
+    color: #4b5563;
+}
+
+.cursor::after {
+    display: block;
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    background-color: #fff;
+    animation: cursor 0.6s linear infinite alternate;
+    will-change: opacity;
+}
+
+@keyframes cursor {
+
+    0%,
+    40% {
+        opacity: 1;
+    }
+
+    60%,
+    100% {
+        opacity: 0;
+    }
 }

@@ -8,7 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        intel: ['Inter', 'Helvetica', 'sans-serif']
+        intel: ['Inter', 'Helvetica', 'sans-serif'],
+        roboto: ['Roboto', 'Helvetica', 'sans-serif']
       },
       colors: {
         cinder: {
@@ -26,11 +27,11 @@ module.exports = {
         'fade-out': {
           '0%': { opacity: 1 },
           '100%': { opacity: 0.1 },
-        }
+        },
       },
       animation: {
-        'fade-in': 'fade-in 0.2s ease-in-out forwards',
-        'fade-out': 'fade-out 0.2s ease-in-out forwards',
+        'fade-in': 'fade-in 0.3s ease-in-out forwards',
+        'fade-out': 'fade-out 0.3s ease-in-out forwards',
       }
     },
   },

@@ -7,7 +7,6 @@ function Private() {
 
     const [createModalVisible, setCreateModelVisible] = useState(false);
 
-
     const showCreateModal = () => {
         setCreateModelVisible(true);
     }

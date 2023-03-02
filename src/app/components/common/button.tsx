@@ -24,7 +24,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(({
             onClick={onClick}
             ref={ref}
             className={
-                'px-2.5 py-1.5 rounded  text-sm transition flex gap-1'
+                'px-2.5 py-1.5 rounded text-sm transition flex gap-1'
                 + ` ${status === 'primary' ? ' bg-blue-700 hover:bg-blue-600' : ''}`
                 + ` ${pressing && status === 'primary' ? ' !bg-blue-700 ring-2 ring-blue-700/50' : ''}`
 

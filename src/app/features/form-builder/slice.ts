@@ -521,11 +521,9 @@ export const formBuilderSlice = createSlice({
   },
 });
 
-export const { updateForm, clearCurrentItem, setCurrentItem, resetState } =
-  formBuilderSlice.actions;
+export const { updateForm, clearCurrentItem, setCurrentItem, resetState } = formBuilderSlice.actions;
 
 export const selectForm = (state: RootState) => state.formBuilder.form;
-export const selectCurrentItem = (state: RootState) =>
-  state.formBuilder.currentItem;
+export const selectCurrentItem = (state: RootState) => state.formBuilder.currentItem;
 
 export default formBuilderSlice.reducer;

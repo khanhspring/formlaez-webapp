@@ -44,12 +44,14 @@ export type FormSection = {
 export type FormField = {
     id?: number;
     code: string;
-    variableName: string;
-    type: FormFieldType;
-    required?: boolean;
     title?: string;
     description?: string;
+
+    variableName: string;
+    type: FormFieldType;
+
     placeholder?: string;
+    required?: boolean;
 
     content?: string;
 

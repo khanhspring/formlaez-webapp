@@ -1,10 +1,17 @@
 import { Tooltip } from 'ez-rc-tooltip';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import Logo from '../../components/common/logo';
 import ZigzagIcon from '../../components/icons/zigzag-icon';
+import StringUtils from '../../util/string-utils';
 
 function SideBar() {
+
+    const userSession: any = useLoaderData();
+    const currentWorkspace = userSession?.lastAccessedWorkspace?.workspace;
+
+    const shortName = StringUtils.firstLetters(currentWorkspace?.name) || 'W';
+
     return (
         <div className="w-[90px] hidden md:block min-h-screen dark:bg-cinder-700">
             <div className="sticky top-0 w-full flex flex-col justify-start">
@@ -16,8 +23,10 @@ function SideBar() {
 
                 <SimpleBar style={{ maxHeight: 'calc(100vh - 65px)' }}>
                     <div className="py-3 mt-2 flex flex-col gap-1 items-center justify-center">
-                        <Tooltip content="Trần Xuân Khánh's Workspace" placement="right" className="z-[1000]" spacing={2}>
-                            <div className="text-lg font-semibold flex w-10 h-10 rounded-full ring-2 ring-gray-600 hover:ring-sky-500 items-center justify-center dark:bg-cinder-800 text-gray-200 select-none transition">TX</div>
+                        <Tooltip content={currentWorkspace?.name} placement="right" className="z-[1000]" spacing={2}>
+                            <div className="text-lg font-semibold flex w-10 h-10 rounded-full ring-2 ring-blue-700 hover:ring-gray-50 items-center justify-center dark:bg-blue-700 text-gray-200 select-none transition">
+                                {shortName}
+                            </div>
                         </Tooltip>
                         <span className="flex items-center justify-center w-5 h-5 cursor-pointer group">
                             <i className="fi fi-rr-menu-dots text-gray-400 group-hover:text-gray-200 transition"></i>

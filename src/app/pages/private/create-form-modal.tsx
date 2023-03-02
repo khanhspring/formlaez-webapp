@@ -1,6 +1,5 @@
 import Form from 'rc-field-form';
 import { FC, useEffect } from "react";
-import Button from '../../components/common/button';
 import Modal from "../../components/common/modal";
 import Input from '../../components/form/form-controls/input';
 import FormItem from '../../components/form/form-item';
