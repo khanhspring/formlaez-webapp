@@ -7,7 +7,7 @@ import StringUtils from '../../util/string-utils';
 
 function SideBar() {
 
-    const userSession: any = useRouteLoaderData('root');
+    const userSession: any = useRouteLoaderData('private');
     const currentWorkspace = userSession?.lastAccessedWorkspace?.workspace;
 
     const shortName = StringUtils.firstLetters(currentWorkspace?.name) || 'W';

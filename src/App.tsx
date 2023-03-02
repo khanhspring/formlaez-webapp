@@ -29,72 +29,108 @@ const loader = async () => {
 const router = createBrowserRouter([
   {
     id: 'root',
-    loader: loader,
     errorElement: <Error />,
     children: [
       {
-        element: <PrimaryLayout />,
+        id: 'private',
+        loader: loader,
         children: [
           {
-            path: "/",
-            element: <RequireAuth><Workspace /></RequireAuth>
+            element: <PrimaryLayout />,
+            children: [
+              {
+                path: "/",
+                element: <RequireAuth><Workspace /></RequireAuth>
+              },
+              {
+                path: "/members",
+                element: lazyLoad('member/list-member', true)
+              },
+              {
+                path: "/teams",
+                element: lazyLoad('team', true)
+              },
+              {
+                path: "/teams/:teamCode",
+                element: lazyLoad('team/team-detail', true)
+              },
+              {
+                path: "private/forms/:formCode",
+                element: lazyLoad('form', true)
+              },
+              {
+                path: "teams/:teamCode/forms/:formCode",
+                element: lazyLoad('form', true)
+              },
+              {
+                path: "private/forms/:formCode/print-templates",
+                element: lazyLoad('form/print-templates', true)
+              },
+              {
+                path: "teams/:teamCode/forms/:formCode/print-templates",
+                element: lazyLoad('form/print-templates', true)
+              },
+              {
+                path: "private/forms/:formCode/settings",
+                element: lazyLoad('form/form-settings', true)
+              },
+              {
+                path: "teams/:teamCode/forms/:formCode/settings",
+                element: lazyLoad('form/form-settings', true)
+              }
+            ],
           },
           {
-            path: "/members",
-            element: lazyLoad('member/list-member', true)
+            element: <BlankLayout />,
+            children: [
+              {
+                path: "teams/:teamCode/forms/:formCode/preview",
+                element: lazyLoad('form/form-preview', true)
+              },
+              {
+                path: "private/forms/:formCode/preview",
+                element: lazyLoad('form/form-preview', true)
+              },
+              {
+                path: "onboarding",
+                element: lazyLoad('onboarding', true)
+              },
+            ]
           },
           {
-            path: "/teams",
-            element: lazyLoad('team', true)
-          },
-          {
-            path: "/teams/:teamCode",
-            element: lazyLoad('team/team-detail', true)
-          },
-          {
-            path: "private/forms/:formCode",
-            element: lazyLoad('form', true)
-          },
-          {
-            path: "teams/:teamCode/forms/:formCode",
-            element: lazyLoad('form', true)
-          },
-          {
-            path: "private/forms/:formCode/print-templates",
-            element: lazyLoad('form/print-templates', true)
-          },
-          {
-            path: "teams/:teamCode/forms/:formCode/print-templates",
-            element: lazyLoad('form/print-templates', true)
-          },
-          {
-            path: "private/forms/:formCode/settings",
-            element: lazyLoad('form/form-settings', true)
-          },
-          {
-            path: "teams/:teamCode/forms/:formCode/settings",
-            element: lazyLoad('form/form-settings', true)
+            element: <OnlyFooterLayout />,
+            children: [
+              {
+                path: "teams/:teamCode/forms/:formCode/edit",
+                element: lazyLoad('form/form-edit', true)
+              },
+              {
+                path: "private/forms/:formCode/edit",
+                element: lazyLoad('form/form-edit', true)
+              },
+              {
+                path: "private/forms/:formCode/full",
+                element: lazyLoad('form/data-full-screen', true)
+              },
+              {
+                path: "teams/:teamCode/forms/:formCode/full",
+                element: lazyLoad('form/data-full-screen', true)
+              },
+              {
+                path: "workspaces/setup",
+                element: lazyLoad('workspace/setup', true)
+              }
+            ]
           }
-        ],
+        ]
       },
       {
+        id: 'public',
         element: <BlankLayout />,
         children: [
           {
             path: "/login",
             element: lazyLoad('login')
-          },
-          {
-            path: "teams/:teamCode/forms/:formCode/preview",
-            element: lazyLoad('form/form-preview', true)
-          },
-          {
-            path: "private/forms/:formCode/preview",
-            element: lazyLoad('form/form-preview', true)
-          },
-          {
-            path: "onboarding",
-            element: lazyLoad('onboarding', true)
           },
           {
             path: "login/code",
@@ -107,31 +143,6 @@ const router = createBrowserRouter([
           {
             path: "errors/401",
             element: <Error401 />
-          }
-        ]
-      },
-      {
-        element: <OnlyFooterLayout />,
-        children: [
-          {
-            path: "teams/:teamCode/forms/:formCode/edit",
-            element: lazyLoad('form/form-edit', true)
-          },
-          {
-            path: "private/forms/:formCode/edit",
-            element: lazyLoad('form/form-edit', true)
-          },
-          {
-            path: "private/forms/:formCode/full",
-            element: lazyLoad('form/data-full-screen', true)
-          },
-          {
-            path: "teams/:teamCode/forms/:formCode/full",
-            element: lazyLoad('form/data-full-screen', true)
-          },
-          {
-            path: "workspaces/setup",
-            element: lazyLoad('workspace/setup', true)
           }
         ]
       }
