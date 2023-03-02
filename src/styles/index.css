@@ -342,6 +342,11 @@ hr {
     color: #4b5563;
 }
 
+.html-block section {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
 .cursor::after {
     display: block;
     content: '';

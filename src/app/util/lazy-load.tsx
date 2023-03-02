@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import Loading from '../components/common/loading';
 import { RequireAuth } from '../components/common/require-auth';
 
 export function lazyLoad(path: string, requireAuth?: boolean) {
@@ -6,7 +7,7 @@ export function lazyLoad(path: string, requireAuth?: boolean) {
 
     if (requireAuth) {
         return (
-            <Suspense fallback={<></>}>
+            <Suspense fallback={<Loading center/>}>
                 <RequireAuth>
                     <LazyElement />
                 </RequireAuth>
@@ -15,7 +16,7 @@ export function lazyLoad(path: string, requireAuth?: boolean) {
     }
 
     return (
-        <Suspense fallback={<></>}>
+        <Suspense fallback={<Loading center/>}>
             <LazyElement />
         </Suspense>
     );

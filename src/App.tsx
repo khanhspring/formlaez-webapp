@@ -1,4 +1,4 @@
-import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, redirect, RouterProvider, useNavigation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Loading from "./app/components/common/loading";
 import { RequireAuth } from "./app/components/common/require-auth";
@@ -16,7 +16,6 @@ import { lazyLoad } from "./app/util/lazy-load";
 const loader = async () => {
   try {
     const userSession = await UserSessionService.getCurrentUserSession();
-    console.log(userSession)
     if (!userSession.onboarded) {
       return redirect('/onboarding');
     }
@@ -170,7 +169,10 @@ function App() {
         limit={3}
         autoClose={3500}
       />
-      <RouterProvider router={router} fallbackElement={<Loading center />} />
+      <RouterProvider
+        router={router}
+        fallbackElement={<Loading center />}
+      />
     </>
   );
 }
