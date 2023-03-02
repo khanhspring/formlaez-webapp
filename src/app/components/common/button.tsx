@@ -1,10 +1,12 @@
-import React, { FC, PropsWithChildren, useState } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
+import LoadingIcon from '../icons/loading-icon';
 
 type Props = PropsWithChildren & {
     className?: string;
     status?: 'primary' | 'secondary' | 'danger' | 'warning';
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
     htmlType?: 'submit' | 'reset' | 'button';
+    loading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, Props>(({
@@ -12,19 +14,20 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(({
     status = 'primary',
     onClick = () => { },
     children,
-    htmlType = 'submit'
+    htmlType = 'submit',
+    loading
 }, ref) => {
 
     const [pressing, setPressing] = useState(false);
 
     return (
         <button
-            onMouseDown={() => setPressing(true)}
+            onMouseDown={() => !loading && setPressing(true)}
             onMouseUp={() => setPressing(false)}
-            onClick={onClick}
+            onClick={!loading ? onClick : undefined}
             ref={ref}
             className={
-                'px-2.5 py-1.5 rounded text-sm transition flex gap-1'
+                'px-2.5 py-1.5 rounded text-sm transition flex justify-center items-center gap-1'
                 + ` ${status === 'primary' ? ' bg-blue-700 hover:bg-blue-600' : ''}`
                 + ` ${pressing && status === 'primary' ? ' !bg-blue-700 ring-2 ring-blue-700/50' : ''}`
 
@@ -37,11 +40,19 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(({
                 + ` ${status === 'warning' ? ' bg-yellow-600 hover:bg-yellow-400' : ''}`
                 + ` ${pressing && status === 'warning' ? ' !bg-yellow-600 ring-2 ring-yellow-600/50' : ''}`
 
+                + ` ${loading ? '!bg-blue-600 cursor-not-allowed' : ''}`
+
                 + ` ${className}`
             }
             type={htmlType}
         >
             {children}
+            {
+                loading &&
+                <div className="ml-1">
+                    <LoadingIcon />
+                </div>
+            }
         </button>
     );
 });

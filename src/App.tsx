@@ -16,6 +16,7 @@ import { lazyLoad } from "./app/util/lazy-load";
 const loader = async () => {
   try {
     const userSession = await UserSessionService.getCurrentUserSession();
+    console.log(userSession)
     if (!userSession.onboarded) {
       return redirect('/onboarding');
     }
@@ -91,10 +92,6 @@ const router = createBrowserRouter([
                 path: "private/forms/:formCode/preview",
                 element: lazyLoad('form/form-preview', true)
               },
-              {
-                path: "onboarding",
-                element: lazyLoad('onboarding', true)
-              },
             ]
           },
           {
@@ -122,6 +119,15 @@ const router = createBrowserRouter([
               }
             ]
           }
+        ]
+      },
+      {
+        id: 'onboarding',
+        children: [
+          {
+            path: "onboarding",
+            element: lazyLoad('onboarding', true)
+          },
         ]
       },
       {

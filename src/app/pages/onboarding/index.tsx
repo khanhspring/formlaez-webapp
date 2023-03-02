@@ -1,9 +1,11 @@
 import Form from 'rc-field-form';
-import { FC, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC, useEffect, useState, useCallback } from 'react';
+import { redirect, useNavigate } from 'react-router-dom';
 import Button from '../../components/common/button';
+import Loading from '../../components/common/loading';
 import Input from '../../components/form/form-controls/input';
 import FormItem from '../../components/form/form-item';
+import useCurrentUserSession from '../../hooks/auth/useCurrentUserSession';
 import { useAppSelector } from '../../hooks/redux-hook';
 import useCreateWorkspace from '../../hooks/workspace/useCreateWorkspace';
 import { CreateWorkspaceRequest } from '../../models/workspace';
@@ -21,27 +23,42 @@ const Onboarding: FC<Props> = () => {
     const navigate = useNavigate();
     const userInfo = useAppSelector(selectUserInfo)
 
-    const { mutate } = useCreateWorkspace();
+    const { data: userSession, isLoading: isSessionLoading } = useCurrentUserSession();
+    const { mutate, isLoading } = useCreateWorkspace();
 
-    useEffect(() => {
+    const initOnboarding = useCallback(() => {
         setTimeout(() => {
             setGreetingHiding(true);
-        }, 900);
+        }, 1500);
 
         setTimeout(() => {
             setGreetingVisible(false);
-        }, 1200);
+        }, 1800);
 
         setTimeout(() => {
             setFormVisible(true);
-        }, 1500);
+        }, 2100);
+    }, [])
 
-    }, []);
+    useEffect(() => {
+        if (isSessionLoading) {
+            return;
+        }
+        if (userSession?.onboarded) {
+            navigate("/");
+            return;
+        }
+        initOnboarding();
+    }, [initOnboarding, isSessionLoading, navigate, userSession?.onboarded]);
 
     const onFinish = (values: any) => {
+        if (isLoading) {
+            return;
+        }
         const request: CreateWorkspaceRequest = {
             name: values.name
         }
+        console.log(values);
         mutate(request, {
             onSuccess: function () {
                 navigate("/");
@@ -52,14 +69,17 @@ const Onboarding: FC<Props> = () => {
     return (
         <div className='w-full min-h-[100vh] flex items-center justify-center'>
             {
+                isSessionLoading && <Loading center/>
+            }
+            {
                 greetingVisible &&
-                <h2 className={`text-3xl mb-10 font-roboto animate-fade-in ${greetingHiding ? 'animate-fade-out' : ''}`}>
+                <h2 className={`text-3xl mb-10 font-roboto animate-fade-in-slow ${greetingHiding ? 'animate-fade-out-slow' : ''}`}>
                     Hi there, welcome to Formlaez
                 </h2>
             }
             {
                 formVisible &&
-                <div className='flex flex-col items-center gap-5 pb-20 pt-5 min-w-[300px]'>
+                <div className='flex flex-col items-center gap-5 pb-20 pt-5 min-w-[300px] animate-fade-in-slow'>
                     <h2 className='text-xl'>Create your own workspace</h2>
                     <Form
                         initialValues={{ name: `${userInfo?.firstName} ${userInfo?.lastName}'s Workspace` }}
@@ -74,7 +94,7 @@ const Onboarding: FC<Props> = () => {
                         >
                             <Input placeholder="Workspace title" />
                         </FormItem>
-                        <Button className='w-full text-center justify-center'>
+                        <Button className='w-full text-center justify-center' loading={isLoading}>
                             Continue
                         </Button>
                     </Form>
