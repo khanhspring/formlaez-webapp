@@ -9,8 +9,9 @@
 @import url('/node_modules/rc-picker/assets/index.css');
 @import url('/node_modules/rc-input-number/assets/index.css');
 @import url('/node_modules/rc-pagination/assets/index.css');
+@import url('/node_modules/rc-tooltip/assets/bootstrap.css');
+
 @import url('/node_modules/simplebar-react/dist/simplebar.min.css');
-@import url('/node_modules/ez-rc-tooltip/dist/index.css');
 @import url('/node_modules/ez-rc-popup/dist/index.css');
 @import url('/node_modules/react-toastify/dist/ReactToastify.css');
 
@@ -298,33 +299,47 @@ hr {
 
 /** rc-pagination **/
 .rc-pagination .rc-pagination-item {
-    background-color: rgba(43, 43, 64, 0.7);
     border: none;
     line-height: 28px;
     width: 28px;
     height: 28px;
     border-radius: 5px;
+    background-color: #F1F5F9;
+}
+.dark .rc-pagination .rc-pagination-item {
+    background-color: rgba(43, 43, 64, 0.7);
 }
 
 .rc-pagination .rc-pagination-item:hover {
-    background-color: #2B2B40;
     border: none;
     line-height: 28px;
     width: 28px;
     height: 28px;
 }
 
+.dark .rc-pagination .rc-pagination-item:hover {
+    background-color: #2B2B40;
+}
+
 .rc-pagination .rc-pagination-item-active,
 .rc-pagination .rc-pagination-item-active:hover {
+    background-color: rgb(56 189 248);
+}
+.rc-pagination .rc-pagination-item-active a,
+.rc-pagination .rc-pagination-item-active:hover a {
+    color: #fff;
+}
+.dark .rc-pagination .rc-pagination-item-active,
+.dark .rc-pagination .rc-pagination-item-active:hover {
     background-color: #0284c7;
 }
 
-.rc-pagination .rc-pagination-item a {
+.dark .rc-pagination .rc-pagination-item a {
     color: #fff;
 }
 
-.rc-pagination-jump-prev button,
-.rc-pagination-jump-next button {
+.dark .rc-pagination-jump-prev button,
+.dark .rc-pagination-jump-next button {
     color: #fff;
 }
 
@@ -333,10 +348,16 @@ hr {
     text-align: center;
     line-height: 28px;
     height: 28px;
+}
+.dark .rc-pagination-prev .fi,
+.dark .rc-pagination-next .fi {
     color: #fff;
 }
 
 .rc-pagination-disabled .fi {
+    color: #94a3b8;
+}
+.dark .rc-pagination-disabled .fi {
     color: #4b5563;
 }
 
@@ -372,4 +393,10 @@ hr {
     100% {
         opacity: 0;
     }
+}
+
+.rc-tooltip-placement-right, 
+.rc-tooltip-placement-rightTop, 
+.rc-tooltip-placement-rightBottom {
+    padding: 0 5px 0 5px;
 }
