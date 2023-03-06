@@ -11,7 +11,7 @@ const Empty: FC<Props> = ({ description }) => {
             <EmptyIcon className="fill-white w-24" />
             {
                 description &&
-                <p className="text-sm text-slate-300">{description}</p>
+                <p className="text-sm text-slate-900 dark:text-slate-300">{description}</p>
             }
         </div>
     );

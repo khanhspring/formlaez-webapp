@@ -8,7 +8,7 @@ type Props = {
 
 const TeamItem: FC<Props> = ({ favorite }) => {
     return (
-        <div className="flex flex-col gap-2 h-full p-3 rounded-md bg-slate-50 dark:bg-cinder-700 relative group">
+        <div className="flex flex-col gap-2 h-full p-3 rounded-md bg-slate-50 border border-slate-900/10 dark:border-transparent dark:bg-cinder-700 relative group">
             <div className="flex items-center gap-1.5">
                 <div className="flex items-center justify-center w-6 h-6 bg-gradient-to-r from-yellow-600 to-red-600 rounded-full text-white transition group-hover:ring-2">
                     <span className="font-semibold">H</span>

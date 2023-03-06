@@ -17,5 +17,10 @@
   <body class="text-slate-900 dark:text-white bg-white dark:bg-cinder-900 font-intel antialiased">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <script type="text/javascript">
+      Paddle.Setup({ vendor: 11046 });
+      Paddle.Environment.set('sandbox');
+    </script>
   </body>
 </html>

@@ -13,7 +13,7 @@ function SideBar() {
     const shortName = StringUtils.firstLetters(currentWorkspace?.name) || 'W';
 
     return (
-        <div className="w-[90px] hidden md:block min-h-screen bg-slate-50 dark:bg-cinder-700">
+        <div className="w-[90px] hidden md:block min-h-screen bg-slate-50 dark:bg-cinder-700 border-r border-slate-900/10 dark:border-transparent">
             <div className="sticky top-0 w-full flex flex-col justify-start">
                 <div className="px-3 flex items-center w-full h-[65px] bg-white border-b border-slate-900/10 dark:bg-cinder-800">
                     <Link to="/" className="flex w-full items-center justify-center">

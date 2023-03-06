@@ -7,7 +7,7 @@ type Props = {
 
 const FormItem: FC<Props> = ({ favorite }) => {
     return (
-        <div className="flex items-center p-2 rounded-md bg-slate-50 dark:bg-cinder-700 relative group">
+        <div className="flex items-center p-2 rounded-md border border-slate-900/10 bg-slate-50 dark:border-transparent dark:bg-cinder-700 relative group">
             <div className="flex items-center justify-center w-10 h-10 rounded-full group-hover:ring-2 bg-gradient-to-r from-cyan-500 to-blue-500 transition">
                 <span className="font-bold text-lg text-white dark:text-white">C</span>
             </div>
