@@ -91,45 +91,45 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
     }
 
     return (
-        <div className="w-[250px] bg-cinder-700 rounded py-2 px-1 flex flex-col gap-0.5">
+        <div className="w-[250px] bg-white dark:bg-cinder-700 rounded py-2 px-1 flex flex-col gap-0.5">
             {
                 (isFormControl || context.type === 'Group') &&
                 <div
-                    className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600"
+                    className="px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600"
                     onClick={onCopy}
                 >
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 text-slate-900 dark:text-white">
                         <i className="fi fi-rr-square-code"></i>
                         <span>Copy code</span>
                     </div>
-                    <span className="text-xs text-gray-300">Ctrl+C</span>
+                    <span className="text-xs text-slate-800 dark:text-gray-300">Ctrl+C</span>
                 </div>
             }
             {
                 (isFormControl || context.type === 'Group') &&
                 <div
-                    className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600"
+                    className="px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600"
                     onClick={onEditProperties}
                 >
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 text-slate-900 dark:text-white">
                         <i className="fi fi-rr-settings"></i>
                         <span>Edit properties</span>
                     </div>
-                    <span className="text-xs text-gray-300">Ctrl+E</span>
+                    <span className="text-xs text-slate-800 dark:text-gray-300">Ctrl+E</span>
                 </div>
             }
             <div
-                className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600"
+                className="px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600"
                 onClick={onDuplicate}
             >
-                <div className="flex gap-2">
+                <div className="flex gap-2 text-slate-900 dark:text-white">
                     <i className="fi fi-rr-duplicate"></i>
                     <span>Duplicate</span>
                 </div>
-                <span className="text-xs text-gray-300">Ctrl+D</span>
+                <span className="text-xs text-slate-800 dark:text-gray-300">Ctrl+D</span>
             </div>
             <div
-                className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600"
+                className="px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600"
                 onClick={onDelete}
             >
                 <div className="flex gap-2 text-red-700">
@@ -142,14 +142,14 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                 isFormControl &&
                 <>
                     <div className="py-2">
-                        <div className="border-b border-b-cinder-600"></div>
+                        <div className="border-b border-slate-900/10 dark:border-b-cinder-600"></div>
                     </div>
 
                     <div
-                        className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600"
+                        className="px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600"
                         onClick={changeRequire}
                     >
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 text-slate-900 dark:text-white">
                             <i className="fi fi-rr-bahai"></i>
                             <span>Required</span>
                         </div>
@@ -158,10 +158,10 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                         </div>
                     </div>
                     <div
-                        className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600"
+                        className="px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600"
                         onClick={changeHideTitle}
                     >
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 text-slate-900 dark:text-white">
                             <i className="fi fi-rr-letter-case"></i>
                             <span>Hide label</span>
                         </div>
@@ -175,10 +175,10 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                 context.field?.type === 'MultipleChoice' &&
                 <>
                     <div
-                        className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600"
+                        className="px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600"
                         onClick={changeMultipleSelection}
                     >
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 text-slate-900 dark:text-white">
                             <i className="fi fi-rr-list-check"></i>
                             <span>Multiple selection</span>
                         </div>
@@ -192,10 +192,10 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                 context.field?.type === 'Datetime' &&
                 <>
                     <div
-                        className="px-2 py-1 flex justify-between items-center cursor-pointer hover:bg-cinder-600"
+                        className="px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600"
                         onClick={changeShowTime}
                     >
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 text-slate-900 dark:text-white">
                             <i className="fi fi-rr-clock"></i>
                             <span>Show time</span>
                         </div>

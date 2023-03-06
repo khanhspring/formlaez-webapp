@@ -49,7 +49,7 @@ const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Canc
         const element = node as ReactElement;
         return (
             <>
-                {React.cloneElement(element, { className: element.props.className + ' bg-cinder-600' })}
+                {React.cloneElement(element, { className: element.props.className + ' dark:bg-cinder-600' })}
             </>
         )
     }
@@ -60,7 +60,7 @@ const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Canc
             animation="zoom"
             maskAnimation="fade"
             mousePosition={mousePosition || rest.mousePosition}
-            closeIcon={<i className="fi fi-rr-cross-small text-shadow-none text-gray-200"></i>}
+            closeIcon={<i className="fi fi-rr-cross-small text-shadow-none dark:text-gray-200"></i>}
             maskProps={{ style: { background: 'rgba(0, 0, 0, 0.5)' } }}
             modalRender={modalRender}
             visible={visible}

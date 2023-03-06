@@ -21,7 +21,7 @@ const SwitchField: FC<Props> = ({ field, context }) => {
                     <RequiredMark visible={field.required}/>
                     <input
                         value={values.title}
-                        className="flex-1 w-full text-gray-100 bg-transparent outline-none"
+                        className="flex-1 w-full text-slate-900 dark:text-gray-100 bg-transparent outline-none"
                         onChange={(e) => updateDebounce({title: e.target.value})}
                         placeholder="Switch"
                     />

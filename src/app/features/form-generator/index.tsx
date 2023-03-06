@@ -60,7 +60,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues }) => {
                 formLayout.coverType === 'Color' &&
                 <div className="w-full h-[30vh] min-h-[150px] bg-gradient-nepal flex items-center justify-center">
                     <div className="w-full max-w-[530px] m-auto">
-                        <h1 className="text-3xl font-bold text-center text-shadow-gray">
+                        <h1 className="text-3xl font-bold text-white text-center text-shadow-gray">
                             Biểu mẫu đăng ký khóa học ReactJS Q1/2023 dành cho sinh viên
                         </h1>
                     </div>
@@ -69,7 +69,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues }) => {
             {
                 formLayout.coverType === 'None' &&
                 <div className="w-full max-w-[530px] m-auto pt-10">
-                    <h1 className="text-3xl font-bold">
+                    <h1 className="text-3xl font-bold text-white">
                         Biểu mẫu đăng ký khóa học ReactJS Q1/2023 dành cho sinh viên
                     </h1>
                 </div>
@@ -88,7 +88,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues }) => {
                     }
                     <div className="w-full flex justify-center py-10">
                         <Button>
-                            <span className="flex gap-1.5 items-center justify-center py-0.5 w-72">
+                            <span className="flex gap-1.5 items-center justify-center py-0.5 w-72 text-white">
                                 Submit
                                 <i className="fi fi-rs-paper-plane"></i>
                             </span>
@@ -97,7 +97,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues }) => {
                 </RcForm>
             </div>
             <div className="w-full flex justify-center">
-                <div className="mx-auto h-10 flex items-center justify-center gap-2 text-gray-300 text-xs">
+                <div className="mx-auto h-10 flex items-center justify-center gap-2 dark:text-gray-300 text-xs">
                     <span>2023©</span>
                     <a href="https://formlaez.com" rel="noreferrer" target="_blank" className="hover:text-sky-500">Formlaez.com</a>
                 </div>

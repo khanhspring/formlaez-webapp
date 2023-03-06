@@ -121,7 +121,7 @@ const FormBuilder: FC<Props> = ({ initForm }) => {
                     <div className="w-full max-w-[530px] m-auto relative h-full flex items-center justify-center">
                         <Textarea
                             value={form?.title}
-                            className="w-full text-3xl font-bold border-none !bg-transparent !px-0 text-center text-shadow-gray"
+                            className="w-full text-3xl font-bold border-none text-white !bg-transparent !px-0 text-center text-shadow-gray"
                             autoHeight
                             placeholder="Untitled"
                             onChange={e => onTitleChange(e.target.value)}
@@ -129,13 +129,13 @@ const FormBuilder: FC<Props> = ({ initForm }) => {
                         <div className="absolute w-full h-10 bottom-0 left-0 justify-end items-center gap-2 transition hidden group-hover/form-cover:flex">
                             <button
                                 onClick={() => { }}
-                                className="px-2 py-1 text-xs rounded transition bg-cinder-700/70 hover:bg-cinder-700"
+                                className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-cinder-700/70 dark:hover:bg-cinder-700"
                             >
                                 Change cover
                             </button>
                             <button
                                 onClick={removeCover}
-                                className="px-2 py-1 text-xs rounded transition bg-cinder-700/70 hover:bg-cinder-700"
+                                className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-cinder-700/70 dark:hover:bg-cinder-700"
                             >
                                 Remove
                             </button>
@@ -150,7 +150,7 @@ const FormBuilder: FC<Props> = ({ initForm }) => {
                         <div className="w-full">
                             <button
                                 onClick={addCover}
-                                className="px-2 py-1 transition bg-cinder-700/70 hover:bg-cinder-700 rounded text-sm"
+                                className="px-2 py-1 transition border border-slate-900/10 bg-slate-100 hover:bg-slate-200 dark:border-transparent dark:bg-cinder-700/70 dark:hover:bg-cinder-700 rounded text-sm"
                             >
                                 Add cover
                             </button>

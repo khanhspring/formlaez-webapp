@@ -19,7 +19,6 @@
     "draft-js-export-html": "^1.4.1",
     "ez-rc-popup": "^0.1.5",
     "ez-rc-table": "^0.1.1",
-    "ez-rc-tooltip": "^0.1.6",
     "immutable": "^3.7.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
@@ -33,6 +32,7 @@
     "rc-picker": "^3.2.4",
     "rc-select": "^14.2.0",
     "rc-switch": "^4.0.0",
+    "rc-tooltip": "^6.0.1",
     "rc-util": "^5.28.0",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
@@ -79,6 +79,8 @@
     "@types/react-copy-to-clipboard": "^5.0.4",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",
+    "prettier": "^2.8.4",
+    "prettier-plugin-tailwindcss": "^0.2.4",
     "tailwindcss": "^3.2.4"
   }
 }

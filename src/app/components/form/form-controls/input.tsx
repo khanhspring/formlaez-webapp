@@ -18,23 +18,23 @@ const Input: FC<Props> = ({ className = '', status, value, suffix, ...rest }) =>
 
     return (
         <div className={
-            `w-full relative flex rounded border border-cinder-600 dark:bg-cinder-700 `
-            + `${status && status === 'error' ? 'dark:border-rose-700' : ''} `
-            + `${status && status === 'warning' ? 'dark:border-yellow-700' : ''} `
-            + `${status && status === 'success' ? 'dark:border-green-700' : ''} `
+            `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-cinder-600 dark:bg-cinder-700 `
+            + `${status && status === 'error' ? 'border-rose-700' : ''} `
+            + `${status && status === 'warning' ? 'border-yellow-700' : ''} `
+            + `${status && status === 'success' ? 'border-green-700' : ''} `
         }>
             <input
                 {...rest}
                 onChange={onValueChange}
                 value={orElseEmptyString(internalValue)}
                 className={
-                    'w-full outline-none px-4 py-2 text-sm dark:bg-cinder-700 placeholder:text-gray-500 rounded-l '
+                    'w-full outline-none px-4 py-2 text-sm bg-transparent placeholder:text-gray-500 rounded-l '
                     + className
                 }
             />
             {
                 suffix &&
-                <div className="flex items-center justify-center pr-3">
+                <div className="flex items-center justify-center pr-3 rounded-lg">
                     {suffix}
                 </div>
             }

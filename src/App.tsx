@@ -77,6 +77,10 @@ const router = createBrowserRouter([
               {
                 path: "teams/:teamCode/forms/:formCode/settings",
                 element: lazyLoad('form/form-settings', true)
+              },
+              {
+                path: "checkout",
+                element: lazyLoad('checkout', true)
               }
             ],
           },

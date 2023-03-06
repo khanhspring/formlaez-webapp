@@ -7,7 +7,7 @@ function FormEdit() {
 
     return (
         <>
-            <div className="px-10 py-3 flex items-center justify-between sticky top-0 z-50 dark:bg-cinder-700">
+            <div className="px-10 py-3 flex items-center justify-between sticky top-0 z-50 bg-white border-b border-slate-900/10 dark:border-transparent dark:bg-cinder-700">
                 <div className="flex items-center flex-1">
                     <Link to={"/private/forms/example"} className="flex items-center text-lg">
                         <i className="fi fi-rr-arrow-left"></i>

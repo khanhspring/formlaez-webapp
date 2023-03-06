@@ -8,14 +8,14 @@ type Props = {
 
 const TeamItem: FC<Props> = ({ favorite }) => {
     return (
-        <div className="flex flex-col gap-2 h-full p-3 rounded-md dark:bg-cinder-700 relative group">
+        <div className="flex flex-col gap-2 h-full p-3 rounded-md bg-slate-50 border border-slate-900/10 dark:border-transparent dark:bg-cinder-700 relative group">
             <div className="flex items-center gap-1.5">
-                <div className="flex items-center justify-center w-6 h-6 bg-gradient-to-r from-yellow-600 to-red-600 rounded-full transition group-hover:ring-2">
+                <div className="flex items-center justify-center w-6 h-6 bg-gradient-to-r from-yellow-600 to-red-600 rounded-full text-white transition group-hover:ring-2">
                     <span className="font-semibold">H</span>
                 </div>
                 <h3 className="font-normal">Lorem ipsum dolor sit</h3>
             </div>
-            <div className="text-sm text-gray-400">
+            <div className="text-sm text-slate-600 dark:text-gray-400">
                 <p>The development of Vue and its ecosystem is guided by an international team</p>
             </div>
             <div className="mt-auto pt-2">
