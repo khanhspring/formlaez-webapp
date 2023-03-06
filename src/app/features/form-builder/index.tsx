@@ -150,7 +150,7 @@ const FormBuilder: FC<Props> = ({ initForm }) => {
                         <div className="w-full">
                             <button
                                 onClick={addCover}
-                                className="px-2 py-1 transition bg-cinder-700/70 hover:bg-cinder-700 rounded text-sm"
+                                className="px-2 py-1 transition border border-slate-900/10 bg-slate-100 hover:bg-slate-200 dark:border-transparent dark:bg-cinder-700/70 dark:hover:bg-cinder-700 rounded text-sm"
                             >
                                 Add cover
                             </button>

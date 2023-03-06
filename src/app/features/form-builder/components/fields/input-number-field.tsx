@@ -32,7 +32,7 @@ const InputNumberField: FC<Props> = ({ field, context }) => {
                     className="px-4 py-2 pr-7 rounded-md bg-slate-100 border border-slate-900/10 dark:border-transparent dark:bg-cinder-700 w-full text-gray-500 outline-none"
                     onChange={(e) => updateDebounce({placeholder: e.target.value})}
                 />
-                <i className="fi fi-rr-hastag absolute top-0 right-0 h-full w-7 cursor-pointer text-gray-300 text-sm"></i>
+                <i className="fi fi-rr-hastag absolute top-0 right-0 h-full w-7 cursor-pointer text-slate-600 dark:text-gray-300 text-sm"></i>
             </div>
         </div>
     );

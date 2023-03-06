@@ -56,6 +56,13 @@ hr {
     font-weight: normal;
 }
 
+.rc-switch {
+    background-color: rgb(226 232 240);
+}
+.dark .rc-switch {
+    background: transparent;
+}
+
 .rc-switch-checked {
     background-color: rgb(29 78 216);
     border-color: rgb(29 78 216);
@@ -107,6 +114,9 @@ hr {
 }
 
 .rc-picker-input>input::placeholder {
+    color: rgb(100 116 139);
+}
+.dark .rc-picker-input>input::placeholder {
     color: #6b7280;
 }
 
@@ -122,10 +132,13 @@ hr {
     top: 50%;
     transform: translateY(-50%);
     border-radius: 50%;
-    background: #2B2B40;
+    background-color: rgb(203 213 225);
     right: -3px;
     width: 20px;
     height: 20px;
+}
+.dark .rc-picker-clear {
+    background: #2B2B40;
 }
 
 .rc-picker-panel {
@@ -140,6 +153,9 @@ hr {
 
 .rc-picker-body {
     padding: 10px 10px;
+    border-top: 1px solid rgba(15, 23, 42, 0.1);
+}
+.dark .rc-picker-body {
     border-top: 1px solid #2B2B40;
 }
 
@@ -155,19 +171,30 @@ hr {
 }
 
 .rc-picker-cell {
+    color: rgb(100 116 139);
+}
+.dark .rc-picker-cell {
     color: #6b7280;
 }
 
 .rc-picker-cell-in-view {
+    color: rgb(15 23 42);
+}
+.dark .rc-picker-cell-in-view {
     color: #fff;
 }
 
 .rc-picker-cell-inner:hover {
     background-color: #2B2B40;
+    color: white;
+}
+.dark .rc-picker-cell-inner:hover {
+    background-color: #2B2B40;
 }
 
 .rc-picker-cell-selected .rc-picker-cell-inner {
     background-color: #2563eb;
+    color: white;
 }
 
 .rc-picker-cell-today>.rc-picker-cell-inner {
@@ -192,7 +219,6 @@ hr {
 }
 
 .rc-picker-time-panel-column>li .rc-picker-time-panel-cell-inner {
-    color: #fff;
     height: 30px;
     display: flex;
     align-items: center;
@@ -201,15 +227,25 @@ hr {
 
 .rc-picker-time-panel-column>li .rc-picker-time-panel-cell-inner:hover {
     background-color: #2B2B40;
+    color: white;
+}
+.dark .rc-picker-time-panel-column>li .rc-picker-time-panel-cell-inner:hover {
+    background-color: #2B2B40;
 }
 
 .rc-picker-time-panel .rc-picker-content {
+    border-top: 1px solid rgba(15, 23, 42, 0.1);
+}
+.dark .rc-picker-time-panel .rc-picker-content {
     border-top: 1px solid #2B2B40;
 }
 
 .rc-picker-time-panel-column {
-    border-right: 1px solid #2B2B40;
+    border-right: 1px solid rgba(15, 23, 42, 0.1);
     width: 60px;
+}
+.dark .rc-picker-time-panel-column {
+    border-right: 1px solid #2B2B40;
 }
 
 .rc-picker-time-panel-column:last-child {
@@ -217,12 +253,18 @@ hr {
 }
 
 .rc-picker-datetime-panel .rc-picker-time-panel {
+    border-left: 1px solid rgba(15, 23, 42, 0.1);
+}
+.dark .rc-picker-datetime-panel .rc-picker-time-panel {
     border-left: 1px solid #2B2B40;
 }
 
 .rc-picker-footer {
-    border-top: 1px solid #2B2B40;
+    border-top: 1px solid rgba(15, 23, 42, 0.1);
     padding: 5px 10px;
+}
+.dark .rc-picker-footer {
+    border-top: 1px solid #2B2B40;
 }
 
 .rc-picker-footer,
@@ -240,15 +282,30 @@ hr {
     align-items: center;
     padding: 0 5px;
     border-radius: 3px;
+    border: 1px solid  rgba(15, 23, 42, 0.1);
+}
+
+.dark .rc-picker-now-btn,
+.dark .rc-picker-ok button {
     border: 1px solid #2B2B40;
 }
 
 .rc-picker-now-btn:hover,
 .rc-picker-ok button:hover {
+    background-color: rgb(241 245 249);
+}
+
+.dark .rc-picker-now-btn:hover,
+.dark .rc-picker-ok button:hover {
     background-color: #2B2B40;
 }
 
 .rc-picker-time-panel-cell-selected .rc-picker-time-panel-cell-inner {
+    background-color: rgb(29 78 216);
+    color: white!important;
+}
+
+.dark .rc-picker-time-panel-cell-selected .rc-picker-time-panel-cell-inner {
     background-color: #2B2B40;
 }
 
@@ -258,6 +315,11 @@ hr {
     padding: 8px 16px;
     font-size: 14px;
     line-height: 20px;
+}
+.rc-input-number-input {
+    color: #0f172a;
+}
+.dark .rc-input-number-input {
     color: white;
 }
 
@@ -268,8 +330,11 @@ hr {
 .rc-input-number-handler-wrap {
     display: flex;
     flex-direction: column;
-    border-color: #2B2B40;
+    border-color: rgba(15, 23, 42, 0.1);
     width: 30px;
+}
+.dark .rc-input-number-handler-wrap {
+    border-color: #2B2B40;
 }
 
 .rc-input-number-handler-wrap .rc-input-number-handler {
@@ -277,24 +342,31 @@ hr {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-color: rgba(15, 23, 42, 0.1);
+}
+.dark .rc-input-number-handler-wrap .dark .rc-input-number-handler {
     border-color: #2B2B40;
 }
 
 .rc-input-number-handler:hover {
+    background-color: rgb(226 232 240);
+}
+.dark .rc-input-number-handler:hover {
     background-color: #2B2B40;
 }
 
 .rc-input-number:hover .rc-input-number-handler-wrap {
+    border-color: rgba(15, 23, 42, 0.1);
+}
+.dark .rc-input-number:hover .rc-input-number-handler-wrap {
     border-color: #2B2B40;
 }
 
 .rc-input-number:hover .rc-input-number-handler {
-    border-color: #2B2B40;
+    border-color: rgba(15, 23, 42, 0.1);
 }
-
-.rc-input-number-handler-up-inner:hover,
-.rc-input-number-handler-down-inner:hover {
-    color: #fff;
+.dark .rc-input-number:hover .rc-input-number-handler {
+    border-color: #2B2B40;
 }
 
 /** rc-pagination **/

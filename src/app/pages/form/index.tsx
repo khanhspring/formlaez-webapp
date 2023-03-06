@@ -4,6 +4,7 @@ import Pagination from 'rc-pagination';
 import { PaginationLocale } from "../../constants/pagination-locale";
 import PageTitle from "../../components/layout/page-title";
 import ButtonAction from "../../components/layout/button-action";
+import ButtonTableAction from "../../components/layout/button-table-action";
 
 type User = {
     firstName: string;
@@ -54,24 +55,15 @@ function Form() {
             render(value, record, index) {
                 return (
                     <div className="flex items-center justify-center gap-1.5 text-xs">
-                        <button
-                            title="Print"
-                            className="w-[22px] h-[22px] rounded-full bg-cinder-700/70 hover:bg-cinder-700 flex items-center justify-center text-gray-500 hover:text-white"
-                        >
+                        <ButtonTableAction>
                             <i className="fi fi-rr-print"></i>
-                        </button>
-                        <button
-                            title="Edit"
-                            className="w-[22px] h-[22px] rounded-full bg-cinder-700/70 hover:bg-cinder-700 flex items-center justify-center text-gray-500 hover:text-white"
-                        >
+                        </ButtonTableAction>
+                        <ButtonTableAction>
                             <i className="fi fi-rr-pencil"></i>
-                        </button>
-                        <button
-                            title="Edit"
-                            className="w-[22px] h-[22px] rounded-full bg-cinder-700/70 hover:bg-cinder-700 flex items-center justify-center text-gray-500 hover:text-rose-700"
-                        >
+                        </ButtonTableAction>
+                        <ButtonTableAction danger>
                             <i className="fi fi-rr-trash"></i>
-                        </button>
+                        </ButtonTableAction>
                     </div>
                 )
             },
@@ -200,9 +192,9 @@ function Form() {
                     columns={columns}
                     data={data}
                     stickyHeader={{ top: 108 }}
-                    className="!border-slate-900/10 dark:border-cinder-600"
-                    headerCellClassName="!border-slate-800/10 after:!bg-slate-800/10 before:!bg-slate-900/10 !bg-slate-50 dark:border-cinder-600 dark:before:bg-cinder-600 dark:!bg-cinder-700 py-[5px] px-1 text-sm"
-                    cellClassName="!border-slate-900/10 dark:border-cinder-600 text-sm p-0.5 px-1"
+                    className="!border-slate-900/10 dark:!border-cinder-600"
+                    headerCellClassName="!border-slate-800/10 after:!bg-slate-800/10 before:!bg-slate-900/10 !bg-slate-50 dark:!border-cinder-600 dark:before:bg-cinder-600 dark:!bg-cinder-700 py-[5px] px-1 text-sm"
+                    cellClassName="!border-slate-900/10 dark:!border-cinder-600 text-sm p-0.5 px-1"
                 />
             </div>
             <div className="w-full mt-3 p-1 bg-white/90 border border-slate-900/10 dark:bg-cinder-700/80 dark:border-transparent sticky bottom-0 flex items-center justify-center">

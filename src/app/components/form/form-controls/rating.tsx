@@ -29,16 +29,16 @@ const Rating: FC<Props> = ({ className = '', status, onChange, value, ...rest })
                         key={index}
                         className={
                             `rounded flex items-center justify-center cursor-pointer text transition `
-                            + `${status && status === 'error' ? 'dark:border-rose-700' : ''} `
-                            + `${status && status === 'warning' ? 'dark:border-yellow-700' : ''} `
-                            + `${status && status === 'success' ? 'dark:border-green-700' : ''} `
+                            + `${status && status === 'error' ? 'border-rose-700' : ''} `
+                            + `${status && status === 'warning' ? 'border-yellow-700' : ''} `
+                            + `${status && status === 'success' ? 'border-green-700' : ''} `
 
                             + `${val === value ? '' : ''} `
                         }
                     >
                         {
                             (!value || val > (value || 0)) &&
-                            <i className="fi fi-rs-star cursor-pointer text-gray-400 hover:text-gray-200 transition"></i>
+                            <i className="fi fi-rs-star cursor-pointer text-slate-900 hover:text-slate-700 dark:text-gray-400 dark:hover:text-gray-200 transition"></i>
                         }
                         {
                             (val <= (value || 0)) &&

@@ -12,7 +12,7 @@ const HtmlBlock: FC<Props> = ({ content }) => {
 
     return (
         <div className="w-full my-1">
-            <div className="prose prose-sm prose-invert html-block" dangerouslySetInnerHTML={{__html: content}}/>
+            <div className="prose prose-sm dark:prose-invert html-block" dangerouslySetInnerHTML={{__html: content}}/>
         </div>
     );
 }

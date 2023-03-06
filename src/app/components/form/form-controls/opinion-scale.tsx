@@ -28,12 +28,12 @@ const OpinionScale: FC<Props> = ({ className = '', status, onChange, value, ...r
                         onClick={() => onClick(val)}
                         key={index}
                         className={
-                            `rounded border border-cinder-600 bg-cinder-700 flex-1 h-9 flex items-center justify-center cursor-pointer hover:bg-cinder-600 transition `
-                            + `${status && status === 'error' ? 'dark:border-rose-700' : ''} `
-                            + `${status && status === 'warning' ? 'dark:border-yellow-700' : ''} `
-                            + `${status && status === 'success' ? 'dark:border-green-700' : ''} `
+                            `rounded border bg-slate-100 border-slate-900/10 hover:bg-slate-200 dark:border-cinder-600 dark:bg-cinder-700 flex-1 h-9 flex items-center justify-center cursor-pointer dark:hover:bg-cinder-600 transition `
+                            + `${status && status === 'error' ? 'border-rose-700' : ''} `
+                            + `${status && status === 'warning' ? 'border-yellow-700' : ''} `
+                            + `${status && status === 'success' ? 'border-green-700' : ''} `
 
-                            + `${val === value ? '!bg-blue-700 !border-blue-700' : ''} `
+                            + `${val === value ? '!bg-blue-700 !border-blue-700 text-white' : ''} `
                         }
                     >
                         {val}

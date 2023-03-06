@@ -24,10 +24,10 @@ const DatetimePicker: FC<Props> = ({ className = '', status, value, showTime, ..
 
     return (
         <div className={
-            `w-full relative flex rounded border border-cinder-600 dark:bg-cinder-700 `
-            + `${status && status === 'error' ? 'dark:border-rose-700' : ''} `
-            + `${status && status === 'warning' ? 'dark:border-yellow-700' : ''} `
-            + `${status && status === 'success' ? 'dark:border-green-700' : ''} `
+            `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-cinder-600 dark:bg-cinder-700 `
+            + `${status && status === 'error' ? 'border-rose-700' : ''} `
+            + `${status && status === 'warning' ? 'border-yellow-700' : ''} `
+            + `${status && status === 'success' ? 'border-green-700' : ''} `
         }>
             <Picker<Moment>
                 format={format}
@@ -43,7 +43,7 @@ const DatetimePicker: FC<Props> = ({ className = '', status, value, showTime, ..
                 className="w-full border-none text-sm px-4 py-2"
                 allowClear
                 clearIcon={<i className="fi fi-rr-cross-small text-[16px]"></i>}
-                dropdownClassName="shadow bg-cinder-800"
+                dropdownClassName="shadow bg-slate-100 dark:bg-cinder-800"
                 nextIcon={<i className="fi fi-rr-angle-small-right text-md"></i>}
                 superNextIcon={<i className="fi fi-rr-angle-double-small-right text-md"></i>}
                 prevIcon={<i className="fi fi-rr-angle-small-left text-md"></i>}

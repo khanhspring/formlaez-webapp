@@ -14,9 +14,9 @@ const Switch: FC<Props> = ({ status, onChange = () => {}, value, ...rest }) => {
     return (
         <RcSwitch
             className={
-                `${status && status === 'error' ? 'dark:border-rose-700' : ''} `
-                + `${status && status === 'warning' ? 'dark:border-yellow-700' : ''} `
-                + `${status && status === 'success' ? 'dark:border-green-700' : ''} `
+                `${status && status === 'error' ? 'border-rose-700' : ''} `
+                + `${status && status === 'warning' ? 'border-yellow-700' : ''} `
+                + `${status && status === 'success' ? 'border-green-700' : ''} `
             }
             checked={value}
             onChange={onChange}

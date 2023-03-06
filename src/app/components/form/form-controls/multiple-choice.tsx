@@ -54,12 +54,12 @@ const MultipleChoice: FC<Props> = ({ className = '', status, onChange, value, op
                         onClick={() => onClick(item)}
                         key={index}
                         className={
-                            `rounded border border-cinder-600 bg-cinder-700 cursor-pointer hover:bg-cinder-600 px-2.5 py-1 w-auto text-sm transition `
-                            + `${status && status === 'error' ? 'dark:border-rose-700' : ''} `
-                            + `${status && status === 'warning' ? 'dark:border-yellow-700' : ''} `
-                            + `${status && status === 'success' ? 'dark:border-green-700' : ''} `
+                            `rounded border bg-slate-100 border-slate-900/10 hover:bg-slate-200 dark:border-cinder-600 dark:bg-cinder-700 cursor-pointer dark:hover:bg-cinder-600 px-2.5 py-1 w-auto text-sm transition `
+                            + `${status && status === 'error' ? 'border-rose-700' : ''} `
+                            + `${status && status === 'warning' ? 'border-yellow-700' : ''} `
+                            + `${status && status === 'success' ? 'border-green-700' : ''} `
 
-                            + `${_.includes(value, item?.value) ? '!bg-blue-700 !border-blue-700' : ''} `
+                            + `${_.includes(value, item?.value) ? '!bg-blue-700 !border-blue-700 text-white' : ''} `
                         }
                     >
                         {item?.label}

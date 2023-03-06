@@ -13,10 +13,7 @@ type Props = {
 const Toolbar: FC<Props> = ({ onInlineClick, onBlockClick, editorState }) => {
 
     return (
-        <div className={`z-50 inline-flex px-1 rounded items-center bg-cinder-600 text-sm shadow-lg`}>
-            {/* <ToolbarButton onToggle={onBlockClick} type="paragraph" editorState={editorState}>
-                <span>P</span>
-            </ToolbarButton> */}
+        <div className={`z-50 inline-flex px-1 rounded items-center border border-slate-900/10 bg-slate-50 dark:border-transparent dark:bg-cinder-600 text-sm shadow-lg`}>
             <ToolbarButton onToggle={onBlockClick} type="header-two" editorState={editorState}>
                 <span>H2</span>
             </ToolbarButton>

@@ -27,12 +27,12 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(({
             onClick={!loading ? onClick : undefined}
             ref={ref}
             className={
-                'px-2.5 py-1.5 rounded text-sm transition flex justify-center items-center gap-1'
-                + ` ${status === 'primary' ? ' bg-blue-700 hover:bg-blue-600' : ''}`
+                'px-2.5 py-1.5 rounded text-sm transition flex justify-center items-center gap-1 dark:text-white'
+                + ` ${status === 'primary' ? ' bg-blue-700 hover:bg-blue-600 text-white' : ''}`
                 + ` ${pressing && status === 'primary' ? ' !bg-blue-700 ring-2 ring-blue-700/50' : ''}`
 
-                + ` ${status === 'secondary' ? ' bg-cinder-900 hover:bg-cinder-700' : ''}`
-                + ` ${pressing && status === 'secondary' ? ' !bg-cinder-900 ring-2 ring-cinder-900/50' : ''}`
+                + ` ${status === 'secondary' ? ' bg-slate-200 hover:bg-slate-300 dark:bg-cinder-900 dark:hover:bg-cinder-700' : ''}`
+                + ` ${pressing && status === 'secondary' ? ' dark:!bg-cinder-900 ring-2 dark:ring-cinder-900/50' : ''}`
 
                 + ` ${status === 'danger' ? ' bg-rose-700 hover:bg-rose-500' : ''}`
                 + ` ${pressing && status === 'danger' ? ' !bg-rose-700 ring-2 ring-rose-700/50' : ''}`

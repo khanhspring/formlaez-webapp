@@ -12,15 +12,15 @@ const InputNumber: FC<Props> = ({ className = '', status, onChange = () => {}, v
 
     return (
         <div className={
-            `w-full relative flex rounded border border-cinder-600 dark:bg-cinder-700 `
-            + `${status && status === 'error' ? 'dark:border-rose-700' : ''} `
-            + `${status && status === 'warning' ? 'dark:border-yellow-700' : ''} `
-            + `${status && status === 'success' ? 'dark:border-green-700' : ''} `
+            `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-cinder-600 dark:bg-cinder-700 `
+            + `${status && status === 'error' ? 'border-rose-700' : ''} `
+            + `${status && status === 'warning' ? 'border-yellow-700' : ''} `
+            + `${status && status === 'success' ? 'border-green-700' : ''} `
         }>
             <RcInputNumber
                 value={value}
                 onChange={onChange}
-                className="w-full rounded border-none bg-cinder-700 h-auto outline-none shadow-none text-sm min-h-[36px] text-white"
+                className="w-full rounded border-none bg-transparent h-auto outline-none shadow-none text-sm min-h-[36px]"
                 placeholder={rest.placeholder}
             />
         </div>
