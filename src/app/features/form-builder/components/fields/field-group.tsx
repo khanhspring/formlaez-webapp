@@ -62,7 +62,7 @@ const FieldGroup: FC<Props> = ({ section, sectionIndex, ...dragHandleProps }) =>
     return (
         <div className="pt-2 pb-2">
             <div
-                className="flex flex-col relative rounded border border-gray-700 dark:bg-cinder-900 group/field-group"
+                className="flex flex-col relative rounded border border-slate-900/10 dark:border-gray-700 dark:bg-cinder-900 group/field-group"
                 onMouseOver={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -75,15 +75,15 @@ const FieldGroup: FC<Props> = ({ section, sectionIndex, ...dragHandleProps }) =>
                         section: section
                     }}
                 />
-                <div className="bg-cinder-700 px-3 py-2 rounded-t">
+                <div className="bg-slate-200 dark:bg-cinder-700 px-3 py-2 rounded-t rounded-sm">
                     <input
                         value={values.title}
-                        className="flex-1 w-full text-gray-100 bg-transparent outline-none"
+                        className="flex-1 w-full text-slate-900 dark:text-gray-100 bg-transparent outline-none"
                         onChange={(e) => updateDebounce({ title: e.target.value })}
                         placeholder="Group"
                     />
                 </div>
-                <div className="flex flex-col px-5 py-2">
+                <div className="flex flex-col px-[26px] py-2">
                     {renderFields()}
                 </div>
             </div>

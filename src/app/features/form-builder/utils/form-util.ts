@@ -41,7 +41,7 @@ const addGroupField = (
   field: FormField,
   sectionIndex?: number,
   fieldIndex?: number
-): [Form, FormField] | undefined => {
+): [Form, FormSection, FormField, number] | undefined => {
   if (!_.isNumber(sectionIndex)) {
     return;
   }
@@ -70,14 +70,14 @@ const addGroupField = (
   }
 
   fields.splice(fieldIndex + 1, 0, field);
-  return [formClone, field];
+  return [formClone, section, field, fieldIndex + 1];
 };
 
 const addSection = (
   form: Form,
   section: FormSection,
   index?: number
-): [Form, FormSection] | undefined => {
+): [Form, FormSection, number] | undefined => {
   if (!_.isNumber(index)) {
     return;
   }
@@ -96,14 +96,14 @@ const addSection = (
   }
 
   sections.splice(index + 1, 0, section);
-  return [formClone, section];
+  return [formClone, section, index + 1];
 };
 
 const reorderSection = (
   form: Form,
   fromIndex: number,
   toIndex: number
-): Form | undefined => {
+): [Form, FormSection] | undefined => {
   const formClone = _.cloneDeep(form);
   if (!formClone) {
     return;
@@ -118,7 +118,7 @@ const reorderSection = (
 
   const tmp = sections.splice(fromIndex, 1);
   sections.splice(toIndex, 0, tmp[0]);
-  return formClone;
+  return [formClone, tmp[0]];
 };
 
 const reorderField = (

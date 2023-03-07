@@ -13,7 +13,7 @@ const Drawer: FC<Props> = ({ title, closeIcon, children, ...rest }) => {
     const closeButton = () => {
         if (_.isNil(closeIcon) || closeIcon === true) {
             return (
-                <button className='p-1 flex items-center text-gray-500 hover:text-white' onClick={rest.onClose}>
+                <button className='p-1 flex items-center text-slate-800 hover:text-slate-500 dark:text-gray-500 dark:hover:text-white' onClick={rest.onClose}>
                     <i className="fi fi-rr-cross-small text-xl"></i>
                     <span className='hidden'>Close</span>
                 </button>
@@ -35,7 +35,7 @@ const Drawer: FC<Props> = ({ title, closeIcon, children, ...rest }) => {
         <RcDrawer
             {...rest}
             {...motionProps}
-            className="bg-cinder-800"
+            className="dark:bg-cinder-800"
         >
             {
                 !hideHeader &&

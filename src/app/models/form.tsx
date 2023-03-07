@@ -100,32 +100,6 @@ export type ConfigSection = {
     default: () => FormSection;
 }
 
-export type CreateFormRequest = {
-    title: string;
-    description?: string;
-    scope: 'Private' | 'Team'
-}
-
-export type SearchFormRequest = Pageable & {
-    keyword?: string;
-    scope: 'Private' | 'Team'
-}
-
-export type CreateFormSectionRequest = {
-    id?: number;
-    code: string;
-    variableName: string;
-    title?: string;
-    type: FormSectionType;
-    description?: string;
-    repeatable?: boolean;
-    repeatButtonLabel?: string;
-    fields?: FormField[];
-
-    pageId: number;
-    position: number;
-}
-
 export type AddFormField = {
     field: FormField;
     fieldIndex?: number;
@@ -192,4 +166,101 @@ export type UpdateFormInfo = {
     coverType?: 'Color' | 'Image' | 'None',
     coverColor?: string,
     coverImageUrl?: string
+}
+
+
+// API models
+
+export type CreateFormRequest = {
+    title: string;
+    description?: string;
+    scope: 'Private' | 'Team'
+}
+
+export type UpdateFormRequest = {
+    id: number;
+    title: string;
+    description?: string;
+    coverType?: 'Color' | 'Image' | 'None',
+    coverColor?: string,
+    coverImageUrl?: string
+}
+
+export type SearchFormRequest = Pageable & {
+    keyword?: string;
+    scope: 'Private' | 'Team'
+}
+
+export type CreateFormSectionRequest = {
+    id?: number;
+    code: string;
+    variableName: string;
+    title?: string;
+    type: FormSectionType;
+    description?: string;
+    repeatable?: boolean;
+    repeatButtonLabel?: string;
+    fields?: FormField[];
+
+    pageId: number;
+    position: number;
+}
+
+export type MoveFormSectionRequest = {
+    sectionCode: string;
+    newPosition: number;
+}
+
+export type MoveFormFieldRequest = {
+    fieldCode: string;
+    newPosition: number;
+}
+
+export type CreateFormFieldRequest = {
+    sectionCode: string;
+    code: string;
+    title?: string;
+    description?: string;
+
+    variableName: string;
+    type: FormFieldType;
+
+    placeholder?: string;
+    required?: boolean;
+
+    position: number;
+}
+
+export type UpdateFormFieldRequest = {
+    code: string;
+    title?: string;
+    description?: string;
+
+    variableName: string;
+    type: FormFieldType;
+
+    placeholder?: string;
+    required?: boolean;
+
+    content?: string;
+
+    hideTitle?: boolean;
+
+    url?: string;
+    caption?: string;
+
+    acceptedDomains?: string;
+
+    minLength?: number;
+    maxLength?: number;
+
+    min?: number;
+    max?: number;
+
+    readonly?: boolean;
+
+    options?: FormFieldOption[];
+    multipleSelection?: boolean;
+
+    showTime?: boolean;
 }
