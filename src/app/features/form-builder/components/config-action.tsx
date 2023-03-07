@@ -47,11 +47,11 @@ const ConfigAction: FC<Props> = ({ invisible = false, context, ...dragHandleProp
                         <span>
                             <Tooltip overlay={configMenuTooltip} mouseLeaveDelay={0} mouseEnterDelay={0.4}>
                                 <span
-                                    className="w-4 h-5 flex items-center justify-center rounded-sm cursor-pointer dark:hover:bg-cinder-700 transition group"
+                                    className="w-5 h-6 flex items-center justify-center rounded-sm cursor-pointer hover:bg-slate-300 dark:hover:bg-cinder-700 transition group"
                                     ref={dragMenuRef}
                                     {...dragHandleProps}
                                 >
-                                    <DragIcon className="w-3.5 fill-gray-500 group-hover:fill-gray-300" />
+                                    <DragIcon className="w-4 fill-slate-900 dark:fill-gray-300" />
                                 </span>
                             </Tooltip>
                         </span>
@@ -61,9 +61,9 @@ const ConfigAction: FC<Props> = ({ invisible = false, context, ...dragHandleProp
                             <Tooltip overlay={addNewMenuTooltip} mouseLeaveDelay={0} mouseEnterDelay={0.4}>
                                 <span
                                     ref={addMenuRef}
-                                    className="w-4 h-5 flex items-center justify-center rounded-sm cursor-pointer dark:hover:bg-cinder-700 transition group"
+                                    className="w-5 h-6 flex items-center justify-center rounded-sm cursor-pointer hover:bg-slate-300 dark:hover:bg-cinder-700 transition group"
                                 >
-                                    <i className="fi fi-rr-plus text-gray-500 group-hover:text-gray-500 text-xs"></i>
+                                    <i className="fi fi-rr-plus text-slate-900 dark:text-gray-300 text-sm"></i>
                                 </span>
                             </Tooltip>
                         </span>

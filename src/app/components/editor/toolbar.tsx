@@ -38,7 +38,7 @@ const Toolbar: FC<Props> = ({ onInlineClick, onBlockClick, editorState }) => {
             <ToolbarButton onToggle={onInlineClick} type="CODE" editorState={editorState}>
                 <i className="fi fi-sr-code-simple"></i>
             </ToolbarButton>
-            <ToolbarButton onToggle={onInlineClick} type="align-left" editorState={editorState}>
+            {/* TODO: <ToolbarButton onToggle={onInlineClick} type="align-left" editorState={editorState}>
                 <i className="fi fi-sr-align-left"></i>
             </ToolbarButton>
             <ToolbarButton onToggle={onInlineClick} type="align-center" editorState={editorState}>
@@ -49,7 +49,7 @@ const Toolbar: FC<Props> = ({ onInlineClick, onBlockClick, editorState }) => {
             </ToolbarButton>
             <ToolbarButton onToggle={onInlineClick} type="align-justify" editorState={editorState}>
                 <AlignJustifyIcon className="w-4" />
-            </ToolbarButton>
+            </ToolbarButton> */}
         </div>
     );
 }

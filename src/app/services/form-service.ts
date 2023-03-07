@@ -5,7 +5,8 @@ import {
   Form,
   FormField,
   FormSection,
-  SearchFormRequest
+  SearchFormRequest,
+  UpdateFormRequest
 } from "../models/form";
 
 function create(request: CreateFormRequest): Promise<ResponseId> {
@@ -32,9 +33,9 @@ function getFormDetailByCode(formCode?: string): Promise<Form> {
   );
 }
 
-function updateForm(request: Form): Promise<any> {
-  return new Promise<any>((resolve, rejected) =>
-    setTimeout(() => resolve({ id: 1 }), 500)
+function update(request: UpdateFormRequest): Promise<any> {
+  return RestClient.put<ResponseId>("/forms/" + request.id, request).then(
+    (response) => response.data
   );
 }
 
@@ -91,7 +92,7 @@ const FormService = {
   search,
   findFormByCode,
   getFormDetailByCode,
-  updateForm,
+  update,
   addFormSection,
   addGroupField,
   reorderSection,

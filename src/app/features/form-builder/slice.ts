@@ -6,18 +6,23 @@ import {
   ActionContext,
   AddFormField,
   AddFormSection,
+  CreateFormFieldRequest,
   CreateFormSectionRequest,
   DuplicateFormField,
   DuplicateSection,
   Form,
+  MoveFormSectionRequest,
   RemoveFormField,
   RemoveFormSection,
   ReorderFormField,
   ReorderFormSection,
   UpdateFormField,
+  UpdateFormFieldRequest,
   UpdateFormInfo,
+  UpdateFormRequest,
   UpdateFormSection
 } from "../../models/form";
+import FormFieldService from "../../services/form-field-service";
 import FormSectionService from "../../services/form-section-service";
 import FormService from "../../services/form-service";
 import FormUtil from "./utils/form-util";
@@ -91,11 +96,16 @@ export const addSection = createAsyncThunk(
       return;
     }
 
-    const [formResult, newSection] = result;
+    const [formResult, newSection, addedIndex] = result;
     thunkAPI.dispatch(updateForm(formResult));
 
+    const request: CreateFormSectionRequest = {
+      ...newSection,
+      pageId: formResult.pages[0].id,
+      position: addedIndex
+    }
     try {
-      return await FormService.addFormSection(newSection);
+      return await FormSectionService.create(request);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -126,11 +136,17 @@ export const addGroupField = createAsyncThunk(
       return;
     }
 
-    const [formResult, newField] = result;
+    const [formResult, section, newField, addedIndex] = result;
     thunkAPI.dispatch(updateForm(formResult));
 
+    const request: CreateFormFieldRequest = {
+      ...newField,
+      sectionCode: section.code,
+      position: addedIndex
+    }
+
     try {
-      return await FormService.addGroupField(newField);
+      return await FormFieldService.create(request);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -160,10 +176,17 @@ export const reorderSection = createAsyncThunk(
       return;
     }
 
-    thunkAPI.dispatch(updateForm(result));
+    const [formResult, movedSection] = result;
+
+    thunkAPI.dispatch(updateForm(formResult));
+
+    const request: MoveFormSectionRequest = {
+      sectionCode: movedSection.code,
+      newPosition: command.toIndex
+    }
 
     try {
-      return await FormService.reorderSection(command);
+      return await FormSectionService.move(request);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -295,8 +318,12 @@ export const updateField = createAsyncThunk(
     const [formResult, updatedField] = result;
     thunkAPI.dispatch(updateForm(formResult));
 
+    const request: UpdateFormFieldRequest = {
+      ...updatedField
+    }
+
     try {
-      return await FormService.updateField(updatedField);
+      return await FormFieldService.update(request);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -422,8 +449,17 @@ export const updateFormInfo = createAsyncThunk(
 
     thunkAPI.dispatch(updateForm(form));
 
+    const request: UpdateFormRequest = {
+      title: form.title,
+      description: form.description,
+      coverType: form.coverType,
+      coverColor: form.coverColor,
+      coverImageUrl: form.coverImageUrl,
+      id: form.id,
+    }
+
     try {
-      return await FormService.updateForm(form);
+      return await FormService.update(request);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;

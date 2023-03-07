@@ -18,6 +18,8 @@
 @import url('/node_modules/nprogress/nprogress.css');
 
 @import url('rc-select.css');
+@import url('rc-dropdown.css');
+@import url('rc-menu.css');
 @import url('drawer-motion.css');
 @import url('gradient-bg.css');
 
@@ -52,13 +54,21 @@ hr {
 
 .public-DraftEditorPlaceholder-root {
     position: absolute;
-    opacity: 0.1;
     font-weight: normal;
+}
+
+.public-DraftEditorPlaceholder-inner {
+    color: #334155;
+}
+
+.dark .public-DraftEditorPlaceholder-inner {
+    color: #94a3b8;
 }
 
 .rc-switch {
     background-color: rgb(226 232 240);
 }
+
 .dark .rc-switch {
     background: transparent;
 }
@@ -116,6 +126,7 @@ hr {
 .rc-picker-input>input::placeholder {
     color: rgb(100 116 139);
 }
+
 .dark .rc-picker-input>input::placeholder {
     color: #6b7280;
 }
@@ -137,6 +148,7 @@ hr {
     width: 20px;
     height: 20px;
 }
+
 .dark .rc-picker-clear {
     background: #2B2B40;
 }
@@ -155,6 +167,7 @@ hr {
     padding: 10px 10px;
     border-top: 1px solid rgba(15, 23, 42, 0.1);
 }
+
 .dark .rc-picker-body {
     border-top: 1px solid #2B2B40;
 }
@@ -173,6 +186,7 @@ hr {
 .rc-picker-cell {
     color: rgb(100 116 139);
 }
+
 .dark .rc-picker-cell {
     color: #6b7280;
 }
@@ -180,6 +194,7 @@ hr {
 .rc-picker-cell-in-view {
     color: rgb(15 23 42);
 }
+
 .dark .rc-picker-cell-in-view {
     color: #fff;
 }
@@ -188,6 +203,7 @@ hr {
     background-color: #2B2B40;
     color: white;
 }
+
 .dark .rc-picker-cell-inner:hover {
     background-color: #2B2B40;
 }
@@ -229,6 +245,7 @@ hr {
     background-color: #2B2B40;
     color: white;
 }
+
 .dark .rc-picker-time-panel-column>li .rc-picker-time-panel-cell-inner:hover {
     background-color: #2B2B40;
 }
@@ -236,6 +253,7 @@ hr {
 .rc-picker-time-panel .rc-picker-content {
     border-top: 1px solid rgba(15, 23, 42, 0.1);
 }
+
 .dark .rc-picker-time-panel .rc-picker-content {
     border-top: 1px solid #2B2B40;
 }
@@ -244,6 +262,7 @@ hr {
     border-right: 1px solid rgba(15, 23, 42, 0.1);
     width: 60px;
 }
+
 .dark .rc-picker-time-panel-column {
     border-right: 1px solid #2B2B40;
 }
@@ -255,6 +274,7 @@ hr {
 .rc-picker-datetime-panel .rc-picker-time-panel {
     border-left: 1px solid rgba(15, 23, 42, 0.1);
 }
+
 .dark .rc-picker-datetime-panel .rc-picker-time-panel {
     border-left: 1px solid #2B2B40;
 }
@@ -263,6 +283,7 @@ hr {
     border-top: 1px solid rgba(15, 23, 42, 0.1);
     padding: 5px 10px;
 }
+
 .dark .rc-picker-footer {
     border-top: 1px solid #2B2B40;
 }
@@ -282,7 +303,7 @@ hr {
     align-items: center;
     padding: 0 5px;
     border-radius: 3px;
-    border: 1px solid  rgba(15, 23, 42, 0.1);
+    border: 1px solid rgba(15, 23, 42, 0.1);
 }
 
 .dark .rc-picker-now-btn,
@@ -302,7 +323,7 @@ hr {
 
 .rc-picker-time-panel-cell-selected .rc-picker-time-panel-cell-inner {
     background-color: rgb(29 78 216);
-    color: white!important;
+    color: white !important;
 }
 
 .dark .rc-picker-time-panel-cell-selected .rc-picker-time-panel-cell-inner {
@@ -316,9 +337,11 @@ hr {
     font-size: 14px;
     line-height: 20px;
 }
+
 .rc-input-number-input {
     color: #0f172a;
 }
+
 .dark .rc-input-number-input {
     color: white;
 }
@@ -333,6 +356,7 @@ hr {
     border-color: rgba(15, 23, 42, 0.1);
     width: 30px;
 }
+
 .dark .rc-input-number-handler-wrap {
     border-color: #2B2B40;
 }
@@ -344,6 +368,7 @@ hr {
     justify-content: center;
     border-color: rgba(15, 23, 42, 0.1);
 }
+
 .dark .rc-input-number-handler-wrap .dark .rc-input-number-handler {
     border-color: #2B2B40;
 }
@@ -351,6 +376,7 @@ hr {
 .rc-input-number-handler:hover {
     background-color: rgb(226 232 240);
 }
+
 .dark .rc-input-number-handler:hover {
     background-color: #2B2B40;
 }
@@ -358,6 +384,7 @@ hr {
 .rc-input-number:hover .rc-input-number-handler-wrap {
     border-color: rgba(15, 23, 42, 0.1);
 }
+
 .dark .rc-input-number:hover .rc-input-number-handler-wrap {
     border-color: #2B2B40;
 }
@@ -365,6 +392,7 @@ hr {
 .rc-input-number:hover .rc-input-number-handler {
     border-color: rgba(15, 23, 42, 0.1);
 }
+
 .dark .rc-input-number:hover .rc-input-number-handler {
     border-color: #2B2B40;
 }
@@ -378,6 +406,7 @@ hr {
     border-radius: 5px;
     background-color: #F1F5F9;
 }
+
 .dark .rc-pagination .rc-pagination-item {
     background-color: rgba(43, 43, 64, 0.7);
 }
@@ -397,10 +426,12 @@ hr {
 .rc-pagination .rc-pagination-item-active:hover {
     background-color: rgb(56 189 248);
 }
+
 .rc-pagination .rc-pagination-item-active a,
 .rc-pagination .rc-pagination-item-active:hover a {
     color: #fff;
 }
+
 .dark .rc-pagination .rc-pagination-item-active,
 .dark .rc-pagination .rc-pagination-item-active:hover {
     background-color: #0284c7;
@@ -421,6 +452,7 @@ hr {
     line-height: 28px;
     height: 28px;
 }
+
 .dark .rc-pagination-prev .fi,
 .dark .rc-pagination-next .fi {
     color: #fff;
@@ -429,6 +461,7 @@ hr {
 .rc-pagination-disabled .fi {
     color: #94a3b8;
 }
+
 .dark .rc-pagination-disabled .fi {
     color: #4b5563;
 }
@@ -467,8 +500,14 @@ hr {
     }
 }
 
-.rc-tooltip-placement-right, 
-.rc-tooltip-placement-rightTop, 
+.rc-tooltip-placement-right,
+.rc-tooltip-placement-rightTop,
 .rc-tooltip-placement-rightBottom {
     padding: 0 5px 0 5px;
+}
+
+.rc-tooltip-placement-bottom,
+.rc-tooltip-placement-bottomLeft,
+.rc-tooltip-placement-bottomRight {
+    padding: 5px 0 5px 0;
 }

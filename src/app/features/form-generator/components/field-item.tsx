@@ -11,6 +11,8 @@ import Switch from "../../../components/form/form-controls/switch";
 import Textarea from "../../../components/form/form-controls/textarea";
 import FormItem from "../../../components/form/form-item";
 import { FormField } from "../../../models/form";
+import FieldUtil from "../../form-builder/utils/field-util";
+import FormUtil from "../../form-builder/utils/form-util";
 import BreakLine from "./content-blocks/break-line";
 import HtmlBlock from "./content-blocks/html-block";
 import ImageBlock from "./content-blocks/image-block";
@@ -95,19 +97,32 @@ const FieldItem: FC<Props> = ({ field, name }) => {
             case "Pdf":
                 return <PdfBlock url={field.url} />
             case "Text":
-                return <HtmlBlock content={field.content} />
+                return <HtmlBlock content={field.content || ''} />
         }
     }
 
+    const isFormControl = FieldUtil.isFormControl(field);
+
     return (
-        <FormItem
-            name={name}
-            title={field.title}
-            rules={buildRules}
-            hideTitle={field.hideTitle}
-        >
-            {renderField()}
-        </FormItem>
+        <>
+            {
+                isFormControl &&
+                <FormItem
+                    name={name}
+                    title={field.title}
+                    rules={buildRules}
+                    hideTitle={field.hideTitle}
+                >
+                    {renderField()}
+                </FormItem>
+            }
+            {
+                !isFormControl &&
+                <>
+                    {renderField()}
+                </>
+            }
+        </>
     );
 }
 

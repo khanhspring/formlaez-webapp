@@ -58,10 +58,13 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues }) => {
         <div className="min-h-[100vh] flex flex-col justify-center">
             {
                 formLayout.coverType === 'Color' &&
-                <div className="w-full h-[30vh] min-h-[150px] bg-gradient-nepal flex items-center justify-center">
+                <div className={
+                    `w-full h-[30vh] min-h-[150px] flex items-center justify-center`
+                    + ` ${formLayout.coverColor || 'bg-001'}`
+                }>
                     <div className="w-full max-w-[530px] m-auto">
                         <h1 className="text-3xl font-bold text-white text-center text-shadow-gray">
-                            Biểu mẫu đăng ký khóa học ReactJS Q1/2023 dành cho sinh viên
+                            {formLayout?.title}
                         </h1>
                     </div>
                 </div>
@@ -70,7 +73,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues }) => {
                 formLayout.coverType === 'None' &&
                 <div className="w-full max-w-[530px] m-auto pt-10">
                     <h1 className="text-3xl font-bold">
-                        Biểu mẫu đăng ký khóa học ReactJS Q1/2023 dành cho sinh viên
+                        {formLayout?.title}
                     </h1>
                 </div>
             }

@@ -1,3 +1,5 @@
+import Tooltip from "rc-tooltip";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import FormBuilder from "../../features/form-builder";
 import useFormDetail from "../../hooks/form/useFormDetail";
@@ -6,6 +8,15 @@ function FormEdit() {
 
     const params = useParams();
     const { data: formDetail } = useFormDetail(params.formCode);
+    const [title, setTitle] = useState<string>();
+
+    useEffect(() => {
+        setTitle(formDetail?.title);
+    }, [formDetail])
+
+    const onTitleChange = (title?: string) => {
+        setTitle(title);
+    }
 
     return (
         <>
@@ -15,8 +26,10 @@ function FormEdit() {
                         <i className="fi fi-rr-arrow-left"></i>
                     </Link>
                 </div>
-                <div className="flex items-center justify-center flex-1">
-                    <span>{formDetail?.title}</span>
+                <div className="flex items-center justify-center flex-1 w-full overflow-hidden text-ellipsis">
+                    <Tooltip overlay={title} placement="bottom">
+                        <span className="whitespace-nowrap overflow-hidden text-ellipsis">{title}</span>
+                    </Tooltip>
                 </div>
                 <div className="flex items-center justify-end flex-1 gap-5">
                     <Link to={`/private/forms/${formDetail?.code}/preview`} target="_blank">
@@ -38,7 +51,7 @@ function FormEdit() {
             <div className="w-full flex flex-col pb-72">
                 {
                     formDetail &&
-                    <FormBuilder initForm={formDetail} />
+                    <FormBuilder initForm={formDetail} onTitleChange={onTitleChange} />
                 }
             </div>
         </>

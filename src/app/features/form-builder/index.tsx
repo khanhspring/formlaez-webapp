@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { DragDropContext, Draggable, Droppable, DropResult, ResponderProvided } from "react-beautiful-dnd";
 import Textarea from "../../components/form/form-controls/textarea";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
@@ -7,6 +7,7 @@ import { Form, UpdateFormInfo } from "../../models/form";
 import EmptyForm from "./components/empty-form";
 import PropertiesDrawer from "./components/properties-drawer";
 import SectionItem from "./components/sections/section-item";
+import { useDebounced } from "./hooks/useDebounced";
 import { reorderField, reorderSection, resetState, selectForm, updateForm, updateFormInfo } from "./slice";
 
 // disable all react-beautiful-dnd development warnings
@@ -15,17 +16,20 @@ window['__react-beautiful-dnd-disable-dev-warnings'] = true;
 
 type Props = {
     initForm: Form;
+    onTitleChange?: (title?: string) => void;
 }
 
-const FormBuilder: FC<Props> = ({ initForm }) => {
+const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
 
     const dispatch = useAppDispatch();
     const form = useAppSelector(selectForm);
     const mounted = useRef(false);
+    const [title, setTitle] = useState<string>();
 
     useEffect(() => {
         mounted.current = true;
         dispatch(updateForm(initForm));
+        setTitle(initForm?.title);
         return () => {
             mounted.current = false;
             dispatch(resetState());
@@ -77,7 +81,7 @@ const FormBuilder: FC<Props> = ({ initForm }) => {
         }
         const formInfo: UpdateFormInfo = {
             id: form.id,
-            title: form.title,
+            title: title || 'Untitled',
             coverType: 'None',
         }
         dispatch(updateFormInfo(formInfo));
@@ -89,25 +93,31 @@ const FormBuilder: FC<Props> = ({ initForm }) => {
         }
         const formInfo: UpdateFormInfo = {
             id: form.id,
-            title: form.title,
+            title: title || 'Untitled',
             coverType: 'Color',
-            coverColor: 'bg-gradient-pink-purple-blue'
+            coverColor: 'bg-001'
         }
         dispatch(updateFormInfo(formInfo));
     }
 
-    const onTitleChange = (value?: string) => {
+    const dispatchTitleChange = useDebounced((title?: string) => {
         if (!form) {
             return;
         }
         const formInfo: UpdateFormInfo = {
             id: form.id,
-            title: value || 'Untitled',
+            title: title || 'Untitled',
             coverType: form.coverType,
             coverColor: form.coverColor,
             coverImageUrl: form.coverImageUrl,
         }
         dispatch(updateFormInfo(formInfo));
+    })
+
+    const handleTitleChange = (value?: string) => {
+        setTitle(value);
+        onTitleChange?.(value || 'Untitled');
+        dispatchTitleChange(value);
     }
 
     return (
@@ -116,15 +126,15 @@ const FormBuilder: FC<Props> = ({ initForm }) => {
                 form?.coverType && form?.coverType !== 'None' &&
                 <div className={
                     'w-full h-[30vh] min-h-[150px] group/form-cover'
-                    + ` ${form.coverColor || 'bg-gradient-nepal'}`
+                    + ` ${form.coverColor || 'bg-001'}`
                 }>
                     <div className="w-full max-w-[530px] m-auto relative h-full flex items-center justify-center">
                         <Textarea
-                            value={form?.title}
+                            value={title}
                             className="w-full text-3xl font-bold border-none text-white !bg-transparent !px-0 text-center text-shadow-gray"
                             autoHeight
                             placeholder="Untitled"
-                            onChange={e => onTitleChange(e.target.value)}
+                            onChange={e => handleTitleChange(e.target.value)}
                         />
                         <div className="absolute w-full h-10 bottom-0 left-0 justify-end items-center gap-2 transition hidden group-hover/form-cover:flex">
                             <button
@@ -161,7 +171,7 @@ const FormBuilder: FC<Props> = ({ initForm }) => {
                                 className="w-full text-3xl font-bold border-none !bg-transparent !px-0"
                                 autoHeight
                                 placeholder="Untitled"
-                                onChange={e => onTitleChange(e.target.value)}
+                                onChange={e => handleTitleChange(e.target.value)}
                             />
                         </div>
                     </>

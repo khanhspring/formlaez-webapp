@@ -85,8 +85,8 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
 
     const [showToolbar, setShowToolbar] = useState(false);
 
-    const blockStyleFn = (block: ContentBlock): string => {
-        onAfterChange();
+    const blockStyleFn = useCallback((block: ContentBlock): string => {
+        // onAfterChange();
         const blockAlignment = block.getData() && block.getData().get('text-align');
         if (blockAlignment === 'center') {
             return "text-center";
@@ -103,7 +103,7 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
         }
 
         return '';
-    }
+    }, [])
 
     const blockRenderMap = Immutable.Map({
         'unstyled': {
@@ -113,7 +113,11 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
 
     const onStateChange = (newEditorState: EditorState) => {
         setEditorState(newEditorState);
-        onAfterChange(newEditorState);
+        const newHtml = stateToHTML(newEditorState.getCurrentContent());
+        const currentHtml = stateToHTML(editorState.getCurrentContent());
+        if (newHtml !== currentHtml) {
+            onAfterChange(newEditorState);
+        }
     }
 
     const onAfterChange = useCallback((newEditorState?: EditorState) => {
@@ -122,10 +126,18 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
         }
         updateTimeout.current = setTimeout(() => {
             const currentContent = newEditorState ? newEditorState.getCurrentContent() : editorState.getCurrentContent();
-            const currentHtmlContent = stateToHTML(currentContent, {defaultBlockTag: 'section'});
+            const currentHtmlContent = stateToHTML(currentContent, {
+                defaultBlockTag: 'section',
+                blockStyleFn: blockStyleFn as any
+            });
+            console.log(currentHtmlContent);
             onHtmlChange?.(currentHtmlContent);
         }, 1500)
-    }, [editorState, onHtmlChange]);
+    }, [blockStyleFn, editorState, onHtmlChange]);
+
+    const onBlur = () => {
+        onAfterChange();
+    }
 
     useEffect(() => {
         if (initHtmlContent) {
@@ -147,7 +159,7 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
             <div className={`sticky top-[100px] w-full h-0 translate-y-[-30px] ${showToolbar ? 'block' : 'hidden'}`}>
                 <Toolbar onBlockClick={onBlockClick} onInlineClick={onInlineClick} editorState={editorState} />
             </div>
-            <div className="w-full max-w-none prose dark:prose-invert prose-sm prose-headings:mt-0">
+            <div className="w-full max-w-none prose dark:prose-invert prose-sm prose-headings:mt-0 text-justify">
                 <DraftEditor
                     ref={editor}
                     editorState={editorState}
@@ -157,6 +169,7 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
                     handleKeyCommand={handleKeyCommand}
                     blockRenderMap={extendedBlockRenderMap}
                     blockStyleFn={blockStyleFn}
+                    onBlur={onBlur}
                 />
             </div>
         </div>

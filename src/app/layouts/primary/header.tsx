@@ -1,11 +1,56 @@
+import Dropdown from "rc-dropdown";
+import Menu, { MenuItem } from "rc-menu";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Avatar from "../../components/common/avatar";
 import Breadcrumb from "../../components/common/breadcrumb";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
+import { changeTheme, selectTheme } from "../../slices/app-config";
 
 function Header() {
 
-    const changeTheme = () => {
-        document.documentElement.classList.toggle("dark");
+    const currentTheme = useAppSelector(selectTheme);
+    const [theme, setTheme] = useState<'dark' | 'light' | 'system'>(currentTheme);
+
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const onThemeSelect = () => {
+        if (theme === 'dark') {
+            setTheme('light');
+            dispatch(changeTheme('light'));
+        } else {
+            setTheme('dark');
+            dispatch(changeTheme('dark'));
+        }
     }
+
+    const onLogout = () => {
+        navigate("/logout");
+    }
+
+    const userMenu = (
+        <Menu className="text-sm">
+            <MenuItem key="profile">
+                <div className="flex gap-3 items-center">
+                    <i className="fi fi-rr-mode-portrait"></i>
+                    <span>Profile</span>
+                </div>
+            </MenuItem>
+            <MenuItem key="changePassword">
+                <div className="flex gap-3 items-center">
+                    <i className="fi fi-rr-fingerprint"></i>
+                    <span>Change password</span>
+                </div>
+            </MenuItem>
+            <MenuItem key="logout" onClick={onLogout}>
+                <div className="flex gap-3 items-center">
+                    <i className="fi fi-rr-sign-out-alt"></i>
+                    <span>Logout</span>
+                </div>
+            </MenuItem>
+        </Menu>
+    )
 
     return (
         <div className="sticky top-0 z-40 w-full h-[65px] bg-white border-b border-slate-900/10 dark:bg-cinder-700">
@@ -23,15 +68,24 @@ function Header() {
                             <i className="fi fi-rr-comment-alt text-slate-500 group-hover:text-blue-500 dark:text-gray-400 dark:group-hover:text-gray-100 transition"></i>
                         </div>
                         <div
-                            onClick={changeTheme}
+                            onClick={onThemeSelect}
                             className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer bg-slate-400/10 dark:bg-transparent hover:bg-slate-400/20 dark:hover:bg-cinder-800 group"
                         >
-                            <i className="fi fi-rr-moon-stars text-slate-500 group-hover:text-blue-500 dark:text-gray-400 dark:group-hover:text-gray-100 transition"></i>
+                            {
+                                theme === 'dark' &&
+                                <i className="fi fi-rr-brightness text-slate-500 group-hover:text-blue-500 dark:text-gray-400 dark:group-hover:text-gray-100 transition"></i>
+                            }
+                            {
+                                theme !== 'dark' &&
+                                <i className="fi fi-rr-moon-stars text-slate-500 group-hover:text-blue-500 dark:text-gray-400 dark:group-hover:text-gray-100 transition"></i>
+                            }
                         </div>
                     </div>
-                    <div className="p-1 ml-2">
-                        <Avatar name="Trần Xuân Khánh" className="w-9 h-9 hover:ring-2" />
-                    </div>
+                    <Dropdown overlay={userMenu} trigger={['click']} placement="bottomRight">
+                        <div className="p-1 ml-2">
+                            <Avatar name="Trần Xuân Khánh" className="w-9 h-9 hover:ring-2" />
+                        </div>
+                    </Dropdown>
                 </div>
             </div>
         </div>
