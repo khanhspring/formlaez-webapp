@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import { toast } from 'react-toastify';
 
 export const doNothing = () => { };
 
@@ -20,3 +21,11 @@ export function numberOrUndefined<T>(value: T): number | undefined {
 
     return Number(value);
 }
+
+export const showError = () => {
+    toast.error("There was an error has ocurred. Please try again!")
+};
+
+export const showSuccess = () => {
+    toast.success("Created form successfully!")
+};

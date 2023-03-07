@@ -7,7 +7,7 @@ const addSingleField = (
   form: Form,
   field: FormField,
   sectionIndex?: number
-): [Form, FormSection] | undefined => {
+): [Form, FormSection, number] | undefined => {
   if (!_.isNumber(sectionIndex)) {
     return;
   }
@@ -33,7 +33,7 @@ const addSingleField = (
   };
 
   sections.splice(sectionIndex + 1, 0, newSection);
-  return [formClone, newSection];
+  return [formClone, newSection, sectionIndex + 1];
 };
 
 const addGroupField = (

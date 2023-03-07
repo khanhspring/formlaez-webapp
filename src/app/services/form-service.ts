@@ -1,9 +1,34 @@
-import { FORM } from "../features/form-builder/data";
-import { Form, FormField, FormSection } from "../models/form";
+import RestClient from "../configurations/axios-config";
+import { PageResponse, ResponseId } from "../models/common";
+import {
+  CreateFormRequest,
+  Form,
+  FormField,
+  FormSection,
+  SearchFormRequest
+} from "../models/form";
 
-function findFormByCode(formCode: string): Promise<Form> {
-  return new Promise<Form>((resolve, rejected) =>
-    setTimeout(() => resolve(FORM), 1000)
+function create(request: CreateFormRequest): Promise<ResponseId> {
+  return RestClient.post<ResponseId>("/forms", request).then(
+    (response) => response.data
+  );
+}
+
+function search(request: SearchFormRequest): Promise<PageResponse<Form>> {
+  return RestClient.get<any>("/forms", { params: request }).then(
+    (response) => response.data
+  );
+}
+
+function findFormByCode(formCode?: string): Promise<Form> {
+  return RestClient.get<any>("/forms/" + formCode).then(
+    (response) => response.data
+  );
+}
+
+function getFormDetailByCode(formCode?: string): Promise<Form> {
+  return RestClient.get<any>("/forms/" + formCode + "/detail").then(
+    (response) => response.data
   );
 }
 
@@ -62,7 +87,10 @@ function updateSection(request: any): Promise<any> {
 }
 
 const FormService = {
+  create,
+  search,
   findFormByCode,
+  getFormDetailByCode,
   updateForm,
   addFormSection,
   addGroupField,
@@ -71,7 +99,7 @@ const FormService = {
   removeSection,
   removeField,
   updateField,
-  updateSection
+  updateSection,
 };
 
 export default FormService;

@@ -19,11 +19,12 @@ type Props = PropsWithChildren & {
         y: number;
     } | null;
     afterClose?: () => any;
+    loading?: boolean;
 }
 
 type MousePosition = { x: number; y: number } | null;
 
-const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Cancel', hideOk, hideCancel, onOk = () => { }, onClose = () => { }, ...rest }) => {
+const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Cancel', hideOk, hideCancel, onOk = () => { }, onClose = () => { }, loading, ...rest }) => {
 
     const [mousePosition, setMousePosition] = useState<MousePosition>();
     const btnOkRef = useRef<HTMLButtonElement>(null);
@@ -73,7 +74,7 @@ const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Canc
                     !hideCancel && <Button status='secondary' onClick={onClose}>{cancelText}</Button>
                 }
                 {
-                    !hideOk && <Button onClick={onOk} ref={btnOkRef}>{okText}</Button>
+                    !hideOk && <Button onClick={onOk} ref={btnOkRef} loading={loading}>{okText}</Button>
                 }
             </div>
         </Dialog>

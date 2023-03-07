@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import FormItem from "../../components/common/form-item";
 import ButtonAction from '../../components/layout/button-action';
 import PageTitle from '../../components/layout/page-title';
+import useForms from '../../hooks/form/useForms';
 import CreateFormModal from './create-form-modal';
 
 function Private() {
 
     const [createModalVisible, setCreateModelVisible] = useState(false);
+    const [page, setPage] = useState(0);
+    const { data: pages, refetch } = useForms({ page, scope: 'Private' });
 
     const showCreateModal = () => {
         setCreateModelVisible(true);
@@ -53,35 +56,19 @@ function Private() {
                     </div>
                 </div>
                 <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
-                    <Link to="/private/forms/example-page">
-                        <FormItem />
-                    </Link>
-                    <Link to="/private/forms/example-page">
-                        <FormItem favorite={true} />
-                    </Link>
-                    <Link to="/private/forms/example-page">
-                        <FormItem />
-                    </Link>
-                    <Link to="/private/forms/example-page">
-                        <FormItem />
-                    </Link>
-                    <Link to="/private/forms/example-page">
-                        <FormItem favorite={true} />
-                    </Link>
-                    <Link to="/private/forms/example-page">
-                        <FormItem />
-                    </Link>
-                    <Link to="/private/forms/example-page">
-                        <FormItem />
-                    </Link>
-                    <Link to="/private/forms/example-page">
-                        <FormItem />
-                    </Link>
+                    {
+                        pages?.content?.map((item, index) => (
+                            <Link to={`/private/forms/${item.code}`} key={index}>
+                                <FormItem form={item} />
+                            </Link>
+                        ))
+                    }
                 </div>
             </div>
             <CreateFormModal
                 visible={createModalVisible}
                 onClose={closeCreateModal}
+                refetch={refetch}
             />
         </>
     );
