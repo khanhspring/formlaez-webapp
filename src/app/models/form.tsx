@@ -1,3 +1,5 @@
+import { Pageable } from "./common";
+
 const FORM_SECTION_TYPES = ['Single', 'Group', 'Table'] as const;
 export type FormSectionType = typeof FORM_SECTION_TYPES[number];
 
@@ -17,10 +19,13 @@ export type Form = {
     coverType?: 'Color' | 'Image' | 'None',
     coverColor?: string,
     coverImageUrl?: string
+    scope: 'Private' | 'Team',
+    createdDate?: Date,
+    lastModifiedDate?: Date,
 }
 
 export type FormPage = {
-    id?: number;
+    id: number;
     code: string;
     title: string;
     description?: string;
@@ -93,6 +98,32 @@ export type ConfigSection = {
     name: string;
     description?: string;
     default: () => FormSection;
+}
+
+export type CreateFormRequest = {
+    title: string;
+    description?: string;
+    scope: 'Private' | 'Team'
+}
+
+export type SearchFormRequest = Pageable & {
+    keyword?: string;
+    scope: 'Private' | 'Team'
+}
+
+export type CreateFormSectionRequest = {
+    id?: number;
+    code: string;
+    variableName: string;
+    title?: string;
+    type: FormSectionType;
+    description?: string;
+    repeatable?: boolean;
+    repeatButtonLabel?: string;
+    fields?: FormField[];
+
+    pageId: number;
+    position: number;
 }
 
 export type AddFormField = {

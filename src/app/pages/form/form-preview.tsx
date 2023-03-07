@@ -1,14 +1,21 @@
+import { useParams } from "react-router-dom";
 import FormGenerator from "../../features/form-generator";
-import { FORM_LAYOUT } from "../../features/form-generator/data";
+import useFormDetail from "../../hooks/form/useFormDetail";
 
 function FormPreview() {
 
+    const params = useParams();
+    const { data: formDetail } = useFormDetail(params.formCode);
+
     return (
         <div>
-            <FormGenerator
-                formLayout={FORM_LAYOUT}
-                initValues={{}}
-            />
+            {
+                formDetail &&
+                <FormGenerator
+                    formLayout={formDetail}
+                    initValues={{}}
+                />
+            }
         </div>
     );
 }

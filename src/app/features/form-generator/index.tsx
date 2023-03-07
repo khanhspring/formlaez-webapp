@@ -69,7 +69,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues }) => {
             {
                 formLayout.coverType === 'None' &&
                 <div className="w-full max-w-[530px] m-auto pt-10">
-                    <h1 className="text-3xl font-bold text-white">
+                    <h1 className="text-3xl font-bold">
                         Biểu mẫu đăng ký khóa học ReactJS Q1/2023 dành cho sinh viên
                     </h1>
                 </div>

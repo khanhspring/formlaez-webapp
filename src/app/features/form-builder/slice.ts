@@ -6,6 +6,7 @@ import {
   ActionContext,
   AddFormField,
   AddFormSection,
+  CreateFormSectionRequest,
   DuplicateFormField,
   DuplicateSection,
   Form,
@@ -17,13 +18,14 @@ import {
   UpdateFormInfo,
   UpdateFormSection
 } from "../../models/form";
+import FormSectionService from "../../services/form-section-service";
 import FormService from "../../services/form-service";
 import FormUtil from "./utils/form-util";
 
 export const loadForm = createAsyncThunk(
   "form/loadForm",
   async (formCode: string) => {
-    return await FormService.findFormByCode(formCode);
+    return await FormService.getFormDetailByCode(formCode);
   }
 );
 
@@ -49,11 +51,17 @@ export const addSingleField = createAsyncThunk(
       return;
     }
 
-    const [formResult, newSection] = result;
+    const [formResult, newSection, addedIndex] = result;
     thunkAPI.dispatch(updateForm(formResult));
 
+    const request: CreateFormSectionRequest = {
+      ...newSection,
+      pageId: formResult.pages[0].id,
+      position: addedIndex
+    }
+
     try {
-      return await FormService.addFormSection(newSection);
+      return await FormSectionService.create(request);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;

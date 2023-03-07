@@ -6,6 +6,7 @@ export const FORM_LAYOUT: Form = {
   title: "Hợp đồng lao động vô thời hạn",
   coverType: 'Color',
   coverColor: 'bg-gradient-nepal',
+  scope: 'Private',
   pages: [
     {
       id: 1,
@@ -283,6 +284,7 @@ export const CONTENT_FORM: Form = {
   id: 1,
   code: "f",
   title: "Form 1",
+  scope: 'Private',
   pages: [
     {
       id: 1,
@@ -378,6 +380,7 @@ const HTML_FORM: Form = {
   id: 1,
   code: "f",
   title: "Form 1",
+  scope: 'Private',
   pages: [
     {
       id: 1,

@@ -1,10 +1,11 @@
 import { Table, Column } from "ez-rc-table";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Pagination from 'rc-pagination';
 import { PaginationLocale } from "../../constants/pagination-locale";
 import PageTitle from "../../components/layout/page-title";
 import ButtonAction from "../../components/layout/button-action";
 import ButtonTableAction from "../../components/layout/button-table-action";
+import useForm from "../../hooks/form/useForm";
 
 type User = {
     firstName: string;
@@ -14,6 +15,9 @@ type User = {
 }
 
 function Form() {
+
+    const params = useParams();
+    const {data: form} = useForm(params.formCode);
 
     const columns: Column<User>[] = [
         {
@@ -137,16 +141,16 @@ function Form() {
 
     const pageActions = (
         <>
-            <Link to={"/private/forms/example-page"}>
+            <Link to={`/private/forms/${params.formCode}`}>
                 <span className="dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer">Database</span>
             </Link>
-            <Link to={"/private/forms/example-page/edit"}>
+            <Link to={`/private/forms/${params.formCode}/edit`}>
                 <span className="dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer">Builder</span>
             </Link>
-            <Link to={"/private/forms/example-page/print-templates"}>
+            <Link to={`/private/forms/${params.formCode}/print-templates`}>
                 <span className="dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer">Print templates</span>
             </Link>
-            <Link to={"/private/forms/example-page/settings"}>
+            <Link to={`/private/forms/${params.formCode}/settings`}>
                 <span className="dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer">Settings</span>
             </Link>
         </>
@@ -155,7 +159,7 @@ function Form() {
 
     return (
         <div className="w-full flex flex-col gap-2">
-            <PageTitle title="Hồ sơ lao động" actions={pageActions} />
+            <PageTitle title={form?.title || ''} actions={pageActions} />
             <div className="flex items-center justify-between min-h-[40px] mt-3">
                 <div className="flex items-center gap-3">
                     <span>Total 75</span>

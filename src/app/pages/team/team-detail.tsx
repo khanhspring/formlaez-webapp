@@ -44,16 +44,16 @@ function TeamDetail() {
                     <FormItem />
                 </Link>
                 <Link to="/teams/vuejs-team/forms/example-page">
-                    <FormItem favorite={true} />
-                </Link>
-                <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
                 <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />
                 </Link>
                 <Link to="/teams/vuejs-team/forms/example-page">
-                    <FormItem favorite={true} />
+                    <FormItem />
+                </Link>
+                <Link to="/teams/vuejs-team/forms/example-page">
+                    <FormItem />
                 </Link>
                 <Link to="/teams/vuejs-team/forms/example-page">
                     <FormItem />

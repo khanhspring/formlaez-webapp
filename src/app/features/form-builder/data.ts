@@ -4,6 +4,7 @@ export const EMPTY_FORM: Form = {
     id: 1,
     code: 'f',
     title: 'Form 1',
+    scope: 'Private',
     pages: [
         {
             id: 1,
@@ -18,6 +19,7 @@ export const FORM: Form = {
     id: 1,
     code: 'f',
     title: 'Form 1',
+    scope: 'Private',
     pages: [
         {
             id: 1,
