@@ -12,7 +12,6 @@ import Textarea from "../../../components/form/form-controls/textarea";
 import FormItem from "../../../components/form/form-item";
 import { FormField } from "../../../models/form";
 import FieldUtil from "../../form-builder/utils/field-util";
-import FormUtil from "../../form-builder/utils/form-util";
 import BreakLine from "./content-blocks/break-line";
 import HtmlBlock from "./content-blocks/html-block";
 import ImageBlock from "./content-blocks/image-block";

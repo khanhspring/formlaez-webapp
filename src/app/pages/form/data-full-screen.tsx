@@ -1,138 +1,12 @@
-import { Column, Table } from "ez-rc-table";
-import Pagination from "rc-pagination";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ButtonAction from "../../components/layout/button-action";
-import ButtonTableAction from "../../components/layout/button-table-action";
-import { PaginationLocale } from "../../constants/pagination-locale";
-
-type User = {
-    firstName: string;
-    lastName: string;
-    birthday: string;
-    address: string;
-}
+import useFormDetail from "../../hooks/form/useFormDetail";
+import FormDataTable from "./components/form-data-table";
 
 function DataFullScreen() {
 
-    const columns: Column<User>[] = [
-        {
-            title: '#',
-            dataKey: 'index',
-            render(value, record, index) {
-                return index + 1
-            },
-            width: 35,
-            cellClassName: 'text-center dark:bg-cinder-700 text-xs'
-        },
-        {
-            title: 'First Name',
-            dataKey: 'firstName',
-            width: 170,
-            cellClassName: 'text-sm'
-        },
-        {
-            title: 'Last Name',
-            dataKey: 'lastName',
-            width: 170,
-            cellClassName: 'text-sm'
-        },
-        {
-            title: 'Birthday',
-            dataKey: 'birthday',
-            width: 170,
-            cellClassName: 'text-sm'
-        },
-        {
-            title: 'Address',
-            dataKey: 'address',
-            render: (value, record) => <button onClick={() => alert(value)}>{record?.firstName}</button>
-        },
-        {
-            title: '##',
-            dataKey: 'action',
-            width: 100,
-            render(value, record, index) {
-                return (
-                    <div className="flex items-center justify-center gap-1.5 text-xs">
-                        <ButtonTableAction>
-                            <i className="fi fi-rr-print"></i>
-                        </ButtonTableAction>
-                        <ButtonTableAction>
-                            <i className="fi fi-rr-pencil"></i>
-                        </ButtonTableAction>
-                        <ButtonTableAction danger>
-                            <i className="fi fi-rr-trash"></i>
-                        </ButtonTableAction>
-                    </div>
-                )
-            },
-        }
-    ];
-
-    const data = [
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Harry', lastName: 'Tran', birthday: '01/01/1993', address: 'Hanoi, Viet Nam' },
-        { firstName: 'Anna', lastName: 'Nguyen', birthday: '01/01/1996', address: 'Hanoi, Viet Nam' },
-    ]
+    const params = useParams();
+    const { data: form } = useFormDetail(params.formCode);
 
     return (
         <div className="w-full flex flex-col gap-2 p-5">
@@ -160,7 +34,7 @@ function DataFullScreen() {
                     <ButtonAction>
                         <i className="fi fi-rr-cloud-download-alt"></i>
                     </ButtonAction>
-                    <Link to={"/private/forms/example"}>
+                    <Link to={`/private/forms/${params.formCode}`}>
                         <ButtonAction>
                             <i className="fi fi-rr-compress"></i>
                         </ButtonAction>
@@ -168,22 +42,11 @@ function DataFullScreen() {
                 </div>
             </div>
             <div className="mt-6">
-                <Table
-                    columns={columns}
-                    data={data}
-                    stickyHeader={{ top: -1 }}
-                    className="!border-slate-900/10 dark:!border-cinder-600"
-                    headerCellClassName="!border-slate-800/10 after:!bg-slate-800/10 before:!bg-slate-900/10 !bg-slate-50 dark:!border-cinder-600 dark:before:bg-cinder-600 dark:!bg-cinder-700 py-[5px] px-1 text-sm"
-                    cellClassName="!border-slate-900/10 dark:!border-cinder-600 text-sm p-0.5 px-1"
-                />
-            </div>
-            <div className="w-full mt-3 p-1 bg-white/90 border border-slate-900/10 dark:bg-cinder-700/80 dark:border-transparent sticky bottom-0 flex items-center justify-center">
-                <Pagination
-                    total={1000}
-                    pageSize={20}
-                    locale={PaginationLocale}
-                    prevIcon={<i className="fi fi-rr-arrow-left text-lg"></i>}
-                    nextIcon={<i className="fi fi-rr-arrow-right text-lg"></i>}
+                <FormDataTable
+                    form={form}
+                    sticky={{
+                        offsetHeader: 0
+                    }}
                 />
             </div>
         </div >

@@ -1,10 +1,9 @@
-import * as _ from "lodash";
 import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../../../hooks/redux-hook";
 import {
-  ActionContext, FormSection, UpdateFormSection
+  ActionContext, FormSection, PartialUpdateFormSection
 } from "../../../models/form";
-import { updateSection } from "../slice";
+import { updateSectionPartial } from "../slice";
 import { useDebounced } from "./useDebounced";
 
 type Values = {[property: string]: any};
@@ -32,13 +31,12 @@ export const useUpdateSection = (
   });
 
   const doUpdate = useCallback((newValues: Values) => {
-    const sectionClone = _.cloneDeep(section);
-    const command: UpdateFormSection = {
+    const command: PartialUpdateFormSection = {
       sectionIndex: context.sectionIndex || 0,
-      section: _.merge(sectionClone, newValues),
+      values: newValues
     };
-    dispatch(updateSection(command));
-  }, [context.sectionIndex, dispatch, section])
+    dispatch(updateSectionPartial(command));
+  }, [context.sectionIndex, dispatch])
 
   const updateDebounce = (properties: Values) => {
     const newValues = {...values, ...properties};

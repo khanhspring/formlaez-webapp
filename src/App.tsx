@@ -2,6 +2,8 @@ import { createBrowserRouter, redirect, RouterProvider, useNavigation } from "re
 import { ToastContainer } from "react-toastify";
 import Loading from "./app/components/common/loading";
 import { RequireAuth } from "./app/components/common/require-auth";
+import ScrollToTop from "./app/components/common/scroll-to-top";
+import { useAppSelector } from "./app/hooks/redux-hook";
 import BlankLayout from "./app/layouts/blank";
 import OnlyFooterLayout from "./app/layouts/only-footer";
 import PrimaryLayout from "./app/layouts/primary";
@@ -11,6 +13,7 @@ import Logout from "./app/pages/auth/logout";
 import Error from "./app/pages/error/Error";
 import Workspace from "./app/pages/private";
 import UserSessionService from "./app/services/user-session-service";
+import { selectTheme } from "./app/slices/app-config";
 import { lazyLoad } from "./app/util/lazy-load";
 
 const loader = async () => {
@@ -30,6 +33,7 @@ const router = createBrowserRouter([
   {
     id: 'root',
     errorElement: <Error />,
+    element: <ScrollToTop />,
     children: [
       {
         id: 'private',
@@ -94,6 +98,14 @@ const router = createBrowserRouter([
               {
                 path: "private/forms/:formCode/preview",
                 element: lazyLoad('form/form-preview', true)
+              },
+              {
+                path: "f/v/:formCode",
+                element: lazyLoad('form/form-viewer', true)
+              },
+              {
+                path: "f/v/:formCode/s/:submissionCode",
+                element: lazyLoad('form/form-submitted', true)
               },
             ]
           },
@@ -160,18 +172,22 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+
+  const theme = useAppSelector(selectTheme);
+
   return (
     <>
       <ToastContainer
         hideProgressBar
         closeButton={false}
-        theme="dark"
+        theme={theme}
         toastClassName="min-h-0"
-        bodyClassName="py-0 px-1"
+        bodyClassName="py-0 px-1 text-slate-900 dark:text-white"
         className="text-sm w-auto"
         position="top-center"
         limit={3}
-        autoClose={3500}
+        autoClose={3000}
+        pauseOnFocusLoss={false}
       />
       <RouterProvider
         router={router}

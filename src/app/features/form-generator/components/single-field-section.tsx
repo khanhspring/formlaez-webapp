@@ -18,7 +18,7 @@ const SingleFieldSection: FC<Props> = ({ section }) => {
         <FieldItem
             field={field}
             fieldIndex={0}
-            name={field.variableName}
+            name={field.code}
         />
     );
 }

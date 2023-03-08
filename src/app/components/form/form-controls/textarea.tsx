@@ -29,7 +29,7 @@ const Textarea: FC<Props> = ({
 }) => {
 
     const ref = useRef<HTMLTextAreaElement>(null);
-    useAutoSizeTextarea(ref, { container, maxWidth, autoHeight: autoHeight || autoSize, autoWidth: autoWidth || autoSize });
+    useAutoSizeTextarea(ref.current, { container, maxWidth, autoHeight: autoHeight || autoSize, autoWidth: autoWidth || autoSize });
 
     return (
         <textarea
@@ -40,10 +40,9 @@ const Textarea: FC<Props> = ({
             value={orElseEmptyString(value)}
             className={
                 'border bg-slate-100 border-slate-900/10 dark:bg-cinder-700 rounded outline-none px-4 py-2 text-sm resize-none placeholder:text-gray-500 '
-                + `${status && status === 'error' ? 'border-rose-700' : ''} `
-                + `${status && status === 'warning' ? 'border-yellow-700' : ''} `
-                + `${status && status === 'success' ? 'border-green-700' : ''} `
-                + `${!status || _.isEmpty(status) ? ' border-slate-900/10 dark:border-cinder-600' : ''} `
+                + `${status && status === 'error' ? '!border-rose-700' : ''} `
+                + `${status && status === 'warning' ? '!border-yellow-700' : ''} `
+                + `${status && status === 'success' ? '!border-green-700' : ''} `
                 + `${className} `
             }
         />

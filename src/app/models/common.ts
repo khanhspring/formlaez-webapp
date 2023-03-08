@@ -2,6 +2,10 @@ export type ResponseId = {
     id: string | number;
 }
 
+export type ResponseCode = {
+    code: string;
+}
+
 export type Pageable = {
     page?: number;
     size?: number;

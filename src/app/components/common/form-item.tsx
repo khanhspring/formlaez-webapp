@@ -1,4 +1,5 @@
 import moment from 'moment';
+import Tooltip from 'rc-tooltip';
 import { FC } from 'react';
 import { Form } from '../../models/form';
 
@@ -19,7 +20,9 @@ const FormItem: FC<Props> = ({ form }) => {
             </div>
             <div className="flex-1 flex gap-1 flex-col px-2 overflow-hidden ml-0.5">
                 <h3 className="text-sm overflow-hidden text-ellipsis whitespace-nowrap">
-                    {form.title}
+                    <Tooltip overlay={<div className='max-w-[200px]'>{form.title}</div>} showArrow={false} placement="bottomLeft">
+                        <span>{form.title}</span>
+                    </Tooltip>
                 </h3>
                 <div className="flex items-center gap-1 text-gray-500">
                     <i className="fi fi-rr-clock text-xs"></i>

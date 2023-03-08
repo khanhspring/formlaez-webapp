@@ -12,6 +12,8 @@ import {
   DuplicateSection,
   Form,
   MoveFormSectionRequest,
+  PartialUpdateFormField,
+  PartialUpdateFormSection,
   RemoveFormField,
   RemoveFormSection,
   ReorderFormField,
@@ -331,6 +333,44 @@ export const updateField = createAsyncThunk(
   }
 );
 
+export const updateFieldPartial = createAsyncThunk(
+  "form/updateFieldPartial",
+  async (command: PartialUpdateFormField, thunkAPI) => {
+    const state = thunkAPI.getState() as any;
+    const formBuilderState = state.formBuilder as FormBuilderState;
+
+    if (!formBuilderState?.form) {
+      // thunkAPI.abort(); // TODO: error on click back
+      return;
+    }
+
+    const result = FormUtil.updateFieldPartial(
+      formBuilderState.form,
+      command.values,
+      command.sectionIndex,
+      command.fieldIndex
+    );
+
+    if (!result) {
+      thunkAPI.abort();
+      return;
+    }
+    const [formResult, updatedField] = result;
+    thunkAPI.dispatch(updateForm(formResult));
+
+    const request: UpdateFormFieldRequest = {
+      ...updatedField
+    }
+
+    try {
+      return await FormFieldService.update(request);
+    } catch (err) {
+      thunkAPI.dispatch(loadForm(formBuilderState.form.code));
+      throw err;
+    }
+  }
+);
+
 export const updateSection = createAsyncThunk(
   "form/updateSection",
   async (command: UpdateFormSection, thunkAPI) => {
@@ -345,6 +385,39 @@ export const updateSection = createAsyncThunk(
     const result = FormUtil.updateSection(
       formBuilderState.form,
       command.section,
+      command.sectionIndex
+    );
+
+    if (!result) {
+      thunkAPI.abort();
+      return;
+    }
+    const [formResult, updatedSection] = result;
+    thunkAPI.dispatch(updateForm(formResult));
+
+    try {
+      return await FormService.updateSection(updatedSection);
+    } catch (err) {
+      thunkAPI.dispatch(loadForm(formBuilderState.form.code));
+      throw err;
+    }
+  }
+);
+
+export const updateSectionPartial = createAsyncThunk(
+  "form/updateSectionPartial",
+  async (command: PartialUpdateFormSection, thunkAPI) => {
+    const state = thunkAPI.getState() as any;
+    const formBuilderState = state.formBuilder as FormBuilderState;
+
+    if (!formBuilderState?.form) {
+      thunkAPI.abort();
+      return;
+    }
+
+    const result = FormUtil.updateSectionPartial(
+      formBuilderState.form,
+      command.values,
       command.sectionIndex
     );
 

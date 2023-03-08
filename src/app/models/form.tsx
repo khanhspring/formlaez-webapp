@@ -145,9 +145,20 @@ export type UpdateFormField = {
     fieldIndex?: number;
 }
 
+export type PartialUpdateFormField = {
+    sectionIndex?: number;
+    fieldIndex?: number;
+    values: {[key: string]: any};
+}
+
 export type UpdateFormSection = {
     section: FormSection;
     sectionIndex?: number;
+}
+
+export type PartialUpdateFormSection = {
+    sectionIndex?: number;
+    values: {[key: string]: any};
 }
 
 export type DuplicateSection = {

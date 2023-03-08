@@ -8,27 +8,20 @@ export type Options = {
 };
 
 const useAutoSizeTextarea = (
-  ref: RefObject<HTMLTextAreaElement>,
+  textarea?: HTMLTextAreaElement | null,
   options: Options = {}
 ) => {
   const { container, maxWidth, autoWidth, autoHeight } = options;
 
   useEffect(() => {
     function detectSize() {
-      if (!ref.current) {
-        return {};
-      }
-
-      const element: HTMLTextAreaElement = ref.current;
-      const textarea = element;
-
-      if (!element) {
+      if (!textarea) {
         return {};
       }
 
       const span = createHiddenSpan();
-      copyStyles(element, span);
-      span.innerHTML = element.value;
+      copyStyles(textarea, span);
+      span.innerHTML = textarea.value;
       textarea.style.height = "";
       textarea.style.overflow = "hidden";
 
@@ -57,7 +50,7 @@ const useAutoSizeTextarea = (
       document.removeEventListener("input", detectSize);
       window.removeEventListener("resize", detectSize);
     };
-  }, [ref, autoWidth, autoHeight, container, maxWidth]);
+  }, [autoWidth, autoHeight, container, maxWidth, textarea]);
 };
 
 const getMaxWidth = (container?: RefObject<any>, maxWidth?: number): number | undefined => {

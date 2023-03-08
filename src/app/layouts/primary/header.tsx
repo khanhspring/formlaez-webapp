@@ -10,7 +10,7 @@ import { changeTheme, selectTheme } from "../../slices/app-config";
 function Header() {
 
     const currentTheme = useAppSelector(selectTheme);
-    const [theme, setTheme] = useState<'dark' | 'light' | 'system'>(currentTheme);
+    const [theme, setTheme] = useState<'dark' | 'light'>(currentTheme);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();

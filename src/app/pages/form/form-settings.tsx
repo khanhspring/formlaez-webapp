@@ -1,29 +1,12 @@
 import Switch from "rc-switch";
-import { Link } from "react-router-dom";
 import PageTitle from "../../components/layout/page-title";
+import FormPageMenu from "./components/form-page-menu";
 
 function FormSettings() {
 
-    const pageActions = (
-        <>
-            <Link to={"/private/forms/example-page"}>
-                <span className="dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer">Database</span>
-            </Link>
-            <Link to={"/private/forms/example-page/edit"}>
-                <span className="dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer">Builder</span>
-            </Link>
-            <Link to={"/private/forms/example-page/print-templates"}>
-                <span className="dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer">Print templates</span>
-            </Link>
-            <Link to={"/private/forms/example-page/settings"}>
-                <span className="dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer">Settings</span>
-            </Link>
-        </>
-    )
-
     return (
         <div className="w-full flex flex-col gap-2">
-            <PageTitle title="Hồ sơ lao động" actions={pageActions} />
+            <PageTitle title="Hồ sơ lao động" actions={<FormPageMenu />} />
             <div className="mt-6 flex flex-col gap-6">
                 <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700">Settings</h2>
                 <div className="flex items-center justify-between gap-10">

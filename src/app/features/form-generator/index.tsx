@@ -1,24 +1,40 @@
+import * as _ from 'lodash';
 import RcForm from "rc-field-form";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import Button from "../../components/common/button";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
 import { Form, FormSection } from "../../models/form";
+import { changeTheme, selectTheme } from "../../slices/app-config";
 import SectionItem from "./components/section-item";
 import { resetState, selectValues, updateValues } from "./slice";
-import * as _ from 'lodash';
 
 type Props = {
     formLayout: Form;
     initValues?: any;
+    onFinish?: (values: any) => Promise<any>;
+    loading?: boolean;
 }
 
-const FormGenerator: FC<Props> = ({ formLayout, initValues }) => {
+const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading }) => {
 
     const dispatch = useAppDispatch();
     const values = useAppSelector(selectValues);
     const mounted = useRef(false);
     const [form] = RcForm.useForm();
+
+    const currentTheme = useAppSelector(selectTheme);
+    const [theme, setTheme] = useState<'dark' | 'light'>(currentTheme);
+
+    const onThemeSelect = () => {
+        if (theme === 'dark') {
+            setTheme('light');
+            dispatch(changeTheme('light'));
+        } else {
+            setTheme('dark');
+            dispatch(changeTheme('dark'));
+        }
+    }
 
     useEffect(() => {
         mounted.current = true;
@@ -29,8 +45,9 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues }) => {
         }
     }, [dispatch, initValues]);
 
-    const onFinish = (values: any) => {
-        console.log(values);
+    const handleOnFinish = (values: any) => {
+        onFinish?.(values)
+            .then(() => form.resetFields());
     }
 
     const scrollToField = (namePath: (string | number)[]) => {
@@ -55,7 +72,20 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues }) => {
     const sections = (formLayout?.pages && formLayout.pages[0]?.sections) || [];
 
     return (
-        <div className="min-h-[100vh] flex flex-col justify-center">
+        <div className="min-h-[100vh] flex flex-col justify-center relative">
+            <div
+                onClick={onThemeSelect}
+                className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer text-slate-900 bg-white/70 dark:text-white dark:bg-cinder-800/70 hover:bg-white dark:hover:bg-cinder-800 group absolute top-7 right-7"
+            >
+                {
+                    theme === 'dark' &&
+                    <i className="fi fi-rr-brightness"></i>
+                }
+                {
+                    theme !== 'dark' &&
+                    <i className="fi fi-rr-moon-stars"></i>
+                }
+            </div>
             {
                 formLayout.coverType === 'Color' &&
                 <div className={
@@ -80,7 +110,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues }) => {
             <div className="w-full max-w-[530px] m-auto flex-1 pb-10 pt-10">
                 <RcForm
                     initialValues={values}
-                    onFinish={onFinish}
+                    onFinish={handleOnFinish}
                     onFinishFailed={onFinishFailed}
                     form={form}
                 >
@@ -90,7 +120,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues }) => {
                         ))
                     }
                     <div className="w-full flex justify-center py-10">
-                        <Button>
+                        <Button loading={loading}>
                             <span className="flex gap-1.5 items-center justify-center py-0.5 w-72 text-white">
                                 Submit
                                 <i className="fi fi-rs-paper-plane"></i>

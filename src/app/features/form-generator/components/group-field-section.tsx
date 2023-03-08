@@ -16,7 +16,7 @@ const GroupFieldSection: FC<Props> = ({ section }) => {
 
     return (
         <RcForm.List
-            name={section.variableName}
+            name={section.code}
             initialValue={[{}]}
         >
             {(fields, { add, remove }) => {
@@ -31,7 +31,7 @@ const GroupFieldSection: FC<Props> = ({ section }) => {
                                                 field={item}
                                                 fieldIndex={index}
                                                 key={index}
-                                                name={[field.name, item.variableName]}
+                                                name={[field.name, item.code]}
                                             />
                                         ))
                                     }

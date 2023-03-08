@@ -251,6 +251,46 @@ const updateField = (
   return [formClone, updatedField];
 };
 
+const updateFieldPartial = (
+  form: Form,
+  values: {[key: string]: any},
+  sectionIndex?: number,
+  fieldIndex?: number
+): [Form, FormField] | undefined => {
+  if (!_.isNumber(sectionIndex)) {
+    return;
+  }
+
+  if (!_.isNumber(fieldIndex)) {
+    return;
+  }
+
+  const formClone = _.cloneDeep(form);
+  if (!formClone) {
+    return;
+  }
+
+  const page = formClone.pages[0];
+  const sections = page.sections || [];
+
+  if (sections.length === 0) {
+    return;
+  }
+
+  const section = sections[sectionIndex];
+  const fields = section?.fields || [];
+
+  if (fields.length === 0 || fields.length <= fieldIndex) {
+    return;
+  }
+
+  const targetField = fields[fieldIndex];
+  const updatedField = _.extend(targetField, values);
+  fields[fieldIndex] = updatedField;
+
+  return [formClone, updatedField];
+};
+
 const updateSection = (
   form: Form,
   section: FormSection,
@@ -274,6 +314,34 @@ const updateSection = (
 
   const targetSection = sections[sectionIndex];
   const updatedSection = _.extend(targetSection, section);
+  sections[sectionIndex] = updatedSection;
+
+  return [formClone, updatedSection];
+};
+
+const updateSectionPartial = (
+  form: Form,
+  values: {[key: string]: any},
+  sectionIndex?: number,
+): [Form, FormSection] | undefined => {
+  if (!_.isNumber(sectionIndex)) {
+    return;
+  }
+
+  const formClone = _.cloneDeep(form);
+  if (!formClone) {
+    return;
+  }
+
+  const page = formClone.pages[0];
+  const sections = page.sections || [];
+
+  if (sections.length === 0) {
+    return;
+  }
+
+  const targetSection = sections[sectionIndex];
+  const updatedSection = _.extend(targetSection, values);
   sections[sectionIndex] = updatedSection;
 
   return [formClone, updatedSection];
@@ -365,7 +433,9 @@ const FormUtil = {
   removeSection,
   removeField,
   updateField,
+  updateFieldPartial,
   updateSection,
+  updateSectionPartial,
   duplicateSection,
   duplicateField
 };

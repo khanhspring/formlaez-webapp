@@ -29,9 +29,9 @@ const Rating: FC<Props> = ({ className = '', status, onChange, value, ...rest })
                         key={index}
                         className={
                             `rounded flex items-center justify-center cursor-pointer text transition `
-                            + `${status && status === 'error' ? 'border-rose-700' : ''} `
-                            + `${status && status === 'warning' ? 'border-yellow-700' : ''} `
-                            + `${status && status === 'success' ? 'border-green-700' : ''} `
+                            + `${status && status === 'error' ? '!border-rose-700' : ''} `
+                            + `${status && status === 'warning' ? '!border-yellow-700' : ''} `
+                            + `${status && status === 'success' ? '!border-green-700' : ''} `
 
                             + `${val === value ? '' : ''} `
                         }

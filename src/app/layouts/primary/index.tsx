@@ -4,6 +4,7 @@ import Header from "./header";
 import SideBar from "./sidebar";
 
 export default function PrimaryLayout() {
+
     return (
         <>
             <div className="flex min-h-[100vh] items-stretch">

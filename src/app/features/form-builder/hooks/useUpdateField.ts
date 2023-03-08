@@ -4,9 +4,10 @@ import { useAppDispatch } from "../../../hooks/redux-hook";
 import {
   ActionContext,
   FormField,
+  PartialUpdateFormField,
   UpdateFormField,
 } from "../../../models/form";
-import { updateField } from "../slice";
+import { updateField, updateFieldPartial } from "../slice";
 import { useDebounced } from "./useDebounced";
 
 type Values = { [property: string]: any };
@@ -23,7 +24,7 @@ export const useUpdateField = (
 ): ResultType => {
 
   const dispatch = useAppDispatch();
-  const [values, setValues] = useState<FormField>(field);
+  const [values, setValues] = useState<FormField>(_.cloneDeep(field));
 
   useEffect(() => {
     setValues(field);
@@ -34,25 +35,24 @@ export const useUpdateField = (
   });
 
   const doUpdate = useCallback((newValues: Values) => {
-    const fieldClone = _.cloneDeep(field);
-    const command: UpdateFormField = {
+    const command: PartialUpdateFormField = {
       fieldIndex: context.fieldIndex,
       sectionIndex: context.sectionIndex,
-      field: _.merge(fieldClone, newValues),
+      values: newValues,
     };
-    dispatch(updateField(command));
-  }, [context.fieldIndex, context.sectionIndex, dispatch, field]);
+    dispatch(updateFieldPartial(command));
+  }, [context.fieldIndex, context.sectionIndex, dispatch]);
 
   const updateDebounce = (properties: Values) => {
     const newValues = { ...values, ...properties };
     setValues(newValues);
-    doUpdateDebounce(newValues);
+    doUpdateDebounce(properties);
   };
 
   const update = (properties: Values) => {
     const newValues = { ...values, ...properties };
     setValues(newValues);
-    doUpdate(newValues);
+    doUpdate(properties);
   };
 
   return { values, update, updateDebounce };
