@@ -27,5 +27,5 @@ export const showError = () => {
 };
 
 export const showSuccess = () => {
-    toast.success("Created form successfully!")
+    toast.success("Successfully!")
 };

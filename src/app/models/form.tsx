@@ -20,6 +20,8 @@ export type Form = {
     coverColor?: string,
     coverImageUrl?: string
     scope: 'Private' | 'Team',
+    status: 'Draft' | 'Published',
+    sharingScope: 'Private' | 'Public',
     createdDate?: Date,
     lastModifiedDate?: Date,
 }

@@ -1,11 +1,11 @@
 import { Link, useParams } from "react-router-dom";
 import Button from "../../components/common/button";
-import useForm from "../../hooks/form/useForm";
+import usePublishedForm from "../../hooks/form/usePublishedForm";
 
 function FormSubmitted() {
 
     const params = useParams();
-    const { data: form } = useForm(params.formCode);
+    const { data: form } = usePublishedForm(params.formCode);
 
     return (
         <div className="w-full min-h-screen flex flex-col">

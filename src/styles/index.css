@@ -82,6 +82,10 @@ hr {
     background-color: rgb(29 78 216);
     border-color: rgb(29 78 216);
 }
+.dark .rc-switch-checked {
+    background-color: rgb(29 78 216);
+    border-color: rgb(29 78 216);
+}
 
 .rc-switch:focus {
     box-shadow: none;

@@ -1,16 +1,17 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import FormGenerator from "../../features/form-generator";
-import useFormDetail from "../../hooks/form/useFormDetail";
+import usePublishedFormDetail from "../../hooks/form/usePublishedFormDetail";
 import useCreateSubmission from "../../hooks/submissions/useCreateSubmission";
 import { CreateFormSubmissionRequest } from "../../models/form-submission";
 import { showError } from "../../util/common";
+import Error from "../error/Error";
 
 function FormViewer() {
 
     const params = useParams();
     const navigate = useNavigate();
-    const { data: formDetail } = useFormDetail(params.formCode);
+    const { data: formDetail, error } = usePublishedFormDetail(params.formCode);
     const { mutateAsync: submit, isLoading } = useCreateSubmission();
 
     const onFinish = (values: any) => {
@@ -27,6 +28,12 @@ function FormViewer() {
         }).then((response) => {
             return navigate(`/f/v/${params.formCode}/s/${response.code}`);
         })
+    }
+
+    if (error?.response?.status) {
+        return (
+            <Error />
+        );
     }
 
     return (

@@ -10,31 +10,37 @@ import {
 } from "../models/form";
 
 function create(request: CreateFormRequest): Promise<ResponseId> {
-  return RestClient.post<ResponseId>("/forms", request).then(
+  return RestClient.post<ResponseId>("/admin/forms", request).then(
     (response) => response.data
   );
 }
 
 function search(request: SearchFormRequest): Promise<PageResponse<Form>> {
-  return RestClient.get<any>("/forms", { params: request }).then(
+  return RestClient.get<any>("/admin/forms", { params: request }).then(
     (response) => response.data
   );
 }
 
 function findFormByCode(formCode?: string): Promise<Form> {
-  return RestClient.get<any>("/forms/" + formCode).then(
+  return RestClient.get<any>("/admin/forms/" + formCode).then(
     (response) => response.data
   );
 }
 
 function getFormDetailByCode(formCode?: string): Promise<Form> {
-  return RestClient.get<any>("/forms/" + formCode + "/detail").then(
+  return RestClient.get<any>("/admin/forms/" + formCode + "/detail").then(
     (response) => response.data
   );
 }
 
 function update(request: UpdateFormRequest): Promise<any> {
-  return RestClient.put<ResponseId>("/forms/" + request.id, request).then(
+  return RestClient.put<ResponseId>("/admin/forms/" + request.id, request).then(
+    (response) => response.data
+  );
+}
+
+function publish(id: number): Promise<any> {
+  return RestClient.post<ResponseId>("/admin/forms/" + id + "/publish").then(
     (response) => response.data
   );
 }
@@ -93,6 +99,7 @@ const FormService = {
   findFormByCode,
   getFormDetailByCode,
   update,
+  publish,
   addFormSection,
   addGroupField,
   reorderSection,

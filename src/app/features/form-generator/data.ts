@@ -7,6 +7,8 @@ export const FORM_LAYOUT: Form = {
   coverType: 'Color',
   coverColor: 'bg-gradient-nepal',
   scope: 'Private',
+  sharingScope: 'Private',
+  status: 'Draft',
   pages: [
     {
       id: 1,
@@ -285,6 +287,8 @@ export const CONTENT_FORM: Form = {
   code: "f",
   title: "Form 1",
   scope: 'Private',
+  sharingScope: 'Private',
+  status: 'Draft',
   pages: [
     {
       id: 1,
@@ -381,6 +385,8 @@ const HTML_FORM: Form = {
   code: "f",
   title: "Form 1",
   scope: 'Private',
+  sharingScope: 'Private',
+  status: 'Draft',
   pages: [
     {
       id: 1,

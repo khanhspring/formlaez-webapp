@@ -5,6 +5,7 @@ type Props = PropsWithChildren & {
     title?: string;
     onCancel?: () => void;
     onOk?: () => void;
+    onOkAsync?: () => Promise<any>;
     mousePosition?: {
         x: number;
         y: number;
@@ -12,9 +13,10 @@ type Props = PropsWithChildren & {
     afterClose?: () => any;
 }
 
-const ConfirmModal: FC<Props> = ({ title, children, onCancel, onOk, ...rest }) => {
+const ConfirmModal: FC<Props> = ({ title, children, onCancel, onOk, onOkAsync, ...rest }) => {
 
     const [visible, setVisible] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const onClose = () => {
         setVisible(false);
@@ -22,8 +24,19 @@ const ConfirmModal: FC<Props> = ({ title, children, onCancel, onOk, ...rest }) =
     }
 
     const onOkClick = () => {
-        onOk?.();
-        setVisible(false);
+        if (onOk) {
+            onOk?.();
+            setVisible(false);
+            return;
+        }
+        if (onOkAsync) {
+            setLoading(true);
+            onOkAsync?.()
+                .finally(() => {
+                    setLoading(false);
+                    setVisible(false);
+                })
+        }
     }
 
     return (
@@ -41,6 +54,7 @@ const ConfirmModal: FC<Props> = ({ title, children, onCancel, onOk, ...rest }) =
             }
             onOk={onOkClick}
             visible={visible}
+            loading={loading}
         >
             <div className='text-sm pl-[28px]'>
                 {children}

@@ -15,7 +15,8 @@ document.addEventListener("mousedown", getClickPosition);
 export type Options = {
     title: string;
     content?: string;
-    onOk: () => void;
+    onOk?: () => void;
+    onOkAsync?: () => Promise<any>;
     onCancel?: () => void;
 }
 
@@ -35,6 +36,7 @@ export default function confirm(options: Options) {
             afterClose={afterClose}
             onCancel={options.onCancel}
             onOk={options.onOk}
+            onOkAsync={options.onOkAsync}
         >
             {options.content}
         </ConfirmModal>

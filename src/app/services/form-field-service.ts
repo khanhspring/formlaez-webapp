@@ -3,13 +3,13 @@ import { ResponseId } from "../models/common";
 import { CreateFormFieldRequest, UpdateFormFieldRequest } from "../models/form";
 
 function create(request: CreateFormFieldRequest): Promise<ResponseId> {
-  return RestClient.post<ResponseId>("/forms/fields", request).then(
+  return RestClient.post<ResponseId>("/admin/forms/fields", request).then(
     (response) => response.data
   );
 }
 
 function update(request: UpdateFormFieldRequest): Promise<any> {
-  return RestClient.put<any>("/forms/fields/" + request.code, request).then(
+  return RestClient.put<any>("/admin/forms/fields/" + request.code, request).then(
     (response) => response.data
   );
 }

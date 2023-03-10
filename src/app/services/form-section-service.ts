@@ -3,13 +3,13 @@ import { ResponseId } from "../models/common";
 import { CreateFormSectionRequest, MoveFormSectionRequest } from "../models/form";
 
 function create(request: CreateFormSectionRequest): Promise<ResponseId> {
-  return RestClient.post<ResponseId>("/forms/sections", request).then(
+  return RestClient.post<ResponseId>("/admin/forms/sections", request).then(
     (response) => response.data
   );
 }
 
 function move(request: MoveFormSectionRequest): Promise<any> {
-  return RestClient.post<any>("/forms/sections/" + request.sectionCode + "/move", request).then(
+  return RestClient.post<any>("/admin/forms/sections/" + request.sectionCode + "/move", request).then(
     (response) => response.data
   );
 }

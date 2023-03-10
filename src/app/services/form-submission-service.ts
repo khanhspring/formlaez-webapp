@@ -4,14 +4,14 @@ import { CreateFormSubmissionRequest, FormSubmission, SearchFormSubmissionReques
 import StringUtils from "../util/string-utils";
 
 function create(request: CreateFormSubmissionRequest): Promise<ResponseCode> {
-  return RestClient.post<ResponseCode>("/forms/" + request.formCode + "/submissions", request).then(
+  return RestClient.post<ResponseCode>("/admin/forms/" + request.formCode + "/submissions", request).then(
     (response) => response.data
   );
 }
 
 function search(request: SearchFormSubmissionRequest): Promise<PageResponse<FormSubmission>> {
   const q = StringUtils.toQuery(request);
-  return RestClient.get<any>("/forms/" + request.formCode + "/submissions?" + q).then(
+  return RestClient.get<any>("/admin/forms/" + request.formCode + "/submissions?" + q).then(
     (response) => response.data
   );
 }

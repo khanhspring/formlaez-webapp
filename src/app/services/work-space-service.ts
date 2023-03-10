@@ -4,7 +4,7 @@ import { CreateWorkspaceRequest } from "../models/workspace";
 
 export function create(request: CreateWorkspaceRequest): Promise<ResponseId> {
     return RestClient
-        .post<ResponseId>("/workspaces", request)
+        .post<ResponseId>("/admin/workspaces", request)
         .then(response => response.data);;
 }
 

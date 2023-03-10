@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 
 type Props = {
-    title: string;
+    title: ReactNode;
     actions: ReactNode;
 }
 
