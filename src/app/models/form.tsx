@@ -219,6 +219,14 @@ export type CreateFormSectionRequest = {
     position: number;
 }
 
+export type UpdateFormSectionRequest = {
+    code: string;
+    variableName: string;
+    title?: string;
+    description?: string;
+    repeatButtonLabel?: string;
+}
+
 export type MoveFormSectionRequest = {
     sectionCode: string;
     newPosition: number;

@@ -14,9 +14,16 @@ function update(request: UpdateFormFieldRequest): Promise<any> {
   );
 }
 
+function remove(code: string): Promise<any> {
+  return RestClient.delete<any>("/admin/forms/fields/" + code).then(
+    (response) => response.data
+  );
+}
+
 const FormFieldService = {
   create,
-  update
+  update,
+  remove
 };
 
 export default FormFieldService;

@@ -3,13 +3,15 @@ import Pagination from "rc-pagination";
 import Table from "rc-table";
 import { ColumnsType, TableSticky } from "rc-table/lib/interface";
 import Tooltip from "rc-tooltip";
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, ReactNode, useEffect, useMemo, useState } from "react";
 import ExternalScroll from "../../../components/common/external-scroll";
+import Drawer from "../../../components/drawer/drawer";
+import FormDataViewer from "../../../components/form-data-viewer";
 import ButtonTableAction from "../../../components/layout/button-table-action";
 import { PaginationLocale } from "../../../constants/pagination-locale";
 import FieldUtil from "../../../features/form-builder/utils/field-util";
 import useSubmissions from "../../../hooks/submissions/useSubmissions";
-import { Form } from "../../../models/form";
+import { Form, FormField } from "../../../models/form";
 import { FormSubmission } from "../../../models/form-submission";
 
 type ColumnWidth = {
@@ -42,12 +44,60 @@ function calculateTableWidth(dataColumnCount: number) {
 type Props = {
     form?: Form;
     sticky?: boolean | TableSticky;
+    pageSize?: number;
 }
 
-const FormDataTable: FC<Props> = ({ form, sticky }) => {
+const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
 
     const [tableBody, setTableBody] = useState<HTMLElement>();
-    const { data: formData } = useSubmissions({ formCode: form?.code });
+    const [page, setPage] = useState(0);
+    const { data: formData } = useSubmissions({ formCode: form?.code, page, size: pageSize });
+    const [selectedSubmission, setSelectedSubmission] = useState<FormSubmission>();
+    const [submissionVisible, setSubmissionVisible] = useState(false);
+
+    const valueOf = (field: FormField, record: any): ReactNode => {
+        if (!record) {
+            return;
+        }
+        const rawValue = record?.data[field.code];
+        if (field.type === 'MultipleChoice' || field.type === 'Dropdown') {
+            const selectedValues = (rawValue || []) as any[];
+            const selected = (field.options || []).filter(option => selectedValues?.includes(option.code));
+            return selected?.map((item, index) =>
+                <span key={index} className="mr-1 my-0.5 px-2 inline-block bg-slate-200 dark:bg-cinder-600 rounded-xl">
+                    {item.label}
+                </span>
+            )
+        }
+        if (field.type === 'Switch') {
+            return (
+                <>
+                    {rawValue && <i className="fi fi-sr-checkbox text-xs"></i>}
+                </>
+            )
+        }
+        if (field.type === 'Rating') {
+            return (
+                <>
+                    {rawValue && <>{rawValue} / 5</>}
+                </>
+            )
+        }
+        if (field.type === 'OpinionScale') {
+            return (
+                <>
+                    {(rawValue || rawValue === 0) && <>{rawValue} / 10</>}
+                </>
+            )
+        }
+        return rawValue;
+    }
+
+    const alignOf = (field: FormField): any => {
+        if (['Switch', 'Rating', 'OpinionScale'].includes(field.type)) {
+            return 'center';
+        }
+    }
 
     const dataColumns = useMemo(() => {
         if (!form?.pages) {
@@ -60,28 +110,46 @@ const FormDataTable: FC<Props> = ({ form, sticky }) => {
 
         const columns: any[] = [];
         for (const section of firstPage.sections) {
-            if (section.type !== 'Single'
-                || !section.fields
-                || section.fields.length === 0) {
+            if (!section.fields || section.fields.length === 0) {
                 continue;
             }
 
             const field = section.fields[0];
-            if (FieldUtil.isFormControl(field)) {
+            if (section.type === 'Single' && FieldUtil.isFormControl(field)) {
                 const column: ColumnsType<FormSubmission> = [{
                     title: field.title,
                     dataIndex: field.code,
-                    ellipsis: {showTitle: false},
+                    ellipsis: { showTitle: false },
+                    align: alignOf(field),
                     render(value, record, index) {
+                        const fieldValue = valueOf(field, record);
                         return (
                             <Tooltip
                                 placement="bottomLeft"
-                                overlay={<div className="max-w-[350px]">{record?.data[field.code]}</div>}
+                                overlay={<div className="max-w-[350px]">{fieldValue}</div>}
                                 mouseEnterDelay={0.5}
                                 showArrow={false}
                             >
-                                <div className="text-ellipsis overflow-hidden">{record?.data[field.code]}</div>
+                                <div className="text-ellipsis overflow-hidden">{fieldValue}</div>
                             </Tooltip>
+                        );
+                    }
+                }]
+                const [dataColumn] = column;
+                columns.push(dataColumn);
+            }
+
+            if (section.type === 'Group') {
+                const column: ColumnsType<FormSubmission> = [{
+                    title: section.title || 'Untitled group',
+                    dataIndex: section.code,
+                    align: 'center',
+                    ellipsis: { showTitle: false },
+                    render(value, record, index) {
+                        return (
+                            <span className="px-1 py-0 rounded-lg bg-slate-200 dark:bg-cinder-600 cursor-default">
+                                {record?.data[section.code]?.length || 0}
+                            </span>
                         );
                     }
                 }]
@@ -133,7 +201,10 @@ const FormDataTable: FC<Props> = ({ form, sticky }) => {
             width: ColumnWidthConfig.id,
             render: (value, record, index) => {
                 return (
-                    <span className="text-xs bg-slate-300 dark:bg-cinder-900 inline-block px-1 py-0.5 min-w-[75px] rounded cursor-pointer">
+                    <span
+                        onClick={() => selectSubmission(record)}
+                        className="text-xs bg-slate-200 dark:bg-cinder-600 inline-block px-1 py-0.5 min-w-[75px] rounded cursor-pointer"
+                    >
                         {value.substring(0, 8)}
                     </span>
                 )
@@ -183,6 +254,25 @@ const FormDataTable: FC<Props> = ({ form, sticky }) => {
         }
     ];
 
+    const onPageChange = (page: number) => {
+        setPage(page - 1);
+    }
+
+    const selectSubmission = (submission: FormSubmission) => {
+        setSelectedSubmission(submission);
+        setSubmissionVisible(true);
+    }
+
+    const closeSubmission = () => {
+        setSubmissionVisible(false);
+    }
+
+    const afterOpenChange = (visible: boolean) => {
+        if (!visible) {
+            setSelectedSubmission(undefined);
+        }
+    }
+
     const columns: ColumnsType<FormSubmission> = [...defaultColumns, ...dataColumns, ...actionColumns];
     const tableWidth = calculateTableWidth(dataColumns?.length || 0);
 
@@ -205,9 +295,11 @@ const FormDataTable: FC<Props> = ({ form, sticky }) => {
             />
             <div className="w-full mt-3 p-1 z-[200] bg-white/90 border border-slate-900/10 dark:bg-cinder-700/80 dark:border-cinder-600 sticky bottom-0 flex items-center justify-center">
                 <Pagination
-                    total={1000}
-                    pageSize={20}
+                    total={formData?.totalPages || 0}
+                    pageSize={formData?.size || 0}
                     locale={PaginationLocale}
+                    onChange={onPageChange}
+                    current={page + 1}
                     prevIcon={<i className="fi fi-rr-arrow-left text-lg"></i>}
                     nextIcon={<i className="fi fi-rr-arrow-right text-lg"></i>}
                 />
@@ -215,6 +307,16 @@ const FormDataTable: FC<Props> = ({ form, sticky }) => {
             <div className="fixed z-[1000] bottom-[70px] right-7 w-[140px] h-[55px]">
                 <ExternalScroll target={tableBody} />
             </div>
+
+            <Drawer
+                title={selectedSubmission?.code}
+                onClose={closeSubmission}
+                open={submissionVisible}
+                afterOpenChange={afterOpenChange}
+                width={600}
+            >
+                <FormDataViewer form={form} submission={selectedSubmission} />
+            </Drawer>
         </>
     );
 }

@@ -4,7 +4,7 @@ import { CreateFormSubmissionRequest, FormSubmission, SearchFormSubmissionReques
 import StringUtils from "../util/string-utils";
 
 function create(request: CreateFormSubmissionRequest): Promise<ResponseCode> {
-  return RestClient.post<ResponseCode>("/admin/forms/" + request.formCode + "/submissions", request).then(
+  return RestClient.post<ResponseCode>("/forms/" + request.formCode + "/submissions", request).then(
     (response) => response.data
   );
 }

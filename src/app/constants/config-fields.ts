@@ -206,7 +206,7 @@ export const ConfigSections: ConfigSection[] = [
         default: () => ({
             code: nanoid(),
             variableName: newId(),
-            title: 'Group',
+            title: 'Untitled group',
             type: "Group",
             repeatable: true,
             fields: []

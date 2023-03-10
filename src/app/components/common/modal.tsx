@@ -67,6 +67,7 @@ const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Canc
             visible={visible}
             bodyStyle={{ padding: '0px 20px', paddingBottom: '10px' }}
             onClose={onClose}
+            wrapClassName="pt-10"
         >
             {children}
             <div className='pb-2 pt-2 flex justify-end gap-2'>

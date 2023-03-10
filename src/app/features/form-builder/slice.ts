@@ -22,7 +22,8 @@ import {
   UpdateFormFieldRequest,
   UpdateFormInfo,
   UpdateFormRequest,
-  UpdateFormSection
+  UpdateFormSection,
+  UpdateFormSectionRequest,
 } from "../../models/form";
 import FormFieldService from "../../services/form-field-service";
 import FormSectionService from "../../services/form-section-service";
@@ -64,8 +65,8 @@ export const addSingleField = createAsyncThunk(
     const request: CreateFormSectionRequest = {
       ...newSection,
       pageId: formResult.pages[0].id,
-      position: addedIndex
-    }
+      position: addedIndex,
+    };
 
     try {
       return await FormSectionService.create(request);
@@ -104,8 +105,8 @@ export const addSection = createAsyncThunk(
     const request: CreateFormSectionRequest = {
       ...newSection,
       pageId: formResult.pages[0].id,
-      position: addedIndex
-    }
+      position: addedIndex,
+    };
     try {
       return await FormSectionService.create(request);
     } catch (err) {
@@ -144,8 +145,8 @@ export const addGroupField = createAsyncThunk(
     const request: CreateFormFieldRequest = {
       ...newField,
       sectionCode: section.code,
-      position: addedIndex
-    }
+      position: addedIndex,
+    };
 
     try {
       return await FormFieldService.create(request);
@@ -184,8 +185,8 @@ export const reorderSection = createAsyncThunk(
 
     const request: MoveFormSectionRequest = {
       sectionCode: movedSection.code,
-      newPosition: command.toIndex
-    }
+      newPosition: command.toIndex,
+    };
 
     try {
       return await FormSectionService.move(request);
@@ -254,7 +255,7 @@ export const removeSection = createAsyncThunk(
     thunkAPI.dispatch(updateForm(formResult));
 
     try {
-      return await FormService.removeSection(removedSection.code);
+      return await FormSectionService.remove(removedSection.code);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -287,7 +288,7 @@ export const removeField = createAsyncThunk(
     thunkAPI.dispatch(updateForm(formResult));
 
     try {
-      return await FormService.removeField(removedField.code);
+      return await FormFieldService.remove(removedField.code);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -321,8 +322,8 @@ export const updateField = createAsyncThunk(
     thunkAPI.dispatch(updateForm(formResult));
 
     const request: UpdateFormFieldRequest = {
-      ...updatedField
-    }
+      ...updatedField,
+    };
 
     try {
       return await FormFieldService.update(request);
@@ -359,8 +360,8 @@ export const updateFieldPartial = createAsyncThunk(
     thunkAPI.dispatch(updateForm(formResult));
 
     const request: UpdateFormFieldRequest = {
-      ...updatedField
-    }
+      ...updatedField,
+    };
 
     try {
       return await FormFieldService.update(request);
@@ -395,8 +396,12 @@ export const updateSection = createAsyncThunk(
     const [formResult, updatedSection] = result;
     thunkAPI.dispatch(updateForm(formResult));
 
+    const request: UpdateFormSectionRequest = {
+      ...updatedSection,
+    };
+
     try {
-      return await FormService.updateSection(updatedSection);
+      return await FormSectionService.update(request);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -428,8 +433,11 @@ export const updateSectionPartial = createAsyncThunk(
     const [formResult, updatedSection] = result;
     thunkAPI.dispatch(updateForm(formResult));
 
+    const request: UpdateFormSectionRequest = {
+      ...updatedSection,
+    };
     try {
-      return await FormService.updateSection(updatedSection);
+      return await FormSectionService.update(request);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -457,11 +465,17 @@ export const duplicateSection = createAsyncThunk(
       thunkAPI.abort();
       return;
     }
-    const [formResult, newSection] = result;
+    const [formResult, newSection, addedIndex] = result;
     thunkAPI.dispatch(updateForm(formResult));
 
+    const request: CreateFormSectionRequest = {
+      ...newSection,
+      pageId: formResult.pages[0].id,
+      position: addedIndex,
+    };
+
     try {
-      return await FormService.addFormSection(newSection);
+      return await FormSectionService.create(request);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -490,11 +504,17 @@ export const duplicateField = createAsyncThunk(
       thunkAPI.abort();
       return;
     }
-    const [formResult, newField] = result;
+    const [formResult, section, newField, addedIndex] = result;
     thunkAPI.dispatch(updateForm(formResult));
 
+    const request: CreateFormFieldRequest = {
+      ...newField,
+      sectionCode: section.code,
+      position: addedIndex,
+    };
+
     try {
-      return await FormService.addGroupField(newField);
+      return await FormFieldService.create(request);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -529,7 +549,7 @@ export const updateFormInfo = createAsyncThunk(
       coverColor: form.coverColor,
       coverImageUrl: form.coverImageUrl,
       id: form.id,
-    }
+    };
 
     try {
       return await FormService.update(request);
@@ -572,75 +592,77 @@ export const formBuilderSlice = createSlice({
         state.form = action.payload;
       })
       .addCase(loadForm.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       })
 
       .addCase(addSingleField.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       })
 
       .addCase(addGroupField.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       })
 
       .addCase(addSection.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       })
 
       .addCase(reorderField.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       })
 
       .addCase(reorderSection.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       })
 
       .addCase(removeSection.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       })
 
       .addCase(removeField.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       })
 
       .addCase(updateField.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       })
 
       .addCase(updateSection.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       })
 
       .addCase(duplicateSection.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       })
 
       .addCase(duplicateField.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       })
 
       .addCase(updateFormInfo.rejected, (state, action) => {
-        console.log(action.error)
+        console.log(action.error);
         showError();
       });
   },
 });
 
-export const { updateForm, clearCurrentItem, setCurrentItem, resetState } = formBuilderSlice.actions;
+export const { updateForm, clearCurrentItem, setCurrentItem, resetState } =
+  formBuilderSlice.actions;
 
 export const selectForm = (state: RootState) => state.formBuilder.form;
-export const selectCurrentItem = (state: RootState) => state.formBuilder.currentItem;
+export const selectCurrentItem = (state: RootState) =>
+  state.formBuilder.currentItem;
 
 export default formBuilderSlice.reducer;

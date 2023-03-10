@@ -30,8 +30,8 @@ const PdfField: FC<Props> = ({ field, context }) => {
         form.resetFields();
     }
 
-    const imageConfig = (
-        <div className="w-[450px] bg-cinder-800 rounded p-3">
+    const popupConfig = (
+        <div className="w-[450px] bg-white dark:bg-cinder-800 rounded p-3">
             <Form
                 form={form}
                 onFinish={onFinish}
@@ -44,7 +44,7 @@ const PdfField: FC<Props> = ({ field, context }) => {
                         { type: 'url', message: "Please enter a valid link" },
                     ]}
                 >
-                    <Input placeholder="Paste the PDF link..." maxLength={2000} />
+                    <Input placeholder="Paste the PDF link..." maxLength={2000}/>
                 </FormItem>
                 <Button>
                     Embed link
@@ -56,13 +56,13 @@ const PdfField: FC<Props> = ({ field, context }) => {
     if (!values.url) {
         return (
             <Popup
-                content={imageConfig}
-                className="bg-transparent"
+                content={popupConfig}
+                className="bg-transparent !text-slate-900 dark:!text-white"
                 open={embedUrlVisible}
                 onOpenChange={setEmbedUrlVisible}
                 afterClose={resetForm}
             >
-                <div className="p-3 dark:bg-cinder-600 rounded cursor-pointer flex gap-2 items-center text-gray-400">
+                <div className="p-3 bg-slate-200 dark:bg-cinder-600 rounded cursor-pointer flex gap-2 items-center dark:text-gray-400">
                     <i className="fi fi-rr-picture"></i>
                     <span className="font-light">Embed a PDF</span>
                 </div>

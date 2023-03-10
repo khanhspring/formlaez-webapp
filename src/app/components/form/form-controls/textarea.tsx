@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { FC, RefObject, TextareaHTMLAttributes, useRef } from "react";
+import { FC, RefObject, TextareaHTMLAttributes, useEffect, useRef, useState } from "react";
 import useAutoSizeTextarea from "../../../hooks/useAutoSizeTextarea";
 import { orElseEmptyString } from "../../../util/common";
 import { FieldStatus } from "../form-types";
@@ -29,7 +29,12 @@ const Textarea: FC<Props> = ({
 }) => {
 
     const ref = useRef<HTMLTextAreaElement>(null);
-    useAutoSizeTextarea(ref.current, { container, maxWidth, autoHeight: autoHeight || autoSize, autoWidth: autoWidth || autoSize });
+    const [current, setCurrent] = useState<HTMLTextAreaElement | null>();
+    useAutoSizeTextarea(current, { container, maxWidth, autoHeight: autoHeight || autoSize, autoWidth: autoWidth || autoSize });
+
+    useEffect(() => {
+        setCurrent(ref.current);
+    }, [])
 
     return (
         <textarea

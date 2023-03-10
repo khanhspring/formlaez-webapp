@@ -47,6 +47,7 @@ function DataFullScreen() {
                     sticky={{
                         offsetHeader: 0
                     }}
+                    pageSize={50}
                 />
             </div>
         </div >

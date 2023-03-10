@@ -78,9 +78,9 @@ const FieldGroup: FC<Props> = ({ section, sectionIndex, ...dragHandleProps }) =>
                 <div className="bg-slate-200 dark:bg-cinder-700 px-3 py-2 rounded-t rounded-sm">
                     <input
                         value={values.title}
-                        className="flex-1 w-full text-slate-900 dark:text-gray-100 bg-transparent outline-none"
+                        className="flex-1 w-full text-slate-900 dark:text-gray-100 bg-transparent outline-none placeholder:text-slate-700 dark:placeholder:text-gray-200"
                         onChange={(e) => updateDebounce({ title: e.target.value })}
-                        placeholder="Group"
+                        placeholder="Untitled group"
                     />
                 </div>
                 <div className="flex flex-col px-[26px] py-2">

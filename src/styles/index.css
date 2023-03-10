@@ -1,7 +1,4 @@
-@import url('https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css');
-@import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
-@import url('https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css');
-@import url('https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css');
+@import "~@flaticon/flaticon-uicons/css/all/all";
 
 @import url('/node_modules/rc-switch/assets/index.css');
 @import url('/node_modules/rc-dialog/assets/index.css');
@@ -115,6 +112,18 @@ hr {
     background: transparent;
     border-bottom: transparent;
     color: inherit;
+}
+
+.rc-dialog-fade-enter,
+.rc-dialog-fade-appear,
+.rc-dialog-zoom-enter {
+    animation-duration: 0.2s;
+}
+
+.rc-dialog-fade-leave,
+.rc-dialog-zoom-leave,
+.rc-dialog-zoom-appear {
+    animation-duration: 0.2s;
 }
 
 .Toastify__toast-icon {

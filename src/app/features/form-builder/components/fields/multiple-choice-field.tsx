@@ -72,7 +72,7 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
                                                 <button
                                                     aria-label="Remove"
                                                     onClick={() => remove(index)}
-                                                    className="absolute w-6 h-6 -right-3 top-[50%] translate-y-[-50%] rounded-full border border-slate-900/10 bg-slate-100 dark:border-cinder-600 dark:bg-cinder-600/50 items-center justify-center hover:border-rose-700 hover:bg-rose-700/30 transition hidden group-hover/option-item:flex"
+                                                    className="absolute w-6 h-6 -right-3 top-[50%] translate-y-[-50%] rounded-full border border-slate-900/10 bg-slate-100 dark:border-cinder-600 dark:bg-cinder-600/50 items-center justify-center hover:border-rose-700 dark:hover:bg-rose-700/30 dark:hover:border-rose-700 hover:bg-rose-700/30 transition hidden group-hover/option-item:flex"
                                                 >
                                                     <i className="fi fi-rr-cross-small text-lg"></i>
                                                 </button>

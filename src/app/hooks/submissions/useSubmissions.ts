@@ -6,6 +6,7 @@ export default function useSubmissions(request: SearchFormSubmissionRequest) {
   return useQuery({
     queryKey: ["form-submissions", request],
     queryFn: () => FormSubmissionService.search(request),
-    enabled: !!request.formCode
+    enabled: !!request.formCode,
+    refetchInterval: 1 * 60 * 1000
   });
 }

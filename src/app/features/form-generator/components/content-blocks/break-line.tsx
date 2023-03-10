@@ -6,7 +6,7 @@ type Props = {
 const BreakLine: FC<Props> = ({ }) => {
 
     return (
-        <div className="w-full py-3">
+        <div className="w-full pt-5 pb-7">
             <hr />
         </div>
     );

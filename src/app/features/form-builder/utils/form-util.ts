@@ -350,7 +350,7 @@ const updateSectionPartial = (
 const duplicateSection = (
   form: Form,
   sectionIndex?: number
-): [Form, FormSection] | undefined => {
+): [Form, FormSection, number] | undefined => {
   if (!_.isNumber(sectionIndex)) {
     return;
   }
@@ -380,14 +380,14 @@ const duplicateSection = (
 
   sections.splice(sectionIndex + 1, 0, sectionClone);
 
-  return [formClone, sectionClone];
+  return [formClone, sectionClone, sectionIndex + 1];
 };
 
 const duplicateField = (
   form: Form,
   sectionIndex?: number,
   fieldIndex?: number
-): [Form, FormField] | undefined => {
+): [Form, FormSection, FormField, number] | undefined => {
   if (!_.isNumber(sectionIndex)) {
     return;
   }
@@ -421,7 +421,7 @@ const duplicateField = (
   fieldClone.variableName = newId();
 
   fields.splice(fieldIndex + 1, 0, fieldClone);
-  return [formClone, fieldClone];
+  return [formClone, section, fieldClone, fieldIndex + 1];
 };
 
 const FormUtil = {

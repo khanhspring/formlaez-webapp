@@ -1,3 +1,4 @@
+import Tooltip from "rc-tooltip";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import FormGenerator from "../../features/form-generator";
@@ -14,7 +15,12 @@ function FormPreview() {
     }
 
     return (
-        <div>
+        <div className="w-full relative">
+            <div className="absolute top-3 left-0 w-full z-[1000] text-center">
+                <Tooltip placement="bottom" overlay={<div className="max-w-[300px]">Submission will not be recorded in preview mode</div>}>
+                    <span className="px-3 py-1 rounded-2xl bg-black/50 text-xs text-white cursor-default">Preview mode</span>
+                </Tooltip>
+            </div>
             {
                 formDetail &&
                 <FormGenerator

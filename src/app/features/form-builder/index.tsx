@@ -1,3 +1,4 @@
+import { Popup } from "ez-rc-popup";
 import * as _ from "lodash";
 import { FC, useEffect, useRef, useState } from "react";
 import { DragDropContext, Draggable, Droppable, DropResult, ResponderProvided } from "react-beautiful-dnd";
@@ -14,6 +15,10 @@ import { reorderField, reorderSection, resetState, selectForm, updateForm, updat
 // @ts-ignore
 window['__react-beautiful-dnd-disable-dev-warnings'] = true;
 
+const BackgroundColors = [
+    'bg-001', 'bg-002', 'bg-003', 'bg-004', 'bg-005', 'bg-006', 'bg-007', 'bg-008', 'bg-009'
+]
+
 type Props = {
     initForm: Form;
     onTitleChange?: (title?: string) => void;
@@ -25,6 +30,7 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
     const form = useAppSelector(selectForm);
     const mounted = useRef(false);
     const [title, setTitle] = useState<string>();
+    const [coverConfigVisible, setCoverConfigVisible] = useState(false);
 
     useEffect(() => {
         mounted.current = true;
@@ -95,7 +101,7 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
             id: form.id,
             title: title || 'Untitled',
             coverType: 'Color',
-            coverColor: 'bg-001'
+            coverColor: BackgroundColors[0]
         }
         dispatch(updateFormInfo(formInfo));
     }
@@ -120,6 +126,37 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
         dispatchTitleChange(value);
     }
 
+    const onSelectColorCover = (bgClassName: string) => {
+        setCoverConfigVisible(false);
+        if (!form) {
+            return;
+        }
+        const formInfo: UpdateFormInfo = {
+            id: form.id,
+            title: title || 'Untitled',
+            coverType: 'Color',
+            coverColor: bgClassName
+        }
+        dispatch(updateFormInfo(formInfo));
+    }
+
+    const coverColors = (
+        <div className="w-[550px] bg-white dark:bg-cinder-800 rounded p-3">
+            <h2>Background colors</h2>
+            <div className="w-full grid grid-cols-4 gap-2 mt-3">
+                {
+                    BackgroundColors.map((bgClassName, index) =>
+                        <div
+                            key={index}
+                            onClick={() => onSelectColorCover(bgClassName)}
+                            className={`${bgClassName} h-16 rounded cursor-pointer`}
+                        />
+                    )
+                }
+            </div>
+        </div>
+    )
+
     return (
         <>
             {
@@ -136,13 +173,20 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
                             placeholder="Untitled"
                             onChange={e => handleTitleChange(e.target.value)}
                         />
-                        <div className="absolute w-full h-10 bottom-0 left-0 justify-end items-center gap-2 transition hidden group-hover/form-cover:flex">
-                            <button
-                                onClick={() => { }}
-                                className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-cinder-700/70 dark:hover:bg-cinder-700"
+                        <div className="absolute w-full h-10 bottom-0 left-0 flex justify-end items-center gap-2 transition invisible group-hover/form-cover:visible">
+                            <Popup
+                                content={coverColors}
+                                className="bg-transparent !text-slate-900 dark:!text-white"
+                                open={coverConfigVisible}
+                                onOpenChange={setCoverConfigVisible}
                             >
-                                Change cover
-                            </button>
+                                <button
+                                    onClick={() => { }}
+                                    className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-cinder-700/70 dark:hover:bg-cinder-700"
+                                >
+                                    Change cover
+                                </button>
+                            </Popup>
                             <button
                                 onClick={removeCover}
                                 className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-cinder-700/70 dark:hover:bg-cinder-700"
