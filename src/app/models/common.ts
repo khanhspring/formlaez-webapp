@@ -16,4 +16,5 @@ export type PageResponse<T> = {
     page?: number;
     size?: number;
     totalPages?: number;
+    totalElements?: number;
 }

@@ -13,11 +13,11 @@ const VideoBlock: FC<Props> = ({ url }) => {
     return (
         <div className="w-full my-1">
             <iframe
-                width="100%"
-                height="300"
+                className="w-full aspect-video"
                 src={`${url}?modestbranding=0&rel=0`}
                 title="YouTube video player"
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+                allowFullScreen
             ></iframe>
         </div>
     );

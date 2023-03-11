@@ -20,11 +20,13 @@ type Props = PropsWithChildren & {
     } | null;
     afterClose?: () => any;
     loading?: boolean;
+    destroyOnClose?: boolean;
+    wrapClassName?: string;
 }
 
 type MousePosition = { x: number; y: number } | null;
 
-const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Cancel', hideOk, hideCancel, onOk = () => { }, onClose = () => { }, loading, ...rest }) => {
+const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Cancel', hideOk, hideCancel, onOk = () => { }, onClose = () => { }, loading, destroyOnClose, wrapClassName = 'pt-10', ...rest }) => {
 
     const [mousePosition, setMousePosition] = useState<MousePosition>();
     const btnOkRef = useRef<HTMLButtonElement>(null);
@@ -58,6 +60,7 @@ const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Canc
     return (
         <Dialog
             {...rest}
+            destroyOnClose={destroyOnClose}
             animation="zoom"
             maskAnimation="fade"
             mousePosition={mousePosition || rest.mousePosition}
@@ -67,7 +70,7 @@ const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Canc
             visible={visible}
             bodyStyle={{ padding: '0px 20px', paddingBottom: '10px' }}
             onClose={onClose}
-            wrapClassName="pt-10"
+            wrapClassName={wrapClassName}
         >
             {children}
             <div className='pb-2 pt-2 flex justify-end gap-2'>

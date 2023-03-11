@@ -7,19 +7,20 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
 import { Form, FormSection } from "../../models/form";
 import { changeTheme, selectTheme } from "../../slices/app-config";
 import SectionItem from "./components/section-item";
-import { resetState, selectValues, updateValues } from "./slice";
+import { resetState, updateValues } from "./slice";
 
 type Props = {
     formLayout: Form;
     initValues?: any;
     onFinish?: (values: any) => Promise<any>;
     loading?: boolean;
+    hideHeader?: boolean;
+    hideFooter?: boolean;
 }
 
-const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading }) => {
+const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, hideHeader = false, hideFooter = false }) => {
 
     const dispatch = useAppDispatch();
-    const values = useAppSelector(selectValues);
     const mounted = useRef(false);
     const [form] = RcForm.useForm();
 
@@ -73,43 +74,48 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading })
 
     return (
         <div className="min-h-[100vh] flex flex-col justify-center relative">
-            <div
-                onClick={onThemeSelect}
-                className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer text-slate-900 bg-white/70 dark:text-white dark:bg-cinder-800/70 hover:bg-white dark:hover:bg-cinder-800 group absolute top-7 right-7"
-            >
-                {
-                    theme === 'dark' &&
-                    <i className="fi fi-rr-brightness"></i>
-                }
-                {
-                    theme !== 'dark' &&
-                    <i className="fi fi-rr-moon-stars"></i>
-                }
-            </div>
             {
-                formLayout.coverType === 'Color' &&
-                <div className={
-                    `w-full h-[30vh] min-h-[150px] flex items-center justify-center`
-                    + ` ${formLayout.coverColor || 'bg-001'}`
-                }>
-                    <div className="w-full max-w-[530px] m-auto">
-                        <h1 className="text-3xl font-bold text-white text-center text-shadow-gray">
-                            {formLayout?.title}
-                        </h1>
+                !hideHeader &&
+                <div className='mb-10'>
+                    <div
+                        onClick={onThemeSelect}
+                        className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer text-slate-900 bg-white/70 dark:text-white dark:bg-cinder-800/70 hover:bg-white dark:hover:bg-cinder-800 group absolute top-7 right-7"
+                    >
+                        {
+                            theme === 'dark' &&
+                            <i className="fi fi-rr-brightness"></i>
+                        }
+                        {
+                            theme !== 'dark' &&
+                            <i className="fi fi-rr-moon-stars"></i>
+                        }
                     </div>
+                    {
+                        formLayout.coverType === 'Color' &&
+                        <div className={
+                            `w-full h-[30vh] min-h-[150px] flex items-center justify-center`
+                            + ` ${formLayout.coverColor || 'bg-001'}`
+                        }>
+                            <div className="w-full max-w-[530px] m-auto">
+                                <h1 className="text-3xl font-bold text-white text-center text-shadow-gray">
+                                    {formLayout?.title}
+                                </h1>
+                            </div>
+                        </div>
+                    }
+                    {
+                        formLayout.coverType === 'None' &&
+                        <div className="w-full max-w-[530px] m-auto pt-10">
+                            <h1 className="text-3xl font-bold">
+                                {formLayout?.title}
+                            </h1>
+                        </div>
+                    }
                 </div>
             }
-            {
-                formLayout.coverType === 'None' &&
-                <div className="w-full max-w-[530px] m-auto pt-10">
-                    <h1 className="text-3xl font-bold">
-                        {formLayout?.title}
-                    </h1>
-                </div>
-            }
-            <div className="w-full max-w-[530px] m-auto flex-1 pb-10 pt-10">
+            <div className="w-full max-w-[530px] m-auto flex-1 pb-10">
                 <RcForm
-                    initialValues={values}
+                    initialValues={initValues}
                     onFinish={handleOnFinish}
                     onFinishFailed={onFinishFailed}
                     form={form}
@@ -129,12 +135,15 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading })
                     </div>
                 </RcForm>
             </div>
-            <div className="w-full flex justify-center">
-                <div className="mx-auto h-10 flex items-center justify-center gap-2 dark:text-gray-300 text-xs">
-                    <span>2023©</span>
-                    <a href="https://formlaez.com" rel="noreferrer" target="_blank" className="hover:text-sky-500">Formlaez.com</a>
+            {
+                !hideFooter &&
+                <div className="w-full flex justify-center">
+                    <div className="mx-auto h-10 flex items-center justify-center gap-2 dark:text-gray-300 text-xs">
+                        <span>2023©</span>
+                        <a href="https://formlaez.com" rel="noreferrer" target="_blank" className="hover:text-sky-500">Formlaez.com</a>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     );
 }

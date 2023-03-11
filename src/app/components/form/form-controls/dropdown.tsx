@@ -11,6 +11,7 @@ type OptionType = {
 type Props = InputHTMLAttributes<any> & {
     status?: FieldStatus;
     options?: OptionType[];
+    value?: string[];
 }
 
 const Dropdown: FC<Props> = ({ status, onChange = () => { }, value, options = [], ...rest }) => {
@@ -24,7 +25,9 @@ const Dropdown: FC<Props> = ({ status, onChange = () => { }, value, options = []
         }>
             <Select<any, any>
                 onChange={onChange}
+                value={value}
                 className="w-full text-sm rounded"
+                dropdownClassName='z-[1100]'
                 allowClear
                 showArrow
                 showSearch

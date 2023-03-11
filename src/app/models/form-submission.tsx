@@ -16,6 +16,11 @@ export type CreateFormSubmissionRequest = {
     data: any;
 }
 
+export type UpdateFormSubmissionRequest = {
+    code: string;
+    data: any;
+}
+
 export type SearchFormSubmissionRequest = Pageable & {
     formCode?: string;
     advance?: boolean;

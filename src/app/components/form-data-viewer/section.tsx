@@ -6,9 +6,10 @@ import GroupField from './group-field';
 type Props = {
     section: FormSection;
     data: any;
+    showContentBlocks: boolean;
 }
 
-const Section: FC<Props> = ({section, data}) => {
+const Section: FC<Props> = ({ section, data, showContentBlocks }) => {
 
     const fields = section.fields || [];
     if (fields.length === 0) {
@@ -16,13 +17,12 @@ const Section: FC<Props> = ({section, data}) => {
     }
 
     if (section.type === 'Group') {
-        <GroupField section={section}/>
+        return <GroupField section={section} showContentBlocks={showContentBlocks} data={data} />
     }
 
-const field = fields[0];
-
+    const field = fields[0];
     return (
-        <Field field={field} data={data} />
+        <Field field={field} data={data} showContentBlocks={showContentBlocks} />
     );
 }
 

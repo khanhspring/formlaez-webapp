@@ -1,18 +1,24 @@
 import moment from "moment";
 import Pagination from "rc-pagination";
+import Switch from "rc-switch";
 import Table from "rc-table";
 import { ColumnsType, TableSticky } from "rc-table/lib/interface";
 import Tooltip from "rc-tooltip";
 import { FC, ReactNode, useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
+import confirm from "../../../components/common/confirm/confirm";
 import ExternalScroll from "../../../components/common/external-scroll";
 import Drawer from "../../../components/drawer/drawer";
 import FormDataViewer from "../../../components/form-data-viewer";
 import ButtonTableAction from "../../../components/layout/button-table-action";
 import { PaginationLocale } from "../../../constants/pagination-locale";
 import FieldUtil from "../../../features/form-builder/utils/field-util";
+import useArchiveSubmission from "../../../hooks/submissions/useArchiveSubmission";
 import useSubmissions from "../../../hooks/submissions/useSubmissions";
 import { Form, FormField } from "../../../models/form";
 import { FormSubmission } from "../../../models/form-submission";
+import { showError } from "../../../util/common";
+import FormDataEditDrawer from "./form-data-edit-drawer";
 
 type ColumnWidth = {
     index: number;
@@ -24,7 +30,7 @@ type ColumnWidth = {
 }
 
 const ColumnWidthConfig: ColumnWidth = {
-    index: 35,
+    index: 45,
     id: 120,
     user: 155,
     dateTime: 135,
@@ -51,9 +57,12 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
 
     const [tableBody, setTableBody] = useState<HTMLElement>();
     const [page, setPage] = useState(0);
-    const { data: formData } = useSubmissions({ formCode: form?.code, page, size: pageSize });
+    const { data: formData, refetch } = useSubmissions({ formCode: form?.code, page, size: pageSize });
     const [selectedSubmission, setSelectedSubmission] = useState<FormSubmission>();
     const [submissionVisible, setSubmissionVisible] = useState(false);
+    const [showContentBlocks, setShowContentBlocks] = useState(false);
+    const [editSubmissionVisible, setEditSubmissionVisible] = useState(false);
+    const {mutateAsync: archiveSubmission} = useArchiveSubmission();
 
     const valueOf = (field: FormField, record: any): ReactNode => {
         if (!record) {
@@ -191,7 +200,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
             fixed: 'left',
             align: 'center',
             render: (value, record, index) => {
-                return index + 1
+                return (index + 1) + page * pageSize
             },
         },
         {
@@ -240,10 +249,10 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
                         <ButtonTableAction>
                             <i className="fi fi-rr-print"></i>
                         </ButtonTableAction>
-                        <ButtonTableAction>
+                        <ButtonTableAction onClick={() => selectEditSubmission(record)}>
                             <i className="fi fi-rr-pencil"></i>
                         </ButtonTableAction>
-                        <ButtonTableAction danger>
+                        <ButtonTableAction danger onClick={() => showArchiveConfirm(record)}>
                             <i className="fi fi-rr-trash"></i>
                         </ButtonTableAction>
                     </div>
@@ -263,6 +272,11 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
         setSubmissionVisible(true);
     }
 
+    const selectEditSubmission = (submission: FormSubmission) => {
+        setSelectedSubmission(submission);
+        setEditSubmissionVisible(true);
+    }
+
     const closeSubmission = () => {
         setSubmissionVisible(false);
     }
@@ -271,6 +285,26 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
         if (!visible) {
             setSelectedSubmission(undefined);
         }
+    }
+
+    const closeEditSubmission = () => {
+        setEditSubmissionVisible(false);
+        refetch();
+    }
+
+    const confirmArchive = (submissionCode: string): Promise<any> => {
+        return archiveSubmission(submissionCode, {
+            onError: showError,
+            onSuccess: () => toast.success("Deleted submission successfully!")
+        }).finally(refetch)
+    }
+
+    const showArchiveConfirm = (submission: FormSubmission) => {
+        confirm({
+            title: 'Confirm',
+            content: 'Are you sure to delete this submission?',
+            onOkAsync: () => confirmArchive(submission.code)
+        })
     }
 
     const columns: ColumnsType<FormSubmission> = [...defaultColumns, ...dataColumns, ...actionColumns];
@@ -295,7 +329,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
             />
             <div className="w-full mt-3 p-1 z-[200] bg-white/90 border border-slate-900/10 dark:bg-cinder-700/80 dark:border-cinder-600 sticky bottom-0 flex items-center justify-center">
                 <Pagination
-                    total={formData?.totalPages || 0}
+                    total={formData?.totalElements || 0}
                     pageSize={formData?.size || 0}
                     locale={PaginationLocale}
                     onChange={onPageChange}
@@ -304,19 +338,32 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
                     nextIcon={<i className="fi fi-rr-arrow-right text-lg"></i>}
                 />
             </div>
-            <div className="fixed z-[1000] bottom-[70px] right-7 w-[140px] h-[55px]">
-                <ExternalScroll target={tableBody} />
-            </div>
+            <ExternalScroll target={tableBody} />
 
             <Drawer
-                title={selectedSubmission?.code}
+                title={
+                    <div className="w-full flex justify-between items-center">
+                        <span>{selectedSubmission?.code}</span>
+                        <label className="text-xs font-normal flex items-center gap-2 cursor-pointer">
+                            Show content blocks <Switch checked={showContentBlocks} onChange={setShowContentBlocks} />
+                        </label>
+                    </div>
+                }
                 onClose={closeSubmission}
                 open={submissionVisible}
                 afterOpenChange={afterOpenChange}
                 width={600}
             >
-                <FormDataViewer form={form} submission={selectedSubmission} />
+                <div>
+                    <FormDataViewer form={form} submission={selectedSubmission} showContentBlocks={showContentBlocks} />
+                </div>
             </Drawer>
+            <FormDataEditDrawer
+                visible={editSubmissionVisible}
+                onClose={closeEditSubmission}
+                form={form}
+                submission={selectedSubmission}
+            />
         </>
     );
 }

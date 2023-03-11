@@ -55,21 +55,23 @@ const ExternalScroll: FC<Props> = ({ target }) => {
     }
 
     return (
-        <div className='w-full h-full border border-slate-900/10 bg-slate-200 dark:border-cinder-600 dark:bg-cinder-700 shadow-lg overflow-hidden rounded p-2'>
-            <div ref={container} className='w-full h-full relative'>
-                <ReactSlider
-                    value={value}
-                    className="w-full h-full"
-                    thumbClassName="w-10 h-full text-xs bg-transparent flex items-center justify-center cursor-move rounded-sm outline outline-2 outline-blue-700"
-                    renderThumb={(props, state) => <div {...props}>{state.valueNow}%</div>}
-                    onChange={onChange}
-                />
-                <div className='absolute w-full h-full top-0 left-0 flex justify-between'>
-                    {
-                        cols.map((item, index) =>
-                            <div key={index} className="w-2.5 h-full bg-slate-300 dark:bg-cinder-900 top-0 left-0 rounded"></div>
-                        )
-                    }
+        <div className="fixed z-[1000] bottom-[70px] right-7 w-[140px] h-[55px]">
+            <div className='w-full h-full border border-slate-900/10 bg-slate-200 dark:border-cinder-600 dark:bg-cinder-700 shadow-lg overflow-hidden rounded p-2'>
+                <div ref={container} className='w-full h-full relative'>
+                    <ReactSlider
+                        value={value}
+                        className="w-full h-full"
+                        thumbClassName="w-10 h-full text-xs bg-transparent flex items-center justify-center cursor-move rounded-sm outline outline-2 outline-blue-700"
+                        renderThumb={(props, state) => <div {...props}>{state.valueNow}%</div>}
+                        onChange={onChange}
+                    />
+                    <div className='absolute w-full h-full top-0 left-0 flex justify-between'>
+                        {
+                            cols.map((item, index) =>
+                                <div key={index} className="w-2.5 h-full bg-slate-300 dark:bg-cinder-900 top-0 left-0 rounded"></div>
+                            )
+                        }
+                    </div>
                 </div>
             </div>
         </div>
