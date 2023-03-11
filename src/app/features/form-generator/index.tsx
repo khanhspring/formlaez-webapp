@@ -113,7 +113,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                     }
                 </div>
             }
-            <div className="w-full max-w-[530px] m-auto flex-1 pb-10">
+            <div className="w-full max-w-[530px] m-auto flex-1">
                 <RcForm
                     initialValues={initValues}
                     onFinish={handleOnFinish}
@@ -137,7 +137,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
             </div>
             {
                 !hideFooter &&
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-center mt-10">
                     <div className="mx-auto h-10 flex items-center justify-center gap-2 dark:text-gray-300 text-xs">
                         <span>2023©</span>
                         <a href="https://formlaez.com" rel="noreferrer" target="_blank" className="hover:text-sky-500">Formlaez.com</a>

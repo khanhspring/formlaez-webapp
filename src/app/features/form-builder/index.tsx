@@ -211,7 +211,7 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
                         </div>
                         <div className="w-full pb-5 pt-1">
                             <Textarea
-                                value={form?.title}
+                                value={title}
                                 className="w-full text-3xl font-bold border-none !bg-transparent !px-0"
                                 autoHeight
                                 placeholder="Untitled"

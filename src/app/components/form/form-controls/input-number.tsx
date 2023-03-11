@@ -22,6 +22,7 @@ const InputNumber: FC<Props> = ({ className = '', status, onChange = () => {}, v
                 onChange={onChange}
                 className="w-full rounded border-none bg-transparent h-auto outline-none shadow-none text-sm min-h-[36px]"
                 placeholder={rest.placeholder}
+                formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             />
         </div>
     );

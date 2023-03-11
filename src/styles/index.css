@@ -530,6 +530,12 @@ hr {
     padding: 5px 0 5px 0;
 }
 
+.rc-tooltip-placement-left,
+.rc-tooltip-placement-leftTop,
+.rc-tooltip-placement-leftBottom {
+    padding: 0 5px 0 5px;
+}
+
 .rc-table-sticky-scroll {
     display: none;
 }

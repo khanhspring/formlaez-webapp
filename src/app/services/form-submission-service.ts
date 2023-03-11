@@ -1,6 +1,7 @@
 import RestClient from "../configurations/axios-config";
 import { PageResponse, ResponseCode } from "../models/common";
-import { CreateFormSubmissionRequest, FormSubmission, SearchFormSubmissionRequest, UpdateFormSubmissionRequest } from "../models/form-submission";
+import { CreateFormSubmissionRequest, ExportFormSubmissionRequest, FormSubmission, PrintFormSubmissionRequest, SearchFormSubmissionRequest, UpdateFormSubmissionRequest } from "../models/form-submission";
+import { saveFile } from "../util/file-util";
 import StringUtils from "../util/string-utils";
 
 function create(request: CreateFormSubmissionRequest): Promise<ResponseCode> {
@@ -21,6 +22,12 @@ function archive(code: string): Promise<ResponseCode> {
   );
 }
 
+function print(request: PrintFormSubmissionRequest): Promise<ResponseCode> {
+  return RestClient.post<ResponseCode>("/admin/forms/submissions/" + request.code + "/print", request).then(
+    (response) => response.data
+  );
+}
+
 function search(request: SearchFormSubmissionRequest): Promise<PageResponse<FormSubmission>> {
   const q = StringUtils.toQuery(request);
   return RestClient.get<any>("/admin/forms/" + request.formCode + "/submissions?" + q).then(
@@ -28,11 +35,23 @@ function search(request: SearchFormSubmissionRequest): Promise<PageResponse<Form
   );
 }
 
+function exportCsv(request: ExportFormSubmissionRequest): Promise<any> {
+  return RestClient.post<any>(
+    "/admin/forms/" + request.formCode + "/submissions/export",
+    request,
+    { responseType: "arraybuffer" }
+  ).then((response) => {
+    saveFile(response, request.fileName);
+  });
+}
+
 const FormSubmissionService = {
   create,
   update,
   archive,
-  search
+  print,
+  search,
+  exportCsv
 };
 
 export default FormSubmissionService;

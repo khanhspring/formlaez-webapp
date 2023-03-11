@@ -8,7 +8,9 @@ import ButtonAction from "../../components/layout/button-action";
 import PageTitle from "../../components/layout/page-title";
 import useFormDetail from '../../hooks/form/useFormDetail';
 import usePublishForm from '../../hooks/form/usePublishForm';
-import { showError } from '../../util/common';
+import useExportSubmissions from '../../hooks/submissions/useExportSubmissions';
+import { ExportFormSubmissionRequest } from '../../models/form-submission';
+import { showError, showSuccess } from '../../util/common';
 import FormDataTable from './components/form-data-table';
 import FormPageMenu from './components/form-page-menu';
 
@@ -17,6 +19,7 @@ function Form() {
     const params = useParams();
     const { data: form, refetch } = useFormDetail(params.formCode);
     const { mutateAsync: publish } = usePublishForm();
+    const { mutateAsync: exportCsv } = useExportSubmissions();
 
     const title = (
         <div className='flex items-center gap-3'>
@@ -53,6 +56,20 @@ function Form() {
     const copyShareLink = () => {
         copy(`${process.env.REACT_APP_DOMAIN}/f/v/${params.formCode}`);
         toast.success("Copied");
+    }
+
+    const handleExport = () => {
+        if (!form) {
+            return;
+        }
+        const request: ExportFormSubmissionRequest = {
+            formCode: form?.code,
+            fileName: form.title + '.csv',
+        }
+        exportCsv(request, {
+            onError: showError,
+            onSuccess: () => toast.success('Exported submissions successfully!')
+        })
     }
 
     return (
@@ -113,7 +130,7 @@ function Form() {
                                     </ButtonAction>
                                 </Tooltip>
                                 <Tooltip overlay="Export" placement='bottom'>
-                                    <ButtonAction>
+                                    <ButtonAction onClick={handleExport}>
                                         <i className="fi fi-rr-cloud-download-alt"></i>
                                     </ButtonAction>
                                 </Tooltip>

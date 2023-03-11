@@ -14,9 +14,10 @@ import ButtonTableAction from "../../../components/layout/button-table-action";
 import { PaginationLocale } from "../../../constants/pagination-locale";
 import FieldUtil from "../../../features/form-builder/utils/field-util";
 import useArchiveSubmission from "../../../hooks/submissions/useArchiveSubmission";
+import usePrintSubmission from "../../../hooks/submissions/usePrintSubmission";
 import useSubmissions from "../../../hooks/submissions/useSubmissions";
 import { Form, FormField } from "../../../models/form";
-import { FormSubmission } from "../../../models/form-submission";
+import { FormSubmission, PrintFormSubmissionRequest } from "../../../models/form-submission";
 import { showError } from "../../../util/common";
 import FormDataEditDrawer from "./form-data-edit-drawer";
 
@@ -63,6 +64,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
     const [showContentBlocks, setShowContentBlocks] = useState(false);
     const [editSubmissionVisible, setEditSubmissionVisible] = useState(false);
     const {mutateAsync: archiveSubmission} = useArchiveSubmission();
+    const {mutateAsync: printSubmission} = usePrintSubmission();
 
     const valueOf = (field: FormField, record: any): ReactNode => {
         if (!record) {
@@ -246,7 +248,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
             render(value, record, index) {
                 return (
                     <div className="flex items-center justify-center gap-1.5 text-xs">
-                        <ButtonTableAction>
+                        <ButtonTableAction onClick={() => handlePrintSubmission(record)}>
                             <i className="fi fi-rr-print"></i>
                         </ButtonTableAction>
                         <ButtonTableAction onClick={() => selectEditSubmission(record)}>
@@ -304,6 +306,17 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
             title: 'Confirm',
             content: 'Are you sure to delete this submission?',
             onOkAsync: () => confirmArchive(submission.code)
+        })
+    }
+
+    const handlePrintSubmission = (submission: FormSubmission) => {
+        const request: PrintFormSubmissionRequest = {
+            code: submission.code,
+            templateId: 1
+        }
+        printSubmission(request, {
+            onError: showError,
+            onSuccess: () => toast.success("Printed successfully!")
         })
     }
 

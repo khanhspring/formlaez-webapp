@@ -21,8 +21,18 @@ export type UpdateFormSubmissionRequest = {
     data: any;
 }
 
+export type PrintFormSubmissionRequest = {
+    code: string;
+    templateId: number;
+}
+
 export type SearchFormSubmissionRequest = Pageable & {
     formCode?: string;
     advance?: boolean;
     keywords?: string;
+}
+
+export type ExportFormSubmissionRequest = {
+    formCode: string;
+    fileName: string;
 }
