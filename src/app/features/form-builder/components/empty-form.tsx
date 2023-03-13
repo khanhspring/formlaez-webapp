@@ -26,9 +26,12 @@ const EmptyForm: FC<Props> = ({ form }) => {
             open={addNewMenuVisible}
             onOpenChange={setAddNewMenuVisible}
             className="bg-transparent"
+            disabled={form?.status === 'Archived'}
         >
             <div className={`w-full p-5 rounded border border-cinder-700 border-dashed cursor-pointer`}>
-                Click to add new form element
+                {
+                    form?.status !== 'Archived' ? 'Click to add new form element' : 'Empty form'
+                }
             </div>
         </Popup>
     );

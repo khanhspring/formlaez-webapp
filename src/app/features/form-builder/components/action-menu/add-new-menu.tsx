@@ -1,9 +1,9 @@
 import { FC, useEffect, useState, useRef } from "react";
 import SimpleBar from "simplebar-react";
 import { ConfigSections, DecoratorConfigFields, FormControlConfigFields } from "../../../../constants/config-fields";
-import { useAppDispatch } from "../../../../hooks/redux-hook";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/redux-hook";
 import { ActionContext, AddFormField, AddFormSection, ConfigField, ConfigSection } from "../../../../models/form";
-import { addGroupField, addSection, addSingleField } from "../../slice";
+import { addGroupField, addSection, addSingleField, selectForm } from "../../slice";
 
 type Props = {
     context: ActionContext;
@@ -14,6 +14,7 @@ type Props = {
 const AddNewMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
 
     const dispatch = useAppDispatch();
+    const form = useAppSelector(selectForm);
     const [query, setQuery] = useState<string>('');
     const searchRef = useRef<HTMLInputElement>(null);
 

@@ -4,8 +4,10 @@ import { FC, useState } from "react";
 import Button from "../../../../components/common/button";
 import Input from "../../../../components/form/form-controls/input";
 import FormItem from "../../../../components/form/form-item";
+import { useAppSelector } from "../../../../hooks/redux-hook";
 import { ActionContext, FormField } from "../../../../models/form";
 import { useUpdateField } from "../../hooks/useUpdateField";
+import { selectForm } from "../../slice";
 
 type Props = {
     field: FormField;
@@ -15,6 +17,7 @@ type Props = {
 const PdfField: FC<Props> = ({ field, context }) => {
 
     const [embedUrlVisible, setEmbedUrlVisible] = useState(false);
+    const formInfo = useAppSelector(selectForm);
 
     const { values, update } = useUpdateField(field, context);
 
@@ -61,6 +64,7 @@ const PdfField: FC<Props> = ({ field, context }) => {
                 open={embedUrlVisible}
                 onOpenChange={setEmbedUrlVisible}
                 afterClose={resetForm}
+                disabled={formInfo?.status === 'Archived'}
             >
                 <div className="p-3 bg-slate-200 dark:bg-cinder-600 rounded cursor-pointer flex gap-2 items-center dark:text-gray-400">
                     <i className="fi fi-rr-picture"></i>

@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import ConfirmModal from './confirm-modal';
 
@@ -14,10 +15,14 @@ document.addEventListener("mousedown", getClickPosition);
 
 export type Options = {
     title: string;
-    content?: string;
+    content?: ReactNode;
     onOk?: () => void;
     onOkAsync?: () => Promise<any>;
     onCancel?: () => void;
+    okText?: string;
+    width?: number;
+    hideCancel?: boolean;
+    danger?: boolean;
 }
 
 export default function confirm(options: Options) {
@@ -37,6 +42,10 @@ export default function confirm(options: Options) {
             onCancel={options.onCancel}
             onOk={options.onOk}
             onOkAsync={options.onOkAsync}
+            okText={options.okText}
+            width={options.width}
+            hideCancel={options.hideCancel}
+            danger={options.danger}
         >
             {options.content}
         </ConfirmModal>

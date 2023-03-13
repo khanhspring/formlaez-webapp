@@ -9,6 +9,9 @@ export const FORM_LAYOUT: Form = {
   scope: 'Private',
   sharingScope: 'Private',
   status: 'Draft',
+  acceptResponses: true,
+  allowPrinting: true,
+  allowResponseEditing: true,
   pages: [
     {
       id: 1,
@@ -289,6 +292,9 @@ export const CONTENT_FORM: Form = {
   scope: 'Private',
   sharingScope: 'Private',
   status: 'Draft',
+  acceptResponses: true,
+  allowPrinting: true,
+  allowResponseEditing: true,
   pages: [
     {
       id: 1,
@@ -387,6 +393,9 @@ const HTML_FORM: Form = {
   scope: 'Private',
   sharingScope: 'Private',
   status: 'Draft',
+  acceptResponses: true,
+  allowPrinting: true,
+  allowResponseEditing: true,
   pages: [
     {
       id: 1,

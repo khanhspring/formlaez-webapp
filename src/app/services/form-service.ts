@@ -6,7 +6,8 @@ import {
   FormField,
   FormSection,
   SearchFormRequest,
-  UpdateFormRequest
+  UpdateFormRequest,
+  UpdateFormSettingsRequest
 } from "../models/form";
 
 function create(request: CreateFormRequest): Promise<ResponseId> {
@@ -39,8 +40,26 @@ function update(request: UpdateFormRequest): Promise<any> {
   );
 }
 
+function updateSettings(request: UpdateFormSettingsRequest): Promise<any> {
+  return RestClient.put<ResponseId>("/admin/forms/" + request.id + "/settings", request).then(
+    (response) => response.data
+  );
+}
+
 function publish(id: number): Promise<any> {
   return RestClient.post<ResponseId>("/admin/forms/" + id + "/publish").then(
+    (response) => response.data
+  );
+}
+
+function archive(id: number): Promise<any> {
+  return RestClient.post<ResponseId>("/admin/forms/" + id + "/archive").then(
+    (response) => response.data
+  );
+}
+
+function remove(id: number): Promise<any> {
+  return RestClient.delete<ResponseId>("/admin/forms/" + id).then(
     (response) => response.data
   );
 }
@@ -99,7 +118,10 @@ const FormService = {
   findFormByCode,
   getFormDetailByCode,
   update,
+  updateSettings,
   publish,
+  archive,
+  remove,
   addFormSection,
   addGroupField,
   reorderSection,

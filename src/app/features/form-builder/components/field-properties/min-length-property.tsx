@@ -8,11 +8,12 @@ import { useUpdateField } from "../../hooks/useUpdateField";
 type Props = {
     field: FormField;
     context: ActionContext;
+    disabled?: boolean;
 }
 
 const SupportedTypes: FormFieldType[] = ["InputText", "LongText", 'Email']
 
-const MinLengthProperty: FC<Props> = ({ field, context }) => {
+const MinLengthProperty: FC<Props> = ({ field, context, disabled }) => {
 
     const {values, update} = useUpdateField(field, context);
 
@@ -33,7 +34,7 @@ const MinLengthProperty: FC<Props> = ({ field, context }) => {
                 title="Min length"
                 name={'minLength'}
             >
-                <InputNumber placeholder="Min length" min="1" />
+                <InputNumber placeholder="Min length" min="1" disabled={disabled} />
             </FormItem>
         </Form>
     );

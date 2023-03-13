@@ -82,7 +82,7 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
     }
 
     const removeCover = () => {
-        if (!form) {
+        if (!form || form.status === 'Archived') {
             return;
         }
         const formInfo: UpdateFormInfo = {
@@ -94,7 +94,7 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
     }
 
     const addCover = () => {
-        if (!form) {
+        if (!form || form.status === 'Archived') {
             return;
         }
         const formInfo: UpdateFormInfo = {
@@ -107,7 +107,7 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
     }
 
     const dispatchTitleChange = useDebounced((title?: string) => {
-        if (!form) {
+        if (!form || form.status === 'Archived') {
             return;
         }
         const formInfo: UpdateFormInfo = {
@@ -128,7 +128,7 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
 
     const onSelectColorCover = (bgClassName: string) => {
         setCoverConfigVisible(false);
-        if (!form) {
+        if (!form || form.status === 'Archived') {
             return;
         }
         const formInfo: UpdateFormInfo = {
@@ -166,40 +166,55 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
                     + ` ${form.coverColor || 'bg-001'}`
                 }>
                     <div className="w-full max-w-[530px] m-auto relative h-full flex items-center justify-center">
-                        <Textarea
-                            value={title}
-                            className="w-full text-3xl font-bold border-none text-white !bg-transparent !px-0 text-center text-shadow-gray"
-                            autoHeight
-                            placeholder="Untitled"
-                            onChange={e => handleTitleChange(e.target.value)}
-                        />
-                        <div className="absolute w-full h-10 bottom-0 left-0 flex justify-end items-center gap-2 transition invisible group-hover/form-cover:visible">
-                            <Popup
-                                content={coverColors}
-                                className="bg-transparent !text-slate-900 dark:!text-white"
-                                open={coverConfigVisible}
-                                onOpenChange={setCoverConfigVisible}
-                            >
-                                <button
-                                    onClick={() => { }}
-                                    className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-cinder-700/70 dark:hover:bg-cinder-700"
+                        {
+                            form?.status !== 'Archived' &&
+                            <>
+                                <Textarea
+                                    value={title}
+                                    className="w-full text-3xl font-bold border-none text-white !bg-transparent !px-0 text-center text-shadow-gray"
+                                    autoHeight
+                                    placeholder="Untitled"
+                                    onChange={e => handleTitleChange(e.target.value)}
+                                />
+                                <div className="absolute w-full h-10 bottom-0 left-0 flex justify-end items-center gap-2 transition invisible group-hover/form-cover:visible">
+                                    <Popup
+                                        content={coverColors}
+                                        className="bg-transparent !text-slate-900 dark:!text-white"
+                                        open={coverConfigVisible}
+                                        onOpenChange={setCoverConfigVisible}
+                                    >
+                                        <button
+                                            onClick={() => { }}
+                                            className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-cinder-700/70 dark:hover:bg-cinder-700"
+                                        >
+                                            Change cover
+                                        </button>
+                                    </Popup>
+                                    <button
+                                        onClick={removeCover}
+                                        className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-cinder-700/70 dark:hover:bg-cinder-700"
+                                    >
+                                        Remove
+                                    </button>
+                                </div>
+                            </>
+                        }
+                        {
+                            form?.status === 'Archived' &&
+                            <>
+                                <div
+                                    className="w-full text-3xl font-bold border-none text-white !bg-transparent !px-0 text-center text-shadow-gray"
                                 >
-                                    Change cover
-                                </button>
-                            </Popup>
-                            <button
-                                onClick={removeCover}
-                                className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-cinder-700/70 dark:hover:bg-cinder-700"
-                            >
-                                Remove
-                            </button>
-                        </div>
+                                    <h1>{title}</h1>
+                                </div>
+                            </>
+                        }
                     </div>
                 </div>
             }
             <div className="w-full max-w-[530px] m-auto mt-10 text-sm">
                 {
-                    (!form?.coverType || form?.coverType === 'None') &&
+                    (!form?.coverType || form?.coverType === 'None') && form?.status !== 'Archived' &&
                     <>
                         <div className="w-full">
                             <button
@@ -221,17 +236,25 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
                     </>
                 }
                 {
+                    (!form?.coverType || form?.coverType === 'None') && form?.status === 'Archived' &&
+                    <div className="w-full pb-5 pt-1">
+                        <div className="w-full text-3xl font-bold border-none !bg-transparent !px-0">
+                            <h1>{title}</h1>
+                        </div>
+                    </div>
+                }
+                {
                     _.isEmpty(sections) && <EmptyForm form={form} />
                 }
                 <DragDropContext onDragEnd={onDragEnd}>
-                    <Droppable droppableId="pageWrap" type="page">
+                    <Droppable droppableId="pageWrap" type="page" isDropDisabled={form?.status === 'Archived'}>
                         {(provided, snapshot) => (
                             <div
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                             >
                                 {sections.map((item, index) => (
-                                    <Draggable key={item.code} draggableId={'section_' + item.code} index={index}>
+                                    <Draggable key={item.code} draggableId={'section_' + item.code} index={index} isDragDisabled={form?.status === 'Archived'}>
                                         {(provided, snapshot) => (
                                             <div
                                                 ref={provided.innerRef}

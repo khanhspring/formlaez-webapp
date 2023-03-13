@@ -1,11 +1,13 @@
 import Form from 'rc-field-form';
 import { FC, useEffect } from "react";
-import Modal from "../../components/common/modal";
-import Input from '../../components/form/form-controls/input';
-import FormItem from '../../components/form/form-item';
-import useCreateForm from '../../hooks/form/useCreateForm';
-import { CreateFormRequest } from '../../models/form';
-import { showError, showSuccess } from '../../util/common';
+import { useRouteLoaderData } from 'react-router-dom';
+import Modal from "../../../components/common/modal";
+import Input from '../../../components/form/form-controls/input';
+import FormItem from '../../../components/form/form-item';
+import useCreateForm from '../../../hooks/form/useCreateForm';
+import { CreateFormRequest } from '../../../models/form';
+import { Workspace } from '../../../models/workspace';
+import { showError, showSuccess } from '../../../util/common';
 
 type Props = {
     visible: boolean;
@@ -14,8 +16,9 @@ type Props = {
 }
 const CreateFormModal: FC<Props> = ({ visible, onClose, refetch }) => {
 
+    const workspace = useRouteLoaderData("workspace") as Workspace;
     const [form] = Form.useForm();
-    const {mutateAsync: createForm, isLoading: summitting} = useCreateForm();
+    const {mutateAsync: createForm, isLoading: submitting} = useCreateForm();
 
     useEffect(() => {
         if (visible) {
@@ -31,7 +34,8 @@ const CreateFormModal: FC<Props> = ({ visible, onClose, refetch }) => {
         const request: CreateFormRequest = {
             title: values.title,
             description: values.description,
-            scope: 'Private'
+            scope: 'Private',
+            workspaceId: workspace.id,
         }
         createForm(request, {
             onSuccess: showSuccess,
@@ -49,7 +53,7 @@ const CreateFormModal: FC<Props> = ({ visible, onClose, refetch }) => {
             onClose={onClose}
             title="Create form"
             onOk={onOk}
-            loading={summitting}
+            loading={submitting}
         >
             <Form
                 onFinish={onFinish}

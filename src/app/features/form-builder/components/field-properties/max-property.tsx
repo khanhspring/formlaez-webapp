@@ -8,11 +8,12 @@ import { useUpdateField } from "../../hooks/useUpdateField";
 type Props = {
     field: FormField;
     context: ActionContext;
+    disabled?: boolean;
 }
 
 const SupportedTypes: FormFieldType[] = ["InputNumber"]
 
-const MaxProperty: FC<Props> = ({ field, context }) => {
+const MaxProperty: FC<Props> = ({ field, context, disabled }) => {
 
     const {values, update} = useUpdateField(field, context);
 
@@ -33,7 +34,7 @@ const MaxProperty: FC<Props> = ({ field, context }) => {
                 title="Max"
                 name={'max'}
             >
-                <InputNumber placeholder="Max" />
+                <InputNumber placeholder="Max" disabled={disabled}/>
             </FormItem>
         </Form>
     );

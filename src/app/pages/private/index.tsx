@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteLoaderData } from 'react-router-dom';
 import FormItem from "../../components/common/form-item";
 import ButtonAction from '../../components/layout/button-action';
 import PageTitle from '../../components/layout/page-title';
 import useForms from '../../hooks/form/useForms';
-import CreateFormModal from './create-form-modal';
+import { Workspace } from '../../models/workspace';
+import CreateFormModal from './components/create-form-modal';
 
 function Private() {
 
+    const workspace = useRouteLoaderData("workspace") as Workspace;
     const [createModalVisible, setCreateModelVisible] = useState(false);
     const [page, setPage] = useState(0);
     const { data: pages, refetch } = useForms({ page, scope: 'Private' });
@@ -58,7 +60,7 @@ function Private() {
                 <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
                     {
                         pages?.content?.map((item, index) => (
-                            <Link to={`/private/forms/${item.code}`} key={index}>
+                            <Link to={`/${workspace.code}/private/forms/${item.code}`} key={index}>
                                 <FormItem form={item} />
                             </Link>
                         ))

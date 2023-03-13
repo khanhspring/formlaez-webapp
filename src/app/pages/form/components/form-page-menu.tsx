@@ -1,8 +1,10 @@
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams, useRouteLoaderData } from "react-router-dom";
+import { Workspace } from "../../../models/workspace";
 import StringUtils from "../../../util/string-utils";
 
 function FormPageMenu() {
 
+    const workspace = useRouteLoaderData("workspace") as Workspace;
     const { pathname } = useLocation();
     const params = useParams();
 
@@ -16,7 +18,7 @@ function FormPageMenu() {
 
     return (
         <>
-            <Link to={`/private/forms/${params.formCode}`}>
+            <Link to={`/${workspace.code}/private/forms/${params.formCode}`}>
                 <span className={
                     `text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer`
                     + ` ${isActive(params.formCode) ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`
@@ -24,7 +26,7 @@ function FormPageMenu() {
                     Database
                 </span>
             </Link>
-            <Link to={`/private/forms/${params.formCode}/edit`}>
+            <Link to={`/${workspace.code}/private/forms/${params.formCode}/edit`}>
                 <span className={
                     `text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer`
                     + ` ${isActive('edit') ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`
@@ -32,15 +34,15 @@ function FormPageMenu() {
                     Builder
                 </span>
             </Link>
-            <Link to={`/private/forms/${params.formCode}/print-templates`}>
+            <Link to={`/${workspace.code}/private/forms/${params.formCode}/document-templates`}>
                 <span className={
                     `text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer`
-                    + ` ${isActive('print-templates') ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`
+                    + ` ${isActive('document-templates') ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`
                 }>
-                    Print templates
+                    Document templates
                 </span>
             </Link>
-            <Link to={`/private/forms/${params.formCode}/settings`}>
+            <Link to={`/${workspace.code}/private/forms/${params.formCode}/settings`}>
                 <span className={
                     `text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer`
                     + ` ${isActive('settings') ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`

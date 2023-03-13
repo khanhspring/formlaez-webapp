@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteLoaderData } from 'react-router-dom';
 import TeamItem from '../../components/common/team-item';
 import ButtonAction from '../../components/layout/button-action';
+import { Workspace } from '../../models/workspace';
 import CreateTeamModal from './create-team-modal';
 
 function Team() {
 
+    const workspace = useRouteLoaderData("workspace") as Workspace;
     const [createModalVisible, setCreateModelVisible] = useState(false);
 
     const showCreateModal = () => {
@@ -45,30 +47,13 @@ function Team() {
                     </div>
                 </div>
                 <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
-                    <Link to="/teams/vuejs-team">
-                        <TeamItem />
-                    </Link>
-                    <Link to="/teams/vuejs-team">
-                        <TeamItem favorite={true} />
-                    </Link>
-                    <Link to="/teams/vuejs-team">
-                        <TeamItem />
-                    </Link>
-                    <Link to="/teams/vuejs-team">
-                        <TeamItem />
-                    </Link>
-                    <Link to="/teams/vuejs-team">
-                        <TeamItem favorite={true} />
-                    </Link>
-                    <Link to="/teams/vuejs-team">
-                        <TeamItem />
-                    </Link>
-                    <Link to="/teams/vuejs-team">
-                        <TeamItem />
-                    </Link>
-                    <Link to="/teams/vuejs-team">
-                        <TeamItem />
-                    </Link>
+                    {
+                        [...Array(10)].map((item, index) =>
+                            <Link to={`/${workspace.code}/teams/vuejs-team`} key={index}>
+                                <TeamItem />
+                            </Link>
+                        )
+                    }
                 </div>
             </div>
             <CreateTeamModal

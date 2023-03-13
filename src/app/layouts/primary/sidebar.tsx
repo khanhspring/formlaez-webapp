@@ -3,10 +3,12 @@ import { Link, useRouteLoaderData } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import Logo from '../../components/common/logo';
 import ZigzagIcon from '../../components/icons/zigzag-icon';
+import { Workspace } from '../../models/workspace';
 import StringUtils from '../../util/string-utils';
 
 function SideBar() {
 
+    const workspace = useRouteLoaderData("workspace") as Workspace;
     const userSession: any = useRouteLoaderData('private');
     const currentWorkspace = userSession?.lastAccessedWorkspace?.workspace;
 
@@ -41,7 +43,7 @@ function SideBar() {
                             </Link>
                         </div>
                         <div className="flex items-center justify-center">
-                            <Link to="/teams" className="flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition">
+                            <Link to={`/${workspace.code}/teams`} className="flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition">
                                 <i className="fi fi-rr-users-alt text-xl text-slate-500 group-hover:text-blue-500 dark:group-hover:text-sky-500 dark:text-gray-500"></i>
                                 <span className="text-xs font-normal dark:group-hover:text-gray-100 dark:text-slate-400">Teams</span>
                             </Link>

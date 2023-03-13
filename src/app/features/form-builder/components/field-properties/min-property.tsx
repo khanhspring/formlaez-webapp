@@ -8,11 +8,12 @@ import { useUpdateField } from "../../hooks/useUpdateField";
 type Props = {
     field: FormField;
     context: ActionContext;
+    disabled?: boolean;
 }
 
 const SupportedTypes: FormFieldType[] = ["InputNumber"]
 
-const MinProperty: FC<Props> = ({ field, context }) => {
+const MinProperty: FC<Props> = ({ field, context, disabled }) => {
 
     const {values, update} = useUpdateField(field, context);
 
@@ -33,7 +34,7 @@ const MinProperty: FC<Props> = ({ field, context }) => {
                 title="Min"
                 name={'min'}
             >
-                <InputNumber placeholder="Min" />
+                <InputNumber placeholder="Min" disabled={disabled}/>
             </FormItem>
         </Form>
     );

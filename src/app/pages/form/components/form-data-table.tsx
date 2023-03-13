@@ -14,12 +14,13 @@ import ButtonTableAction from "../../../components/layout/button-table-action";
 import { PaginationLocale } from "../../../constants/pagination-locale";
 import FieldUtil from "../../../features/form-builder/utils/field-util";
 import useArchiveSubmission from "../../../hooks/submissions/useArchiveSubmission";
-import usePrintSubmission from "../../../hooks/submissions/usePrintSubmission";
+import useMergeDocument from "../../../hooks/submissions/useMergeDocument";
 import useSubmissions from "../../../hooks/submissions/useSubmissions";
 import { Form, FormField } from "../../../models/form";
-import { FormSubmission, PrintFormSubmissionRequest } from "../../../models/form-submission";
+import { FormSubmission, MergeDocumentRequest } from "../../../models/form-submission";
 import { showError } from "../../../util/common";
 import FormDataEditDrawer from "./form-data-edit-drawer";
+import MergeDocumentModal from "./merge-document-modal";
 
 type ColumnWidth = {
     index: number;
@@ -63,8 +64,8 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
     const [submissionVisible, setSubmissionVisible] = useState(false);
     const [showContentBlocks, setShowContentBlocks] = useState(false);
     const [editSubmissionVisible, setEditSubmissionVisible] = useState(false);
-    const {mutateAsync: archiveSubmission} = useArchiveSubmission();
-    const {mutateAsync: printSubmission} = usePrintSubmission();
+    const [documentMergeVisible, setDocumentMergeVisible] = useState(false);
+    const { mutateAsync: archiveSubmission } = useArchiveSubmission();
 
     const valueOf = (field: FormField, record: any): ReactNode => {
         if (!record) {
@@ -248,13 +249,13 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
             render(value, record, index) {
                 return (
                     <div className="flex items-center justify-center gap-1.5 text-xs">
-                        <ButtonTableAction onClick={() => handlePrintSubmission(record)}>
+                        <ButtonTableAction onClick={() => showDocumentMerge(record)}>
                             <i className="fi fi-rr-print"></i>
                         </ButtonTableAction>
-                        <ButtonTableAction onClick={() => selectEditSubmission(record)}>
+                        <ButtonTableAction onClick={() => selectEditSubmission(record)} disabled={form?.status === 'Archived'}>
                             <i className="fi fi-rr-pencil"></i>
                         </ButtonTableAction>
-                        <ButtonTableAction danger onClick={() => showArchiveConfirm(record)}>
+                        <ButtonTableAction danger onClick={() => showArchiveConfirm(record)} disabled={form?.status === 'Archived'}>
                             <i className="fi fi-rr-trash"></i>
                         </ButtonTableAction>
                     </div>
@@ -281,6 +282,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
 
     const closeSubmission = () => {
         setSubmissionVisible(false);
+        setSelectedSubmission(undefined);
     }
 
     const afterOpenChange = (visible: boolean) => {
@@ -291,6 +293,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
 
     const closeEditSubmission = () => {
         setEditSubmissionVisible(false);
+        setSelectedSubmission(undefined);
         refetch();
     }
 
@@ -309,15 +312,14 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
         })
     }
 
-    const handlePrintSubmission = (submission: FormSubmission) => {
-        const request: PrintFormSubmissionRequest = {
-            code: submission.code,
-            templateId: 1
-        }
-        printSubmission(request, {
-            onError: showError,
-            onSuccess: () => toast.success("Printed successfully!")
-        })
+    const showDocumentMerge = (submission: FormSubmission) => {
+        setSelectedSubmission(submission);
+        setDocumentMergeVisible(true);
+    }
+
+    const closeDocumentMerge = () => {
+        setSelectedSubmission(undefined);
+        setDocumentMergeVisible(false);
     }
 
     const columns: ColumnsType<FormSubmission> = [...defaultColumns, ...dataColumns, ...actionColumns];
@@ -375,6 +377,12 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
                 visible={editSubmissionVisible}
                 onClose={closeEditSubmission}
                 form={form}
+                submission={selectedSubmission}
+            />
+            <MergeDocumentModal
+                visible={documentMergeVisible}
+                form={form}
+                onClose={closeDocumentMerge}
                 submission={selectedSubmission}
             />
         </>

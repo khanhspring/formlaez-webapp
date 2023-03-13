@@ -1,7 +1,9 @@
 import { FC } from "react";
 import Editor from "../../../../components/editor/editor";
+import { useAppSelector } from "../../../../hooks/redux-hook";
 import { ActionContext, FormField } from "../../../../models/form";
 import { useUpdateField } from "../../hooks/useUpdateField";
+import { selectForm } from "../../slice";
 
 type Props = {
     field: FormField;
@@ -11,13 +13,29 @@ type Props = {
 const TextField: FC<Props> = ({ field, context }) => {
 
     const { values, updateDebounce } = useUpdateField(field, context);
+    const formInfo = useAppSelector(selectForm);
 
     const onHtmlChange = (content?: string) => {
         updateDebounce({ content: content });
     }
 
     return (
-        <Editor placeholder="No content..." initHtmlContent={values.content} onHtmlChange={onHtmlChange} />
+        <>
+            {
+                formInfo?.status !== 'Archived' &&
+                <Editor
+                    placeholder="No content..."
+                    initHtmlContent={values.content}
+                    onHtmlChange={onHtmlChange}
+                />
+            }
+            {
+                formInfo?.status === 'Archived' &&
+                <div className="w-full">
+                    <div className="prose prose-sm dark:prose-invert max-w-max html-block text-justify" dangerouslySetInnerHTML={{ __html: values.content || '' }} />
+                </div>
+            }
+        </>
     );
 }
 

@@ -1,9 +1,9 @@
 import RestClient from "../configurations/axios-config";
-import { UserSessionResponse } from "../models/user-session";
+import { UserSession } from "../models/user-session";
 
-export function getCurrentUserSession(): Promise<UserSessionResponse> {
+export function getCurrentUserSession(): Promise<UserSession> {
     return RestClient
-        .get<UserSessionResponse>("/user/session")
+        .get<UserSession>("/user/session")
         .then(response => response.data);;
 }
 

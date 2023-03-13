@@ -9,9 +9,10 @@ import FieldUtil from "../../utils/field-util";
 type Props = {
     field: FormField;
     context: ActionContext;
+    disabled?: boolean;
 }
 
-const ReadonlyProperty: FC<Props> = ({ field, context }) => {
+const ReadonlyProperty: FC<Props> = ({ field, context, disabled }) => {
 
     const {values, update} = useUpdateField(field, context);
     const [form] = useForm();
@@ -35,7 +36,7 @@ const ReadonlyProperty: FC<Props> = ({ field, context }) => {
                 name={'readonly'}
                 valuePropName="checked"
             >
-                <Switch />
+                <Switch disabled={disabled}/>
             </FormItem>
         </Form>
     );

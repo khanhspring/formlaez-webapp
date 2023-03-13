@@ -3,8 +3,10 @@ import Form from "rc-field-form";
 import { FC, useRef } from "react";
 import Textarea from "../../../../components/form/form-controls/textarea";
 import FormItem from "../../../../components/form/form-item";
+import { useAppSelector } from "../../../../hooks/redux-hook";
 import { ActionContext, FormField } from "../../../../models/form";
 import { useUpdateField } from "../../hooks/useUpdateField";
+import { selectForm } from "../../slice";
 import RequiredMark from "../required-mark";
 
 type Props = {
@@ -15,6 +17,7 @@ type Props = {
 const MultipleChoiceField: FC<Props> = ({ field, context }) => {
 
     const { values, updateDebounce } = useUpdateField(field, context);
+    const form = useAppSelector(selectForm);
 
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -27,12 +30,13 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
             {
                 !(field.hideTitle === true) &&
                 <div className="flex items-center">
-                    <RequiredMark visible={field.required}/>
+                    <RequiredMark visible={field.required} />
                     <input
                         value={values.title}
                         className="flex-1 w-full text-slate-900 dark:text-gray-100 bg-transparent outline-none"
                         onChange={(e) => updateDebounce({ title: e.target.value })}
                         placeholder="Multiple choice"
+                        disabled={form?.status === 'Archived'}
                     />
                 </div>
             }
@@ -65,10 +69,11 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
                                                     container={containerRef}
                                                     autoSize
                                                     className="!py-1 !px-2 bg-slate-100 border border-slate-900/10 dark:border-transparent"
+                                                    disabled={form?.status === 'Archived'}
                                                 />
                                             </FormItem>
                                             {
-                                                fields.length > 1 &&
+                                                fields.length > 1 && form?.status !== 'Archived' &&
                                                 <button
                                                     aria-label="Remove"
                                                     onClick={() => remove(index)}
@@ -80,13 +85,16 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
                                         </div>
                                     ))}
 
-                                    <button
-                                        aria-label="Add"
-                                        onClick={() => add({ code: nanoid(), label: 'Unlabeled option' })}
-                                        className="w-6 h-6 rounded-full border border-slate-900/10 bg-slate-100 hover:bg-slate-200 dark:border-cinder-600 dark:bg-cinder-600/50 dark:hover:bg-cinder-600/80 items-center justify-center transition flex"
-                                    >
-                                        <i className="fi fi-rr-plus-small text-lg"></i>
-                                    </button>
+                                    {
+                                        form?.status !== 'Archived' &&
+                                        <button
+                                            aria-label="Add"
+                                            onClick={() => add({ code: nanoid(), label: 'Unlabeled option' })}
+                                            className="w-6 h-6 rounded-full border border-slate-900/10 bg-slate-100 hover:bg-slate-200 dark:border-cinder-600 dark:bg-cinder-600/50 dark:hover:bg-cinder-600/80 items-center justify-center transition flex"
+                                        >
+                                            <i className="fi fi-rr-plus-small text-lg"></i>
+                                        </button>
+                                    }
                                 </>
                             )
                         }}

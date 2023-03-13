@@ -11,9 +11,13 @@ type Props = PropsWithChildren & {
         y: number;
     } | null;
     afterClose?: () => any;
+    okText?: string;
+    width?: number;
+    hideCancel?: boolean;
+    danger?: boolean;
 }
 
-const ConfirmModal: FC<Props> = ({ title, children, onCancel, onOk, onOkAsync, ...rest }) => {
+const ConfirmModal: FC<Props> = ({ title, children, onCancel, onOk, onOkAsync, okText, width = 380, hideCancel, danger, ...rest }) => {
 
     const [visible, setVisible] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -45,7 +49,7 @@ const ConfirmModal: FC<Props> = ({ title, children, onCancel, onOk, onOkAsync, .
             closable={false}
             maskClosable={false}
             onClose={onClose}
-            width={380}
+            width={width}
             title={
                 <span className='flex items-center gap-2'>
                     <i className="fi fi-sr-info text-xl text-yellow-500"></i>
@@ -55,8 +59,11 @@ const ConfirmModal: FC<Props> = ({ title, children, onCancel, onOk, onOkAsync, .
             onOk={onOkClick}
             visible={visible}
             loading={loading}
+            okText={okText}
+            hideCancel={hideCancel}
+            danger={danger}
         >
-            <div className='text-sm pl-[28px]'>
+            <div className='text-sm'>
                 {children}
             </div>
         </Modal>

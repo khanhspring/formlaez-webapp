@@ -1,10 +1,12 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useRouteLoaderData } from "react-router-dom";
 import ButtonAction from "../../components/layout/button-action";
 import useFormDetail from "../../hooks/form/useFormDetail";
+import { Workspace } from "../../models/workspace";
 import FormDataTable from "./components/form-data-table";
 
 function DataFullScreen() {
 
+    const workspace = useRouteLoaderData("workspace") as Workspace;
     const params = useParams();
     const { data: form } = useFormDetail(params.formCode);
 
@@ -25,16 +27,7 @@ function DataFullScreen() {
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
-                    <ButtonAction>
-                        <i className="fi fi-rr-plus"></i>
-                    </ButtonAction>
-                    <ButtonAction>
-                        <i className="fi fi-rr-cloud-upload-alt"></i>
-                    </ButtonAction>
-                    <ButtonAction>
-                        <i className="fi fi-rr-cloud-download-alt"></i>
-                    </ButtonAction>
-                    <Link to={`/private/forms/${params.formCode}`}>
+                    <Link to={`/${workspace.code}/private/forms/${params.formCode}`}>
                         <ButtonAction>
                             <i className="fi fi-rr-compress"></i>
                         </ButtonAction>

@@ -11,20 +11,21 @@ import { useUpdateField } from "../../hooks/useUpdateField";
 type Props = {
     field: FormField;
     context: ActionContext;
+    disabled?: boolean;
 }
 
 const SupportedTypes: FormFieldType[] = ["Dropdown"]
 
-const OptionsProperty: FC<Props> = ({ field, context }) => {
+const OptionsProperty: FC<Props> = ({ field, context, disabled }) => {
 
-    const {values, updateDebounce} = useUpdateField(field, context);
+    const { values, updateDebounce } = useUpdateField(field, context);
 
     if (!SupportedTypes.includes(field.type)) {
         return <></>
     }
 
     const onValuesChange = (changed: any, formValues: any) => {
-        updateDebounce({options: formValues.options});
+        updateDebounce({ options: formValues.options });
     }
 
     return (
@@ -58,10 +59,11 @@ const OptionsProperty: FC<Props> = ({ field, context }) => {
                                                             placeholder="Unlabeled option"
                                                             autoHeight
                                                             className="!py-1 !px-2 w-full"
+                                                            disabled={disabled}
                                                         />
                                                     </FormItem>
                                                     {
-                                                        fields.length > 1 &&
+                                                        fields.length > 1 && !disabled &&
                                                         <button
                                                             aria-label="Remove"
                                                             onClick={() => remove(index)}
@@ -75,13 +77,16 @@ const OptionsProperty: FC<Props> = ({ field, context }) => {
                                         </div>
                                     </SimpleBar>
 
-                                    <button
-                                        aria-label="Add"
-                                        onClick={() => add({ code: nanoid(), label: 'Unlabeled option' })}
-                                        className="w-6 h-6 rounded-full border border-cinder-600 bg-cinder-600/50 items-center justify-center transition flex mt-2"
-                                    >
-                                        <i className="fi fi-rr-plus-small"></i>
-                                    </button>
+                                    {
+                                        !disabled &&
+                                        <button
+                                            aria-label="Add"
+                                            onClick={() => add({ code: nanoid(), label: 'Unlabeled option' })}
+                                            className="w-6 h-6 rounded-full border border-cinder-600 bg-cinder-600/50 items-center justify-center transition flex mt-2"
+                                        >
+                                            <i className="fi fi-rr-plus-small"></i>
+                                        </button>
+                                    }
                                 </>
                             )
                         }}

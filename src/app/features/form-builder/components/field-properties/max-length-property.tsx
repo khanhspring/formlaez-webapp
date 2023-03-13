@@ -8,11 +8,12 @@ import { useUpdateField } from "../../hooks/useUpdateField";
 type Props = {
     field: FormField;
     context: ActionContext;
+    disabled?: boolean;
 }
 
 const SupportedTypes: FormFieldType[] = ["InputText", "LongText", 'Email']
 
-const MaxLengthProperty: FC<Props> = ({ field, context }) => {
+const MaxLengthProperty: FC<Props> = ({ field, context, disabled }) => {
 
     const {values, update} = useUpdateField(field, context);
 
@@ -33,7 +34,7 @@ const MaxLengthProperty: FC<Props> = ({ field, context }) => {
                 title="Max length"
                 name={'maxLength'}
             >
-                <InputNumber placeholder="Max length" />
+                <InputNumber placeholder="Max length" disabled={disabled}/>
             </FormItem>
         </Form>
     );

@@ -1,6 +1,6 @@
 import RestClient from "../configurations/axios-config";
 import { PageResponse, ResponseCode } from "../models/common";
-import { CreateFormSubmissionRequest, ExportFormSubmissionRequest, FormSubmission, PrintFormSubmissionRequest, SearchFormSubmissionRequest, UpdateFormSubmissionRequest } from "../models/form-submission";
+import { CreateFormSubmissionRequest, ExportFormSubmissionRequest, FormSubmission, MergeDocumentRequest, SearchFormSubmissionRequest, UpdateFormSubmissionRequest } from "../models/form-submission";
 import { saveFile } from "../util/file-util";
 import StringUtils from "../util/string-utils";
 
@@ -22,10 +22,14 @@ function archive(code: string): Promise<ResponseCode> {
   );
 }
 
-function print(request: PrintFormSubmissionRequest): Promise<ResponseCode> {
-  return RestClient.post<ResponseCode>("/admin/forms/submissions/" + request.code + "/print", request).then(
-    (response) => response.data
-  );
+function mergeDocument(request: MergeDocumentRequest): Promise<any> {
+  return RestClient.post<any>(
+    "/admin/forms/submissions/" + request.code + "/document-merge",
+    request,
+    { responseType: "arraybuffer" }
+  ).then((response) => {
+    saveFile(response, request.fileName);
+  });
 }
 
 function search(request: SearchFormSubmissionRequest): Promise<PageResponse<FormSubmission>> {
@@ -49,7 +53,7 @@ const FormSubmissionService = {
   create,
   update,
   archive,
-  print,
+  mergeDocument,
   search,
   exportCsv
 };

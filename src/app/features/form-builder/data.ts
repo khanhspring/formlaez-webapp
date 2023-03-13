@@ -7,6 +7,9 @@ export const EMPTY_FORM: Form = {
     scope: 'Private',
     sharingScope: 'Private',
     status: 'Draft',
+    acceptResponses: true,
+    allowPrinting: true,
+    allowResponseEditing: true,
     pages: [
         {
             id: 1,
@@ -24,6 +27,9 @@ export const FORM: Form = {
     scope: 'Private',
     sharingScope: 'Private',
     status: 'Draft',
+    acceptResponses: true,
+    allowPrinting: true,
+    allowResponseEditing: true,
     pages: [
         {
             id: 1,

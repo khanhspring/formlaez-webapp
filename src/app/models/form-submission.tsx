@@ -21,9 +21,10 @@ export type UpdateFormSubmissionRequest = {
     data: any;
 }
 
-export type PrintFormSubmissionRequest = {
+export type MergeDocumentRequest = {
     code: string;
     templateId: number;
+    fileName: string;
 }
 
 export type SearchFormSubmissionRequest = Pageable & {

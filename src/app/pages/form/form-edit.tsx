@@ -1,16 +1,18 @@
 import Tooltip from "rc-tooltip";
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../../components/common/button";
 import confirm from "../../components/common/confirm/confirm";
 import FormBuilder from "../../features/form-builder";
 import useFormDetail from "../../hooks/form/useFormDetail";
 import usePublishForm from "../../hooks/form/usePublishForm";
+import { Workspace } from "../../models/workspace";
 import { showError } from "../../util/common";
 
 function FormEdit() {
 
+    const workspace = useRouteLoaderData("workspace") as Workspace;
     const params = useParams();
     const { data: formDetail, refetch } = useFormDetail(params.formCode);
     const [title, setTitle] = useState<string>();
@@ -52,6 +54,7 @@ function FormEdit() {
                 `text-xs font-normal px-2 py-1 rounded text-white`
                 + ` ${formDetail?.status === 'Draft' ? 'bg-yellow-500 dark:bg-yellow-600' : ''}`
                 + ` ${formDetail?.status === 'Published' ? 'bg-green-700' : ''}`
+                + ` ${formDetail?.status === 'Archived' ? 'bg-rose-700' : ''}`
             }>{formDetail?.status}</span>
         </h1>
     )
@@ -60,7 +63,7 @@ function FormEdit() {
         <>
             <div className="px-10 py-3 flex items-center justify-between sticky top-0 z-50 bg-white border-b border-slate-900/10 dark:border-transparent dark:bg-cinder-700">
                 <div className="flex items-center flex-1">
-                    <Link to={`/private/forms/${formDetail?.code}`} className="flex items-center text-lg">
+                    <Link to={`/${workspace.code}/private/forms/${formDetail?.code}`} className="flex items-center text-lg">
                         <i className="fi fi-rr-arrow-left"></i>
                     </Link>
                 </div>
@@ -76,20 +79,20 @@ function FormEdit() {
                         formDetail?.status === 'Draft' &&
                         <Button onClick={showPublishConfirm}>Publish</Button>
                     }
-                    <Link to={`/private/forms/${formDetail?.code}/preview`} target="_blank">
+                    <Link to={`/${workspace.code}/private/forms/${formDetail?.code}/preview`} target="_blank">
                         <button className="flex items-center gap-1 text-sm">
                             <i className="fi fi-rr-eye"></i>
                             <span>Preview</span>
                         </button>
                     </Link>
-                    <button className="flex items-center gap-1 text-sm">
-                        <i className="fi fi-rr-heart"></i>
-                        <span className="hidden">Favorite</span>
-                    </button>
-                    <button className="flex items-center gap-1 text-sm">
-                        <i className="fi fi-rr-unlock"></i>
-                        <span className="hidden">Lock</span>
-                    </button>
+                    {
+                        formDetail?.status === 'Archived' &&
+                        <Tooltip overlay="Can not edit archived form">
+                            <span className="flex items-center gap-1 text-sm text-rose-700">
+                                <i className="fi fi-rr-lock"></i>
+                            </span>
+                        </Tooltip>
+                    }
                 </div>
             </div>
             <div className="w-full flex flex-col pb-72">

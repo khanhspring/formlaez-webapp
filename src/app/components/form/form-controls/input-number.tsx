@@ -6,9 +6,10 @@ type Props = InputHTMLAttributes<any> & {
     status?: FieldStatus;
     onChange?: (value?: any) => void;
     value?: string | number;
+    disabled?: boolean;
 }
 
-const InputNumber: FC<Props> = ({ className = '', status, onChange = () => {}, value, ...rest }) => {
+const InputNumber: FC<Props> = ({ className = '', status, onChange = () => {}, value, disabled, ...rest }) => {
 
     return (
         <div className={
@@ -23,6 +24,7 @@ const InputNumber: FC<Props> = ({ className = '', status, onChange = () => {}, v
                 className="w-full rounded border-none bg-transparent h-auto outline-none shadow-none text-sm min-h-[36px]"
                 placeholder={rest.placeholder}
                 formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                disabled={disabled}
             />
         </div>
     );

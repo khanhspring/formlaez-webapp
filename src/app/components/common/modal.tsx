@@ -22,11 +22,12 @@ type Props = PropsWithChildren & {
     loading?: boolean;
     destroyOnClose?: boolean;
     wrapClassName?: string;
+    danger?: boolean;
 }
 
 type MousePosition = { x: number; y: number } | null;
 
-const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Cancel', hideOk, hideCancel, onOk = () => { }, onClose = () => { }, loading, destroyOnClose, wrapClassName = 'pt-10', ...rest }) => {
+const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Cancel', hideOk, hideCancel, onOk = () => { }, onClose = () => { }, loading, destroyOnClose, wrapClassName = 'pt-10', danger, ...rest }) => {
 
     const [mousePosition, setMousePosition] = useState<MousePosition>();
     const btnOkRef = useRef<HTMLButtonElement>(null);
@@ -78,7 +79,7 @@ const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Canc
                     !hideCancel && <Button status='secondary' onClick={onClose}>{cancelText}</Button>
                 }
                 {
-                    !hideOk && <Button onClick={onOk} ref={btnOkRef} loading={loading}>{okText}</Button>
+                    !hideOk && <Button onClick={onOk} ref={btnOkRef} loading={loading} status={danger ? 'danger' : undefined}>{okText}</Button>
                 }
             </div>
         </Dialog>

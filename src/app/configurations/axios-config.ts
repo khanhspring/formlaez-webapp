@@ -4,7 +4,7 @@ import TokenStorageService from "../services/token-storage-service";
 
 const RestClient = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
-  timeout: 10000,
+  timeout: 60000,
   headers: {
     "Content-Type": "application/json",
   },

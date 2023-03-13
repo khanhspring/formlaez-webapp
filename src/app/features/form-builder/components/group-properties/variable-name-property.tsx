@@ -8,9 +8,10 @@ import { useUpdateSection } from "../../hooks/useUpdateSection";
 type Props = {
     section: FormSection;
     context: ActionContext;
+    disabled?: boolean;
 }
 
-const VariableNameProperty: FC<Props> = ({ section, context }) => {
+const VariableNameProperty: FC<Props> = ({ section, context, disabled }) => {
 
     const {values, update} = useUpdateSection(section, context);
     const timeout = useRef<any>(null);
@@ -42,7 +43,7 @@ const VariableNameProperty: FC<Props> = ({ section, context }) => {
                     { required: true, message: 'This field is required' },
                 ]}
             >
-                <Input placeholder="Eg: EmployeeInfo" />
+                <Input placeholder="Eg: EmployeeInfo" disabled={disabled}/>
             </FormItem>
         </Form>
     );

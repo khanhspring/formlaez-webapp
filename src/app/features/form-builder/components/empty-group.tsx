@@ -26,9 +26,19 @@ const EmptyGroup: FC<Props> = ({ form, section, sectionIndex }) => {
     )
 
     return (
-        <Popup trigger="click" content={menu} placement="bottom" open={addNewMenuVisible} onOpenChange={setAddNewMenuVisible} className="bg-transparent">
+        <Popup
+            trigger="click"
+            content={menu}
+            placement="bottom"
+            open={addNewMenuVisible}
+            onOpenChange={setAddNewMenuVisible}
+            className="bg-transparent"
+            disabled={form?.status === 'Archived'}
+        >
             <div className='w-full px-5 py-2 rounded border border-cinder-700 border-dashed cursor-pointer'>
-                Click to add new group element
+                {
+                    form?.status !== 'Archived' ? 'Click to add new group element' : 'Empty group'
+                }
             </div>
         </Popup>
     );

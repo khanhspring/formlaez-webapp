@@ -13,8 +13,8 @@ export type Pageable = {
 
 export type PageResponse<T> = {
     content: T[],
-    page?: number;
-    size?: number;
-    totalPages?: number;
-    totalElements?: number;
+    page: number;
+    size: number;
+    totalPages: number;
+    totalElements: number;
 }

@@ -8,11 +8,12 @@ import { useUpdateField } from "../../hooks/useUpdateField";
 type Props = {
     field: FormField;
     context: ActionContext;
+    disabled?: boolean;
 }
 
 const SupportedTypes: FormFieldType[] = ['Email']
 
-const AcceptedDomainsProperty: FC<Props> = ({ field, context }) => {
+const AcceptedDomainsProperty: FC<Props> = ({ field, context, disabled }) => {
 
     const {values, update} = useUpdateField(field, context);
 
@@ -49,7 +50,7 @@ const AcceptedDomainsProperty: FC<Props> = ({ field, context }) => {
                     { pattern: /^(([a-zA-Z0-9.-]+)((\s*),(\s*))?)+$/g, message: 'Incorrect format' },
                 ]}
             >
-                <Input placeholder="Eg: gmail.com,example.com.vn" />
+                <Input placeholder="Eg: gmail.com,example.com.vn" disabled={disabled}/>
             </FormItem>
         </Form>
     );

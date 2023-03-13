@@ -26,7 +26,7 @@
 @tailwind utilities;
 
 .bg-strip-color {
-    background: linear-gradient(45deg,#ff4ab3 8%,#7ff 24%,#fcd246 46%,#9ffe00 75%,#417efd 93%);
+    background: linear-gradient(45deg, #ff4ab3 8%, #7ff 24%, #fcd246 46%, #9ffe00 75%, #417efd 93%);
 }
 
 input:-webkit-autofill,
@@ -79,6 +79,7 @@ hr {
     background-color: rgb(29 78 216);
     border-color: rgb(29 78 216);
 }
+
 .dark .rc-switch-checked {
     background-color: rgb(29 78 216);
     border-color: rgb(29 78 216);
@@ -126,9 +127,7 @@ hr {
     animation-duration: 0.2s;
 }
 
-.Toastify__toast-icon {
-    width: 15px;
-}
+.Toastify__toast-icon {}
 
 .rc-picker-input {
     display: flex;
@@ -415,6 +414,42 @@ hr {
     border-color: #2B2B40;
 }
 
+.rc-input-number-disabled:hover {
+    border-color: #2B2B40;
+}
+
+.rc-input-number-disabled:hover .rc-input-number-handler-up,
+.rc-input-number-disabled:hover .rc-input-number-handler-wrap {
+    border-color: rgba(15, 23, 42, 0.1);
+}
+
+.dark .rc-input-number-disabled:hover .rc-input-number-handler-up,
+.dark .rc-input-number-disabled:hover .rc-input-number-handler-wrap {
+    border-color: #2B2B40;
+}
+
+.rc-input-number-disabled .rc-input-number-input {
+    background-color: rgb(241 245 249);
+    opacity: 1;
+}
+.dark .rc-input-number-disabled .rc-input-number-input {
+    background-color: #1E1E2D;
+}
+
+.rc-input-number-disabled .rc-input-number-handler {
+    opacity: 0.3;
+}
+
+.rc-input-number-disabled .rc-input-number-handler:hover {
+    color: #999;
+    border-color: rgba(15, 23, 42, 0.1);
+    cursor: not-allowed;
+}
+
+.dark .rc-input-number-disabled .rc-input-number-handler:hover {
+    border-color: #2B2B40;
+}
+
 /** rc-pagination **/
 .rc-pagination .rc-pagination-item {
     border: none;
@@ -586,6 +621,7 @@ hr {
 .rc-table-content {
     border-color: rgb(15 23 42 / 0.1);
 }
+
 .dark .rc-table-content {
     border-color: rgb(43 43 64 / 1);
 }

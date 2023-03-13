@@ -20,8 +20,11 @@ export type Form = {
     coverColor?: string,
     coverImageUrl?: string
     scope: 'Private' | 'Team',
-    status: 'Draft' | 'Published',
+    status: 'Draft' | 'Published' | 'Archived',
     sharingScope: 'Private' | 'Public',
+    acceptResponses: boolean,
+    allowPrinting: boolean,
+    allowResponseEditing: boolean,
     createdDate?: Date,
     lastModifiedDate?: Date,
 }
@@ -187,7 +190,9 @@ export type UpdateFormInfo = {
 export type CreateFormRequest = {
     title: string;
     description?: string;
-    scope: 'Private' | 'Team'
+    scope: 'Private' | 'Team';
+    teamId?: number;
+    workspaceId: number;
 }
 
 export type UpdateFormRequest = {
@@ -197,6 +202,14 @@ export type UpdateFormRequest = {
     coverType?: 'Color' | 'Image' | 'None',
     coverColor?: string,
     coverImageUrl?: string
+}
+
+export type UpdateFormSettingsRequest = {
+    id: number;
+    acceptResponses: boolean;
+    allowPrinting: boolean;
+    allowResponseEditing: boolean;
+    sharingScope: 'Private' | 'Public',
 }
 
 export type SearchFormRequest = Pageable & {

@@ -9,9 +9,10 @@ import FieldUtil from "../../utils/field-util";
 type Props = {
     field: FormField;
     context: ActionContext;
+    disabled?: boolean;
 }
 
-const VariableNameProperty: FC<Props> = ({ field, context }) => {
+const VariableNameProperty: FC<Props> = ({ field, context, disabled }) => {
 
     const {values, update} = useUpdateField(field, context);
     const timeout = useRef<any>(null);
@@ -47,7 +48,7 @@ const VariableNameProperty: FC<Props> = ({ field, context }) => {
                     { required: true, message: 'This field is required' },
                 ]}
             >
-                <Input placeholder="Eg: FirstName" />
+                <Input placeholder="Eg: FirstName" disabled={disabled}/>
             </FormItem>
         </Form>
     );

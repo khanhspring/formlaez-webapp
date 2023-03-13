@@ -1,8 +1,10 @@
 import * as _ from "lodash";
 import { FC, useState } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import { useAppSelector } from "../../../../hooks/redux-hook";
 import { FormSection } from "../../../../models/form";
 import { useUpdateSection } from "../../hooks/useUpdateSection";
+import { selectForm } from "../../slice";
 import ConfigAction from "../config-action";
 import EmptyGroup from "../empty-group";
 import FieldItem from "./field-item";
@@ -16,6 +18,7 @@ const FieldGroup: FC<Props> = ({ section, sectionIndex, ...dragHandleProps }) =>
 
     const [isHover, setIsHover] = useState(false);
     const { values, updateDebounce } = useUpdateSection(section, { type: 'Group', section, sectionIndex });
+    const form = useAppSelector(selectForm);
 
     const fields = section.fields || [];
 
@@ -23,16 +26,16 @@ const FieldGroup: FC<Props> = ({ section, sectionIndex, ...dragHandleProps }) =>
         return (
             <>
                 {
-                    _.isEmpty(fields) && <EmptyGroup sectionIndex={sectionIndex} />
+                    _.isEmpty(fields) && <EmptyGroup sectionIndex={sectionIndex} form={form} />
                 }
-                <Droppable droppableId={section.code} type={`group_${section.code}`}>
+                <Droppable droppableId={section.code} type={`group_${section.code}`} isDropDisabled={form?.status === 'Archived'}>
                     {(provided, snapshot) => (
                         <div
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                         >
                             {fields.map((item, index) => (
-                                <Draggable key={item.code} draggableId={item.code + ''} index={index}>
+                                <Draggable key={item.code} draggableId={item.code + ''} index={index} isDragDisabled={form?.status === 'Archived'}>
                                     {(provided, snapshot) => (
                                         <div
                                             ref={provided.innerRef}
@@ -81,6 +84,7 @@ const FieldGroup: FC<Props> = ({ section, sectionIndex, ...dragHandleProps }) =>
                         className="flex-1 w-full text-slate-900 dark:text-gray-100 bg-transparent outline-none placeholder:text-slate-700 dark:placeholder:text-gray-200"
                         onChange={(e) => updateDebounce({ title: e.target.value })}
                         placeholder="Untitled group"
+                        disabled={form?.status === 'Archived'}
                     />
                 </div>
                 <div className="flex flex-col px-[26px] py-2">
