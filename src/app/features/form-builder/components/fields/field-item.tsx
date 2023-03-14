@@ -13,9 +13,11 @@ import MultipleChoiceField from "./multiple-choice-field";
 import OpinionScaleField from "./opinion-scale-field";
 import PdfField from "./pdf-field";
 import PictureChoiceField from "./picture-choice-field";
+import QrCodeField from "./qr-code-field";
 import RatingField from "./rating-field";
 import SwitchField from "./switch-field";
 import TextField from "./text-field";
+import TwitterTweetField from "./twitter-tweet-field";
 import VideoField from "./video-field";
 
 type Props = {
@@ -46,6 +48,8 @@ const FieldItem: FC<Props> = ({ type, sectionIndex, index, section, field, ...dr
             case 'Video': return <VideoField field={field} context={actionContext} />;
             case 'Pdf': return <PdfField field={field} context={actionContext} />;
             case 'Line': return <LineField />;
+            case 'QRCode': return <QrCodeField field={field} context={actionContext}/>;
+            case 'TwitterTweet': return <TwitterTweetField field={field} context={actionContext}/>;
 
             // form controls
             case 'InputText': return <InputTextField field={field} context={actionContext} />;

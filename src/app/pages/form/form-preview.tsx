@@ -16,7 +16,7 @@ function FormPreview() {
 
     return (
         <div className="w-full relative">
-            <div className="absolute top-3 left-0 w-full z-[1000] text-center">
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-[1000] text-center">
                 <Tooltip placement="bottom" overlay={<div className="max-w-[300px]">Submission will not be recorded in preview mode</div>}>
                     <span className="px-3 py-1 rounded-2xl bg-black/50 text-xs text-white cursor-default">Preview mode</span>
                 </Tooltip>

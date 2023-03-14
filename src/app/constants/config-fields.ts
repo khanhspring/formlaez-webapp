@@ -189,6 +189,24 @@ export const DecoratorConfigFields: ConfigField[] = [
         })
     },
     {
+        name: "QR code",
+        description: "Add a QR code",
+        default: () => ({
+            code: nanoid(),
+            type: "QRCode",
+            variableName: newId(),
+        })
+    },
+    {
+        name: "Twitter Tweet",
+        description: "Embed a Tweet",
+        default: () => ({
+            code: nanoid(),
+            type: "TwitterTweet",
+            variableName: newId(),
+        })
+    },
+    {
         name: "Line",
         description: "Add a line",
         default: () => ({

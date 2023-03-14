@@ -22,9 +22,16 @@ export function create(request: CreateDocumentTemplateRequest): Promise<Response
       .then(response => response.data);;
 }
 
+function getByFormId(formId?: number): Promise<DocumentTemplate[]> {
+  return RestClient.get<any>("/document-templates", { params: {formId} }).then(
+    (response) => response.data
+  );
+}
+
 const DocumentTemplateService = {
     search,
-    create
+    create,
+    getByFormId
 };
 
 export default DocumentTemplateService;

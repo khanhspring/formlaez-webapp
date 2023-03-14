@@ -1,9 +1,10 @@
 import { Pageable } from "./common";
+import { FormEnding } from "./form-ending";
 
 const FORM_SECTION_TYPES = ['Single', 'Group', 'Table'] as const;
 export type FormSectionType = typeof FORM_SECTION_TYPES[number];
 
-const FORM_FIELD_TYPES = ['Text', 'InputText', 'Image', 'Video', 'Pdf', 'Line', 'InputNumber', 'Datetime', 'LongText', 'Email', 'Rating', 'OpinionScale', 'Switch', 'Dropdown', 'PictureChoice', 'MultipleChoice'] as const;
+const FORM_FIELD_TYPES = ['Text', 'InputText', 'Image', 'Video', 'Pdf', 'Line', 'QRCode', 'TwitterTweet', 'InputNumber', 'Datetime', 'LongText', 'Email', 'Rating', 'OpinionScale', 'Switch', 'Dropdown', 'PictureChoice', 'MultipleChoice'] as const;
 export type FormFieldType = typeof FORM_FIELD_TYPES[number];
 
 export type Meta = {
@@ -27,6 +28,7 @@ export type Form = {
     allowResponseEditing: boolean,
     createdDate?: Date,
     lastModifiedDate?: Date,
+    ending?: FormEnding;
 }
 
 export type FormPage = {
@@ -153,7 +155,7 @@ export type UpdateFormField = {
 export type PartialUpdateFormField = {
     sectionIndex?: number;
     fieldIndex?: number;
-    values: {[key: string]: any};
+    values: { [key: string]: any };
 }
 
 export type UpdateFormSection = {
@@ -163,7 +165,7 @@ export type UpdateFormSection = {
 
 export type PartialUpdateFormSection = {
     sectionIndex?: number;
-    values: {[key: string]: any};
+    values: { [key: string]: any };
 }
 
 export type DuplicateSection = {

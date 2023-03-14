@@ -10,7 +10,7 @@ export function firstLetters(input?: string, num: number = 1): string {
   }
   const min = Math.min(num, arr.length - 1);
   let result = '';
-  for (let i = 0; i <= min; i++) {
+  for (let i = 0; i < min; i++) {
     result += arr[i].substring(0, 1);
   }
   return result;

@@ -63,7 +63,7 @@ const ConfirmModal: FC<Props> = ({ title, children, onCancel, onOk, onOkAsync, o
             hideCancel={hideCancel}
             danger={danger}
         >
-            <div className='text-sm'>
+            <div className='text-sm pb-4'>
                 {children}
             </div>
         </Modal>

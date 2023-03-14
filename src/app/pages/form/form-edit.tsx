@@ -1,5 +1,7 @@
+import Dropdown from "rc-dropdown";
+import Menu, { MenuItem } from "rc-menu";
 import Tooltip from "rc-tooltip";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams, useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../../components/common/button";
@@ -9,6 +11,7 @@ import useFormDetail from "../../hooks/form/useFormDetail";
 import usePublishForm from "../../hooks/form/usePublishForm";
 import { Workspace } from "../../models/workspace";
 import { showError } from "../../util/common";
+import CustomizeEndingModal from "./components/customize-ending-modal";
 
 function FormEdit() {
 
@@ -17,6 +20,7 @@ function FormEdit() {
     const { data: formDetail, refetch } = useFormDetail(params.formCode);
     const [title, setTitle] = useState<string>();
     const { mutateAsync: publish } = usePublishForm();
+    const [customizeEndingVisible, setCustomizeEndingVisible] = useState(false);
 
     useEffect(() => {
         setTitle(formDetail?.title);
@@ -48,31 +52,56 @@ function FormEdit() {
     }
 
     const formTitle = (
-        <h1 className='flex items-center justify-center gap-3 w-full overflow-hidden'>
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis">{title}</span>
-            <span className={
-                `text-xs font-normal px-2 py-1 rounded text-white`
-                + ` ${formDetail?.status === 'Draft' ? 'bg-yellow-500 dark:bg-yellow-600' : ''}`
-                + ` ${formDetail?.status === 'Published' ? 'bg-green-700' : ''}`
-                + ` ${formDetail?.status === 'Archived' ? 'bg-rose-700' : ''}`
-            }>{formDetail?.status}</span>
-        </h1>
+        <div className='flex items-center justify-center gap-3 w-full overflow-hidden'>
+            <div className="flex items-center justify-center">
+                <Tooltip overlay={<div className="max-w-[300px]">{title}</div>} placement="bottom">
+                    <span className="whitespace-nowrap overflow-hidden text-ellipsis">{title}</span>
+                </Tooltip>
+            </div>
+            <div className="flex items-center justify-center gap-3">
+                <span className={
+                    `text-xs font-normal px-2 py-1 rounded text-white`
+                    + ` ${formDetail?.status === 'Draft' ? 'bg-yellow-500 dark:bg-yellow-600' : ''}`
+                    + ` ${formDetail?.status === 'Published' ? 'bg-green-700' : ''}`
+                    + ` ${formDetail?.status === 'Archived' ? 'bg-rose-700' : ''}`
+                }>
+                    {formDetail?.status}
+                </span>
+                {
+                    formDetail?.status === 'Archived' &&
+                    <Tooltip overlay="Can not edit archived form">
+                        <span className="flex items-center gap-1 text-sm text-rose-700">
+                            <i className="fi fi-rr-lock"></i>
+                        </span>
+                    </Tooltip>
+                }
+            </div>
+        </div >
+    )
+
+    const settingsMenu = (
+        <Menu className="text-sm">
+            <MenuItem key="endingPage" onClick={() => setCustomizeEndingVisible(true)}>
+                <div className="flex gap-2 items-center">
+                    <i className="fi fi-rr-subtitles"></i>
+                    <span>Customize ending page</span>
+                </div>
+            </MenuItem>
+        </Menu>
     )
 
     return (
         <>
-            <div className="px-10 py-3 flex items-center justify-between sticky top-0 z-50 bg-white border-b border-slate-900/10 dark:border-transparent dark:bg-cinder-700">
+            <div className="px-10 min-h-[55px] flex items-center justify-between sticky top-0 z-50 bg-white border-b border-slate-900/10 dark:border-transparent dark:bg-cinder-700">
                 <div className="flex items-center flex-1">
                     <Link to={`/${workspace.code}/private/forms/${formDetail?.code}`} className="flex items-center text-lg">
                         <i className="fi fi-rr-arrow-left"></i>
                     </Link>
                 </div>
                 <div className="flex items-center justify-center flex-1 w-full overflow-hidden">
-                    <Tooltip overlay={<div className="max-w-[300px]">{title}</div>} placement="bottom">
-                        <div className="w-full flex items-center justify-center overflow-hidden">
-                            {formTitle}
-                        </div>
-                    </Tooltip>
+                    <div className="w-full flex items-center justify-center overflow-hidden">
+                        {formTitle}
+                    </div>
                 </div>
                 <div className="flex items-center justify-end flex-1 gap-5">
                     {
@@ -80,19 +109,16 @@ function FormEdit() {
                         <Button onClick={showPublishConfirm}>Publish</Button>
                     }
                     <Link to={`/${workspace.code}/private/forms/${formDetail?.code}/preview`} target="_blank">
-                        <button className="flex items-center gap-1 text-sm">
-                            <i className="fi fi-rr-eye"></i>
+                        <button className="flex items-center gap-1 text-sm opacity-80 hover:opacity-100">
+                            <i className="fi fi-rr-eye mt-0.5"></i>
                             <span>Preview</span>
                         </button>
                     </Link>
-                    {
-                        formDetail?.status === 'Archived' &&
-                        <Tooltip overlay="Can not edit archived form">
-                            <span className="flex items-center gap-1 text-sm text-rose-700">
-                                <i className="fi fi-rr-lock"></i>
-                            </span>
-                        </Tooltip>
-                    }
+                    <Dropdown overlay={settingsMenu} trigger={['click']} placement="bottomRight">
+                        <button className="flex items-center gap-1 text-sm opacity-80 hover:opacity-100 h-12" aria-label="Config">
+                            <i className="fi fi-rr-settings-sliders mt-0.5"></i>
+                        </button>
+                    </Dropdown>
                 </div>
             </div>
             <div className="w-full flex flex-col pb-72">
@@ -101,6 +127,15 @@ function FormEdit() {
                     <FormBuilder initForm={formDetail} onTitleChange={onTitleChange} />
                 }
             </div>
+            {
+                formDetail &&
+                <CustomizeEndingModal
+                    visible={customizeEndingVisible}
+                    formId={formDetail.id}
+                    formTitle={formDetail.title}
+                    onClose={() => setCustomizeEndingVisible(false)}
+                />
+            }
         </>
     );
 }

@@ -1,6 +1,6 @@
 import Form from 'rc-field-form';
 import { FC, useEffect } from "react";
-import { useRouteLoaderData } from 'react-router-dom';
+import { useNavigate, useRouteLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Modal from "../../../components/common/modal";
 import Input from '../../../components/form/form-controls/input';
@@ -20,6 +20,7 @@ const CreateFormModal: FC<Props> = ({ visible, onClose, refetch }) => {
     const workspace = useRouteLoaderData("workspace") as Workspace;
     const [form] = Form.useForm();
     const {mutateAsync: createForm, isLoading: submitting} = useCreateForm();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (visible) {
@@ -39,8 +40,11 @@ const CreateFormModal: FC<Props> = ({ visible, onClose, refetch }) => {
             workspaceId: workspace.id,
         }
         createForm(request, {
-            onSuccess: showSuccess,
-            onError: () => toast.success('Created form successfully!'),
+            onSuccess: (response) => {
+                toast.success('Created form successfully!');
+                navigate(`/${workspace.code}/private/forms/${response.code}/edit`)
+            },
+            onError: showError,
         })
         .finally(() => {
             onClose();

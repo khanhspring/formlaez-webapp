@@ -1,22 +1,24 @@
-import { useState, useEffect } from "react";
+import copy from "copy-to-clipboard";
+import { QRCodeSVG } from 'qrcode.react';
 import Dropdown from "rc-dropdown";
 import Menu, { MenuItem } from "rc-menu";
 import Switch from "rc-switch";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import Button from "../../components/common/button";
 import confirm from "../../components/common/confirm/confirm";
 import PageTitle from "../../components/layout/page-title";
 import useArchiveForm from "../../hooks/form/useArchiveForm";
-import useUpdateFormSettings from "../../hooks/form/useUpdateFormSettings";
 import useForm from "../../hooks/form/useForm";
 import usePublishForm from "../../hooks/form/usePublishForm";
 import useRemoveForm from "../../hooks/form/useRemoveForm";
+import useUpdateFormSettings from "../../hooks/form/useUpdateFormSettings";
+import { UpdateFormSettingsRequest } from "../../models/form";
 import { showError } from "../../util/common";
+import { firstLetters } from "../../util/string-utils";
 import FormPageMenu from "./components/form-page-menu";
 import FormPageTitle from "./components/form-page-title";
-import { UpdateFormSettingsRequest } from "../../models/form";
-import Button from "../../components/common/button";
-import copy from "copy-to-clipboard";
 
 function FormSettings() {
     const params = useParams();
@@ -179,7 +181,11 @@ function FormSettings() {
 
     return (
         <div className="w-full flex flex-col gap-2">
-            <PageTitle title={<FormPageTitle form={form} />} actions={<FormPageMenu />} />
+            <PageTitle
+                title={<FormPageTitle form={form} />}
+                actions={<FormPageMenu />}
+                shortTitle={firstLetters(form?.title)}
+            />
             <div className="mt-6 flex flex-col gap-6">
                 <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700">Sharing</h2>
                 <div className="flex items-center gap-2">
@@ -187,6 +193,13 @@ function FormSettings() {
                         {`${process.env.REACT_APP_DOMAIN}/f/v/${params.formCode}`}
                     </div>
                     <Button onClick={copyShareLink}>Copy link to share</Button>
+                </div>
+
+                <div className="flex items-center gap-2">
+                    <div className="p-2 rounded bg-slate-100 dark:bg-white">
+                        <QRCodeSVG value={`${process.env.REACT_APP_DOMAIN}/f/v/${params.formCode}`} />
+                    </div>
+                    <p className="text-sm">Or scan this QR</p>
                 </div>
 
                 <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700 mt-3">Settings</h2>

@@ -16,6 +16,8 @@ import BreakLine from "./content-blocks/break-line";
 import HtmlBlock from "./content-blocks/html-block";
 import ImageBlock from "./content-blocks/image-block";
 import PdfBlock from "./content-blocks/pdf-block";
+import QRCodeBlock from "./content-blocks/qr-code-block";
+import TwitterTweetBlock from "./content-blocks/twitter-tweet-block";
 import VideoBlock from "./content-blocks/video-block";
 
 type Props = {
@@ -97,6 +99,10 @@ const FieldItem: FC<Props> = ({ field, name }) => {
                 return <PdfBlock url={field.url} />
             case "Text":
                 return <HtmlBlock content={field.content || ''} />
+            case "QRCode":
+                return <QRCodeBlock content={field.content} />
+            case "TwitterTweet":
+                return <TwitterTweetBlock url={field.url} />
         }
     }
 

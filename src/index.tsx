@@ -3,6 +3,7 @@ import {
   QueryClientProvider
 } from '@tanstack/react-query';
 import ReactDOM from 'react-dom/client';
+import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -22,11 +23,13 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </QueryClientProvider>
+  <IntlProvider messages={{}} locale="en" defaultLocale="en">
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </QueryClientProvider>
+  </IntlProvider>
 );
 
 reportWebVitals();

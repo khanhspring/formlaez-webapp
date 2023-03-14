@@ -28,7 +28,8 @@ const ImageBlock: FC<Props> = ({ url }) => {
                 hideOk
                 hideCancel
                 destroyOnClose
-                wrapClassName="pt-0"
+                bodyClassName='!pb-5'
+                wrapClassName='flex items-center'
             >
                 <img src={url} alt={url} className="w-full" />
             </Modal>

@@ -6,8 +6,6 @@ import BreakLine from './content-blocks/break-line';
 import HtmlBlock from './content-blocks/html-block';
 import ImageBlock from './content-blocks/image-block';
 import PdfBlock from './content-blocks/pdf-block';
-import QRCodeBlock from './content-blocks/qr-code-block';
-import TwitterTweetBlock from './content-blocks/twitter-tweet-block';
 import VideoBlock from './content-blocks/video-block';
 
 type Props = {
@@ -61,7 +59,7 @@ const Field: FC<Props> = ({ field, data, showContentBlocks }) => {
         if (field.type === 'InputNumber') {
             return (
                 <>
-                    {rawValue && <FormattedNumber value={rawValue} />}
+                    {rawValue && <FormattedNumber value={rawValue}/>}
                 </>
             )
         }
@@ -95,10 +93,6 @@ const Field: FC<Props> = ({ field, data, showContentBlocks }) => {
                 return <PdfBlock url={field.url} />
             case "Text":
                 return <HtmlBlock content={field.content || ''} />
-            case "QRCode":
-                return <QRCodeBlock content={field.content} />
-            case "TwitterTweet":
-                return <TwitterTweetBlock url={field.url} />
         }
     }
 

@@ -12,7 +12,7 @@ function getByCode(workspaceCode?: string): Promise<Workspace> {
     return RestClient.get<any>("/admin/workspaces/" + workspaceCode).then(
       (response) => response.data
     );
-  }
+}
 
 const WorkspaceService = {
     create,

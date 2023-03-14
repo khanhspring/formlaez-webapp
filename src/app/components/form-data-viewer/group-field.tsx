@@ -18,7 +18,7 @@ const GroupField: FC<Props> = ({ section, data = {}, showContentBlocks }) => {
             <div>{section.title || 'Untitled group'}</div>
             {
                 records.map((record, index) =>
-                    <div className='flex gap-2 items-stretch'>
+                    <div className='flex gap-2 items-stretch' key={index}>
                         <div className='w-4 border-r border-slate-900/10 dark:border-cinder-600'>
                             <span>{index + 1}</span>
                         </div>

@@ -79,7 +79,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                 <div className='mb-10'>
                     <div
                         onClick={onThemeSelect}
-                        className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer text-slate-900 bg-white/70 dark:text-white dark:bg-cinder-800/70 hover:bg-white dark:hover:bg-cinder-800 group absolute top-7 right-7"
+                        className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer text-slate-900 bg-white/70 dark:text-white dark:bg-cinder-800/70 hover:bg-white dark:hover:bg-cinder-800 group absolute top-5 right-5"
                     >
                         {
                             theme === 'dark' &&
@@ -105,35 +105,39 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                     }
                     {
                         formLayout.coverType === 'None' &&
-                        <div className="w-full max-w-[530px] m-auto pt-10">
-                            <h1 className="text-3xl font-bold">
-                                {formLayout?.title}
-                            </h1>
+                        <div className='w-full px-4'>
+                            <div className="w-full max-w-[530px] m-auto pt-16">
+                                <h1 className="text-3xl font-bold">
+                                    {formLayout?.title}
+                                </h1>
+                            </div>
                         </div>
                     }
                 </div>
             }
-            <div className="w-full max-w-[530px] m-auto flex-1">
-                <RcForm
-                    initialValues={initValues}
-                    onFinish={handleOnFinish}
-                    onFinishFailed={onFinishFailed}
-                    form={form}
-                >
-                    {
-                        sections.map((item: FormSection, index: number) => (
-                            <SectionItem section={item} sectionIndex={index} key={index} />
-                        ))
-                    }
-                    <div className="w-full flex justify-center py-10">
-                        <Button loading={loading}>
-                            <span className="flex gap-1.5 items-center justify-center py-0.5 w-72 text-white">
-                                Submit
-                                <i className="fi fi-rs-paper-plane"></i>
-                            </span>
-                        </Button>
-                    </div>
-                </RcForm>
+            <div className='w-full px-4 flex-1'>
+                <div className="w-full max-w-[530px] m-auto">
+                    <RcForm
+                        initialValues={initValues}
+                        onFinish={handleOnFinish}
+                        onFinishFailed={onFinishFailed}
+                        form={form}
+                    >
+                        {
+                            sections.map((item: FormSection, index: number) => (
+                                <SectionItem section={item} sectionIndex={index} key={index} />
+                            ))
+                        }
+                        <div className="w-full flex justify-center py-10">
+                            <Button loading={loading}>
+                                <span className="flex gap-1.5 items-center justify-center py-0.5 w-72 text-white">
+                                    Submit
+                                    <i className="fi fi-rs-paper-plane"></i>
+                                </span>
+                            </Button>
+                        </div>
+                    </RcForm>
+                </div>
             </div>
             {
                 !hideFooter &&

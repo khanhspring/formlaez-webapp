@@ -105,6 +105,10 @@ hr {
     text-shadow: none;
 }
 
+.rc-dialog {
+    margin: auto;
+}
+
 .rc-dialog-close {
     right: 15px;
 }

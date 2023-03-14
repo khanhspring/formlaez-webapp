@@ -7,6 +7,7 @@ import useFormDetail from '../../hooks/form/useFormDetail';
 import usePublishForm from '../../hooks/form/usePublishForm';
 import { Workspace } from '../../models/workspace';
 import { showError } from '../../util/common';
+import { firstLetters } from "../../util/string-utils";
 import FormDataTable from './components/form-data-table';
 import FormPageMenu from './components/form-page-menu';
 import FormPageTitle from './components/form-page-title';
@@ -43,7 +44,11 @@ function Form() {
     return (
         <>
             <div className="w-full h-full flex flex-col gap-2">
-                <PageTitle title={<FormPageTitle form={form} />} actions={<FormPageMenu />} />
+                <PageTitle
+                    title={<FormPageTitle form={form} />}
+                    actions={<FormPageMenu />}
+                    shortTitle={firstLetters(form?.title)}
+                />
                 {
                     form?.status === 'Draft' &&
                     <div className="flex items-center justify-center flex-1">

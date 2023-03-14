@@ -1,5 +1,5 @@
 import RestClient from "../configurations/axios-config";
-import { PageResponse, ResponseId } from "../models/common";
+import { PageResponse, ResponseCode, ResponseId } from "../models/common";
 import {
   CreateFormRequest,
   Form,
@@ -10,8 +10,8 @@ import {
   UpdateFormSettingsRequest
 } from "../models/form";
 
-function create(request: CreateFormRequest): Promise<ResponseId> {
-  return RestClient.post<ResponseId>("/admin/forms", request).then(
+function create(request: CreateFormRequest): Promise<ResponseCode> {
+  return RestClient.post<any>("/admin/forms", request).then(
     (response) => response.data
   );
 }

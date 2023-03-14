@@ -7,9 +7,11 @@ import PageTitle from "../../components/layout/page-title";
 import useDocumentTemplates from "../../hooks/document-template/useDocumentTemplates";
 import useForm from "../../hooks/form/useForm";
 import { DocumentTemplate } from "../../models/document-template";
+import { firstLetters } from "../../util/string-utils";
 import CreateDocumentTemplateModal from "./components/create-document-template-modal";
 import DocumentTemplateDetailModal from "./components/document-template-detail-modal";
 import FormPageMenu from "./components/form-page-menu";
+import FormPageTitle from "./components/form-page-title";
 
 function DocumentTemplates() {
     const [createModalVisible, setCreateModelVisible] = useState(false);
@@ -43,7 +45,11 @@ function DocumentTemplates() {
     return (
         <>
             <div className="w-full flex flex-col gap-2">
-                <PageTitle title="Hồ sơ lao động" actions={<FormPageMenu />} />
+                <PageTitle
+                    title={<FormPageTitle form={form} />}
+                    actions={<FormPageMenu />}
+                    shortTitle={firstLetters(form?.title)}
+                />
                 <div className="flex items-center justify-between min-h-[40px] mt-3">
                     <div className="flex items-center gap-3">
                         <span>Total {pages?.totalElements || 0}</span>

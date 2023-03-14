@@ -47,13 +47,24 @@ function exportCsv(request: ExportFormSubmissionRequest): Promise<any> {
   });
 }
 
+function mergeSubmittedDocument(request: MergeDocumentRequest): Promise<any> {
+  return RestClient.post<any>(
+    "/submissions/" + request.code + "/document-merge",
+    request,
+    { responseType: "arraybuffer" }
+  ).then((response) => {
+    saveFile(response, request.fileName);
+  });
+}
+
 const FormSubmissionService = {
   create,
   update,
   archive,
   mergeDocument,
   search,
-  exportCsv
+  exportCsv,
+  mergeSubmittedDocument
 };
 
 export default FormSubmissionService;

@@ -39,6 +39,8 @@ const VideoBlock: FC<Props> = ({ url }) => {
                 hideOk
                 hideCancel
                 destroyOnClose
+                bodyClassName='!pb-5'
+                wrapClassName='flex items-center'
             >
                 <iframe
                     className="w-full aspect-video"

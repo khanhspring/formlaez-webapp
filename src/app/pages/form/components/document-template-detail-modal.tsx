@@ -24,9 +24,10 @@ const DocumentTemplateDetailModal: FC<Props> = ({ documentTemplate, visible, onC
             hideOk
             hideCancel
             width={800}
-            wrapClassName="pt-0"
+            bodyClassName='!pb-5'
+            wrapClassName='flex items-center'
         >
-            <div className='flex min-h-[calc(100vh_-_140px)] w-full'>
+            <div className='flex h-[calc(100vh_-_140px)] max-h-[960px] w-full'>
                 {
                     presignedUrl &&
                     <iframe

@@ -22,12 +22,28 @@ type Props = PropsWithChildren & {
     loading?: boolean;
     destroyOnClose?: boolean;
     wrapClassName?: string;
+    bodyClassName?: string;
     danger?: boolean;
 }
 
 type MousePosition = { x: number; y: number } | null;
 
-const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Cancel', hideOk, hideCancel, onOk = () => { }, onClose = () => { }, loading, destroyOnClose, wrapClassName = 'pt-10', danger, ...rest }) => {
+const Modal: FC<Props> = ({
+    children,
+    visible,
+    okText = 'OK',
+    cancelText = 'Cancel',
+    hideOk,
+    hideCancel,
+    onOk = () => { },
+    onClose = () => { },
+    loading,
+    destroyOnClose,
+    wrapClassName = 'pt-10',
+    bodyClassName = '',
+    danger,
+    ...rest
+}) => {
 
     const [mousePosition, setMousePosition] = useState<MousePosition>();
     const btnOkRef = useRef<HTMLButtonElement>(null);
@@ -53,7 +69,7 @@ const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Canc
         const element = node as ReactElement;
         return (
             <>
-                {React.cloneElement(element, { className: element.props.className + ' dark:bg-cinder-600' })}
+                {React.cloneElement(element, { className: element.props.className + ' dark:bg-cinder-800' })}
             </>
         )
     }
@@ -69,19 +85,23 @@ const Modal: FC<Props> = ({ children, visible, okText = 'OK', cancelText = 'Canc
             maskProps={{ style: { background: 'rgba(0, 0, 0, 0.5)' } }}
             modalRender={modalRender}
             visible={visible}
-            bodyStyle={{ padding: '0px 20px', paddingBottom: '10px' }}
+            bodyStyle={{ padding: '0px 20px' }}
+            bodyProps={{className: bodyClassName}}
             onClose={onClose}
             wrapClassName={wrapClassName}
         >
             {children}
-            <div className='pb-2 pt-2 flex justify-end gap-2'>
-                {
-                    !hideCancel && <Button status='secondary' onClick={onClose}>{cancelText}</Button>
-                }
-                {
-                    !hideOk && <Button onClick={onOk} ref={btnOkRef} loading={loading} status={danger ? 'danger' : undefined}>{okText}</Button>
-                }
-            </div>
+            {
+                (!hideCancel || !hideOk) &&
+                <div className='pb-5 flex justify-end gap-2'>
+                    {
+                        !hideCancel && <Button status='secondary' onClick={onClose}>{cancelText}</Button>
+                    }
+                    {
+                        !hideOk && <Button onClick={onOk} ref={btnOkRef} loading={loading} status={danger ? 'danger' : undefined}>{okText}</Button>
+                    }
+                </div>
+            }
         </Dialog>
     );
 }

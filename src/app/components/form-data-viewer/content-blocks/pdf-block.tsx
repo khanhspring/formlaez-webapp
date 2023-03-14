@@ -30,7 +30,8 @@ const PdfBlock: FC<Props> = ({ url }) => {
                 hideOk
                 hideCancel
                 destroyOnClose
-                wrapClassName="pt-0"
+                bodyClassName='!pb-5'
+                wrapClassName='flex items-center'
             >
                 <iframe src={`${url}#view=FitH`}
                     title="PDF"
