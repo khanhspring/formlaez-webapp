@@ -15,6 +15,8 @@ import { showError } from "../../util/common";
 import FormPageMenu from "./components/form-page-menu";
 import FormPageTitle from "./components/form-page-title";
 import { UpdateFormSettingsRequest } from "../../models/form";
+import Button from "../../components/common/button";
+import copy from "copy-to-clipboard";
 
 function FormSettings() {
     const params = useParams();
@@ -42,9 +44,14 @@ function FormSettings() {
             allowResponseEditing: form.allowResponseEditing,
             sharingScope: form.sharingScope
         }
-        updateSettings({...request, ...setting}, {
+        updateSettings({ ...request, ...setting }, {
             onError: showError
         }).finally(refetch)
+    }
+
+    const updateSharingScope = (sharingScope: 'Private' | 'Public') => {
+        setSharingScope(sharingScope);
+        onSettingChange({ sharingScope });
     }
 
     const onArchive = (): Promise<any> => {
@@ -123,13 +130,13 @@ function FormSettings() {
 
     const sharingScopeMenu = (
         <Menu className="text-sm">
-            <MenuItem key="public" onClick={() => setSharingScope('Public')}>
+            <MenuItem key="public" onClick={() => updateSharingScope('Public')}>
                 <div className="flex gap-2 items-center">
                     <i className="fi fi-rr-world"></i>
                     <span>Public</span>
                 </div>
             </MenuItem>
-            <MenuItem key="private" onClick={() => setSharingScope('Private')}>
+            <MenuItem key="private" onClick={() => updateSharingScope('Private')}>
                 <div className="flex gap-2 items-center">
                     <i className="fi fi-rr-user"></i>
                     <span>Private</span>
@@ -163,13 +170,26 @@ function FormSettings() {
         </>
     )
 
+    const copyShareLink = () => {
+        copy(`${process.env.REACT_APP_DOMAIN}/f/v/${params.formCode}`);
+        toast.success("Copied");
+    }
+
     const archived = form?.status === 'Archived';
 
     return (
         <div className="w-full flex flex-col gap-2">
             <PageTitle title={<FormPageTitle form={form} />} actions={<FormPageMenu />} />
             <div className="mt-6 flex flex-col gap-6">
-                <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700">Settings</h2>
+                <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700">Sharing</h2>
+                <div className="flex items-center gap-2">
+                    <div className="px-3 py-2 rounded border border-slate-900/10 dark:border-cinder-700 text-sm">
+                        {`${process.env.REACT_APP_DOMAIN}/f/v/${params.formCode}`}
+                    </div>
+                    <Button onClick={copyShareLink}>Copy link to share</Button>
+                </div>
+
+                <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700 mt-3">Settings</h2>
                 <div className="flex items-center justify-between gap-10">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Access scope</h3>
@@ -202,7 +222,11 @@ function FormSettings() {
                         </p>
                     </div>
                     <div className="flex items-center">
-                        <Switch disabled={archived} />
+                        <Switch
+                            disabled={archived}
+                            checked={form?.acceptResponses}
+                            onChange={val => onSettingChange({ acceptResponses: val })}
+                        />
                     </div>
                 </div>
                 <div className="flex items-center justify-between gap-10">
@@ -213,7 +237,11 @@ function FormSettings() {
                         </p>
                     </div>
                     <div className="flex items-center">
-                        <Switch disabled={archived} />
+                        <Switch
+                            disabled={archived}
+                            checked={form?.allowResponseEditing}
+                            onChange={val => onSettingChange({ allowResponseEditing: val })}
+                        />
                     </div>
                 </div>
                 <div className="flex items-center justify-between gap-10">
@@ -224,7 +252,11 @@ function FormSettings() {
                         </p>
                     </div>
                     <div className="flex items-center">
-                        <Switch disabled={archived} />
+                        <Switch
+                            disabled={archived}
+                            checked={form?.allowPrinting}
+                            onChange={val => onSettingChange({ allowPrinting: val })}
+                        />
                     </div>
                 </div>
 

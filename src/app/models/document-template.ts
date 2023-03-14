@@ -4,6 +4,7 @@ import { Pageable } from "./common";
 export type DocumentTemplate = {
     id: number;
     code: string;
+    attachmentCode: string;
     title: string;
     description: string;
     extension: string;

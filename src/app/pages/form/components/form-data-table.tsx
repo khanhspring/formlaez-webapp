@@ -5,19 +5,22 @@ import Table from "rc-table";
 import { ColumnsType, TableSticky } from "rc-table/lib/interface";
 import Tooltip from "rc-tooltip";
 import { FC, ReactNode, useEffect, useMemo, useState } from "react";
+import { Link, useParams, useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import confirm from "../../../components/common/confirm/confirm";
 import ExternalScroll from "../../../components/common/external-scroll";
 import Drawer from "../../../components/drawer/drawer";
 import FormDataViewer from "../../../components/form-data-viewer";
+import ButtonAction from "../../../components/layout/button-action";
 import ButtonTableAction from "../../../components/layout/button-table-action";
 import { PaginationLocale } from "../../../constants/pagination-locale";
 import FieldUtil from "../../../features/form-builder/utils/field-util";
 import useArchiveSubmission from "../../../hooks/submissions/useArchiveSubmission";
-import useMergeDocument from "../../../hooks/submissions/useMergeDocument";
+import useExportSubmissions from "../../../hooks/submissions/useExportSubmissions";
 import useSubmissions from "../../../hooks/submissions/useSubmissions";
 import { Form, FormField } from "../../../models/form";
-import { FormSubmission, MergeDocumentRequest } from "../../../models/form-submission";
+import { ExportFormSubmissionRequest, FormSubmission } from "../../../models/form-submission";
+import { Workspace } from "../../../models/workspace";
 import { showError } from "../../../util/common";
 import FormDataEditDrawer from "./form-data-edit-drawer";
 import MergeDocumentModal from "./merge-document-modal";
@@ -53,9 +56,13 @@ type Props = {
     form?: Form;
     sticky?: boolean | TableSticky;
     pageSize?: number;
+    fullscreen?: boolean;
 }
 
-const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
+const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) => {
+
+    const workspace = useRouteLoaderData("workspace") as Workspace;
+    const params = useParams();
 
     const [tableBody, setTableBody] = useState<HTMLElement>();
     const [page, setPage] = useState(0);
@@ -66,6 +73,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
     const [editSubmissionVisible, setEditSubmissionVisible] = useState(false);
     const [documentMergeVisible, setDocumentMergeVisible] = useState(false);
     const { mutateAsync: archiveSubmission } = useArchiveSubmission();
+    const { mutateAsync: exportCsv } = useExportSubmissions();
 
     const valueOf = (field: FormField, record: any): ReactNode => {
         if (!record) {
@@ -325,66 +333,139 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25 }) => {
     const columns: ColumnsType<FormSubmission> = [...defaultColumns, ...dataColumns, ...actionColumns];
     const tableWidth = calculateTableWidth(dataColumns?.length || 0);
 
+    const handleExport = () => {
+        if (!form) {
+            return;
+        }
+        const request: ExportFormSubmissionRequest = {
+            formCode: form?.code,
+            fileName: form.title + '.csv',
+        }
+        const exportCsvPromise = exportCsv(request);
+        toast.promise(
+            exportCsvPromise,
+            {
+                pending: 'Exporting...',
+                success: 'Exported submissions successfully!',
+                error: 'There was an error has ocurred. Please try again!'
+            }
+        )
+    }
+
     if (!form) {
         return <></>
     }
 
     return (
         <>
-            <Table
-                columns={columns}
-                data={formData?.content}
-                tableLayout={'fixed'}
-                rowKey={'id'}
-                scroll={{
-                    x: tableWidth,
-                }}
-                sticky={sticky}
-                className="table-form-data text-slate-900 dark:text-white"
-            />
-            <div className="w-full mt-3 p-1 z-[200] bg-white/90 border border-slate-900/10 dark:bg-cinder-700/80 dark:border-cinder-600 sticky bottom-0 flex items-center justify-center">
-                <Pagination
-                    total={formData?.totalElements || 0}
-                    pageSize={formData?.size || 0}
-                    locale={PaginationLocale}
-                    onChange={onPageChange}
-                    current={page + 1}
-                    prevIcon={<i className="fi fi-rr-arrow-left text-lg"></i>}
-                    nextIcon={<i className="fi fi-rr-arrow-right text-lg"></i>}
+            <div className="flex items-center justify-between min-h-[40px] mt-3">
+                <div className="flex items-center gap-3">
+                    <span>Total 75</span>
+                    <div className="relative hidden md:block">
+                        <div className="absolute w-7 h-full flex items-center justify-center text-xs text-gray-500">
+                            <i className="fi fi-rr-search"></i>
+                        </div>
+                        <input placeholder="Search" className="px-1 py-1.5 pl-7 bg-gray-200/70 dark:bg-cinder-700 rounded outline-none text-sm" />
+                    </div>
+                    <div className="hidden md:flex gap-2 py-1.5 px-3 cursor-pointer text-gray-500 bg-slate-50 dark:bg-cinder-700 rounded items-center justify-center">
+                        <i className="fi fi-rr-calendar text-xs text-gray-500"></i>
+                        <span className="text-sm text-gray-500">All time</span>
+                    </div>
+                </div>
+                <div className="flex items-center gap-2">
+                    {
+                        form?.status !== 'Archived' &&
+                        <Tooltip overlay="Open form in new tab" placement='bottom'>
+                            <Link to={`/f/v/${params.formCode}`} target="_blank">
+                                <ButtonAction>
+                                    <i className="fi fi-rr-arrow-up-right-from-square"></i>
+                                </ButtonAction>
+                            </Link>
+                        </Tooltip>
+                    }
+                    <Tooltip overlay="Export" placement='bottom'>
+                        <ButtonAction onClick={handleExport}>
+                            <i className="fi fi-rr-cloud-download-alt"></i>
+                        </ButtonAction>
+                    </Tooltip>
+                    {
+                        !fullscreen &&
+                        <Tooltip overlay="Fullscreen" placement='bottom'>
+                            <Link to={`/${workspace.code}/private/forms/${params.formCode}/full`}>
+                                <ButtonAction>
+                                    <i className="fi fi-rr-expand"></i>
+                                </ButtonAction>
+                            </Link>
+                        </Tooltip>
+                    }
+                    {
+                        fullscreen &&
+                        <Tooltip overlay="Exit fullscreen" placement='bottom'>
+                            <Link to={`/${workspace.code}/private/forms/${params.formCode}`}>
+                                <ButtonAction>
+                                    <i className="fi fi-rr-compress"></i>
+                                </ButtonAction>
+                            </Link>
+                        </Tooltip>
+                    }
+                </div>
+            </div>
+            <div className="mt-6">
+                <Table
+                    columns={columns}
+                    data={formData?.content}
+                    tableLayout={'fixed'}
+                    rowKey={'id'}
+                    scroll={{
+                        x: tableWidth,
+                    }}
+                    sticky={sticky}
+                    className="table-form-data text-slate-900 dark:text-white"
+                />
+                <div className="w-full mt-3 p-1 z-[200] bg-white/90 border border-slate-900/10 dark:bg-cinder-700/80 dark:border-cinder-600 sticky bottom-0 flex items-center justify-center">
+                    <Pagination
+                        total={formData?.totalElements || 0}
+                        pageSize={formData?.size || 0}
+                        locale={PaginationLocale}
+                        onChange={onPageChange}
+                        current={page + 1}
+                        prevIcon={<i className="fi fi-rr-arrow-left text-lg"></i>}
+                        nextIcon={<i className="fi fi-rr-arrow-right text-lg"></i>}
+                    />
+                </div>
+                <ExternalScroll target={tableBody} />
+
+                <Drawer
+                    title={
+                        <div className="w-full flex justify-between items-center">
+                            <span>{selectedSubmission?.code}</span>
+                            <label className="text-xs font-normal flex items-center gap-2 cursor-pointer">
+                                Show content blocks <Switch checked={showContentBlocks} onChange={setShowContentBlocks} />
+                            </label>
+                        </div>
+                    }
+                    onClose={closeSubmission}
+                    open={submissionVisible}
+                    afterOpenChange={afterOpenChange}
+                    width={600}
+                >
+                    <div>
+                        <FormDataViewer form={form} submission={selectedSubmission} showContentBlocks={showContentBlocks} />
+                    </div>
+                </Drawer>
+                <FormDataEditDrawer
+                    visible={editSubmissionVisible}
+                    onClose={closeEditSubmission}
+                    form={form}
+                    submission={selectedSubmission}
+                />
+                <MergeDocumentModal
+                    visible={documentMergeVisible}
+                    form={form}
+                    onClose={closeDocumentMerge}
+                    submission={selectedSubmission}
                 />
             </div>
-            <ExternalScroll target={tableBody} />
-
-            <Drawer
-                title={
-                    <div className="w-full flex justify-between items-center">
-                        <span>{selectedSubmission?.code}</span>
-                        <label className="text-xs font-normal flex items-center gap-2 cursor-pointer">
-                            Show content blocks <Switch checked={showContentBlocks} onChange={setShowContentBlocks} />
-                        </label>
-                    </div>
-                }
-                onClose={closeSubmission}
-                open={submissionVisible}
-                afterOpenChange={afterOpenChange}
-                width={600}
-            >
-                <div>
-                    <FormDataViewer form={form} submission={selectedSubmission} showContentBlocks={showContentBlocks} />
-                </div>
-            </Drawer>
-            <FormDataEditDrawer
-                visible={editSubmissionVisible}
-                onClose={closeEditSubmission}
-                form={form}
-                submission={selectedSubmission}
-            />
-            <MergeDocumentModal
-                visible={documentMergeVisible}
-                form={form}
-                onClose={closeDocumentMerge}
-                submission={selectedSubmission}
-            />
         </>
     );
 }

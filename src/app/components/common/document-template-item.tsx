@@ -4,17 +4,21 @@ import { FC } from 'react';
 import { DocumentTemplate } from '../../models/document-template';
 
 type Props = {
-    documentTemplate?: DocumentTemplate
+    documentTemplate?: DocumentTemplate;
+    onClick?: () => void;
 }
 
-const DocumentTemplateItem: FC<Props> = ({ documentTemplate }) => {
+const DocumentTemplateItem: FC<Props> = ({ documentTemplate, onClick }) => {
 
     if (!documentTemplate) {
         return <></>
     }
 
     return (
-        <div className="flex items-center p-2 rounded-md border border-slate-900/10 bg-slate-50 dark:border-transparent dark:bg-cinder-700 relative group">
+        <div
+            onClick={onClick}
+            className="cursor-pointer flex items-center p-2 rounded-md border border-slate-900/10 bg-slate-50 dark:border-transparent dark:bg-cinder-700 relative group"
+        >
             <div className="flex items-center justify-center w-10 h-10 rounded group-hover:ring-2 bg-gradient-to-r from-cyan-500 to-blue-500 transition">
                 <span className='text-xs'>{documentTemplate.extension}</span>
             </div>

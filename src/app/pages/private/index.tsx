@@ -11,8 +11,7 @@ function Private() {
 
     const workspace = useRouteLoaderData("workspace") as Workspace;
     const [createModalVisible, setCreateModelVisible] = useState(false);
-    const [page, setPage] = useState(0);
-    const { data: pages, refetch } = useForms({ page, scope: 'Private' });
+    const { data: pages, refetch } = useForms({ page: 0, scope: 'Private', size: -1});
 
     const showCreateModal = () => {
         setCreateModelVisible(true);
@@ -34,7 +33,7 @@ function Private() {
                 <PageTitle title="Private" actions={pageActions} />
                 <div className="flex items-center justify-between min-h-[40px] mt-3">
                     <div className="flex items-center gap-3">
-                        <span>Total 72</span>
+                        <span>Total {pages?.totalElements}</span>
                         <div className="relative hidden md:block">
                             <div className="absolute w-7 h-full flex items-center justify-center text-xs text-gray-500">
                                 <i className="fi fi-rr-search"></i>

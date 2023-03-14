@@ -6,11 +6,15 @@ import ButtonAction from "../../components/layout/button-action";
 import PageTitle from "../../components/layout/page-title";
 import useDocumentTemplates from "../../hooks/document-template/useDocumentTemplates";
 import useForm from "../../hooks/form/useForm";
+import { DocumentTemplate } from "../../models/document-template";
 import CreateDocumentTemplateModal from "./components/create-document-template-modal";
+import DocumentTemplateDetailModal from "./components/document-template-detail-modal";
 import FormPageMenu from "./components/form-page-menu";
 
 function DocumentTemplates() {
     const [createModalVisible, setCreateModelVisible] = useState(false);
+    const [detailVisible, setDetailVisible] = useState(false);
+    const [selectedTemplate, setSelectedTemplate] = useState<DocumentTemplate>();
 
     const params = useParams();
     const { data: form } = useForm(params.formCode);
@@ -22,6 +26,16 @@ function DocumentTemplates() {
 
     const closeCreateModal = () => {
         setCreateModelVisible(false);
+    }
+
+    const showDetail = (document: DocumentTemplate) => {
+        setSelectedTemplate(document);
+        setDetailVisible(true);
+    }
+
+    const closeDetail = () => {
+        setSelectedTemplate(undefined);
+        setDetailVisible(false);
     }
 
     const isEmpty = !pages || pages?.totalElements === 0
@@ -51,7 +65,7 @@ function DocumentTemplates() {
                 <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
                     {
                         pages?.content?.map((item, index) => (
-                            <DocumentTemplateItem documentTemplate={item} key={index} />
+                            <DocumentTemplateItem documentTemplate={item} key={index} onClick={() => showDetail(item)} />
                         ))
                     }
                 </div>
@@ -63,6 +77,14 @@ function DocumentTemplates() {
                     onClose={closeCreateModal}
                     refetch={refetch}
                     form={form}
+                />
+            }
+            {
+                selectedTemplate &&
+                <DocumentTemplateDetailModal
+                    visible={detailVisible}
+                    onClose={closeDetail}
+                    documentTemplate={selectedTemplate}
                 />
             }
         </>

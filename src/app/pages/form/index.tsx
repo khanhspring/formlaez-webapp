@@ -1,17 +1,12 @@
-import copy from 'copy-to-clipboard';
-import Tooltip from 'rc-tooltip';
 import { Link, useParams, useRouteLoaderData } from "react-router-dom";
 import { toast } from 'react-toastify';
 import Button from '../../components/common/button';
 import confirm from '../../components/common/confirm/confirm';
-import ButtonAction from "../../components/layout/button-action";
 import PageTitle from "../../components/layout/page-title";
 import useFormDetail from '../../hooks/form/useFormDetail';
 import usePublishForm from '../../hooks/form/usePublishForm';
-import useExportSubmissions from '../../hooks/submissions/useExportSubmissions';
-import { ExportFormSubmissionRequest } from '../../models/form-submission';
 import { Workspace } from '../../models/workspace';
-import { showError, showSuccess } from '../../util/common';
+import { showError } from '../../util/common';
 import FormDataTable from './components/form-data-table';
 import FormPageMenu from './components/form-page-menu';
 import FormPageTitle from './components/form-page-title';
@@ -22,7 +17,6 @@ function Form() {
     const params = useParams();
     const { data: form, refetch } = useFormDetail(params.formCode);
     const { mutateAsync: publish } = usePublishForm();
-    const { mutateAsync: exportCsv } = useExportSubmissions();
 
     const onPublish = (): Promise<any> => {
         if (!form) {
@@ -45,29 +39,6 @@ function Form() {
         })
     }
 
-    const copyShareLink = () => {
-        copy(`${process.env.REACT_APP_DOMAIN}/f/v/${params.formCode}`);
-        toast.success("Copied");
-    }
-
-    const handleExport = () => {
-        if (!form) {
-            return;
-        }
-        const request: ExportFormSubmissionRequest = {
-            formCode: form?.code,
-            fileName: form.title + '.csv',
-        }
-        const exportCsvPromise = exportCsv(request);
-        toast.promise(
-            exportCsvPromise,
-            {
-                pending: 'Exporting...',
-                success: 'Exported submissions successfully!',
-                error: 'There was an error has ocurred. Please try again!'
-            }
-        )
-    }
 
     return (
         <>
@@ -94,54 +65,7 @@ function Form() {
                 {
                     form?.status !== 'Draft' &&
                     <>
-                        <div className="flex items-center justify-between min-h-[40px] mt-3">
-                            <div className="flex items-center gap-3">
-                                <span>Total 75</span>
-                                <div className="relative hidden md:block">
-                                    <div className="absolute w-7 h-full flex items-center justify-center text-xs text-gray-500">
-                                        <i className="fi fi-rr-search"></i>
-                                    </div>
-                                    <input placeholder="Search" className="px-1 py-1.5 pl-7 bg-gray-200/70 dark:bg-cinder-700 rounded outline-none text-sm" />
-                                </div>
-                                <div className="hidden md:flex gap-2 py-1.5 px-3 cursor-pointer text-gray-500 bg-slate-50 dark:bg-cinder-700 rounded items-center justify-center">
-                                    <i className="fi fi-rr-calendar text-xs text-gray-500"></i>
-                                    <span className="text-sm text-gray-500">All time</span>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                {
-                                    form?.status !== 'Archived' &&
-                                    <Tooltip overlay="Open in new tab" placement='bottom'>
-                                        <Link to={`/f/v/${params.formCode}`} target="_blank">
-                                            <ButtonAction>
-                                                <i className="fi fi-rr-arrow-up-right-from-square"></i>
-                                            </ButtonAction>
-                                        </Link>
-                                    </Tooltip>
-                                }
-                                {
-                                    form?.status !== 'Archived' &&
-                                    <Tooltip overlay={'Copy link to share'} placement='bottom'>
-                                        <ButtonAction onClick={copyShareLink}>
-                                            <i className="fi fi-rr-share"></i>
-                                        </ButtonAction>
-                                    </Tooltip>
-                                }
-                                <Tooltip overlay="Export" placement='bottom'>
-                                    <ButtonAction onClick={handleExport}>
-                                        <i className="fi fi-rr-cloud-download-alt"></i>
-                                    </ButtonAction>
-                                </Tooltip>
-                                <Tooltip overlay="Fullscreen" placement='bottom'>
-                                    <Link to={`/${workspace.code}/private/forms/${params.formCode}/full`}>
-                                        <ButtonAction>
-                                            <i className="fi fi-rr-expand"></i>
-                                        </ButtonAction>
-                                    </Link>
-                                </Tooltip>
-                            </div>
-                        </div>
-                        <div className="mt-6">
+                        <div className="mt-3">
                             <FormDataTable
                                 form={form}
                                 sticky={{
