@@ -1,6 +1,7 @@
 import Form from 'rc-field-form';
 import { FC, useEffect } from "react";
 import { useRouteLoaderData } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Modal from "../../../components/common/modal";
 import Input from '../../../components/form/form-controls/input';
 import FormItem from '../../../components/form/form-item';
@@ -39,7 +40,7 @@ const CreateFormModal: FC<Props> = ({ visible, onClose, refetch }) => {
         }
         createForm(request, {
             onSuccess: showSuccess,
-            onError: showError,
+            onError: () => toast.success('Created form successfully!'),
         })
         .finally(() => {
             onClose();

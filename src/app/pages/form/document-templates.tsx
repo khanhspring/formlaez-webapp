@@ -18,7 +18,7 @@ function DocumentTemplates() {
 
     const params = useParams();
     const { data: form } = useForm(params.formCode);
-    const { data: pages, refetch } = useDocumentTemplates({ formId: form?.id, size: -1 });
+    const { data: pages, refetch, isLoading } = useDocumentTemplates({ formId: form?.id, size: -1 });
 
     const showCreateModal = () => {
         setCreateModelVisible(true);
@@ -38,7 +38,7 @@ function DocumentTemplates() {
         setDetailVisible(false);
     }
 
-    const isEmpty = !pages || pages?.totalElements === 0
+    const isEmpty = !isLoading && pages?.totalElements === 0
 
     return (
         <>

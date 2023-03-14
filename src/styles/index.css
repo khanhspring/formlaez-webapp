@@ -151,6 +151,7 @@ hr {
 .rc-picker-suffix {
     display: flex;
     align-items: center;
+    padding-left: 10px;
 }
 
 .rc-picker-clear {
@@ -168,6 +169,11 @@ hr {
 
 .dark .rc-picker-clear {
     background: #2B2B40;
+}
+
+.rc-picker-range .rc-picker-clear {
+    transform: translateY(-50%) translateX(-50%);
+    right: 3px;
 }
 
 .rc-picker-panel {
@@ -347,6 +353,48 @@ hr {
     background-color: #2B2B40;
 }
 
+.rc-picker-range-arrow {
+    display: none;
+}
+
+.rc-picker-range-separator {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.rc-picker-range .rc-picker-active-bar {
+    background-color: rgb(29 78 216);
+    transform: translateX(15px);
+    height: 2px;
+}
+
+.rc-picker-cell-range-hover-start::after,
+.rc-picker-cell-range-hover-end::after,
+.rc-picker-cell-range-hover::after {
+    border: 1px dashed rgb(29 78 216);
+    border-right: 0;
+    border-left: 0;
+    content: '';
+    pointer-events: none;
+}
+
+.rc-picker-cell-range-hover-start::after {
+    border-left: 1px dashed rgb(29 78 216) !important;
+}
+
+.rc-picker-cell-range-hover-end::after {
+    border-right: 1px dashed rgb(29 78 216) !important;
+}
+
+.rc-picker-dropdown-range {
+    padding: 0;
+}
+
+.rc-picker-panel-container {
+    margin: 0 !important;
+}
+
 .rc-input-number-input {
     text-align: left;
     background-color: transparent;
@@ -432,6 +480,7 @@ hr {
     background-color: rgb(241 245 249);
     opacity: 1;
 }
+
 .dark .rc-input-number-disabled .rc-input-number-input {
     background-color: #1E1E2D;
 }

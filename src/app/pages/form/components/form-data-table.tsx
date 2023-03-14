@@ -1,4 +1,6 @@
 import moment from "moment";
+import Dropdown from "rc-dropdown";
+import Menu, { MenuItem } from "rc-menu";
 import Pagination from "rc-pagination";
 import Switch from "rc-switch";
 import Table from "rc-table";
@@ -52,6 +54,17 @@ function calculateTableWidth(dataColumnCount: number) {
         + ColumnWidthConfig.data * dataColumnCount;
 }
 
+const DateRangeLabels = {
+    anyTime: 'Any time',
+    pastHour: 'Past hour',
+    past24Hours: 'Past 24 hours',
+    pastWeek: 'Past week',
+    pastMonth: 'Past month',
+    pastYear: 'Past year',
+}
+
+type DateRange = 'anyTime' | 'pastHour' | 'past24Hours' | 'pastWeek' | 'pastMonth' | 'pastYear';
+
 type Props = {
     form?: Form;
     sticky?: boolean | TableSticky;
@@ -66,14 +79,18 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
 
     const [tableBody, setTableBody] = useState<HTMLElement>();
     const [page, setPage] = useState(0);
-    const { data: formData, refetch } = useSubmissions({ formCode: form?.code, page, size: pageSize });
+    const [fromDate, setFromDate] = useState<Date>();
+    const [toDate, setToDate] = useState<Date>();
+    const { data: formData, refetch, isLoading, isFetching } = useSubmissions({ formCode: form?.code, fromDate, toDate, page, size: pageSize });
     const [selectedSubmission, setSelectedSubmission] = useState<FormSubmission>();
     const [submissionVisible, setSubmissionVisible] = useState(false);
     const [showContentBlocks, setShowContentBlocks] = useState(false);
     const [editSubmissionVisible, setEditSubmissionVisible] = useState(false);
     const [documentMergeVisible, setDocumentMergeVisible] = useState(false);
     const { mutateAsync: archiveSubmission } = useArchiveSubmission();
-    const { mutateAsync: exportCsv } = useExportSubmissions();
+    const { mutateAsync: exportCsv, isLoading: isExporting } = useExportSubmissions();
+    const [reloading, setReloading] = useState(false);
+    const [dateRangeSelected, setDateRangeSelected] = useState<DateRange>('anyTime');
 
     const valueOf = (field: FormField, record: any): ReactNode => {
         if (!record) {
@@ -352,25 +369,95 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
         )
     }
 
+    const onReloading = () => {
+        setReloading(true);
+        refetch();
+        setTimeout(() => {
+            setReloading(false);
+        }, 1000)
+    }
+
     if (!form) {
         return <></>
     }
+
+    const onDateRangeClick = ({ key }: { key: any }) => {
+        const dateRangeSelected: DateRange = key;
+        setDateRangeSelected(dateRangeSelected);
+
+        switch (dateRangeSelected) {
+            case 'anyTime': {
+                setFromDate(undefined);
+                setToDate(undefined);
+                break;
+            }
+            case 'pastHour': {
+                setFromDate(moment().subtract(1, 'hour').toDate());
+                break;
+            }
+            case 'past24Hours': {
+                setFromDate(moment().subtract(24, 'hours').toDate());
+                break;
+            }
+            case 'pastWeek': {
+                setFromDate(moment().subtract(7, 'weeks').toDate());
+                break;
+            }
+            case 'pastMonth': {
+                setFromDate(moment().subtract(1, 'month').toDate());
+                break;
+            }
+            case 'pastYear': {
+                setFromDate(moment().subtract(1, 'year').toDate());
+                break;
+            }
+        }
+    }
+
+    const dateRange = (
+        <Menu className="text-sm" onClick={onDateRangeClick}>
+            <MenuItem key="anyTime">
+                <span>Any time</span>
+            </MenuItem>
+            <MenuItem key="pastHour">
+                <span>Past hour</span>
+            </MenuItem>
+            <MenuItem key="past24Hours">
+                <span>Past 24 hours</span>
+            </MenuItem>
+            <MenuItem key="pastWeek">
+                <span>Past week</span>
+            </MenuItem>
+            <MenuItem key="pastMonth">
+                <span>Past month</span>
+            </MenuItem>
+            <MenuItem key="pastYear">
+                <span>Past year</span>
+            </MenuItem>
+        </Menu>
+    )
 
     return (
         <>
             <div className="flex items-center justify-between min-h-[40px] mt-3">
                 <div className="flex items-center gap-3">
-                    <span>Total 75</span>
-                    <div className="relative hidden md:block">
-                        <div className="absolute w-7 h-full flex items-center justify-center text-xs text-gray-500">
-                            <i className="fi fi-rr-search"></i>
+                    <span>Total {formData?.totalElements || 0}</span>
+                    {/** API not supported yet
+                        <div className="relative hidden md:block">
+                            <div className="absolute w-7 h-full flex items-center justify-center text-xs text-gray-500">
+                                <i className="fi fi-rr-search"></i>
+                            </div>
+                            <input placeholder="Search" className="px-1 py-1.5 pl-7 bg-gray-200/70 dark:bg-cinder-700 rounded outline-none text-sm border border-slate-900/10 dark:border-cinder-600" />
                         </div>
-                        <input placeholder="Search" className="px-1 py-1.5 pl-7 bg-gray-200/70 dark:bg-cinder-700 rounded outline-none text-sm" />
-                    </div>
-                    <div className="hidden md:flex gap-2 py-1.5 px-3 cursor-pointer text-gray-500 bg-slate-50 dark:bg-cinder-700 rounded items-center justify-center">
-                        <i className="fi fi-rr-calendar text-xs text-gray-500"></i>
-                        <span className="text-sm text-gray-500">All time</span>
-                    </div>
+                     */}
+                    <Dropdown overlay={dateRange} trigger={['click']} placement="bottomRight">
+                        <div className="hidden md:flex gap-2 py-1.5 px-3 cursor-pointer bg-slate-50 dark:bg-cinder-700 rounded items-center justify-center border border-slate-900/10 dark:border-cinder-600">
+                            <i className="fi fi-rr-calendar text-xs text-gray-500"></i>
+                            <span className="text-sm">
+                                {DateRangeLabels[dateRangeSelected]}
+                            </span>
+                        </div>
+                    </Dropdown>
                 </div>
                 <div className="flex items-center gap-2">
                     {
@@ -384,8 +471,13 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                         </Tooltip>
                     }
                     <Tooltip overlay="Export" placement='bottom'>
-                        <ButtonAction onClick={handleExport}>
+                        <ButtonAction onClick={handleExport} disabled={isExporting}>
                             <i className="fi fi-rr-cloud-download-alt"></i>
+                        </ButtonAction>
+                    </Tooltip>
+                    <Tooltip overlay="Reload database" placement='bottom'>
+                        <ButtonAction onClick={onReloading} disabled={isLoading || isFetching || reloading}>
+                            <i className={`fi fi-rr-rotate-right ${isFetching || reloading ? 'animate-spin' : ''}`}></i>
                         </ButtonAction>
                     </Tooltip>
                     {
@@ -400,7 +492,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                     }
                     {
                         fullscreen &&
-                        <Tooltip overlay="Exit fullscreen" placement='bottom'>
+                        <Tooltip overlay="Exit" placement='bottom'>
                             <Link to={`/${workspace.code}/private/forms/${params.formCode}`}>
                                 <ButtonAction>
                                     <i className="fi fi-rr-compress"></i>
@@ -420,6 +512,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                         x: tableWidth,
                     }}
                     sticky={sticky}
+                    emptyText={isLoading || isFetching ? 'Loading...' : 'No data'}
                     className="table-form-data text-slate-900 dark:text-white"
                 />
                 <div className="w-full mt-3 p-1 z-[200] bg-white/90 border border-slate-900/10 dark:bg-cinder-700/80 dark:border-cinder-600 sticky bottom-0 flex items-center justify-center">

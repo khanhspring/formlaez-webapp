@@ -31,6 +31,8 @@ export type SearchFormSubmissionRequest = Pageable & {
     formCode?: string;
     advance?: boolean;
     keywords?: string;
+    fromDate?: Date;
+    toDate?: Date;
 }
 
 export type ExportFormSubmissionRequest = {

@@ -1,3 +1,4 @@
+import Tooltip from "rc-tooltip";
 import { FC } from "react";
 import { Form } from "../../../models/form";
 
@@ -5,7 +6,7 @@ type Props = {
     form?: Form;
 }
 
-const FormPageTitle: FC<Props> = ({form}) => {
+const FormPageTitle: FC<Props> = ({ form }) => {
 
     return (
         <div className='flex items-center gap-3'>
@@ -16,6 +17,18 @@ const FormPageTitle: FC<Props> = ({form}) => {
                 + ` ${form?.status === 'Published' ? 'bg-green-700' : ''}`
                 + ` ${form?.status === 'Archived' ? 'bg-rose-700' : ''}`
             }>{form?.status}</span>
+            {
+                form?.sharingScope === 'Public' &&
+                <Tooltip overlay="Public">
+                    <i className="fi fi-rr-world"></i>
+                </Tooltip>
+            }
+            {
+                form?.sharingScope === 'Private' &&
+                <Tooltip overlay="Private">
+                    <i className="fi fi-rr-user"></i>
+                </Tooltip>
+            }
         </div>
     );
 }

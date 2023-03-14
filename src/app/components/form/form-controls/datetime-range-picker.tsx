@@ -1,6 +1,6 @@
 import type { Moment } from 'moment';
 import moment from 'moment';
-import Picker from 'rc-picker';
+import Picker, { RangePicker } from 'rc-picker';
 import generateConfig from 'rc-picker/lib/generate/moment';
 import enUS from 'rc-picker/lib/locale/en_US';
 import { FC, InputHTMLAttributes } from "react";
@@ -11,9 +11,11 @@ type Props = InputHTMLAttributes<any> & {
     onChange?: (value: any) => void;
     showTime?: boolean;
     value?: string;
+    placeholder?: [string, string];
+    className?: string
 }
 
-const DatetimePicker: FC<Props> = ({ className = '', status, value, showTime, ...rest }) => {
+const DatetimeRangePicker: FC<Props> = ({ className = '', status, value, showTime, placeholder, ...rest }) => {
 
     const onValueChange = (value: Moment | null, dateString: string) => {
         rest.onChange?.(dateString);
@@ -36,10 +38,8 @@ const DatetimePicker: FC<Props> = ({ className = '', status, value, showTime, ..
             + `${status && status === 'warning' ? '!border-yellow-700' : ''} `
             + `${status && status === 'success' ? '!border-green-700' : ''} `
         }>
-            <Picker<Moment>
+            <RangePicker<Moment>
                 format={format}
-                value={initValue}
-                onChange={onValueChange}
                 generateConfig={generateConfig}
                 locale={enUS}
                 showTime={showTime && {
@@ -47,8 +47,8 @@ const DatetimePicker: FC<Props> = ({ className = '', status, value, showTime, ..
                     showSecond: false
                 }}
                 suffixIcon={<i className="fi fi-rr-calendar text-md"></i>}
-                placeholder={rest.placeholder}
-                className="w-full border-none text-sm px-4 py-2"
+                placeholder={placeholder}
+                className={`w-full border-none text-sm py-2 px-4 ${className}`}
                 allowClear
                 clearIcon={<i className="fi fi-rr-cross-small text-[16px]"></i>}
                 dropdownClassName="rounded shadow bg-slate-100 dark:bg-cinder-800 z-[1100]"
@@ -56,9 +56,10 @@ const DatetimePicker: FC<Props> = ({ className = '', status, value, showTime, ..
                 superNextIcon={<i className="fi fi-rr-angle-double-small-right text-md"></i>}
                 prevIcon={<i className="fi fi-rr-angle-small-left text-md"></i>}
                 superPrevIcon={<i className="fi fi-rr-angle-double-small-left text-md"></i>}
+                separator={<i className="fi fi-rr-arrow-right text-md"></i>}
             />
         </div>
     );
 }
 
-export default DatetimePicker;
+export default DatetimeRangePicker;

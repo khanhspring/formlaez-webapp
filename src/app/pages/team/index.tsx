@@ -28,7 +28,7 @@ function Team() {
                             <div className="absolute w-7 h-full flex items-center justify-center text-xs text-gray-500">
                                 <i className="fi fi-rr-search"></i>
                             </div>
-                            <input placeholder="Search" className="px-1 py-1.5 pl-7 bg-gray-200/70 dark:bg-cinder-700 rounded outline-none text-sm" />
+                            <input placeholder="Search" className="px-1 py-1.5 pl-7 bg-gray-200/70 dark:bg-cinder-700 rounded outline-none text-sm border-slate-900/10 dark:border-cinder-600" />
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
