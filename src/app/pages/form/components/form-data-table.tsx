@@ -248,7 +248,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
             },
         },
         {
-            title: 'User',
+            title: 'Submitter',
             dataIndex: 'user',
             width: ColumnWidthConfig.user,
             render: (value, record, index) => {
@@ -256,7 +256,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
             },
         },
         {
-            title: 'Datetime',
+            title: 'Submitted date',
             dataIndex: 'dateTime',
             align: 'center',
             width: ColumnWidthConfig.dateTime,

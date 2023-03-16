@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-const heartIcon = (<i className="fi fi-sr-heart"></i>)
+const defaultIcon = (<i className="fi fi-rr-circle-small"></i>)
 
 type Props = {
     title: ReactNode;
@@ -8,7 +8,7 @@ type Props = {
     shortTitle?: ReactNode;
 }
 
-const PageTitle: FC<Props> = ({title, actions, shortTitle = heartIcon}) => {
+const PageTitle: FC<Props> = ({title, actions, shortTitle = defaultIcon}) => {
 
     return (
         <div className="py-2 border-b bg-white dark:bg-cinder-900 border-slate-900/10 dark:border-cinder-600 z-20 sticky top-[64px] flex items-center justify-between">

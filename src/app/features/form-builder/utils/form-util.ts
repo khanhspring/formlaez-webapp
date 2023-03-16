@@ -126,7 +126,7 @@ const reorderField = (
   sectionCode: string,
   fromIndex: number,
   toIndex: number
-) => {
+): [Form, FormField] | undefined => {
   const formClone = _.cloneDeep(form);
   if (!formClone) {
     return;
@@ -148,7 +148,7 @@ const reorderField = (
 
   const tmp = fields.splice(fromIndex, 1);
   fields.splice(toIndex, 0, tmp[0]);
-  return formClone;
+  return [formClone, tmp[0]];
 };
 
 const removeSection = (

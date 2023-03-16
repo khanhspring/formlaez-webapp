@@ -21,6 +21,12 @@ export type CreateDocumentTemplateRequest = {
     file: RcFile;
 }
 
+export type UpdateDocumentTemplateRequest = {
+    id: number;
+    title: string;
+    description?: string;
+}
+
 export type SearchDocumentTemplateRequest = Pageable & {
     keyword?: string;
     formId?: number;

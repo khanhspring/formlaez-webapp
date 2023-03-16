@@ -12,10 +12,12 @@ import CreateDocumentTemplateModal from "./components/create-document-template-m
 import DocumentTemplateDetailModal from "./components/document-template-detail-modal";
 import FormPageMenu from "./components/form-page-menu";
 import FormPageTitle from "./components/form-page-title";
+import UpdateDocumentTemplateModal from "./components/update-document-template-modal";
 
 function DocumentTemplates() {
     const [createModalVisible, setCreateModelVisible] = useState(false);
     const [detailVisible, setDetailVisible] = useState(false);
+    const [updateVisible, setUpdateVisible] = useState(false);
     const [selectedTemplate, setSelectedTemplate] = useState<DocumentTemplate>();
 
     const params = useParams();
@@ -38,6 +40,16 @@ function DocumentTemplates() {
     const closeDetail = () => {
         setSelectedTemplate(undefined);
         setDetailVisible(false);
+    }
+
+    const showUpdate = (document: DocumentTemplate) => {
+        setSelectedTemplate(document);
+        setUpdateVisible(true);
+    }
+
+    const closeUpdate = () => {
+        setSelectedTemplate(undefined);
+        setUpdateVisible(false);
     }
 
     const isEmpty = !isLoading && pages?.totalElements === 0
@@ -71,7 +83,12 @@ function DocumentTemplates() {
                 <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
                     {
                         pages?.content?.map((item, index) => (
-                            <DocumentTemplateItem documentTemplate={item} key={index} onClick={() => showDetail(item)} />
+                            <DocumentTemplateItem
+                                documentTemplate={item}
+                                key={index}
+                                onClick={() => showDetail(item)}
+                                onEdit={() => showUpdate(item)}
+                            />
                         ))
                     }
                 </div>
@@ -83,6 +100,15 @@ function DocumentTemplates() {
                     onClose={closeCreateModal}
                     refetch={refetch}
                     form={form}
+                />
+            }
+            {
+                selectedTemplate &&
+                <UpdateDocumentTemplateModal
+                    visible={updateVisible}
+                    onClose={closeUpdate}
+                    documentTemplate={selectedTemplate}
+                    refetch={refetch}
                 />
             }
             {

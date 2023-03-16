@@ -1,6 +1,6 @@
 import RestClient from "../configurations/axios-config";
 import { PageResponse, ResponseId } from "../models/common";
-import { CreateDocumentTemplateRequest, DocumentTemplate, SearchDocumentTemplateRequest } from "../models/document-template";
+import { CreateDocumentTemplateRequest, DocumentTemplate, SearchDocumentTemplateRequest, UpdateDocumentTemplateRequest } from "../models/document-template";
 
 function search(request: SearchDocumentTemplateRequest): Promise<PageResponse<DocumentTemplate>> {
   return RestClient.get<any>("/admin/document-templates", { params: request }).then(
@@ -22,6 +22,12 @@ export function create(request: CreateDocumentTemplateRequest): Promise<Response
       .then(response => response.data);;
 }
 
+function update(request: UpdateDocumentTemplateRequest): Promise<any> {
+  return RestClient.put<ResponseId>("/admin/document-templates/" + request.id, request).then(
+    (response) => response.data
+  );
+}
+
 function getByFormId(formId?: number): Promise<DocumentTemplate[]> {
   return RestClient.get<any>("/document-templates", { params: {formId} }).then(
     (response) => response.data
@@ -31,6 +37,7 @@ function getByFormId(formId?: number): Promise<DocumentTemplate[]> {
 const DocumentTemplateService = {
     search,
     create,
+    update,
     getByFormId
 };
 

@@ -69,7 +69,7 @@ const Onboarding: FC<Props> = () => {
     return (
         <div className='w-full min-h-[100vh] flex items-center justify-center'>
             {
-                isSessionLoading && <Loading center/>
+                isSessionLoading && <Loading center />
             }
             {
                 greetingVisible &&
@@ -80,7 +80,10 @@ const Onboarding: FC<Props> = () => {
             {
                 formVisible &&
                 <div className='flex flex-col items-center gap-5 pb-20 pt-5 min-w-[300px] animate-fade-in-slow'>
-                    <h2 className='text-xl'>Create your own workspace</h2>
+                    <div className='flex flex-col items-center'>
+                        <h2 className='text-lg'>Is this your first time accessing the dashboard?</h2>
+                        <p className='text-lg'>Create your own workspace</p>
+                    </div>
                     <Form
                         initialValues={{ name: `${userInfo?.firstName} ${userInfo?.lastName}'s Workspace` }}
                         className="w-full"

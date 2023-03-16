@@ -4,7 +4,7 @@ import { FieldStatus } from "../form-types";
 
 type Props = InputHTMLAttributes<any> & {
     status?: FieldStatus;
-    suffix?: string | ReactElement;
+    suffix?: string | ReactElement<any>;
 }
 
 const Input: FC<Props> = ({ className = '', status, value, suffix, ...rest }) => {

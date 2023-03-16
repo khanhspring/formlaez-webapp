@@ -2,10 +2,7 @@ import RestClient from "../configurations/axios-config";
 import { PageResponse, ResponseCode, ResponseId } from "../models/common";
 import {
   CreateFormRequest,
-  Form,
-  FormField,
-  FormSection,
-  SearchFormRequest,
+  Form, SearchFormRequest,
   UpdateFormRequest,
   UpdateFormSettingsRequest
 } from "../models/form";
@@ -64,54 +61,6 @@ function remove(id: number): Promise<any> {
   );
 }
 
-function addFormSection(request: FormSection): Promise<any> {
-  return new Promise<any>((resolve, rejected) =>
-    setTimeout(() => resolve({ id: 1 }), 500)
-  );
-}
-
-function addGroupField(request: FormField): Promise<any> {
-  return new Promise<any>((resolve, rejected) =>
-    setTimeout(() => resolve({ id: 1 }), 500)
-  );
-}
-
-function reorderSection(request: any): Promise<any> {
-  return new Promise<any>((resolve, rejected) =>
-    setTimeout(() => resolve({ id: 1 }), 500)
-  );
-}
-
-function reorderField(request: any): Promise<any> {
-  return new Promise<any>((resolve, rejected) =>
-    setTimeout(() => resolve({ id: 1 }), 500)
-  );
-}
-
-function removeSection(request: any): Promise<any> {
-  return new Promise<any>((resolve, rejected) =>
-    setTimeout(() => resolve({ id: 1 }), 500)
-  );
-}
-
-function removeField(request: any): Promise<any> {
-  return new Promise<any>((resolve, rejected) =>
-    setTimeout(() => resolve({ id: 1 }), 500)
-  );
-}
-
-function updateField(request: any): Promise<any> {
-  return new Promise<any>((resolve, rejected) =>
-    setTimeout(() => resolve({ id: 1 }), 500)
-  );
-}
-
-function updateSection(request: any): Promise<any> {
-  return new Promise<any>((resolve, rejected) =>
-    setTimeout(() => resolve({ id: 1 }), 500)
-  );
-}
-
 const FormService = {
   create,
   search,
@@ -121,15 +70,7 @@ const FormService = {
   updateSettings,
   publish,
   archive,
-  remove,
-  addFormSection,
-  addGroupField,
-  reorderSection,
-  reorderField,
-  removeSection,
-  removeField,
-  updateField,
-  updateSection,
+  remove
 };
 
 export default FormService;

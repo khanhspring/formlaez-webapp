@@ -11,6 +11,7 @@ import {
   DuplicateFormField,
   DuplicateSection,
   Form,
+  MoveFormFieldRequest,
   MoveFormSectionRequest,
   PartialUpdateFormField,
   PartialUpdateFormSection,
@@ -220,10 +221,17 @@ export const reorderField = createAsyncThunk(
       return;
     }
 
-    thunkAPI.dispatch(updateForm(result));
+    const [formResult, movedField] = result;
+
+    thunkAPI.dispatch(updateForm(formResult));
+
+    const request: MoveFormFieldRequest = {
+      fieldCode: movedField.code,
+      newPosition: command.toIndex
+    }
 
     try {
-      return await FormService.reorderField(command);
+      return await FormFieldService.move(request);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;

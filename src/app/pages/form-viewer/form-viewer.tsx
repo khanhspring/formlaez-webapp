@@ -6,6 +6,8 @@ import useCreateSubmission from "../../hooks/submissions/useCreateSubmission";
 import { CreateFormSubmissionRequest } from "../../models/form-submission";
 import { showError } from "../../util/common";
 import Error from "../error/Error";
+import FormError401 from "./components/form-error-401";
+import FormError403 from "./components/form-error-403";
 
 function FormViewer() {
 
@@ -30,7 +32,19 @@ function FormViewer() {
         })
     }
 
-    if (error?.response?.status) {
+    if (error?.response?.status === 401) {
+        return (
+            <FormError401 />
+        );
+    }
+
+    if (error?.response?.status === 403) {
+        return (
+            <FormError403 />
+        );
+    }
+
+    if (error) {
         return (
             <Error />
         );

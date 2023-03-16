@@ -18,7 +18,7 @@ import WorkspaceService from "./app/services/work-space-service";
 import { selectTheme } from "./app/slices/app-config";
 import { lazyLoad } from "./app/util/lazy-load";
 
-const userSessionLoader = async () => {
+const userSessionLoader = async (data: any) => {
   try {
     const userSession = await UserSessionService.getCurrentUserSession();
     if (!userSession.onboarded) {
@@ -153,20 +153,6 @@ const router = createBrowserRouter([
               }
             ]
           },
-          {
-            id: 'formViewer',
-            element: <BlankLayout />,
-            children: [
-              {
-                path: "f/v/:formCode",
-                element: lazyLoad('form/form-viewer', true)
-              },
-              {
-                path: "f/v/:formCode/s/:submissionCode",
-                element: lazyLoad('form/form-submitted', true)
-              },
-            ]
-          },
         ]
       },
       {
@@ -175,6 +161,20 @@ const router = createBrowserRouter([
           {
             path: "onboarding",
             element: lazyLoad('onboarding', true)
+          },
+        ]
+      },
+      {
+        id: 'formViewer',
+        element: <BlankLayout />,
+        children: [
+          {
+            path: "f/v/:formCode",
+            element: lazyLoad('form-viewer/form-viewer', false)
+          },
+          {
+            path: "f/v/:formCode/s/:submissionCode",
+            element: lazyLoad('form-viewer/form-submitted', false)
           },
         ]
       },

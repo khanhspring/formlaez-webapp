@@ -8,6 +8,8 @@ import usePublishedForm from "../../hooks/form/usePublishedForm";
 import useMergeSubmittedDocument from "../../hooks/submissions/useMergeSubmittedDocument";
 import { DocumentTemplate } from "../../models/document-template";
 import { MergeDocumentRequest } from "../../models/form-submission";
+import FormError401 from "./components/form-error-401";
+import FormError403 from "./components/form-error-403";
 
 const defaultContent = (
     <>
@@ -19,7 +21,7 @@ const defaultContent = (
 function FormSubmitted() {
 
     const params = useParams();
-    const { data: form } = usePublishedForm(params.formCode);
+    const { data: form, error } = usePublishedForm(params.formCode);
     const { data: templates } = useDocumentTemplatesByFormId(form?.id, !!form?.allowPrinting);
     const { mutateAsync: mergeDocument } = useMergeSubmittedDocument();
 
@@ -44,6 +46,18 @@ function FormSubmitted() {
             }
         )
     }
+    
+    if (error?.response?.status === 401) {
+        return (
+            <FormError401 />
+        );
+    }
+
+    if (error?.response?.status === 403) {
+        return (
+            <FormError403 />
+        );
+    }
 
     const hasTemplates = !_.isEmpty(templates);
 
@@ -66,7 +80,10 @@ function FormSubmitted() {
 
                 {
                     hasTemplates &&
-                    <div className="grid grid-cols-2 gap-4 py-3 mt-10">
+                    <div className={
+                        `grid grid-cols-2 gap-4 py-3 mt-10`
+                        + ` ${templates?.length === 1 ? '!grid-cols-1' : ''}`
+                    }>
                         {
                             templates?.map((item, index) =>
                                 <DocumentTemplatePublicItem

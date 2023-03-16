@@ -1,6 +1,6 @@
 import RestClient from "../configurations/axios-config";
 import { ResponseId } from "../models/common";
-import { CreateFormFieldRequest, UpdateFormFieldRequest } from "../models/form";
+import { CreateFormFieldRequest, MoveFormFieldRequest, UpdateFormFieldRequest } from "../models/form";
 
 function create(request: CreateFormFieldRequest): Promise<ResponseId> {
   return RestClient.post<ResponseId>("/admin/forms/fields", request).then(
@@ -20,10 +20,17 @@ function remove(code: string): Promise<any> {
   );
 }
 
+function move(request: MoveFormFieldRequest): Promise<any> {
+  return RestClient.post<any>("/admin/forms/fields/" + request.fieldCode + "/move", request).then(
+    (response) => response.data
+  );
+}
+
 const FormFieldService = {
   create,
   update,
-  remove
+  remove,
+  move
 };
 
 export default FormFieldService;

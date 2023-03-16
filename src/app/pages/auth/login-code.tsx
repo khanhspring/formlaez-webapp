@@ -20,7 +20,7 @@ const LoginCode: FC<Props> = () => {
         if (loginCode) {
             dispatch(getToken(loginCode))
                 .then(() => {
-                    navigate(from)
+                    navigate(from);
                 });
         }
     }, [dispatch, from, loginCode, navigate])

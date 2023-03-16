@@ -30,12 +30,17 @@ RestClient.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (error.response?.status === 401) {
+    const {ignore401, ignore403} = error.config.params;
+
+    if (error.response?.status === 401 && !ignore401) {
       TokenStorageService.removeToken();
-      window.location.href = process.env.REACT_APP_AUTH_LOGOUT_URL || '/errors/401';
+
+      const currentUrl = window.location.pathname;
+      const currentUrlEncoded = encodeURIComponent(currentUrl);
+      window.location.href = process.env.REACT_APP_AUTH_LOGIN_URL + `?state=${currentUrlEncoded}` ;
       return;
     }
-    if (error.response?.status === 403) {
+    if (error.response?.status === 403 && !ignore403) {
       toast.error("You have no permission to perform this action!");
     }
 

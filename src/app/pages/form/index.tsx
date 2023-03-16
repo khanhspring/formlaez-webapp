@@ -61,7 +61,6 @@ function Form() {
                                 <span>or</span>
                                 <Button onClick={showPublishConfirm}>
                                     Publish now
-                                    <i className="fi fi-rr-paper-plane"></i>
                                 </Button>
                             </div>
                         </div>
