@@ -58,7 +58,7 @@ const CustomizeEndingModal: FC<Props> = ({ formTitle, formId, visible, onClose }
         }
         updateEnding(request, {
             onError: showError
-        }).finally(refetch);
+        });
     }
 
     return (

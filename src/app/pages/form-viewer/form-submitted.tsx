@@ -46,7 +46,7 @@ function FormSubmitted() {
             }
         )
     }
-    
+
     if (error?.response?.status === 401) {
         return (
             <FormError401 />

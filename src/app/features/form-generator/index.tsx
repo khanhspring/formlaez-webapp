@@ -6,6 +6,7 @@ import Button from "../../components/common/button";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
 import { Form, FormSection } from "../../models/form";
 import { changeTheme, selectTheme } from "../../slices/app-config";
+import { selectUserInfo } from '../../slices/auth';
 import SectionItem from "./components/section-item";
 import { resetState, updateValues } from "./slice";
 
@@ -23,6 +24,13 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
     const dispatch = useAppDispatch();
     const mounted = useRef(false);
     const [form] = RcForm.useForm();
+    const user = useAppSelector(selectUserInfo);
+
+    const login = () => {
+        const currentUrl = window.location.pathname;
+        const currentUrlEncoded = encodeURIComponent(currentUrl);
+        window.location.href = process.env.REACT_APP_AUTH_LOGIN_URL + `?state=${currentUrlEncoded}`;
+    }
 
     const currentTheme = useAppSelector(selectTheme);
     const [theme, setTheme] = useState<'dark' | 'light'>(currentTheme);
@@ -79,7 +87,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                 <div className='mb-10'>
                     <div
                         onClick={onThemeSelect}
-                        className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer text-slate-900 bg-white/70 dark:text-white dark:bg-cinder-800/70 hover:bg-white dark:hover:bg-cinder-800 group absolute top-5 right-5"
+                        className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer text-slate-900 bg-white/70 dark:text-white dark:bg-cinder-800/70 hover:bg-white dark:hover:bg-cinder-800 border border-bg-slate-900 dark:border-transparent group absolute top-5 right-5"
                     >
                         {
                             theme === 'dark' &&
@@ -90,6 +98,21 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                             <i className="fi fi-rr-moon-stars"></i>
                         }
                     </div>
+                    {
+                        user &&
+                        <div className='absolute top-6 right-[70px] rounded-2xl px-3 py-1 text-sm bg-white/70 dark:bg-cinder-800/70 border border-bg-slate-900 dark:border-transparent hover:bg-white dark:hover:bg-cinder-800'>
+                            {user?.firstName} {user?.lastName}
+                        </div>
+                    }
+                    {
+                        !user &&
+                        <div
+                            onClick={login}
+                            className='absolute top-6 right-[70px] rounded-2xl px-3 py-1 text-sm bg-white/70 dark:bg-cinder-800/70 border border-bg-slate-900 dark:border-transparent hover:bg-white dark:hover:bg-cinder-800 cursor-pointer'
+                        >
+                            Login
+                        </div>
+                    }
                     {
                         formLayout.coverType === 'Color' &&
                         <div className={
