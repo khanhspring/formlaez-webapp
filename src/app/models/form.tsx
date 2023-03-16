@@ -22,7 +22,7 @@ export type Form = {
     coverImageUrl?: string
     scope: 'Private' | 'Team',
     status: 'Draft' | 'Published' | 'Archived',
-    sharingScope: 'Private' | 'Public',
+    sharingScope: 'Private' | 'Public' | 'Authenticated',
     acceptResponses: boolean,
     allowPrinting: boolean,
     allowResponseEditing: boolean,
@@ -211,7 +211,7 @@ export type UpdateFormSettingsRequest = {
     acceptResponses: boolean;
     allowPrinting: boolean;
     allowResponseEditing: boolean;
-    sharingScope: 'Private' | 'Public',
+    sharingScope: 'Private' | 'Public' | 'Authenticated',
 }
 
 export type SearchFormRequest = Pageable & {

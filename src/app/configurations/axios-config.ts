@@ -30,7 +30,9 @@ RestClient.interceptors.response.use(
     return response;
   },
   function (error) {
-    const {ignore401, ignore403} = error.config.params;
+    const params = error.config.params || {};
+    const ignore401 = params.ignore401 || false;
+    const ignore403 = params.ignore403 || false;
 
     if (error.response?.status === 401 && !ignore401) {
       TokenStorageService.removeToken();

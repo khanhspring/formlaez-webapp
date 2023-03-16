@@ -11,8 +11,8 @@ const HomePage: FC<Props> = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        navigate(`/${userSession.lastAccessedWorkspace?.workspace.code}/private`);
-    }, [navigate, userSession.lastAccessedWorkspace?.workspace.code])
+        navigate(`/${userSession?.lastAccessedWorkspace?.workspace.code}/private`);
+    }, [navigate, userSession?.lastAccessedWorkspace?.workspace.code])
 
     return (
         <></>

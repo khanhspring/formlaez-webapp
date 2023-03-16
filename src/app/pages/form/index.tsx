@@ -47,7 +47,7 @@ function Form() {
                 <PageTitle
                     title={<FormPageTitle form={form} />}
                     actions={<FormPageMenu />}
-                    shortTitle={firstLetters(form?.title)}
+                    shortTitle={firstLetters(form?.title)?.toUpperCase()}
                 />
                 {
                     form?.status === 'Draft' &&

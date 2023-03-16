@@ -252,7 +252,15 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
             dataIndex: 'user',
             width: ColumnWidthConfig.user,
             render: (value, record, index) => {
-                return record.createdBy?.firstName + ' ' + record.createdBy?.lastName;
+                if (record.createdBy) {
+                    return record.createdBy?.firstName + ' ' + record.createdBy?.lastName;
+                }
+                return (
+                    <span className="flex items-center gap-1 opacity-50">
+                        <i className="fi fi-rr-incognito"></i>
+                        Anonymous
+                    </span>
+                )
             },
         },
         {

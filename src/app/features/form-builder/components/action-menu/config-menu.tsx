@@ -30,6 +30,24 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
     }, [onMenuClick, variableName])
     useHotkeys('ctrl+c, meta+c', onCopy, { preventDefault: true, enabled: visible });
 
+    const onCopyPlaceholder = useCallback(() => {
+        const isGroup = context.type === 'Group';
+        const placeholder = (isGroup ? "#" : "$") + "{" + variableName + "}";
+        copy(placeholder || '');
+        onMenuClick?.();
+        toast.success("Copied", { autoClose: 1000 });
+    }, [context.type, onMenuClick, variableName])
+    useHotkeys('ctrl+shift+c, meta+shift+c', onCopyPlaceholder, { preventDefault: true, enabled: visible });
+
+    const onCopyParagraphPlaceholder = useCallback(() => {
+        let placeholder = "@{" + variableName + "}";
+        placeholder += "\nReplace this...\n";
+        placeholder += "@{/}";
+        copy(placeholder || '');
+        onMenuClick?.();
+        toast.success("Copied", { autoClose: 1000 });
+    }, [onMenuClick, variableName])
+
     const handleDelete = () => {
         if (disabled) {
             return;
@@ -109,7 +127,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
     const disabled = form?.status === 'Archived';
 
     return (
-        <div className="w-[250px] bg-white dark:bg-cinder-700 rounded py-2 px-1 flex flex-col gap-0.5">
+        <div className="w-[290px] bg-white dark:bg-cinder-700 rounded py-2 px-1 flex flex-col gap-0.5">
             {
                 (isFormControl || context.type === 'Group') &&
                 <div
@@ -120,11 +138,43 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                 >
                     <div className="flex gap-2 text-slate-900 dark:text-white">
                         <i className="fi fi-rr-square-code"></i>
-                        <span>Copy code</span>
+                        <span>Copy variable name</span>
                     </div>
                     <span className="text-xs text-slate-800 dark:text-gray-300">Ctrl+C</span>
                 </div>
             }
+            {
+                (isFormControl || context.type === 'Group') &&
+                <div
+                    className={
+                        `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600`
+                    }
+                    onClick={onCopyPlaceholder || context.type === 'Group'}
+                >
+                    <div className="flex gap-2 text-slate-900 dark:text-white">
+                        <i className="fi fi-rr-confetti"></i>
+                        <span>Copy {`${context.type === 'Group' ? 'table' : ''}`} placeholder</span>
+                    </div>
+                    <span className="text-xs text-slate-800 dark:text-gray-300">Ctrl+Shift+C</span>
+                </div>
+            }
+            {
+                (context.type === 'Group') &&
+                <div
+                    className={
+                        `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600`
+                    }
+                    onClick={onCopyParagraphPlaceholder}
+                >
+                    <div className="flex gap-2 text-slate-900 dark:text-white">
+                        <i className="fi fi-rr-confetti"></i>
+                        <span>Copy paragraph placeholder</span>
+                    </div>
+                </div>
+            }
+            <div className="py-2">
+                <div className="border-b border-slate-900/10 dark:border-b-cinder-600"></div>
+            </div>
             {
                 (isFormControl || context.type === 'Group') &&
                 <div
@@ -185,7 +235,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                             <span>Required</span>
                         </div>
                         <div className="text-xs">
-                            <Switch checked={values.required} disabled={disabled}/>
+                            <Switch checked={values.required} disabled={disabled} />
                         </div>
                     </div>
                     <div
@@ -200,7 +250,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                             <span>Hide label</span>
                         </div>
                         <div className="text-xs">
-                            <Switch checked={values.hideTitle} disabled={disabled}/>
+                            <Switch checked={values.hideTitle} disabled={disabled} />
                         </div>
                     </div>
                 </>
@@ -220,7 +270,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                             <span>Multiple selection</span>
                         </div>
                         <div className="text-xs">
-                            <Switch checked={values.multipleSelection} disabled={disabled}/>
+                            <Switch checked={values.multipleSelection} disabled={disabled} />
                         </div>
                     </div>
                 </>
@@ -240,7 +290,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                             <span>Show time</span>
                         </div>
                         <div className="text-xs">
-                            <Switch checked={values.showTime} disabled={disabled}/>
+                            <Switch checked={values.showTime} disabled={disabled} />
                         </div>
                     </div>
                 </>

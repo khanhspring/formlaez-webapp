@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { Form } from '../../models/form';
 import { FormSubmission } from '../../models/form-submission';
 import Section from './section';
@@ -12,11 +12,32 @@ type Props = {
 
 const FormDataViewer: FC<Props> = ({ form, submission, showContentBlocks = false }) => {
 
+    const submitter = useMemo(() => {
+        if (!submission) {
+            return <></>
+        }
+        if (submission?.createdBy) {
+            return (
+                <div className='flex gap-1'>
+                    <span>{submission.createdBy?.firstName + ' ' + submission.createdBy?.lastName}</span>
+                    <span>({submission.createdBy.email})</span>
+                </div>
+            );
+        }
+        return (
+            <span className="flex items-center gap-1">
+                <i className="fi fi-rr-incognito"></i>
+                Anonymous
+            </span>
+        )
+    }, [submission])
+
     if (!form || !form.pages || form.pages.length === 0) {
         return <></>
     }
 
     const sections = form.pages[0]?.sections || [];
+
 
     return (
         <>
@@ -24,10 +45,10 @@ const FormDataViewer: FC<Props> = ({ form, submission, showContentBlocks = false
                 <div className='border-b border-slate-900/10 dark:border-cinder-600 flex flex-col gap-4 py-5'>
                     <div className='flex flex-col gap-1'>
                         <label className='text-xs text-slate-900/70 dark:text-gray-300'>
-                            User
+                            Submitter
                         </label>
                         <div className='text-sm'>
-                            {submission?.createdBy?.firstName} {submission?.createdBy?.lastName}
+                            {submitter}
                         </div>
                     </div>
                     <div className='flex flex-col gap-1'>

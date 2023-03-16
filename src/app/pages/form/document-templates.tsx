@@ -60,7 +60,7 @@ function DocumentTemplates() {
                 <PageTitle
                     title={<FormPageTitle form={form} />}
                     actions={<FormPageMenu />}
-                    shortTitle={firstLetters(form?.title)}
+                    shortTitle={firstLetters(form?.title)?.toUpperCase()}
                 />
                 <div className="flex items-center justify-between min-h-[40px] mt-3">
                     <div className="flex items-center gap-3">

@@ -12,7 +12,7 @@ function SideBar() {
     const userSession: any = useRouteLoaderData('private');
     const currentWorkspace = userSession?.lastAccessedWorkspace?.workspace;
 
-    const shortName = StringUtils.firstLetters(currentWorkspace?.name) || 'W';
+    const shortName = StringUtils.firstLetters(currentWorkspace?.name)?.toUpperCase() || 'W';
 
     return (
         <div className="w-[90px] hidden md:block min-h-screen bg-slate-50 dark:bg-cinder-700 border-r border-slate-900/10 dark:border-transparent">

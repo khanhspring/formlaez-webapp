@@ -29,7 +29,7 @@ function FormSettings() {
     const { mutateAsync: remove } = useRemoveForm();
     const { mutateAsync: updateSettings } = useUpdateFormSettings();
 
-    const [sharingScope, setSharingScope] = useState<'Private' | 'Public'>();
+    const [sharingScope, setSharingScope] = useState<'Private' | 'Public' | 'Authenticated'>();
 
     useEffect(() => {
         setSharingScope(form?.sharingScope);
@@ -51,7 +51,7 @@ function FormSettings() {
         }).finally(refetch)
     }
 
-    const updateSharingScope = (sharingScope: 'Private' | 'Public') => {
+    const updateSharingScope = (sharingScope: 'Private' | 'Public' | 'Authenticated') => {
         setSharingScope(sharingScope);
         onSettingChange({ sharingScope });
     }
@@ -133,15 +133,42 @@ function FormSettings() {
     const sharingScopeMenu = (
         <Menu className="text-sm">
             <MenuItem key="public" onClick={() => updateSharingScope('Public')}>
-                <div className="flex gap-2 items-center">
-                    <i className="fi fi-rr-world"></i>
-                    <span>Public</span>
+                <div className="flex gap-2 items-start">
+                    <div className="pt-1">
+                        <i className="fi fi-rr-world"></i>
+                    </div>
+                    <div className="flex flex-col">
+                        <span>Public</span>
+                        <span className="italic text-xs font-light">
+                            Everyone can access and submit this form
+                        </span>
+                    </div>
+                </div>
+            </MenuItem>
+            <MenuItem key="authenticated" onClick={() => updateSharingScope('Authenticated')}>
+                <div className="flex gap-2 items-start">
+                    <div className="pt-1">
+                        <i className="fi fi-rr-users-alt"></i>
+                    </div>
+                    <div className="flex flex-col">
+                        <span>Authenticated</span>
+                        <span className="italic text-xs font-light">
+                            Only logged in users can access and submit this form
+                        </span>
+                    </div>
                 </div>
             </MenuItem>
             <MenuItem key="private" onClick={() => updateSharingScope('Private')}>
-                <div className="flex gap-2 items-center">
-                    <i className="fi fi-rr-user"></i>
-                    <span>Private</span>
+                <div className="flex gap-2 items-start">
+                    <div className="pt-1">
+                        <i className="fi fi-rr-user"></i>
+                    </div>
+                    <div className="flex flex-col">
+                        <span>Private</span>
+                        <span className="italic text-xs font-light">
+                            Only owner or the team member can access and submit this form
+                        </span>
+                    </div>
                 </div>
             </MenuItem>
         </Menu>
@@ -167,6 +194,13 @@ function FormSettings() {
                         <span>Private</span>
                     </div>
                 }
+                {
+                    sharingScope === 'Authenticated' &&
+                    <div className="flex justify-center items-center gap-2">
+                        <i className="fi fi-rr-users-alt"></i>
+                        <span>Authenticated</span>
+                    </div>
+                }
                 <i className="fi fi-rr-caret-down"></i>
             </button>
         </>
@@ -184,7 +218,7 @@ function FormSettings() {
             <PageTitle
                 title={<FormPageTitle form={form} />}
                 actions={<FormPageMenu />}
-                shortTitle={firstLetters(form?.title)}
+                shortTitle={firstLetters(form?.title)?.toUpperCase()}
             />
             <div className="mt-6 flex flex-col gap-6">
                 <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700">Sharing</h2>
@@ -203,10 +237,10 @@ function FormSettings() {
                 </div>
 
                 <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700 mt-3">Settings</h2>
-                <div className="flex items-center justify-between gap-10">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Access scope</h3>
-                        <p className="text-xs">
+                        <p className="text-xs font-light italic">
                             Customize access scope for this form
                         </p>
                     </div>
@@ -227,11 +261,11 @@ function FormSettings() {
                         }
                     </div>
                 </div>
-                <div className="flex items-center justify-between gap-10">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Accepting responses</h3>
-                        <p className="text-xs">
-                            When disabled, users cannot access this form and cannot submit the response
+                        <p className="text-xs font-light italic">
+                            When disabled, no one can access or submit this form
                         </p>
                     </div>
                     <div className="flex items-center">
@@ -242,11 +276,11 @@ function FormSettings() {
                         />
                     </div>
                 </div>
-                <div className="flex items-center justify-between gap-10">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Allow response editing</h3>
-                        <p className="text-xs">
-                            Responses can be changed after being submitted
+                        <p className="text-xs font-light italic">
+                            Submissions can be changed after being submitted
                         </p>
                     </div>
                     <div className="flex items-center">
@@ -257,11 +291,11 @@ function FormSettings() {
                         />
                     </div>
                 </div>
-                <div className="flex items-center justify-between gap-10">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
                     <div className="flex flex-col gap-0.5">
-                        <h3 className="text-sm">Allow to print</h3>
-                        <p className="text-xs">
-                            Users can download PDF files (based on print templates) as soon as they submit the response
+                        <h3 className="text-sm">Allow to merge document</h3>
+                        <p className="text-xs font-light italic">
+                            Submitters can merge their submission and download files based on the document templates as soon as they submit this form.
                         </p>
                     </div>
                     <div className="flex items-center">
@@ -276,11 +310,11 @@ function FormSettings() {
                 <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700 mt-3">Danger zone</h2>
                 {
                     !archived &&
-                    <div className="flex items-center justify-between gap-10">
+                    <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
                         <div className="flex flex-col gap-0.5">
                             <h3 className="text-sm">Archive this form</h3>
-                            <p className="text-xs">
-                                Mark this form as archived and read-only
+                            <p className="text-xs font-light italic">
+                                Mark this form as archived and read-only (you can unarchive later).
                             </p>
                         </div>
                         <div className="flex items-center">
@@ -295,10 +329,10 @@ function FormSettings() {
                 }
                 {
                     archived &&
-                    <div className="flex items-center justify-between gap-10">
+                    <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
                         <div className="flex flex-col gap-0.5">
                             <h3 className="text-sm">Unarchive this form</h3>
-                            <p className="text-xs">
+                            <p className="text-xs font-light italic">
                                 Mark this form as published and read-write.
                             </p>
                         </div>
@@ -312,11 +346,11 @@ function FormSettings() {
                         </div>
                     </div>
                 }
-                <div className="flex items-center justify-between gap-10">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Delete this form</h3>
-                        <p className="text-xs">
-                            Once you delete this form, there is no going back, all responses to this form will also be deleted. Please be certain
+                        <p className="text-xs font-light italic">
+                            Once you delete this form, there is no going back, all submissions to this form will also be deleted. Please be certain.
                         </p>
                     </div>
                     <div className="flex items-center">

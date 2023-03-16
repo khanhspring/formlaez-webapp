@@ -29,6 +29,12 @@ const FormPageTitle: FC<Props> = ({ form }) => {
                     <i className="fi fi-rr-user"></i>
                 </Tooltip>
             }
+            {
+                form?.sharingScope === 'Authenticated' &&
+                <Tooltip overlay="Authenticated">
+                    <i className="fi fi-rr-users-alt"></i>
+                </Tooltip>
+            }
         </div>
     );
 }
