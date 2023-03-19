@@ -1,8 +1,13 @@
+import { FC } from "react";
 import { Link, useLocation, useParams, useRouteLoaderData } from "react-router-dom";
+import { Form } from "../../../models/form";
 import { Workspace } from "../../../models/workspace";
 import StringUtils from "../../../util/string-utils";
 
-function FormPageMenu() {
+type Props = {
+    form?: Form;
+}
+const FormPageMenu: FC<Props> = ({form}) => {
 
     const workspace = useRouteLoaderData("workspace") as Workspace;
     const { pathname } = useLocation();
@@ -16,9 +21,18 @@ function FormPageMenu() {
         return fullPath.endsWith(pathSegment);
     }
 
+
+    let urlPrefix = undefined;
+    if (form?.scope === 'Private') {
+        urlPrefix = `${workspace?.code}/p`;
+    }
+    if (form?.scope === 'Team') {
+        urlPrefix = `${workspace?.code}/t/${form.team?.code}`;
+    }
+
     return (
         <>
-            <Link to={`/${workspace.code}/private/forms/${params.formCode}`}>
+            <Link to={`/${urlPrefix}/f/${params.formCode}`}>
                 <span className={
                     `text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer`
                     + ` ${isActive(params.formCode) ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`
@@ -26,15 +40,15 @@ function FormPageMenu() {
                     Database
                 </span>
             </Link>
-            <Link to={`/${workspace.code}/private/forms/${params.formCode}/edit`}>
+            <Link to={`/f/${params.formCode}/builder`}>
                 <span className={
                     `text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer`
-                    + ` ${isActive('edit') ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`
+                    + ` ${isActive('builder') ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`
                 }>
                     Builder
                 </span>
             </Link>
-            <Link to={`/${workspace.code}/private/forms/${params.formCode}/document-templates`}>
+            <Link to={`/${urlPrefix}/f/${params.formCode}/document-templates`}>
                 <span className={
                     `text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer`
                     + ` ${isActive('document-templates') ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`
@@ -42,7 +56,7 @@ function FormPageMenu() {
                     Document templates
                 </span>
             </Link>
-            <Link to={`/${workspace.code}/private/forms/${params.formCode}/settings`}>
+            <Link to={`/${urlPrefix}/f/${params.formCode}/settings`}>
                 <span className={
                     `text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer`
                     + ` ${isActive('settings') ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`

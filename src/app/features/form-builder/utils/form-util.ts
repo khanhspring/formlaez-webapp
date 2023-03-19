@@ -368,6 +368,7 @@ const duplicateSection = (
   }
 
   const sectionClone = _.cloneDeep(sections[sectionIndex]);
+
   sectionClone.id = undefined;
   sectionClone.code = nanoid();
   sectionClone.variableName = newId();
@@ -376,6 +377,9 @@ const duplicateSection = (
     field.id = undefined;
     field.code = nanoid();
     field.variableName = newId();
+    field.options?.forEach(option => {
+      option.code = nanoid();
+    })
   })
 
   sections.splice(sectionIndex + 1, 0, sectionClone);

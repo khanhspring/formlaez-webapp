@@ -14,8 +14,9 @@ type Props = {
     visible: boolean;
     onClose: () => void;
     refetch?: () => void;
+    teamId: number;
 }
-const CreateFormModal: FC<Props> = ({ visible, onClose, refetch }) => {
+const CreateFormModal: FC<Props> = ({ visible, onClose, refetch, teamId }) => {
 
     const workspace = useRouteLoaderData("workspace") as Workspace;
     const [form] = Form.useForm();
@@ -36,15 +37,16 @@ const CreateFormModal: FC<Props> = ({ visible, onClose, refetch }) => {
         const request: CreateFormRequest = {
             title: values.title,
             description: values.description,
-            scope: 'Private',
+            scope: 'Team',
             workspaceId: workspace.id,
+            teamId: teamId,
             coverType: 'Color',
             coverColor: 'bg-001'
         }
         createForm(request, {
             onSuccess: (response) => {
                 toast.success('Created form successfully!');
-                navigate(`/f/${response.code}/builder`)
+                navigate(`/f/${response.code}/builder`);
             },
             onError: showError,
         })

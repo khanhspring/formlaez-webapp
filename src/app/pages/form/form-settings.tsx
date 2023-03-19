@@ -4,7 +4,7 @@ import Dropdown from "rc-dropdown";
 import Menu, { MenuItem } from "rc-menu";
 import Switch from "rc-switch";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../../components/common/button";
 import confirm from "../../components/common/confirm/confirm";
@@ -15,44 +15,59 @@ import usePublishForm from "../../hooks/form/usePublishForm";
 import useRemoveForm from "../../hooks/form/useRemoveForm";
 import useUpdateFormSettings from "../../hooks/form/useUpdateFormSettings";
 import { UpdateFormSettingsRequest } from "../../models/form";
+import { Workspace } from "../../models/workspace";
 import { showError } from "../../util/common";
 import { firstLetters } from "../../util/string-utils";
 import FormPageMenu from "./components/form-page-menu";
 import FormPageTitle from "./components/form-page-title";
+import FormPageTitlePrefix from "./components/form-page-title-prefix";
+
+type Settings = {
+    acceptResponses?: boolean;
+    allowPrinting?: boolean;
+    allowResponseEditing?: boolean;
+    sharingScope?: 'Private' | 'Public' | 'Authenticated'
+}
 
 function FormSettings() {
+
     const params = useParams();
     const navigate = useNavigate();
+    const workspace = useRouteLoaderData("workspace") as Workspace;
     const { data: form, refetch } = useForm(params.formCode);
     const { mutateAsync: archive } = useArchiveForm();
     const { mutateAsync: publish } = usePublishForm();
     const { mutateAsync: remove } = useRemoveForm();
     const { mutateAsync: updateSettings } = useUpdateFormSettings();
 
-    const [sharingScope, setSharingScope] = useState<'Private' | 'Public' | 'Authenticated'>();
+    const [settings, setSettings] = useState<Settings>();
 
     useEffect(() => {
-        setSharingScope(form?.sharingScope);
+        setSettings({
+            acceptResponses: form?.acceptResponses,
+            allowPrinting: form?.allowPrinting,
+            allowResponseEditing: form?.allowResponseEditing,
+            sharingScope: form?.sharingScope
+        });
     }, [form]);
 
     const onSettingChange = (setting: any) => {
         if (!form) {
             return;
         }
+        setSettings({ ...settings, ...setting });
         const request: UpdateFormSettingsRequest = {
             id: form.id,
-            acceptResponses: form.acceptResponses,
-            allowPrinting: form.allowPrinting,
-            allowResponseEditing: form.allowResponseEditing,
-            sharingScope: form.sharingScope
+            ...settings,
+            ...setting,
         }
         updateSettings({ ...request, ...setting }, {
             onError: showError
-        }).finally(refetch)
+        })
     }
 
     const updateSharingScope = (sharingScope: 'Private' | 'Public' | 'Authenticated') => {
-        setSharingScope(sharingScope);
+        setSettings({ ...settings, sharingScope });
         onSettingChange({ sharingScope });
     }
 
@@ -114,7 +129,7 @@ function FormSettings() {
     const showRemoveDoubleConfirm = () => {
         confirm({
             title: 'Continue',
-            content: <>This action cannot be undone. This will permanently delete the <strong>{form?.title}</strong> form and remove all responses of the form.</>,
+            content: <>This action cannot be undone. This will delete the <strong>{form?.title}</strong> form and remove all submissions of the form.</>,
             onOkAsync: onConfirmRemove,
             okText: 'I understand the consequences, delete this repository',
             width: 520,
@@ -165,9 +180,18 @@ function FormSettings() {
                     </div>
                     <div className="flex flex-col">
                         <span>Private</span>
-                        <span className="italic text-xs font-light">
-                            Only owner or the team member can access and submit this form
-                        </span>
+                        {
+                            form?.scope === 'Team' &&
+                            <span className="italic text-xs font-light">
+                                Only owner or the team member can access and submit this form
+                            </span>
+                        }
+                        {
+                            form?.scope === 'Private' &&
+                            <span className="italic text-xs font-light">
+                                Only owner can access and submit this form
+                            </span>
+                        }
                     </div>
                 </div>
             </MenuItem>
@@ -181,21 +205,21 @@ function FormSettings() {
                 + ` ${disabled ? 'cursor-not-allowed opacity-90' : ''}`
             }>
                 {
-                    sharingScope === 'Public' &&
+                    settings?.sharingScope === 'Public' &&
                     <div className="flex justify-center items-center gap-2">
                         <i className="fi fi-rr-world"></i>
                         <span>Public</span>
                     </div>
                 }
                 {
-                    sharingScope === 'Private' &&
+                    settings?.sharingScope === 'Private' &&
                     <div className="flex justify-center items-center gap-2">
                         <i className="fi fi-rr-user"></i>
                         <span>Private</span>
                     </div>
                 }
                 {
-                    sharingScope === 'Authenticated' &&
+                    settings?.sharingScope === 'Authenticated' &&
                     <div className="flex justify-center items-center gap-2">
                         <i className="fi fi-rr-users-alt"></i>
                         <span>Authenticated</span>
@@ -217,8 +241,9 @@ function FormSettings() {
         <div className="w-full flex flex-col gap-2">
             <PageTitle
                 title={<FormPageTitle form={form} />}
-                actions={<FormPageMenu />}
+                actions={<FormPageMenu form={form} />}
                 shortTitle={firstLetters(form?.title)?.toUpperCase()}
+                prefix={<FormPageTitlePrefix form={form} />}
             />
             <div className="mt-6 flex flex-col gap-6">
                 <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700">Sharing</h2>
@@ -271,7 +296,7 @@ function FormSettings() {
                     <div className="flex items-center">
                         <Switch
                             disabled={archived}
-                            checked={form?.acceptResponses}
+                            checked={settings?.acceptResponses}
                             onChange={val => onSettingChange({ acceptResponses: val })}
                         />
                     </div>
@@ -286,7 +311,7 @@ function FormSettings() {
                     <div className="flex items-center">
                         <Switch
                             disabled={archived}
-                            checked={form?.allowResponseEditing}
+                            checked={settings?.allowResponseEditing}
                             onChange={val => onSettingChange({ allowResponseEditing: val })}
                         />
                     </div>
@@ -301,7 +326,7 @@ function FormSettings() {
                     <div className="flex items-center">
                         <Switch
                             disabled={archived}
-                            checked={form?.allowPrinting}
+                            checked={settings?.allowPrinting}
                             onChange={val => onSettingChange({ allowPrinting: val })}
                         />
                     </div>

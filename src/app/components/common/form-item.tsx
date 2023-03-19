@@ -2,10 +2,12 @@ import moment from 'moment';
 import Tooltip from 'rc-tooltip';
 import { FC } from 'react';
 import { Form } from '../../models/form';
+import { Team } from '../../models/team';
 import { firstLetters } from '../../util/string-utils';
 
 type Props = {
-    form?: Form
+    form?: Form;
+    team?: Team;
 }
 
 const FormItem: FC<Props> = ({ form }) => {

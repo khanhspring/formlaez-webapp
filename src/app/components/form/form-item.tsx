@@ -11,9 +11,10 @@ type Props = RcFieldProps & {
     hideTitle?: boolean;
     children?: ReactElement;
     hideError?: boolean;
+    help?: string;
 }
 
-const FormItem: FC<Props> = ({ title, hideTitle, hideError, children, ...rest }) => {
+const FormItem: FC<Props> = ({ title, hideTitle, hideError, children, help, ...rest }) => {
 
     const isRequired = rest.rules?.some((rule: any) => rule.required);
 
@@ -27,7 +28,7 @@ const FormItem: FC<Props> = ({ title, hideTitle, hideError, children, ...rest })
                     >
                         {!hideTitle && <FormItemLabel content={title} required={isRequired} />}
                         {children && cloneElement(children, { ...children.props, ...control, status: meta.errors?.length > 0 ? 'error' : undefined })}
-                        {!hideError && <FormItemError meta={meta} />}
+                        {!hideError && <FormItemError meta={meta} help={help} />}
                     </div>
                 );
             }}

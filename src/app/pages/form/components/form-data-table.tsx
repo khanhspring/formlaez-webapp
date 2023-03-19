@@ -92,6 +92,14 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
     const [reloading, setReloading] = useState(false);
     const [dateRangeSelected, setDateRangeSelected] = useState<DateRange>('anyTime');
 
+    let urlPrefix = undefined;
+    if (form?.scope === 'Private') {
+        urlPrefix = `${workspace?.code}/p`;
+    }
+    if (form?.scope === 'Team') {
+        urlPrefix = `${workspace?.code}/t/${form.team?.code}`;
+    }
+
     const valueOf = (field: FormField, record: any): ReactNode => {
         if (!record) {
             return;
@@ -491,7 +499,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                     {
                         !fullscreen &&
                         <Tooltip overlay="Fullscreen" placement='bottom'>
-                            <Link to={`/${workspace.code}/private/forms/${params.formCode}/full`}>
+                            <Link to={`/${urlPrefix}/f/${params.formCode}/full`}>
                                 <ButtonAction>
                                     <i className="fi fi-rr-expand"></i>
                                 </ButtonAction>
@@ -501,7 +509,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                     {
                         fullscreen &&
                         <Tooltip overlay="Exit" placement='bottom'>
-                            <Link to={`/${workspace.code}/private/forms/${params.formCode}`}>
+                            <Link to={`/${urlPrefix}/f/${params.formCode}`}>
                                 <ButtonAction>
                                     <i className="fi fi-rr-compress"></i>
                                 </ButtonAction>

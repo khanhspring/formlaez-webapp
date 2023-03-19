@@ -1,5 +1,7 @@
 import { Pageable } from "./common";
 import { FormEnding } from "./form-ending";
+import { Team } from "./team";
+import { Workspace } from "./workspace";
 
 const FORM_SECTION_TYPES = ['Single', 'Group', 'Table'] as const;
 export type FormSectionType = typeof FORM_SECTION_TYPES[number];
@@ -29,6 +31,8 @@ export type Form = {
     createdDate?: Date,
     lastModifiedDate?: Date,
     ending?: FormEnding;
+    team?: Team;
+    workspace: Workspace;
 }
 
 export type FormPage = {
@@ -195,6 +199,9 @@ export type CreateFormRequest = {
     scope: 'Private' | 'Team';
     teamId?: number;
     workspaceId: number;
+    coverType: 'Color' | 'Image' | 'None',
+    coverColor?: string,
+    coverImageUrl?: string
 }
 
 export type UpdateFormRequest = {
@@ -216,7 +223,8 @@ export type UpdateFormSettingsRequest = {
 
 export type SearchFormRequest = Pageable & {
     keyword?: string;
-    scope: 'Private' | 'Team'
+    scope: 'Private' | 'Team';
+    teamId?: number;
 }
 
 export type CreateFormSectionRequest = {

@@ -1,5 +1,5 @@
 import RcForm from 'rc-field-form';
-import { FC, useState, useMemo } from 'react';
+import { FC, useState, useMemo, useCallback } from 'react';
 import Input from '../../form/form-controls/input';
 import FormItem from '../../form/form-item';
 
@@ -18,11 +18,11 @@ const ActionSearchInput: FC<Props> = ({ onSearch, loading }) => {
         onSearch?.(values.keywords);
     }
 
-    const resetForm = () => {
+    const resetForm = useCallback(() => {
         rcForm.resetFields();
         setKeywords(undefined);
         onSearch?.();
-    }
+    }, [onSearch, rcForm])
 
     const suffix = useMemo(() => {
         if (loading) {

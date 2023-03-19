@@ -11,7 +11,7 @@ const PdfBlock: FC<Props> = ({ url }) => {
     }
 
     return (
-        <div className="w-full my-1">
+        <div className="w-full mt-2 mb-6">
             <iframe src={`${url}#view=FitH`}
                 title="PDF"
                 width="100%"

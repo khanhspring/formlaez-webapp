@@ -1,57 +1,107 @@
+import { useState } from 'react';
 import { Link, useRouteLoaderData } from 'react-router-dom';
+import ActionSearchInput from '../../components/common/action-search-input/action-search-input';
+import Empty from '../../components/common/empty';
 import FormItem from '../../components/common/form-item';
 import ButtonAction from '../../components/layout/button-action';
 import PageTitle from '../../components/layout/page-title';
+import useForms from '../../hooks/form/useForms';
+import { Team } from '../../models/team';
 import { Workspace } from '../../models/workspace';
+import { firstLetters } from '../../util/string-utils';
+import CreateFormModal from './components/create-form-modal';
+import TeamMemberModal from './components/team-member-modal';
 
 function TeamDetail() {
 
     const workspace = useRouteLoaderData("workspace") as Workspace;
+    const team = useRouteLoaderData("team") as Team;
+    const [createModalVisible, setCreateModelVisible] = useState(false);
+    const [memberModalVisible, setMemberModelVisible] = useState(false);
+
+    const [keywords, setKeywords] = useState<string>();
+    const { data: pages, refetch, isFetching } = useForms({ page: 0, scope: 'Team', teamId: team.id, keyword: keywords, size: -1 });
+
+    const showCreateModal = () => {
+        setCreateModelVisible(true);
+    }
+
+    const closeCreateModal = () => {
+        setCreateModelVisible(false);
+    }
+
+    const showMemberModal = () => {
+        setMemberModelVisible(true);
+    }
+
+    const closeMemberModal = () => {
+        setMemberModelVisible(false);
+    }
+
+    const onSearch = (keywords?: string) => {
+        setKeywords(keywords);
+    }
 
     const pageActions = (
         <>
-            <span className="dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer">Settings</span>
+            <span
+                onClick={showMemberModal}
+                className="text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer"
+            >
+                Members
+            </span>
+            <span className="text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer">
+                Settings
+            </span>
         </>
     )
 
     return (
-        <div className="w-full flex flex-col gap-2">
-            <PageTitle title="ReactJs Team" actions={pageActions} />
-            <div className="flex items-center justify-between min-h-[40px] mt-3">
-                <div className="flex items-center gap-3">
-                    <span>Total 72</span>
-                    <div className="relative hidden md:block">
-                        <div className="absolute w-7 h-full flex items-center justify-center text-xs text-gray-500">
-                            <i className="fi fi-rr-search"></i>
-                        </div>
-                        <input placeholder="Search" className="px-1 py-1.5 pl-7 bg-gray-200/70 dark:bg-cinder-700 rounded outline-none text-sm border-slate-900/10 dark:border-cinder-600" />
+        <>
+            <div className="w-full flex flex-col gap-2">
+                <PageTitle
+                    title={team.name}
+                    actions={pageActions}
+                    shortTitle={firstLetters(team.name)}
+                    iconClassName="bg-gradient-to-r from-teal-500 to-emerald-500"
+                />
+                <div className="flex items-center justify-between min-h-[40px] mt-3">
+                    <div className="flex items-center gap-3">
+                        <span>Total {pages ? pages?.totalElements : '...'}</span>
+                        <ActionSearchInput onSearch={onSearch} loading={isFetching} />
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <ButtonAction onClick={showCreateModal}>
+                            <i className="fi fi-rr-plus"></i>
+                        </ButtonAction>
                     </div>
                 </div>
-                <div className="flex items-center gap-2">
-                    <ButtonAction>
-                        <i className="fi fi-rr-plus"></i>
-                    </ButtonAction>
-                    <ButtonAction>
-                        <i className="fi fi-rr-heart"></i>
-                    </ButtonAction>
-                    <ButtonAction>
-                        <i className="fi fi-rr-apps"></i>
-                    </ButtonAction>
-                    <ButtonAction>
-                        <i className="fi fi-rr-menu-burger"></i>
-                    </ButtonAction>
+                {
+                    !isFetching && pages && pages.totalElements === 0 &&
+                    <Empty />
+                }
+                <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
+                    {
+                        pages?.content?.map((item, index) => (
+                            <Link to={`/${workspace.code}/t/${team.code}/f/${item.code}`} key={index}>
+                                <FormItem form={item} team={team} />
+                            </Link>
+                        ))
+                    }
                 </div>
             </div>
-            <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
-                {
-                    [...Array(10)].map((item, index) =>
-                        <Link to={`/${workspace.code}/teams/vuejs-team/forms/example-page`} key={index}>
-                            <FormItem />
-                        </Link>
-                    )
-                }
-            </div>
-        </div>
+            <CreateFormModal
+                visible={createModalVisible}
+                onClose={closeCreateModal}
+                refetch={refetch}
+                teamId={team?.id}
+            />
+            <TeamMemberModal
+                team={team}
+                visible={memberModalVisible}
+                onClose={closeMemberModal}
+            />
+        </>
     );
 }
 

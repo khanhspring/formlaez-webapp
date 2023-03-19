@@ -12,9 +12,10 @@ type Props = InputHTMLAttributes<any> & {
     status?: FieldStatus;
     options?: OptionType[];
     value?: string[];
+    allowClear?: boolean;
 }
 
-const Dropdown: FC<Props> = ({ status, onChange = () => { }, value, options = [], ...rest }) => {
+const Dropdown: FC<Props> = ({ status, onChange = () => { }, value, options = [], allowClear, ...rest }) => {
 
     return (
         <div className={
@@ -28,7 +29,7 @@ const Dropdown: FC<Props> = ({ status, onChange = () => { }, value, options = []
                 value={value}
                 className="w-full text-sm rounded"
                 dropdownClassName='z-[1100]'
-                allowClear
+                allowClear={allowClear}
                 showArrow
                 showSearch
                 placeholder={rest.placeholder}

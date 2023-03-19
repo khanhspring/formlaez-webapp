@@ -21,7 +21,7 @@ const TwitterTweetBlock: FC<Props> = ({ url }) => {
     }
 
     return (
-        <div className="w-full my-2 flex justify-center">
+        <div className="w-full mt-1 mb-2 flex justify-center">
             <div className="max-w-[470px] w-full">
                 <TwitterTweetEmbed
                     tweetId={url}

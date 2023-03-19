@@ -1,6 +1,6 @@
 import RestClient from "../configurations/axios-config";
-import { ResponseId } from "../models/common";
-import { CreateWorkspaceRequest, Workspace } from "../models/workspace";
+import { PageResponse, ResponseId } from "../models/common";
+import { CreateWorkspaceRequest, SearchWorkspaceMemberRequest, Workspace, WorkspaceMember } from "../models/workspace";
 
 export function create(request: CreateWorkspaceRequest): Promise<ResponseId> {
     return RestClient
@@ -14,9 +14,16 @@ function getByCode(workspaceCode?: string): Promise<Workspace> {
     );
 }
 
+function searchMembers(request?: SearchWorkspaceMemberRequest): Promise<PageResponse<WorkspaceMember>> {
+    return RestClient.get<any>("/admin/workspaces/" + request?.workspaceId + "/members").then(
+      (response) => response.data
+    );
+}
+
 const WorkspaceService = {
     create,
-    getByCode
+    getByCode,
+    searchMembers
 };
 
 export default WorkspaceService;

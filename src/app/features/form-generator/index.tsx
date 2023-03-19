@@ -120,7 +120,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                             + ` ${formLayout.coverColor || 'bg-001'}`
                         }>
                             <div className="w-full max-w-[530px] m-auto">
-                                <h1 className="text-3xl font-bold text-white text-center text-shadow-gray">
+                                <h1 className="text-3xl font-bold text-white text-center text-shadow-gray whitespace-pre-line">
                                     {formLayout?.title}
                                 </h1>
                             </div>

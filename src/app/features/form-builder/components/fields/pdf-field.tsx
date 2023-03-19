@@ -75,7 +75,7 @@ const PdfField: FC<Props> = ({ field, context }) => {
     }
 
     return (
-        <div className="w-full">
+        <div className="w-full mt-1 mb-3">
             <iframe src={`${values.url}#view=FitH`}
                 title="PDF"
                 width="100%"

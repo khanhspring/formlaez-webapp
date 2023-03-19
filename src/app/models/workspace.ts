@@ -1,3 +1,6 @@
+import { Pageable } from "./common";
+import { User } from "./user";
+
 const WORKSPACE_TYPES = ['Free', 'Plus', 'Business', 'Enterprise'] as const;
 export type WorkspaceType = typeof WORKSPACE_TYPES[number];
 
@@ -14,6 +17,13 @@ export type Workspace = {
     lastModifiedDate: Date;
 }
 
+
+export type WorkspaceMember = {
+    user: User;
+    role: WorkspaceMemberRole;
+    joinedDate: Date;
+}
+
 export type CreateWorkspaceRequest = {
     name: string;
     description?: string;
@@ -23,4 +33,9 @@ export type MemberWorkspaceResponse = {
     workspace: Workspace;
     role: WorkspaceMemberRole;
     joinedDate: Date;
+}
+
+export type SearchWorkspaceMemberRequest = Pageable & {
+    workspaceId: number;
+    keyword?: string;
 }

@@ -72,7 +72,7 @@ const ImageField: FC<Props> = ({ field, context }) => {
     }
 
     return (
-        <div className="w-full">
+        <div className="w-full mt-1 mb-3">
             <img src={values.url} alt={values.url} className="w-full rounded" />
         </div>
     );

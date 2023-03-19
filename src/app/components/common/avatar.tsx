@@ -6,7 +6,7 @@ type Props = HTMLAttributes<any> & {
     name: string;
 }
 
-const Avatar: FC<Props> = ({name, className}) => {
+const Avatar: FC<Props> = ({name, className, onClick}) => {
 
     let shortName = name;
     if (shortName.length > 2) {
@@ -18,7 +18,7 @@ const Avatar: FC<Props> = ({name, className}) => {
     const color = COLORS[colorIndex];
 
     return (
-        <div className={`rounded-full w-10 h-10 transition cursor-pointer ${color} hover:ring-1 ring-sky-500 font-bold ${className}`}>
+        <div onClick={onClick} className={`rounded-full w-10 h-10 transition cursor-pointer ${color} hover:ring-1 ring-sky-500 font-bold ${className}`}>
             <span className="flex w-full h-full items-center justify-center text-white">{shortName || 'U'}</span>
         </div>
     );

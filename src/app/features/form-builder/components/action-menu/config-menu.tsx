@@ -172,9 +172,12 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                     </div>
                 </div>
             }
-            <div className="py-2">
-                <div className="border-b border-slate-900/10 dark:border-b-cinder-600"></div>
-            </div>
+            {
+                (isFormControl || context.type === 'Group') &&
+                <div className="py-2">
+                    <div className="border-b border-slate-900/10 dark:border-b-cinder-600"></div>
+                </div>
+            }
             {
                 (isFormControl || context.type === 'Group') &&
                 <div

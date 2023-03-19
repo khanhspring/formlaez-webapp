@@ -11,7 +11,7 @@ const VideoBlock: FC<Props> = ({ url }) => {
     }
 
     return (
-        <div className="w-full my-1">
+        <div className="w-full mt-2 mb-6">
             <iframe
                 className="w-full aspect-video"
                 src={`${url}?modestbranding=0&rel=0`}

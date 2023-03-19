@@ -24,7 +24,7 @@ const CustomizeEndingModal: FC<Props> = ({ formTitle, formId, visible, onClose }
     const [hideButton, setHideButton] = useState(false);
 
     const { mutateAsync: updateEnding } = useUpdateFormEnding();
-    const { data: formEnding, refetch } = useFormEnding(formId);
+    const { data: formEnding } = useFormEnding(formId);
 
     useEffect(() => {
         if (formEnding) {
@@ -41,8 +41,8 @@ const CustomizeEndingModal: FC<Props> = ({ formTitle, formId, visible, onClose }
         }
         updateEnding(request, {
             onError: showError
-        }).finally(refetch);
-    });
+        });
+    }, 1500);
 
     const onContentChange = (content?: string) => {
         setContent(content);

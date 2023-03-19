@@ -2,25 +2,24 @@ import Dropdown from "rc-dropdown";
 import Menu, { MenuItem } from "rc-menu";
 import Tooltip from "rc-tooltip";
 import { useEffect, useState } from "react";
-import { Link, useParams, useRouteLoaderData } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../../components/common/button";
 import confirm from "../../components/common/confirm/confirm";
 import FormBuilder from "../../features/form-builder";
 import useFormDetail from "../../hooks/form/useFormDetail";
 import usePublishForm from "../../hooks/form/usePublishForm";
-import { Workspace } from "../../models/workspace";
 import { showError } from "../../util/common";
 import CustomizeEndingModal from "./components/customize-ending-modal";
 
 function FormEdit() {
 
-    const workspace = useRouteLoaderData("workspace") as Workspace;
     const params = useParams();
     const { data: formDetail, refetch } = useFormDetail(params.formCode);
     const [title, setTitle] = useState<string>();
     const { mutateAsync: publish } = usePublishForm();
     const [customizeEndingVisible, setCustomizeEndingVisible] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setTitle(formDetail?.title);
@@ -90,13 +89,24 @@ function FormEdit() {
         </Menu>
     )
 
+    const back = () => {
+        if (!formDetail) {
+            return;
+        }
+        if (formDetail.scope === 'Team') {
+            navigate(`/${formDetail?.workspace?.code}/t/${formDetail.team?.code}/f/${formDetail?.code}`);
+            return;
+        }
+        navigate(`/${formDetail?.workspace?.code}/p/f/${formDetail?.code}`);
+    }
+
     return (
         <>
             <div className="px-10 min-h-[55px] flex items-center justify-between sticky top-0 z-50 bg-white border-b border-slate-900/10 dark:border-transparent dark:bg-cinder-700">
                 <div className="flex items-center flex-1">
-                    <Link to={`/${workspace.code}/private/forms/${formDetail?.code}`} className="flex items-center text-lg">
+                    <span onClick={back} className="py-3 pr-5 flex items-center cursor-pointer">
                         <i className="fi fi-rr-arrow-left"></i>
-                    </Link>
+                    </span>
                 </div>
                 <div className="flex items-center justify-center flex-1 w-full overflow-hidden">
                     <div className="w-full flex items-center justify-center overflow-hidden">
@@ -108,7 +118,7 @@ function FormEdit() {
                         formDetail?.status === 'Draft' &&
                         <Button onClick={showPublishConfirm}>Publish</Button>
                     }
-                    <Link to={`/${workspace.code}/private/forms/${formDetail?.code}/preview`} target="_blank">
+                    <Link to={`/f/${formDetail?.code}/preview`} target="_blank">
                         <button className="flex items-center gap-1 text-sm opacity-80 hover:opacity-100">
                             <i className="fi fi-rr-eye mt-0.5"></i>
                             <span>Preview</span>

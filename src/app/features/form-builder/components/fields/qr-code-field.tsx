@@ -72,7 +72,7 @@ const QrCodeField: FC<Props> = ({ field, context }) => {
     }
 
     return (
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full mt-1 mb-3 flex items-center justify-center">
             <div className="p-2 bg-slate-100 dark:bg-white rounded">
                 <QRCodeSVG value={values.content} />
             </div>

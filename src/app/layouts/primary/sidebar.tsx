@@ -1,5 +1,5 @@
 import Tooltip from 'rc-tooltip';
-import { Link, useRouteLoaderData } from 'react-router-dom';
+import { Link, useLocation, useRouteLoaderData } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import Logo from '../../components/common/logo';
 import ZigzagIcon from '../../components/icons/zigzag-icon';
@@ -11,8 +11,17 @@ function SideBar() {
     const workspace = useRouteLoaderData("workspace") as Workspace;
     const userSession: any = useRouteLoaderData('private');
     const currentWorkspace = userSession?.lastAccessedWorkspace?.workspace;
+    const { pathname } = useLocation();
 
     const shortName = StringUtils.firstLetters(currentWorkspace?.name)?.toUpperCase() || 'W';
+
+    const isActive = (include: string, notInclude?: string) => {
+        const isInclude = pathname?.includes(include);
+        if (!notInclude) {
+            return isInclude;
+        }
+        return isInclude && !pathname?.includes(notInclude);
+    }
 
     return (
         <div className="w-[90px] hidden md:block min-h-screen bg-slate-50 dark:bg-cinder-700 border-r border-slate-900/10 dark:border-transparent">
@@ -37,34 +46,46 @@ function SideBar() {
 
                     <div className="flex flex-col justify-center pt-2 gap-1.5">
                         <div className="flex items-center justify-center">
-                            <Link to="/" className="flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition">
-                                <i className="fi fi-rr-user text-xl text-slate-500 group-hover:text-blue-500 dark:group-hover:text-sky-500 dark:text-gray-500"></i>
-                                <span className="text-xs font-normal dark:group-hover:text-gray-100 dark:text-slate-400">Private</span>
+                            <Link
+                                to={`/${workspace.code}/p`}
+                                className={
+                                    "flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition"
+                                    + ` ${isActive('/p') ? 'text-slate-900 dark:text-white' : 'text-slate-900/60 dark:text-slate-500'}`
+                                }
+                            >
+                                <i className="fi fi-rr-user text-xl"></i>
+                                <span className="text-xs font-normal">Private</span>
                             </Link>
                         </div>
                         <div className="flex items-center justify-center">
-                            <Link to={`/${workspace.code}/teams`} className="flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition">
-                                <i className="fi fi-rr-users-alt text-xl text-slate-500 group-hover:text-blue-500 dark:group-hover:text-sky-500 dark:text-gray-500"></i>
-                                <span className="text-xs font-normal dark:group-hover:text-gray-100 dark:text-slate-400">Teams</span>
+                            <Link
+                                to={`/${workspace.code}/t`}
+                                className={
+                                    "flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition"
+                                    + ` ${isActive('/t') ? 'text-slate-900 dark:text-white' : 'text-slate-900/60 dark:text-slate-500'}`
+                                }
+                            >
+                                <i className="fi fi-rr-users-alt text-xl"></i>
+                                <span className="text-xs font-normal">Teams</span>
                             </Link>
                         </div>
 
                         <div className="py-2 flex items-center justify-center">
                             <span className="w-5">
-                                <ZigzagIcon className="fill-gray-700/90" />
+                                <ZigzagIcon className="fill-slate-900/60 dark:fill-gray-700/90" />
                             </span>
                         </div>
 
                         <div className="flex items-center justify-center">
-                            <Link to="/" className="flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition">
-                                <i className="fi fi-rr-credit-card text-xl text-slate-500 group-hover:text-blue-500 dark:group-hover:text-sky-500 dark:text-gray-500"></i>
-                                <span className="text-xs font-normal dark:group-hover:text-gray-100 dark:text-slate-400">Billing</span>
-                            </Link>
-                        </div>
-                        <div className="flex items-center justify-center">
-                            <Link to="/" className="flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition">
-                                <i className="fi fi-rr-settings text-xl text-slate-500 group-hover:text-blue-500 dark:group-hover:text-sky-500 dark:text-gray-500"></i>
-                                <span className="text-xs font-normal dark:group-hover:text-gray-100 dark:text-slate-400">Settings</span>
+                            <Link
+                                to={`/${workspace.code}/settings`}
+                                className={
+                                    "flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition"
+                                    + ` ${isActive('settings', '/f/') ? 'text-slate-900 dark:text-white' : 'text-slate-900/60 dark:text-slate-500'}`
+                                }
+                            >
+                                <i className="fi fi-rr-settings text-xl"></i>
+                                <span className="text-xs font-normal">Settings</span>
                             </Link>
                         </div>
                     </div>

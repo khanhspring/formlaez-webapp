@@ -1,5 +1,6 @@
 import RcForm from 'rc-field-form';
 import { FC, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import Modal from "../../../components/common/modal";
 import FileUpload from '../../../components/form/form-controls/file-upload';
 import Input from '../../../components/form/form-controls/input';
@@ -7,7 +8,7 @@ import FormItem from '../../../components/form/form-item';
 import useCreateDocumentTemplate from '../../../hooks/document-template/useCreateDocumentTemplate';
 import { CreateDocumentTemplateRequest } from '../../../models/document-template';
 import { Form } from '../../../models/form';
-import { showError, showSuccess } from '../../../util/common';
+import { showError } from '../../../util/common';
 
 type Props = {
     form: Form;
@@ -38,7 +39,7 @@ const CreateDocumentTemplateModal: FC<Props> = ({ form, visible, onClose, refetc
             file: values.files[0]
         }
         createDocumentTemplate(request, {
-            onSuccess: showSuccess,
+            onSuccess: () => toast.success("Added document template successfully!"),
             onError: showError,
         })
             .finally(() => {

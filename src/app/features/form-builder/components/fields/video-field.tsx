@@ -77,7 +77,7 @@ const VideoField: FC<Props> = ({ field, context }) => {
     }
 
     return (
-        <div className="w-full">
+        <div className="w-full mt-1 mb-3">
             <iframe
                 className="w-full aspect-video"
                 src={`${values.url}?modestbranding=0&rel=0`}

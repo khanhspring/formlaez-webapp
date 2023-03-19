@@ -37,6 +37,13 @@ input:-webkit-autofill:active {
     -webkit-text-fill-color: white !important;
 }
 
+.team-item {
+    background-image: url("../assets/images/team-bg.svg");
+    background-repeat: no-repeat;
+    background-position: right -10px top -10px;
+    background-size: 60px;
+}
+
 .fi {
     display: inline-flex;
     align-items: center;
@@ -673,6 +680,7 @@ hr {
 
 .rc-table-content {
     border-color: rgb(15 23 42 / 0.1);
+    border-radius: 0;
 }
 
 .dark .rc-table-content {

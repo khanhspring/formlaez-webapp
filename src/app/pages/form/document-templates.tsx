@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useRouteLoaderData } from "react-router-dom";
 import DocumentTemplateItem from "../../components/common/document-template-item";
 import Empty from "../../components/common/empty";
 import ButtonAction from "../../components/layout/button-action";
@@ -7,14 +7,18 @@ import PageTitle from "../../components/layout/page-title";
 import useDocumentTemplates from "../../hooks/document-template/useDocumentTemplates";
 import useForm from "../../hooks/form/useForm";
 import { DocumentTemplate } from "../../models/document-template";
+import { Workspace } from "../../models/workspace";
 import { firstLetters } from "../../util/string-utils";
 import CreateDocumentTemplateModal from "./components/create-document-template-modal";
 import DocumentTemplateDetailModal from "./components/document-template-detail-modal";
 import FormPageMenu from "./components/form-page-menu";
 import FormPageTitle from "./components/form-page-title";
+import FormPageTitlePrefix from "./components/form-page-title-prefix";
 import UpdateDocumentTemplateModal from "./components/update-document-template-modal";
 
 function DocumentTemplates() {
+
+    const workspace = useRouteLoaderData("workspace") as Workspace;
     const [createModalVisible, setCreateModelVisible] = useState(false);
     const [detailVisible, setDetailVisible] = useState(false);
     const [updateVisible, setUpdateVisible] = useState(false);
@@ -59,8 +63,9 @@ function DocumentTemplates() {
             <div className="w-full flex flex-col gap-2">
                 <PageTitle
                     title={<FormPageTitle form={form} />}
-                    actions={<FormPageMenu />}
+                    actions={<FormPageMenu form={form} />}
                     shortTitle={firstLetters(form?.title)?.toUpperCase()}
+                    prefix={<FormPageTitlePrefix form={form} />}
                 />
                 <div className="flex items-center justify-between min-h-[40px] mt-3">
                     <div className="flex items-center gap-3">

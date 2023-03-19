@@ -11,7 +11,7 @@ const ImageBlock: FC<Props> = ({ url }) => {
     }
 
     return (
-        <div className="w-full my-1">
+        <div className="w-full mt-2 mb-6">
             <img src={url} alt={url} className="w-full rounded" />
         </div>
     );

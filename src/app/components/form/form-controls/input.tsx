@@ -5,9 +5,10 @@ import { FieldStatus } from "../form-types";
 type Props = InputHTMLAttributes<any> & {
     status?: FieldStatus;
     suffix?: string | ReactElement<any>;
+    wrapClassName?: string;
 }
 
-const Input: FC<Props> = ({ className = '', status, value, suffix, ...rest }) => {
+const Input: FC<Props> = ({ className = '', status, value, suffix, wrapClassName, ...rest }) => {
 
     const [internalValue, setInternalValue] = useState(value);
     const onValueChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -22,6 +23,7 @@ const Input: FC<Props> = ({ className = '', status, value, suffix, ...rest }) =>
             + `${status && status === 'error' ? '!border-rose-700' : ''} `
             + `${status && status === 'warning' ? '!border-yellow-700' : ''} `
             + `${status && status === 'success' ? '!border-green-700' : ''} `
+            + `${wrapClassName} `
         }>
             <input
                 {...rest}
