@@ -4,7 +4,7 @@ import FormGenerator from "../../features/form-generator";
 import usePublishedFormDetail from "../../hooks/form/usePublishedFormDetail";
 import useCreateSubmission from "../../hooks/submissions/useCreateSubmission";
 import { CreateFormSubmissionRequest } from "../../models/form-submission";
-import { showError } from "../../util/common";
+import { showErrorIgnore403 } from "../../util/common";
 import Error from "../error/Error";
 import FormError401 from "./components/form-error-401";
 import FormError403 from "./components/form-error-403";
@@ -25,7 +25,7 @@ function FormViewer() {
             data: values
         }
         return submit(request, {
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
             onSuccess: () => toast.success("Submitted form successfully!")
         }).then((response) => {
             return navigate(`/f/v/${params.formCode}/s/${response.code}`);

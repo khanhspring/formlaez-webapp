@@ -15,7 +15,7 @@ function Private() {
     const [createModalVisible, setCreateModelVisible] = useState(false);
 
     const [keywords, setKeywords] = useState<string>();
-    const { data: pages, refetch, isFetching } = useForms({ page: 0, scope: 'Private', keyword: keywords, size: -1 });
+    const { data: pages, refetch, isFetching } = useForms({ page: 0, scope: 'Private', workspaceId: workspace.id, keyword: keywords, size: -1 });
 
     const showCreateModal = () => {
         setCreateModelVisible(true);

@@ -1,15 +1,18 @@
+import Tooltip from 'rc-tooltip';
 import { useState } from 'react';
-import { Link, useRouteLoaderData } from 'react-router-dom';
+import { Link, useRevalidator, useRouteLoaderData } from 'react-router-dom';
 import ActionSearchInput from '../../components/common/action-search-input/action-search-input';
 import Empty from '../../components/common/empty';
 import FormItem from '../../components/common/form-item';
 import ButtonAction from '../../components/layout/button-action';
 import PageTitle from '../../components/layout/page-title';
+import useTeamContext from '../../hooks/auth/useTeamContext';
 import useForms from '../../hooks/form/useForms';
 import { Team } from '../../models/team';
 import { Workspace } from '../../models/workspace';
 import { firstLetters } from '../../util/string-utils';
 import CreateFormModal from './components/create-form-modal';
+import SettingsTeamModal from './components/settings-team-modal';
 import TeamMemberModal from './components/team-member-modal';
 
 function TeamDetail() {
@@ -18,9 +21,12 @@ function TeamDetail() {
     const team = useRouteLoaderData("team") as Team;
     const [createModalVisible, setCreateModelVisible] = useState(false);
     const [memberModalVisible, setMemberModelVisible] = useState(false);
+    const [settingsModalVisible, setSettingsModalVisible] = useState(false);
+    const teamContext = useTeamContext();
+    const { revalidate } = useRevalidator();
 
     const [keywords, setKeywords] = useState<string>();
-    const { data: pages, refetch, isFetching } = useForms({ page: 0, scope: 'Team', teamId: team.id, keyword: keywords, size: -1 });
+    const { data: pages, refetch, isFetching } = useForms({ page: 0, scope: 'Team', teamId: team.id, workspaceId: workspace.id, keyword: keywords, size: -1 });
 
     const showCreateModal = () => {
         setCreateModelVisible(true);
@@ -38,6 +44,14 @@ function TeamDetail() {
         setMemberModelVisible(false);
     }
 
+    const showSettingsModal = () => {
+        setSettingsModalVisible(true);
+    }
+
+    const closeSettingsModal = () => {
+        setSettingsModalVisible(false);
+    }
+
     const onSearch = (keywords?: string) => {
         setKeywords(keywords);
     }
@@ -50,17 +64,35 @@ function TeamDetail() {
             >
                 Members
             </span>
-            <span className="text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer">
-                Settings
-            </span>
+            {
+                teamContext.isOwner &&
+                <span
+                    onClick={showSettingsModal}
+                    className="text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer"
+                >
+                    Settings
+                </span>
+            }
         </>
+    )
+
+    const teamTitle = (
+        <span className='flex gap-2 items-center'>
+            {team.name}
+            {
+                team.description &&
+                <Tooltip overlay={<div className='max-w-[270px]'>{team.description}</div>} placement="bottom">
+                    <i className='fi fi-rr-info text-base' />
+                </Tooltip>
+            }
+        </span>
     )
 
     return (
         <>
             <div className="w-full flex flex-col gap-2">
                 <PageTitle
-                    title={team.name}
+                    title={teamTitle}
                     actions={pageActions}
                     shortTitle={firstLetters(team.name)}
                     iconClassName="bg-gradient-to-r from-teal-500 to-emerald-500"
@@ -100,6 +132,12 @@ function TeamDetail() {
                 team={team}
                 visible={memberModalVisible}
                 onClose={closeMemberModal}
+            />
+            <SettingsTeamModal
+                team={team}
+                visible={settingsModalVisible}
+                onClose={closeSettingsModal}
+                refetch={revalidate}
             />
         </>
     );

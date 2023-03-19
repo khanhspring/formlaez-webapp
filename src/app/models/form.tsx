@@ -225,6 +225,7 @@ export type SearchFormRequest = Pageable & {
     keyword?: string;
     scope: 'Private' | 'Team';
     teamId?: number;
+    workspaceId: number;
 }
 
 export type CreateFormSectionRequest = {

@@ -18,7 +18,7 @@ const AvatarGroup: FC<Props> = ({ className, wrapClassName, users = [] }) => {
     }
 
     return (
-        <div className={`flex gap-[2px] items-center ${wrapClassName}`}>
+        <div className={`flex gap-0.5 items-center ${wrapClassName}`}>
             {
                 items.map((name, index) =>
                     <Tooltip overlay={name} placement="bottom" key={index}>

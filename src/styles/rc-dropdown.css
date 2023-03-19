@@ -86,16 +86,6 @@
     cursor: not-allowed;
 }
 
-.rc-dropdown .rc-menu .rc-menu-item:last-child {
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-.rc-dropdown .rc-menu .rc-menu-item:first-child {
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-}
-
 .rc-dropdown .rc-menu .rc-menu-item-divider {
     height: 1px;
     margin: 1px 0;

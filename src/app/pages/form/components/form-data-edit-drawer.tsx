@@ -5,7 +5,7 @@ import FormGenerator from "../../../features/form-generator";
 import useUpdateSubmission from "../../../hooks/submissions/useUpdateSubmission";
 import { Form } from "../../../models/form";
 import { FormSubmission, UpdateFormSubmissionRequest } from "../../../models/form-submission";
-import { showError } from "../../../util/common";
+import { showErrorIgnore403 } from "../../../util/common";
 
 type Props = {
     submission?: FormSubmission;
@@ -28,7 +28,7 @@ const FormDataEditDrawer: FC<Props> = ({ submission, form, onClose, visible }) =
             data: values
         }
         return update(request, {
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
             onSuccess: () => toast.success("Update submission successfully!")
         }).then((response) => {
             onClose?.();

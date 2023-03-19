@@ -5,7 +5,7 @@ import Input from '../../../components/form/form-controls/input';
 import FormItem from '../../../components/form/form-item';
 import useUpdateDocumentTemplate from '../../../hooks/document-template/useUpdateDocumentTemplate';
 import { DocumentTemplate, UpdateDocumentTemplateRequest } from '../../../models/document-template';
-import { showError, showSuccess } from '../../../util/common';
+import { showError, showErrorIgnore403, showSuccess } from '../../../util/common';
 
 type Props = {
     visible: boolean;
@@ -36,7 +36,7 @@ const UpdateDocumentTemplateModal: FC<Props> = ({ visible, onClose, refetch, doc
         }
         updateTemplate(request, {
             onSuccess: showSuccess,
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
         })
             .finally(() => {
                 onClose();

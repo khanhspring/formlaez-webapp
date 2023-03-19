@@ -9,7 +9,7 @@ import confirm from "../../components/common/confirm/confirm";
 import FormBuilder from "../../features/form-builder";
 import useFormDetail from "../../hooks/form/useFormDetail";
 import usePublishForm from "../../hooks/form/usePublishForm";
-import { showError } from "../../util/common";
+import { showErrorIgnore403 } from "../../util/common";
 import CustomizeEndingModal from "./components/customize-ending-modal";
 
 function FormEdit() {
@@ -34,7 +34,7 @@ function FormEdit() {
             return Promise.resolve();
         }
         return publish(formDetail.id, {
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
             onSuccess: () => {
                 toast.success('Published form successfully!');
                 refetch();

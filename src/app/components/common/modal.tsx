@@ -39,7 +39,7 @@ const Modal: FC<Props> = ({
     onClose = () => { },
     loading,
     destroyOnClose,
-    wrapClassName = 'pt-10',
+    wrapClassName = 'flex items-center',
     bodyClassName = '',
     danger,
     ...rest

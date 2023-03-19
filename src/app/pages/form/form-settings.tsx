@@ -16,7 +16,7 @@ import useRemoveForm from "../../hooks/form/useRemoveForm";
 import useUpdateFormSettings from "../../hooks/form/useUpdateFormSettings";
 import { UpdateFormSettingsRequest } from "../../models/form";
 import { Workspace } from "../../models/workspace";
-import { showError } from "../../util/common";
+import { showError, showErrorIgnore403 } from "../../util/common";
 import { firstLetters } from "../../util/string-utils";
 import FormPageMenu from "./components/form-page-menu";
 import FormPageTitle from "./components/form-page-title";
@@ -62,7 +62,7 @@ function FormSettings() {
             ...setting,
         }
         updateSettings({ ...request, ...setting }, {
-            onError: showError
+            onError: (e) => showErrorIgnore403(e)
         })
     }
 
@@ -76,7 +76,7 @@ function FormSettings() {
             return Promise.resolve();
         }
         return archive(form.id, {
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
             onSuccess: () => {
                 toast.success('Archived form successfully!');
                 refetch();
@@ -97,7 +97,7 @@ function FormSettings() {
             return Promise.resolve();
         }
         return publish(form.id, {
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
             onSuccess: () => {
                 toast.success('Unarchived form successfully!');
                 refetch();
@@ -118,7 +118,7 @@ function FormSettings() {
             return Promise.resolve();
         }
         return remove(form.id, {
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
             onSuccess: () => {
                 toast.success('Deleted form successfully!');
                 navigate(`/`);

@@ -1,14 +1,14 @@
-import ButtonTableAction from "../../components/layout/button-table-action";
-import useTeamMembers from "../../hooks/team/useTeamMembers";
-import { Workspace, WorkspaceMember } from "../../models/workspace";
-import { useState } from "react";
-import useWorkspaceMembers from "../../hooks/workspace/useWorkspaceMembers";
-import { useRouteLoaderData } from "react-router-dom";
-import { ColumnsType } from "rc-table/lib/interface";
 import moment from "moment";
+import Table from "rc-table";
+import { ColumnsType } from "rc-table/lib/interface";
+import { useState } from "react";
+import { useRouteLoaderData } from "react-router-dom";
 import ActionSearchInput from "../../components/common/action-search-input/action-search-input";
 import Button from "../../components/common/button";
-import Table from "rc-table";
+import ButtonTableAction from "../../components/layout/button-table-action";
+import useWorkspaceMembers from "../../hooks/workspace/useWorkspaceMembers";
+import { Workspace, WorkspaceMember } from "../../models/workspace";
+import AddWorkspaceMemberModal from "./components/add-workspace-member-modal";
 
 function WorkspaceMembers() {
     const workspace = useRouteLoaderData("workspace") as Workspace;
@@ -64,16 +64,21 @@ function WorkspaceMembers() {
             dataIndex: 'action',
             align: 'center',
             width: 80,
-            render: (value) => {
+            render: (value, record) => {
                 return (
-                    <div className="flex items-center justify-center gap-1.5 text-xs">
-                        <ButtonTableAction>
-                            <i className="fi fi-rr-pencil"></i>
-                        </ButtonTableAction>
-                        <ButtonTableAction danger>
-                            <i className="fi fi-rr-trash"></i>
-                        </ButtonTableAction>
-                    </div>
+                    <>
+                        {
+                            record.role !== 'Owner' &&
+                            <div className="flex items-center justify-center gap-1.5 text-xs">
+                                <ButtonTableAction>
+                                    <i className="fi fi-rr-pencil"></i>
+                                </ButtonTableAction>
+                                <ButtonTableAction danger>
+                                    <i className="fi fi-rr-trash"></i>
+                                </ButtonTableAction>
+                            </div>
+                        }
+                    </>
                 );
             },
         },
@@ -101,6 +106,12 @@ function WorkspaceMembers() {
                     className="table-form-data text-slate-900 dark:text-white mt-4"
                 />
             </div>
+            <AddWorkspaceMemberModal
+                visible={addMemberVisible}
+                members={pages?.content || []}
+                onClose={() => setAddMemberVisible(false)}
+                refetch={refetch}
+            />
         </>
     );
 }

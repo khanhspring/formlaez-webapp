@@ -23,7 +23,7 @@ const TeamItem: FC<Props> = ({ team }) => {
             <div className="text-sm text-slate-600 dark:text-gray-400 font-light">
                 {
                     team.description &&
-                    <p>{team.description}</p>
+                    <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{team.description}</p>
                 }
                 {
                     !team.description &&

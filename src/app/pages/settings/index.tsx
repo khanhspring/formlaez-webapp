@@ -1,4 +1,5 @@
 import { Link, Outlet, useLocation, useRouteLoaderData } from "react-router-dom";
+import useWorkspaceContext from "../../hooks/auth/useWorkspaceContext";
 import { Workspace } from "../../models/workspace";
 import StringUtils from "../../util/string-utils";
 
@@ -6,16 +7,21 @@ function Settings() {
 
     const workspace = useRouteLoaderData("workspace") as Workspace;
     const {pathname} = useLocation();
+    const workspaceContext = useWorkspaceContext();
 
     const isActive = (key: string) => {
         const path = StringUtils.trimCharAtEnd(pathname, "/");
         return path.endsWith(key);
     }
 
+    if (!workspaceContext.isOwner) {
+        throw new Error();
+    }
+
     return (
-        <div className="flex gap-5">
+        <div className="flex gap-5 items-start">
             <div className="w-[290px] bg-slate-50 dark:bg-cinder-800 flex flex-col rounded">
-                <div className="px-5 py-4 border-b border-cinder-700 flex items-center gap-2 overflow-hidden">
+                <div className="px-5 py-4 border-b border-slate-900/10 dark:border-cinder-700 flex items-center gap-2 overflow-hidden">
                     <span className="text-sm font-bold whitespace-nowrap text-ellipsis overflow-hidden">
                         Xuân Khánh Trần's Workspace
                     </span>

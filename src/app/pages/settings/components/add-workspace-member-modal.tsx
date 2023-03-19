@@ -1,35 +1,42 @@
 import RcForm from 'rc-field-form';
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import { toast } from 'react-toastify';
 import Button from '../../../components/common/button';
 import Modal from "../../../components/common/modal";
 import Dropdown from "../../../components/form/form-controls/dropdown";
 import FormItem from "../../../components/form/form-item";
-import useAddTeamMember from '../../../hooks/team/useAddTeamMember';
-import useWorkspaceMembers from "../../../hooks/workspace/useWorkspaceMembers";
-import { AddTeamMemberRequest, Team, TeamMember } from '../../../models/team';
-import { Workspace } from "../../../models/workspace";
+import { useDebounced } from '../../../features/form-builder/hooks/useDebounced';
+import useUsers from '../../../hooks/user/useUsers';
+import useAddWorkspaceMember from '../../../hooks/workspace/useAddWorkspaceMember';
+import { AddWorkspaceMemberRequest, Workspace, WorkspaceMember } from "../../../models/workspace";
 import { showErrorIgnore403 } from '../../../util/common';
 
+const EMAIL_PATTERN = /^[\w.-_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
+type Option = {
+    value: string | number;
+    label: string;
+};
+
 type Props = {
-    team: Team;
-    members: TeamMember[];
+    members: WorkspaceMember[];
     visible: boolean;
     onClose: () => void;
     refetch?: () => void;
 }
-const AddTeamMemberModal: FC<Props> = ({ team, members, visible, onClose, refetch }) => {
+
+const AddWorkspaceMemberModal: FC<Props> = ({ members, visible, onClose, refetch }) => {
 
     const workspace = useRouteLoaderData("workspace") as Workspace;
     const [rcForm] = RcForm.useForm();
-    const { mutateAsync: addMember, isLoading: submitting } = useAddTeamMember();
+    const { mutateAsync: addMember, isLoading: submitting } = useAddWorkspaceMember();
 
-    const { data: workspaceMembers } = useWorkspaceMembers({ size: -1, workspaceId: workspace.id });
+    const [email, setEmail] = useState();
+    const [userOptions, setUserOptions] = useState<Option[]>([]);
+    const { data: userPages, isLoading } = useUsers({ size: -1, email: email });
 
-    const roles = ['Owner', 'Member'].map((item) => ({ value: item, label: item }));
-    const users = workspaceMembers?.content?.filter(item => !members.some(m => m.user.id === item.user.id))
-        .map((item) => ({ value: item.user.id, label: `${item.user.firstName} ${item.user.lastName} (${item.user.email})` }))
+    const roles: Option[] = ['Owner', 'Member'].map((item) => ({ value: item, label: item }));
 
     useEffect(() => {
         if (!visible) {
@@ -37,10 +44,16 @@ const AddTeamMemberModal: FC<Props> = ({ team, members, visible, onClose, refetc
         }
     }, [rcForm, visible]);
 
+    useEffect(() => {
+        const users = userPages?.content?.filter(user => !members.some(m => m.user.id === user.id))
+            .map((user) => ({ value: user.id, label: `${user.firstName} ${user.lastName} (${user.email})` }));
+        setUserOptions(users || []);
+    }, [members, userPages]);
+
     const onFinish = (values: any) => {
         const userId = values.userId;
-        const request: AddTeamMemberRequest = {
-            teamId: team.id,
+        const request: AddWorkspaceMemberRequest = {
+            workspaceId: workspace.id,
             userId,
             role: values.role
         };
@@ -48,25 +61,35 @@ const AddTeamMemberModal: FC<Props> = ({ team, members, visible, onClose, refetc
         addMember(request, {
             onError: (e) => showErrorIgnore403(e),
             onSuccess: () => {
-                toast.success("Added team member successfully!");
+                toast.success("Added workspace member successfully!");
                 refetch?.();
                 onClose?.();
+                rcForm.resetFields();
             }
         })
     }
+
+    const onSearch = useDebounced((value?: any) => {
+        if (!value || !EMAIL_PATTERN.test(value)) {
+            return;
+        }
+        console.log(value);
+        setUserOptions([]);
+        setEmail(value);
+    })
 
     return (
         <Modal
             visible={visible}
             onClose={onClose}
-            title="Add team member"
+            title="Add workspace member"
             hideCancel
             hideOk
             bodyClassName='!pb-5'
             width={650}
             wrapClassName="flex item-center"
-            destroyOnClose
             loading={submitting}
+            destroyOnClose
         >
             <RcForm
                 onFinish={onFinish}
@@ -83,8 +106,12 @@ const AddTeamMemberModal: FC<Props> = ({ team, members, visible, onClose, refetc
                             ]}
                         >
                             <Dropdown
-                                placeholder="Search users..."
-                                options={users}
+                                placeholder="Search users by email..."
+                                options={userOptions}
+                                onSearch={onSearch}
+                                loading={isLoading}
+                                filterOption={false}
+                                notFoundContent={null}
                             />
                         </FormItem>
                     </div>
@@ -112,4 +139,4 @@ const AddTeamMemberModal: FC<Props> = ({ team, members, visible, onClose, refetc
     );
 }
 
-export default AddTeamMemberModal;
+export default AddWorkspaceMemberModal;

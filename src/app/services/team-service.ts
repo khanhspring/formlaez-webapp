@@ -1,11 +1,17 @@
 import RestClient from "../configurations/axios-config";
 import { PageResponse, ResponseId } from "../models/common";
-import { AddTeamMemberRequest, CreateTeamRequest, SearchTeamMemberRequest, SearchTeamRequest, Team, TeamMember } from "../models/team";
+import { AddTeamMemberRequest, CreateTeamRequest, SearchTeamMemberRequest, SearchTeamRequest, Team, TeamMember, UpdateTeamRequest } from "../models/team";
 
 export function create(request: CreateTeamRequest): Promise<ResponseId> {
     return RestClient
         .post<ResponseId>("/admin/teams", request)
         .then(response => response.data);;
+}
+
+export function update(request: UpdateTeamRequest): Promise<any> {
+  return RestClient
+      .put<any>("/admin/teams/" + request.id, request)
+      .then(response => response.data);;
 }
 
 function getByCode(teamCode?: string): Promise<Team> {
@@ -34,6 +40,7 @@ function searchMember(request: SearchTeamMemberRequest): Promise<PageResponse<Te
 
 const TeamService = {
     create,
+    update,
     getByCode,
     search,
     addMember,

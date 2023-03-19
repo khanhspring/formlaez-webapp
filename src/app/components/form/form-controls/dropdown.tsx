@@ -1,5 +1,5 @@
 import Select from 'rc-select';
-import { FC, InputHTMLAttributes } from "react";
+import { FC, InputHTMLAttributes, ReactNode } from "react";
 import { FieldStatus } from "../form-types";
 
 type OptionType = {
@@ -13,9 +13,21 @@ type Props = InputHTMLAttributes<any> & {
     options?: OptionType[];
     value?: string[];
     allowClear?: boolean;
+    notFoundContent?: ReactNode;
+    onSearch?: (value?: any) => void;
+    loading?: boolean;
+    filterOption?: boolean;
 }
 
-const Dropdown: FC<Props> = ({ status, onChange = () => { }, value, options = [], allowClear, ...rest }) => {
+const Dropdown: FC<Props> = ({ status, onChange = () => { }, value, options = [], allowClear, notFoundContent, onSearch, loading, filterOption = true, ...rest }) => {
+
+    const handleChange = (value: any) => {
+        onChange?.(value);
+    }
+
+    const handleSearch = (value: any) => {
+        onSearch?.(value);
+    }
 
     return (
         <div className={
@@ -25,7 +37,7 @@ const Dropdown: FC<Props> = ({ status, onChange = () => { }, value, options = []
             + `${status && status === 'success' ? '!border-green-700' : ''} `
         }>
             <Select<any, any>
-                onChange={onChange}
+                onChange={handleChange}
                 value={value}
                 className="w-full text-sm rounded"
                 dropdownClassName='z-[1100]'
@@ -36,6 +48,10 @@ const Dropdown: FC<Props> = ({ status, onChange = () => { }, value, options = []
                 inputIcon={<i className="fi fi-sr-angle-small-down text-md" />}
                 clearIcon={<i className="fi fi-sr-cross-small text-[16px]" />}
                 options={options}
+                notFoundContent={notFoundContent}
+                onSearch={handleSearch}
+                loading={loading}
+                filterOption={filterOption}
             >
             </Select>
         </div>

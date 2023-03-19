@@ -5,6 +5,7 @@ import Empty from '../../components/common/empty';
 import TeamItem from '../../components/common/team-item';
 import ButtonAction from '../../components/layout/button-action';
 import PageTitle from '../../components/layout/page-title';
+import useWorkspaceContext from '../../hooks/auth/useWorkspaceContext';
 import useTeams from '../../hooks/team/useTeams';
 import { Workspace } from '../../models/workspace';
 import CreateTeamModal from './components/create-team-modal';
@@ -12,6 +13,7 @@ import CreateTeamModal from './components/create-team-modal';
 function Team() {
 
     const workspace = useRouteLoaderData("workspace") as Workspace;
+    const workspaceContext = useWorkspaceContext();
     const [createModalVisible, setCreateModelVisible] = useState(false);
 
     const [keyword, setKeyword] = useState<string>();
@@ -44,11 +46,18 @@ function Team() {
                         <ActionSearchInput onSearch={onSearch} loading={isFetching} />
                     </div>
                     <div className="flex items-center gap-2">
-                        <ButtonAction onClick={showCreateModal}>
-                            <i className="fi fi-rr-plus"></i>
-                        </ButtonAction>
+                        {
+                            workspaceContext.isOwner &&
+                            <ButtonAction onClick={showCreateModal}>
+                                <i className="fi fi-rr-plus"></i>
+                            </ButtonAction>
+                        }
                     </div>
                 </div>
+                {
+                    !isFetching && pages && pages.totalElements === 0 &&
+                    <Empty />
+                }
                 <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
                     {
                         pages?.content.map((item, index) =>
@@ -58,10 +67,6 @@ function Team() {
                         )
                     }
                 </div>
-                {
-                    !isFetching && pages && pages.totalElements === 0 &&
-                    <Empty />
-                }
             </div>
             <CreateTeamModal
                 visible={createModalVisible}

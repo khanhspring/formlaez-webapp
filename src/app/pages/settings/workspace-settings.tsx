@@ -1,14 +1,34 @@
 import RcForm from 'rc-field-form';
-import { useRouteLoaderData } from 'react-router-dom';
+import { useRevalidator, useRouteLoaderData } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Button from '../../components/common/button';
 import Input from '../../components/form/form-controls/input';
 import FormItem from '../../components/form/form-item';
-import { Workspace } from '../../models/workspace';
+import useUpdateWorkspace from '../../hooks/workspace/useUpdateWorkspace';
+import { UpdateWorkspaceRequest, Workspace } from '../../models/workspace';
+import { showErrorIgnore403 } from '../../util/common';
 
 function WorkspaceSettings() {
     const workspace = useRouteLoaderData("workspace") as Workspace;
+    let revalidator = useRevalidator();
+
+    const {mutateAsync: update} = useUpdateWorkspace();
+
     const [rcForm] = RcForm.useForm();
-    const onFinish = (values: any) => { }
+    const onFinish = (values: any) => {
+        const request: UpdateWorkspaceRequest = {
+            id: workspace.id,
+            name: values.name,
+            description: values.description
+        }
+        update(request, {
+            onError: (e) => showErrorIgnore403(e),
+            onSuccess: () => {
+                toast.success("Updated workspace successfully!");
+                revalidator.revalidate();
+            }
+        });
+     }
 
     return (
         <>
@@ -20,7 +40,7 @@ function WorkspaceSettings() {
                     <RcForm
                         onFinish={onFinish}
                         form={rcForm}
-                        initialValues={{ ...workspace }}
+                        initialValues={{...workspace}}
                     >
                         <FormItem
                             title='Name'

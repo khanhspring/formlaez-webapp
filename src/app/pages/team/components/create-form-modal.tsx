@@ -8,7 +8,7 @@ import FormItem from '../../../components/form/form-item';
 import useCreateForm from '../../../hooks/form/useCreateForm';
 import { CreateFormRequest } from '../../../models/form';
 import { Workspace } from '../../../models/workspace';
-import { showError } from '../../../util/common';
+import { showError, showErrorIgnore403 } from '../../../util/common';
 
 type Props = {
     visible: boolean;
@@ -48,7 +48,7 @@ const CreateFormModal: FC<Props> = ({ visible, onClose, refetch, teamId }) => {
                 toast.success('Created form successfully!');
                 navigate(`/f/${response.code}/builder`);
             },
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
         })
         .finally(() => {
             onClose();

@@ -43,6 +43,9 @@ input:-webkit-autofill:active {
     background-position: right -10px top -10px;
     background-size: 60px;
 }
+.dark .team-item {
+    background-image: url("../assets/images/team-dark-bg.svg");
+}
 
 .fi {
     display: inline-flex;
@@ -51,6 +54,10 @@ input:-webkit-autofill:active {
 
 .text-shadow-gray {
     text-shadow: 2px 3px 0px #898999;
+}
+
+.box-shadow-none {
+    box-shadow: none!important;
 }
 
 hr {

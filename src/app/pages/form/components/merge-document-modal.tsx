@@ -8,7 +8,7 @@ import useDocumentTemplates from '../../../hooks/document-template/useDocumentTe
 import useMergeDocument from '../../../hooks/submissions/useMergeDocument';
 import { Form } from '../../../models/form';
 import { FormSubmission, MergeDocumentRequest } from '../../../models/form-submission';
-import { showError } from '../../../util/common';
+import { showErrorIgnore403 } from '../../../util/common';
 
 type Props = {
     form?: Form;
@@ -52,7 +52,7 @@ const MergeDocumentModal: FC<Props> = ({ form, submission, visible, onClose }) =
             fileName: selectedTemplate.title + ".docx"
         }
         mergeDocument(request, {
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
             onSuccess: () => toast.success("Merged successfully!")
         }).finally(onClose)
     }

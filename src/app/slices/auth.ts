@@ -8,6 +8,7 @@ export type UserInfo = {
   id: string;
   firstName: string;
   lastName: string;
+  email: string;
 }
 
 export interface AuthState {
@@ -27,6 +28,7 @@ if (token) {
     id: jwt.uid,
     firstName: jwt['first_name'],
     lastName: jwt['last_name'],
+    email: jwt['email']
   }
 }
 
@@ -67,6 +69,7 @@ export const authSlice = createSlice({
           id: jwt.uid,
           firstName: jwt['first_name'],
           lastName: jwt['last_name'],
+          email: jwt['email'],
         }
         state.userInfo = userInfo;
     },

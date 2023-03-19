@@ -6,6 +6,8 @@ import ActionSearchInput from '../../../components/common/action-search-input/ac
 import Button from '../../../components/common/button';
 import Modal from "../../../components/common/modal";
 import ButtonTableAction from '../../../components/layout/button-table-action';
+import useTeamContext from '../../../hooks/auth/useTeamContext';
+import useWorkspaceContext from '../../../hooks/auth/useWorkspaceContext';
 import useTeamMembers from '../../../hooks/team/useTeamMembers';
 import { Team, TeamMember } from '../../../models/team';
 import AddTeamMemberModal from './add-team-member-modal';
@@ -19,6 +21,8 @@ const TeamMemberModal: FC<Props> = ({ team, visible, onClose }) => {
 
     const [addMemberVisible, setAddMemberVisible] = useState(false);
     const {data: pages, refetch} = useTeamMembers({size: -1, teamId: team.id});
+    const teamContext = useTeamContext();
+    const workspaceContext = useWorkspaceContext();
 
     const columns: ColumnsType<TeamMember> = [
         {
@@ -63,6 +67,9 @@ const TeamMemberModal: FC<Props> = ({ team, visible, onClose }) => {
                 );
             },
         },
+    ];
+
+    const actionColumns: ColumnsType<TeamMember> = (teamContext.isOwner || workspaceContext.isOwner) ? [
         {
             title: '##',
             dataIndex: 'action',
@@ -80,8 +87,8 @@ const TeamMemberModal: FC<Props> = ({ team, visible, onClose }) => {
                     </div>
                 );
             },
-        },
-    ]
+        }
+    ]: [];
 
     return (
         <>
@@ -97,12 +104,15 @@ const TeamMemberModal: FC<Props> = ({ team, visible, onClose }) => {
             >
                 <div className="flex justify-between items-center">
                     <ActionSearchInput />
-                    <Button onClick={() => setAddMemberVisible(true)}>
-                        Add member
-                    </Button>
+                    {
+                        (teamContext.isOwner || workspaceContext.isOwner) &&
+                        <Button onClick={() => setAddMemberVisible(true)}>
+                            Add member
+                        </Button>
+                    }
                 </div>
                 <Table
-                    columns={columns}
+                    columns={[...columns, ...actionColumns]}
                     data={pages?.content || []}
                     tableLayout={'fixed'}
                     rowKey={(record) => record.user.id}

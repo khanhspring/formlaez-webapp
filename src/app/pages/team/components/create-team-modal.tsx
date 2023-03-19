@@ -8,7 +8,7 @@ import FormItem from '../../../components/form/form-item';
 import useCreateTeam from '../../../hooks/team/useCreateTeam';
 import { CreateTeamRequest } from '../../../models/team';
 import { Workspace } from '../../../models/workspace';
-import { showError } from '../../../util/common';
+import { showErrorIgnore403 } from '../../../util/common';
 
 type Props = {
     visible: boolean;
@@ -41,7 +41,7 @@ const CreateTeamModal: FC<Props> = ({ visible, onClose, refetch }) => {
             onSuccess: (response) => {
                 toast.success('Created team successfully!');
             },
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
         })
         .finally(() => {
             onClose();

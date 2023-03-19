@@ -1,7 +1,7 @@
 import { Pageable } from "./common";
 import { User } from "./user";
 
-export const TEAM_MEMBER_ROLES = ['Owner', 'Admin', 'Member'] as const;
+export const TEAM_MEMBER_ROLES = ['Owner', 'Member'] as const;
 export type TeamMemberRole = typeof TEAM_MEMBER_ROLES[number];
 
 export type Team = {
@@ -24,6 +24,12 @@ export type CreateTeamRequest = {
     name: string;
     description?: string;
     workspaceId: number;
+}
+
+export type UpdateTeamRequest = {
+    id: number;
+    name: string;
+    description?: string;
 }
 
 export type SearchTeamRequest = Pageable & {

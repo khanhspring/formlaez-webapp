@@ -8,7 +8,7 @@ import FormItem from '../../../components/form/form-item';
 import useCreateDocumentTemplate from '../../../hooks/document-template/useCreateDocumentTemplate';
 import { CreateDocumentTemplateRequest } from '../../../models/document-template';
 import { Form } from '../../../models/form';
-import { showError } from '../../../util/common';
+import { showErrorIgnore403 } from '../../../util/common';
 
 type Props = {
     form: Form;
@@ -40,7 +40,7 @@ const CreateDocumentTemplateModal: FC<Props> = ({ form, visible, onClose, refetc
         }
         createDocumentTemplate(request, {
             onSuccess: () => toast.success("Added document template successfully!"),
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
         })
             .finally(() => {
                 onClose();

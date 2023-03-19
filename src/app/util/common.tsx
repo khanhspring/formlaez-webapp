@@ -26,6 +26,13 @@ export const showError = () => {
     toast.error("There was an error has ocurred. Please try again!")
 };
 
+export const showErrorIgnore403 = (error: any) => {
+    if (error.response?.status === 403) {
+        return;
+    }
+    toast.error("There was an error has ocurred. Please try again!")
+};
+
 export const showSuccess = () => {
     toast.success("Successfully!")
 };

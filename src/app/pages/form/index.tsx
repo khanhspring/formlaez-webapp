@@ -6,7 +6,7 @@ import PageTitle from "../../components/layout/page-title";
 import useFormDetail from '../../hooks/form/useFormDetail';
 import usePublishForm from '../../hooks/form/usePublishForm';
 import { Team } from "../../models/team";
-import { showError } from '../../util/common';
+import { showErrorIgnore403 } from '../../util/common';
 import { firstLetters } from "../../util/string-utils";
 import Error from "../error/Error";
 import FormDataTable from './components/form-data-table';
@@ -26,7 +26,7 @@ function Form() {
             return Promise.resolve();
         }
         return publish(form.id, {
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
             onSuccess: () => {
                 toast.success('Published form successfully!');
                 refetch();

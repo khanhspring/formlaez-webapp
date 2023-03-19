@@ -4,7 +4,7 @@ import { User } from "./user";
 const WORKSPACE_TYPES = ['Free', 'Plus', 'Business', 'Enterprise'] as const;
 export type WorkspaceType = typeof WORKSPACE_TYPES[number];
 
-const WORKSPACE_MEMBER_ROLES = ['Owner', 'Admin', 'Member'] as const;
+const WORKSPACE_MEMBER_ROLES = ['Owner' , 'Member'] as const;
 export type WorkspaceMemberRole = typeof WORKSPACE_MEMBER_ROLES[number];
 
 export type Workspace = {
@@ -17,7 +17,6 @@ export type Workspace = {
     lastModifiedDate: Date;
 }
 
-
 export type WorkspaceMember = {
     user: User;
     role: WorkspaceMemberRole;
@@ -25,6 +24,12 @@ export type WorkspaceMember = {
 }
 
 export type CreateWorkspaceRequest = {
+    name: string;
+    description?: string;
+}
+
+export type UpdateWorkspaceRequest = {
+    id: number;
     name: string;
     description?: string;
 }
@@ -38,4 +43,10 @@ export type MemberWorkspaceResponse = {
 export type SearchWorkspaceMemberRequest = Pageable & {
     workspaceId: number;
     keyword?: string;
+}
+
+export type AddWorkspaceMemberRequest = {
+    workspaceId: number;
+    userId: string;
+    role: WorkspaceMemberRole;
 }

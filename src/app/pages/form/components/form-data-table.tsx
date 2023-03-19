@@ -23,7 +23,7 @@ import useSubmissions from "../../../hooks/submissions/useSubmissions";
 import { Form, FormField } from "../../../models/form";
 import { ExportFormSubmissionRequest, FormSubmission } from "../../../models/form-submission";
 import { Workspace } from "../../../models/workspace";
-import { showError } from "../../../util/common";
+import { showErrorIgnore403 } from "../../../util/common";
 import FormDataEditDrawer from "./form-data-edit-drawer";
 import MergeDocumentModal from "./merge-document-modal";
 
@@ -340,7 +340,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
 
     const confirmArchive = (submissionCode: string): Promise<any> => {
         return archiveSubmission(submissionCode, {
-            onError: showError,
+            onError: (e) => showErrorIgnore403(e),
             onSuccess: () => toast.success("Deleted submission successfully!")
         }).finally(refetch)
     }

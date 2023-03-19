@@ -7,7 +7,7 @@ import { useDebounced } from '../../../features/form-builder/hooks/useDebounced'
 import useFormEnding from '../../../hooks/form/useFormEnding';
 import useUpdateFormEnding from '../../../hooks/form/useUpdateFormEnding';
 import { UpdateFormEndingRequest } from '../../../models/form-ending';
-import { showError } from '../../../util/common';
+import { showErrorIgnore403 } from '../../../util/common';
 
 const defaultContent = `Thanks for completing this form.\nNow create your own — it's free, easy, & beautiful`
 
@@ -40,7 +40,7 @@ const CustomizeEndingModal: FC<Props> = ({ formTitle, formId, visible, onClose }
             content: content
         }
         updateEnding(request, {
-            onError: showError
+            onError: (e) => showErrorIgnore403(e)
         });
     }, 1500);
 
@@ -57,7 +57,7 @@ const CustomizeEndingModal: FC<Props> = ({ formTitle, formId, visible, onClose }
             content: content
         }
         updateEnding(request, {
-            onError: showError
+            onError: (e) => showErrorIgnore403(e)
         });
     }
 
