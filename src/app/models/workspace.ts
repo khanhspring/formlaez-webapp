@@ -50,3 +50,14 @@ export type AddWorkspaceMemberRequest = {
     userId: string;
     role: WorkspaceMemberRole;
 }
+
+export type RemoveWorkspaceMemberRequest = {
+    workspaceId: number;
+    userId: string;
+}
+
+export type UpdateWorkspaceMemberRoleRequest = {
+    workspaceId: number;
+    userId: string;
+    role: WorkspaceMemberRole;
+}

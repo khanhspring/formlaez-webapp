@@ -19,19 +19,19 @@ const FormPageTitle: FC<Props> = ({ form }) => {
             }>{form?.status}</span>
             {
                 form?.sharingScope === 'Public' &&
-                <Tooltip overlay="Public">
+                <Tooltip overlay="Public" placement="bottom">
                     <i className="fi fi-rr-world"></i>
                 </Tooltip>
             }
             {
                 form?.sharingScope === 'Private' &&
-                <Tooltip overlay="Private">
+                <Tooltip overlay="Private" placement="bottom">
                     <i className="fi fi-rr-user"></i>
                 </Tooltip>
             }
             {
                 form?.sharingScope === 'Authenticated' &&
-                <Tooltip overlay="Authenticated">
+                <Tooltip overlay="Authenticated" placement="bottom">
                     <i className="fi fi-rr-users-alt"></i>
                 </Tooltip>
             }

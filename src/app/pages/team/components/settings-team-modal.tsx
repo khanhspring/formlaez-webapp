@@ -37,7 +37,7 @@ const SettingsTeamModal: FC<Props> = ({ team, visible, onClose, refetch }) => {
         }
         updateTeam(request, {
             onSuccess: (response) => {
-                toast.success('Created team successfully!');
+                toast.success('Updated team successfully!');
             },
             onError: (e) => showErrorIgnore403(e),
         })

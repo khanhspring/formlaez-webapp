@@ -43,6 +43,17 @@ export type AddTeamMemberRequest = {
     role: TeamMemberRole;
 }
 
+export type RemoveTeamMemberRequest = {
+    teamId: number;
+    userId: string;
+}
+
 export type SearchTeamMemberRequest = Pageable & {
     teamId: number;
+}
+
+export type UpdateTeamMemberRoleRequest = {
+    teamId: number;
+    userId: string;
+    role: TeamMemberRole;
 }

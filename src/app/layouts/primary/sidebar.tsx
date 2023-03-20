@@ -21,12 +21,22 @@ function SideBar() {
 
     const shortName = StringUtils.firstLetters(workspace?.name, 2)?.toUpperCase() || 'W';
 
-    const isActive = (include: string, notInclude?: string) => {
-        const isInclude = pathname?.includes(include);
-        if (!notInclude) {
-            return isInclude;
+    const isActive = (type: 'Private' | 'Team' | 'Settings') => {
+        const workspaceUrlPrefix = "/" + workspace?.code;
+        const path = StringUtils.trimCharAtEnd(pathname, '/');
+
+        if (type === 'Team') {
+            return path.startsWith(workspaceUrlPrefix + "/t");
         }
-        return isInclude && !pathname?.includes(notInclude);
+
+        if (type === 'Settings') {
+            return path.startsWith(workspaceUrlPrefix + "/settings");
+        }
+
+        if (type === 'Private') {
+            return path.startsWith(workspaceUrlPrefix + "/p")
+            || (path === workspaceUrlPrefix)
+        }
     }
 
     const switchWorkspace = (workspace: Workspace) => {
@@ -83,7 +93,7 @@ function SideBar() {
                                 to={`/${workspace.code}/p`}
                                 className={
                                     "flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition"
-                                    + ` ${isActive('/p') ? 'text-slate-900 dark:text-white' : 'text-slate-900/60 dark:text-slate-500'}`
+                                    + ` ${isActive('Private') ? 'text-slate-900 dark:text-white' : 'text-slate-900/60 dark:text-slate-500'}`
                                 }
                             >
                                 <i className="fi fi-rr-user text-xl"></i>
@@ -95,7 +105,7 @@ function SideBar() {
                                 to={`/${workspace.code}/t`}
                                 className={
                                     "flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition"
-                                    + ` ${isActive('/t') ? 'text-slate-900 dark:text-white' : 'text-slate-900/60 dark:text-slate-500'}`
+                                    + ` ${isActive('Team') ? 'text-slate-900 dark:text-white' : 'text-slate-900/60 dark:text-slate-500'}`
                                 }
                             >
                                 <i className="fi fi-rr-users-alt text-xl"></i>
@@ -117,7 +127,7 @@ function SideBar() {
                                         to={`/${workspace.code}/settings`}
                                         className={
                                             "flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition"
-                                            + ` ${isActive('settings', '/f/') ? 'text-slate-900 dark:text-white' : 'text-slate-900/60 dark:text-slate-500'}`
+                                            + ` ${isActive('Settings') ? 'text-slate-900 dark:text-white' : 'text-slate-900/60 dark:text-slate-500'}`
                                         }
                                     >
                                         <i className="fi fi-rr-settings text-xl"></i>

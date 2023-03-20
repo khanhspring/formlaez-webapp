@@ -1,6 +1,6 @@
 import RestClient from "../configurations/axios-config";
 import { PageResponse, ResponseId } from "../models/common";
-import { AddWorkspaceMemberRequest, CreateWorkspaceRequest, SearchWorkspaceMemberRequest, UpdateWorkspaceRequest, Workspace, WorkspaceMember } from "../models/workspace";
+import { AddWorkspaceMemberRequest, CreateWorkspaceRequest, RemoveWorkspaceMemberRequest, SearchWorkspaceMemberRequest, UpdateWorkspaceMemberRoleRequest, UpdateWorkspaceRequest, Workspace, WorkspaceMember } from "../models/workspace";
 
 export function create(request: CreateWorkspaceRequest): Promise<ResponseId> {
     return RestClient
@@ -21,7 +21,7 @@ function getByCode(workspaceCode?: string): Promise<Workspace> {
 }
 
 function searchMembers(request?: SearchWorkspaceMemberRequest): Promise<PageResponse<WorkspaceMember>> {
-    return RestClient.get<any>("/admin/workspaces/" + request?.workspaceId + "/members").then(
+    return RestClient.get<any>("/admin/workspaces/" + request?.workspaceId + "/members", {params: request}).then(
       (response) => response.data
     );
 }
@@ -32,12 +32,26 @@ export function addMember(request: AddWorkspaceMemberRequest): Promise<ResponseI
         .then(response => response.data);;
 }
 
+export function removeMember(request: RemoveWorkspaceMemberRequest): Promise<any> {
+    return RestClient
+        .delete<any>("/admin/workspaces/" + request.workspaceId + "/members/" + request.userId)
+        .then(response => response.data);;
+}
+
+export function updateMemberRole(request: UpdateWorkspaceMemberRoleRequest): Promise<any> {
+    return RestClient
+        .put<any>("/admin/workspaces/" + request.workspaceId + "/members/" + request.userId, request)
+        .then(response => response.data);;
+}
+
 const WorkspaceService = {
     create,
     update,
     getByCode,
     searchMembers,
-    addMember
+    addMember,
+    removeMember,
+    updateMemberRole
 };
 
 export default WorkspaceService;

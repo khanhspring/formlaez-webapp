@@ -73,7 +73,6 @@ const AddWorkspaceMemberModal: FC<Props> = ({ members, visible, onClose, refetch
         if (!value || !EMAIL_PATTERN.test(value)) {
             return;
         }
-        console.log(value);
         setUserOptions([]);
         setEmail(value);
     })
@@ -83,13 +82,12 @@ const AddWorkspaceMemberModal: FC<Props> = ({ members, visible, onClose, refetch
             visible={visible}
             onClose={onClose}
             title="Add workspace member"
-            hideCancel
-            hideOk
-            bodyClassName='!pb-5'
+            okText='Add member'
             width={650}
             wrapClassName="flex item-center"
             loading={submitting}
             destroyOnClose
+            onOk={rcForm.submit}
         >
             <RcForm
                 onFinish={onFinish}
@@ -130,9 +128,6 @@ const AddWorkspaceMemberModal: FC<Props> = ({ members, visible, onClose, refetch
                             />
                         </FormItem>
                     </div>
-                </div>
-                <div className='flex justify-end'>
-                    <Button>Add member</Button>
                 </div>
             </RcForm>
         </Modal>

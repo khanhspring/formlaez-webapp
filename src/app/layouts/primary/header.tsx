@@ -86,8 +86,9 @@ function Header() {
                         </div>
                     </div>
                     <Dropdown overlay={userMenu} trigger={['click']} placement="bottomRight">
-                        <div className="p-1 ml-2">
-                            <Avatar name={userInfo?.firstName + ' ' + userInfo?.lastName} className="w-9 h-9 hover:ring-2" />
+                        <div className="p-1 rounded ml-2 flex items-center gap-1.5 group cursor-pointer">
+                            <Avatar name={userInfo?.firstName + ' ' + userInfo?.lastName} className="w-8 h-8 group-hover:ring-2" />
+                            <span className="text-sm font-semibold">{userInfo?.firstName + ' ' + userInfo?.lastName}</span>
                         </div>
                     </Dropdown>
                 </div>

@@ -582,7 +582,6 @@ export const formBuilderSlice = createSlice({
   initialState,
   reducers: {
     updateForm: (state, action: PayloadAction<Form | undefined>) => {
-      // console.log(JSON.stringify(action.payload));e
       state.form = _.cloneDeep(action.payload);
     },
     clearCurrentItem: (state, action: PayloadAction<undefined>) => {
@@ -600,67 +599,54 @@ export const formBuilderSlice = createSlice({
         state.form = action.payload;
       })
       .addCase(loadForm.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       })
 
       .addCase(addSingleField.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       })
 
       .addCase(addGroupField.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       })
 
       .addCase(addSection.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       })
 
       .addCase(reorderField.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       })
 
       .addCase(reorderSection.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       })
 
       .addCase(removeSection.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       })
 
       .addCase(removeField.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       })
 
       .addCase(updateField.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       })
 
       .addCase(updateSection.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       })
 
       .addCase(duplicateSection.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       })
 
       .addCase(duplicateField.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       })
 
       .addCase(updateFormInfo.rejected, (state, action) => {
-        console.log(action.error);
         showError();
       });
   },

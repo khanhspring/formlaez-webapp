@@ -130,7 +130,6 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
                 defaultBlockTag: 'section',
                 blockStyleFn: blockStyleFn as any
             });
-            console.log(currentHtmlContent);
             onHtmlChange?.(currentHtmlContent);
         }, 1500)
     }, [blockStyleFn, editorState, onHtmlChange]);

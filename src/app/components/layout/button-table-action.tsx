@@ -1,25 +1,43 @@
-import { FC, PropsWithChildren } from 'react';
+import Tooltip from 'rc-tooltip';
+import { FC, PropsWithChildren, ReactNode } from 'react';
 
 type Props = PropsWithChildren & {
     onClick?: () => void;
     title?: string;
     danger?: boolean;
     disabled?: boolean;
+    disabledTooltip?: ReactNode;
 }
 
-const ButtonTableAction: FC<Props> = ({ title, onClick, danger, disabled, children }) => {
-    return (
+const ButtonTableAction: FC<Props> = ({ title, onClick, danger, disabled, disabledTooltip, children }) => {
+
+    const buttonInner = (
         <button
             onClick={!disabled ? onClick : undefined}
             title={title}
             className={
-                `w-[22px] h-[22px] rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-900/10 dark:border-transparent dark:bg-cinder-700/70 dark:hover:bg-cinder-700 flex items-center justify-center dark:text-gray-500 dark:hover:text-white`
-                + ` ${danger ? 'text-rose-700 hover:text-white hover:bg-rose-700 dark:text-rose-700 dark:hover:text-white dark:hover:bg-rose-700' : ''}`
-                + ` ${disabled ? 'cursor-not-allowed opacity-80' : ''}`
+                `w-[22px] h-[22px] rounded-full bg-slate-100 border border-slate-900/10 dark:border-transparent dark:bg-cinder-700/70 dark:hover:bg-cinder-700 flex items-center justify-center dark:text-gray-500`
+                + ` ${danger ? 'text-rose-700 dark:text-rose-700' : ''}`
+                + ` ${danger && !disabled ? 'hover:text-white hover:bg-rose-700 dark:hover:text-white dark:hover:bg-rose-700' : ''}`
+                + ` ${disabled ? 'cursor-not-allowed opacity-80' : 'hover:bg-slate-200 dark:hover:text-white'}`
             }
         >
             {children}
         </button>
+    )
+
+    if (!disabled) {
+        return (
+            <>
+                {buttonInner}
+            </>
+        )
+    }
+
+    return (
+        <Tooltip overlay={disabledTooltip} placement="bottom">
+            {buttonInner}
+        </Tooltip>
     )
 }
 

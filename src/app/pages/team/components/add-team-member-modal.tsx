@@ -32,8 +32,11 @@ const AddTeamMemberModal: FC<Props> = ({ team, members, visible, onClose, refetc
         .map((item) => ({ value: item.user.id, label: `${item.user.firstName} ${item.user.lastName} (${item.user.email})` }))
 
     useEffect(() => {
-        if (!visible) {
+        if (visible) {
             rcForm.setFieldsValue({});
+        }
+        return () => {
+            rcForm.resetFields();
         }
     }, [rcForm, visible]);
 
@@ -60,13 +63,12 @@ const AddTeamMemberModal: FC<Props> = ({ team, members, visible, onClose, refetc
             visible={visible}
             onClose={onClose}
             title="Add team member"
-            hideCancel
-            hideOk
             bodyClassName='!pb-5'
             width={650}
             wrapClassName="flex item-center"
             destroyOnClose
             loading={submitting}
+            onOk={rcForm.submit}
         >
             <RcForm
                 onFinish={onFinish}
@@ -103,9 +105,6 @@ const AddTeamMemberModal: FC<Props> = ({ team, members, visible, onClose, refetc
                             />
                         </FormItem>
                     </div>
-                </div>
-                <div className='flex justify-end'>
-                    <Button>Add member</Button>
                 </div>
             </RcForm>
         </Modal>

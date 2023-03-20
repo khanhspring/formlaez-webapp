@@ -75,12 +75,6 @@ const CreateFormModal: FC<Props> = ({ visible, onClose, refetch }) => {
                 >
                     <Input placeholder="Title" maxLength={255}/>
                 </FormItem>
-                <FormItem
-                    title='Description'
-                    name={'description'}
-                >
-                    <Input placeholder="Description" maxLength={1000} />
-                </FormItem>
             </Form>
         </Modal>
     );
