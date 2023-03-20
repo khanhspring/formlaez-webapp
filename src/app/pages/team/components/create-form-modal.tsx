@@ -8,7 +8,7 @@ import FormItem from '../../../components/form/form-item';
 import useCreateForm from '../../../hooks/form/useCreateForm';
 import { CreateFormRequest } from '../../../models/form';
 import { Workspace } from '../../../models/workspace';
-import { showError, showErrorIgnore403 } from '../../../util/common';
+import { showErrorIgnore403 } from '../../../util/common';
 
 type Props = {
     visible: boolean;
