@@ -1,7 +1,6 @@
 import moment from "moment";
 import Table from "rc-table";
 import { ColumnsType } from "rc-table/lib/interface";
-import Tooltip from "rc-tooltip";
 import { useEffect, useState } from "react";
 import { useNavigate, useRevalidator, useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";

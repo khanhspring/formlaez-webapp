@@ -2,7 +2,6 @@ import RcForm from 'rc-field-form';
 import { FC, useEffect } from "react";
 import { useNavigate, useRevalidator, useRouteLoaderData } from "react-router-dom";
 import { toast } from 'react-toastify';
-import Button from '../../../components/common/button';
 import Modal from "../../../components/common/modal";
 import Dropdown from "../../../components/form/form-controls/dropdown";
 import FormItem from "../../../components/form/form-item";
