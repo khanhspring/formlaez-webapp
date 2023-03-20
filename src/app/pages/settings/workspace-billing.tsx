@@ -1,10 +1,32 @@
+import moment from "moment";
+import { useState } from "react";
 import { FormattedNumber } from "react-intl";
 import { useRouteLoaderData } from "react-router-dom";
 import Button from "../../components/common/button";
+import { BusinessPlan, FreePlan, Plans, PlusPlan } from "../../constants/plans";
+import useCurrentSubscription from "../../hooks/subscription/useCurrentSubscription";
 import { Workspace } from "../../models/workspace";
+import UpgradePlanModal from "./components/upgrade-plan-modal";
+import UpgradePlanSuccessModal from "./components/upgrade-plan-sucess-modal";
 
 function WorkspaceBilling() {
     const workspace = useRouteLoaderData("workspace") as Workspace;
+    const [upgradeVisible, setUpgradeVisible] = useState(false);
+    const [upgradeSuccessVisible, setUpgradeSuccessVisible] = useState(false);
+    const [selectedPlan, setSelectedPlan] = useState<string>();
+
+    const currentPlan = Plans[workspace.type] || FreePlan;
+    const { data: currentSubscription, refetch: refetchCurrentSubscription } = useCurrentSubscription(workspace.id);
+
+    const onSelectPlan = (plan: string) => {
+        setSelectedPlan(plan);
+        setUpgradeVisible(true);
+    }
+
+    const onSuccess = () => {
+        setUpgradeSuccessVisible(true);
+        refetchCurrentSubscription();
+    }
 
     return (
         <>
@@ -21,8 +43,20 @@ function WorkspaceBilling() {
                             {workspace.type === 'Enterprise' && <i className="fi fi-rr-diamond text-3xl"></i>}
                             <span className="text-lg font-bold">{workspace.type} Plan</span>
                             {
-                                workspace.type !== 'Free' &&
-                                <Button className="mt-2" status="danger">Unsubscribe</Button>
+                                currentSubscription?.status === 'Active' &&
+                                <a href={currentSubscription?.cancelUrl} target="_blank" rel="noreferrer">
+                                    <Button className="mt-2" status="danger">Unsubscribe</Button>
+                                </a>
+                            }
+                            {
+                                currentSubscription?.status === 'Cancelled' && currentSubscription.validTill &&
+                                <span className="text-sm italic">(Valid till {moment(currentSubscription.validTill).format("YYYY MMM DD")})</span>
+                            }
+                            {
+                                currentSubscription?.status === 'Cancelled' &&
+                                <span className="mt-1 px-2.5 py-1.5 rounded text-sm transition flex justify-center items-center gap-1 bg-slate-200 dark:bg-cinder-600">
+                                    Cancelled
+                                </span>
                             }
                         </div>
                     </div>
@@ -31,23 +65,23 @@ function WorkspaceBilling() {
                         <div className="flex flex-col gap-2 text-sm mt-3">
                             <div className="flex gap-2 items-center">
                                 <i className="fi fi-rr-checkbox"></i>
-                                <span>5 forms</span>
+                                <span>{currentPlan.formLimit} forms</span>
                             </div>
                             <div className="flex gap-2 items-center">
                                 <i className="fi fi-rr-checkbox"></i>
-                                <span>100 submissions / month</span>
+                                <span>{currentPlan.submissionPerMonth} submissions / month</span>
                             </div>
                             <div className="flex gap-2 items-center">
                                 <i className="fi fi-rr-checkbox"></i>
-                                <span>25 document merges / month</span>
+                                <span>{currentPlan.documentMergePerMonth} document merges / month</span>
                             </div>
                             <div className="flex gap-2 items-center">
                                 <i className="fi fi-rr-checkbox"></i>
-                                <span>1 GB storage</span>
+                                <span>{currentPlan.fileStorageLimit} storage</span>
                             </div>
                             <div className="flex gap-2 items-center">
                                 <i className="fi fi-rr-checkbox"></i>
-                                <span>1 workspace members</span>
+                                <span>{currentPlan.workspaceMember} workspace members</span>
                             </div>
                         </div>
                     </div>
@@ -62,12 +96,15 @@ function WorkspaceBilling() {
                                         <span className="text-sm font-bold">Content</span>
                                     </div>
                                 </th>
-                                <th className={`w-40 border border-slate-900/10 dark:border-cinder-600 px-3 py-5 align-top ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                <th className={`w-52 border border-slate-900/10 dark:border-cinder-600 px-3 py-5 align-top ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
                                     <div className="flex flex-col items-start font-normal gap-1">
-                                        <i className="fi fi-rr-gift text-xl h-6"></i>
+                                        <span className="text-xl h-6">
+                                            {FreePlan.icon}
+                                        </span>
+
                                         <span className="font-bold mt-1">Free</span>
                                         <div className="flex items-center h-10">
-                                            <span className="font-bold text-lg">$0</span>
+                                            <span className="font-bold text-lg">${FreePlan.price}</span>
                                         </div>
                                         {
                                             workspace.type === 'Free' &&
@@ -77,12 +114,15 @@ function WorkspaceBilling() {
                                         }
                                     </div>
                                 </th>
-                                <th className={`w-40 border border-slate-900/10 dark:border-cinder-600 px-3 py-5 align-top ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                <th className={`w-52 border border-slate-900/10 dark:border-cinder-600 px-3 py-5 align-top ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
                                     <div className="flex flex-col items-start font-normal gap-1">
-                                        <i className="fi fi-rr-flame text-xl h-6"></i>
+                                        <span className="text-xl h-6">
+                                            {PlusPlan.icon}
+                                        </span>
+
                                         <span className="font-bold mt-1">Plus</span>
                                         <div className="flex items-center h-10">
-                                            <span className="font-bold text-lg">$10</span>
+                                            <span className="font-bold text-lg">${PlusPlan.price}</span>
                                         </div>
                                         {
                                             workspace.type === 'Plus' &&
@@ -92,18 +132,24 @@ function WorkspaceBilling() {
                                         }
                                         {
                                             workspace.type !== 'Plus' &&
-                                            <Button className="w-full mt-2">
+                                            <Button
+                                                onClick={() => onSelectPlan('Plus')}
+                                                className="w-full mt-2"
+                                            >
                                                 {workspace.type !== 'Free' ? 'Change' : 'Upgrade'}
                                             </Button>
                                         }
                                     </div>
                                 </th>
-                                <th className={`w-40 border border-slate-900/10 dark:border-cinder-600 px-3 py-5 align-top ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                <th className={`w-52 border border-slate-900/10 dark:border-cinder-600 px-3 py-5 align-top ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
                                     <div className="flex flex-col items-start font-normal gap-1">
-                                        <i className="fi fi-rr-comet text-xl h-6"></i>
+                                        <span className="text-xl h-6">
+                                            {BusinessPlan.icon}
+                                        </span>
+
                                         <span className="font-bold mt-1">Business</span>
                                         <div className="flex items-center h-10">
-                                            <span className="font-bold text-lg">$25</span>
+                                            <span className="font-bold text-lg">${BusinessPlan.price}</span>
                                         </div>
                                         {
                                             workspace.type === 'Business' &&
@@ -113,32 +159,10 @@ function WorkspaceBilling() {
                                         }
                                         {
                                             workspace.type !== 'Business' &&
-                                            <Button className="w-full mt-2">
-                                                {workspace.type !== 'Free' ? 'Change' : 'Upgrade'}
-                                            </Button>
-                                        }
-                                    </div>
-                                </th>
-                                <th className={`w-40 border border-slate-900/10 dark:border-cinder-600 px-3 py-5 align-top ${workspace.type === 'Enterprise' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    <div className="flex flex-col items-start font-normal gap-1">
-                                        <i className="fi fi-rr-diamond text-xl h-6"></i>
-                                        <span className="font-bold mt-1">Enterprise</span>
-                                        <div className="flex items-center gap-2 h-10">
-                                            <span className="font-bold text-lg">$20</span>
-                                            <div className="flex flex-col justify-center items-start text-xs">
-                                                <span>per member</span>
-                                                <span>per month</span>
-                                            </div>
-                                        </div>
-                                        {
-                                            workspace.type === 'Enterprise' &&
-                                            <span className="text-sm mt-2 w-full px-2.5 py-1.5 rounded flex justify-center items-center gap-1 bg-slate-200 dark:bg-cinder-700 border border-slate-900/10 dark:border-cinder-600">
-                                                Current plan
-                                            </span>
-                                        }
-                                        {
-                                            workspace.type !== 'Enterprise' &&
-                                            <Button className="w-full mt-2">
+                                            <Button
+                                                onClick={() => onSelectPlan('Business')}
+                                                className="w-full mt-2"
+                                            >
                                                 {workspace.type !== 'Free' ? 'Change' : 'Upgrade'}
                                             </Button>
                                         }
@@ -152,16 +176,13 @@ function WorkspaceBilling() {
                                     Forms
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    5
+                                    <FormattedNumber value={FreePlan.formLimit} />
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    20
+                                    <FormattedNumber value={PlusPlan.formLimit} />
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    100
-                                </td>
-                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Enterprise' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    <FormattedNumber value={1000} />
+                                    <FormattedNumber value={BusinessPlan.formLimit} />
                                 </td>
                             </tr>
                             <tr>
@@ -169,16 +190,13 @@ function WorkspaceBilling() {
                                     Document merges (per month)
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    25
+                                    <FormattedNumber value={FreePlan.documentMergePerMonth} />
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    100
+                                    <FormattedNumber value={PlusPlan.documentMergePerMonth} />
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    500
-                                </td>
-                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Enterprise' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    <FormattedNumber value={5000} />
+                                    <FormattedNumber value={BusinessPlan.documentMergePerMonth} />
                                 </td>
                             </tr>
                             <tr>
@@ -186,16 +204,13 @@ function WorkspaceBilling() {
                                     Submissions (per month)
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    100
+                                    <FormattedNumber value={FreePlan.submissionPerMonth} />
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    <FormattedNumber value={1000} />
+                                    <FormattedNumber value={PlusPlan.submissionPerMonth} />
                                 </td>
-                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    <FormattedNumber value={2000} />
-                                </td>
-                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Enterprise' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    <FormattedNumber value={10000} />
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                    <FormattedNumber value={BusinessPlan.submissionPerMonth} />
                                 </td>
                             </tr>
                             <tr>
@@ -203,16 +218,13 @@ function WorkspaceBilling() {
                                     File storage
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    Up to 100 MB
+                                    Up to {FreePlan.fileStorageLimit}
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    Up to 1 GB
+                                    Up to {PlusPlan.fileStorageLimit}
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    Up to 5 GB
-                                </td>
-                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Enterprise' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    Up to 100 GB
+                                    Up to {BusinessPlan.fileStorageLimit}
                                 </td>
                             </tr>
                             <tr>
@@ -220,22 +232,36 @@ function WorkspaceBilling() {
                                     Workspace members
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    1
+                                    <FormattedNumber value={FreePlan.workspaceMember} />
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    2
+                                    <FormattedNumber value={PlusPlan.workspaceMember} />
                                 </td>
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    5
-                                </td>
-                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Enterprise' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
-                                    Unlimited
+                                    <FormattedNumber value={BusinessPlan.workspaceMember} />
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+            {
+                selectedPlan &&
+                <UpgradePlanModal
+                    visible={upgradeVisible}
+                    onClose={() => setUpgradeVisible(false)}
+                    plan={selectedPlan}
+                    onSuccess={onSuccess}
+                />
+            }
+            {
+                selectedPlan &&
+                <UpgradePlanSuccessModal
+                    visible={upgradeSuccessVisible}
+                    plan={selectedPlan}
+                    onClose={() => setUpgradeSuccessVisible(false)}
+                />
+            }
         </>
     );
 }

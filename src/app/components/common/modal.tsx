@@ -24,6 +24,7 @@ type Props = PropsWithChildren & {
     wrapClassName?: string;
     bodyClassName?: string;
     danger?: boolean;
+    closeIcon?: ReactNode;
 }
 
 type MousePosition = { x: number; y: number } | null;
@@ -42,6 +43,7 @@ const Modal: FC<Props> = ({
     wrapClassName = 'flex items-center',
     bodyClassName = '',
     danger,
+    closeIcon=<i className="fi fi-rr-cross-small text-shadow-none dark:text-gray-200"></i>,
     ...rest
 }) => {
 
@@ -69,7 +71,7 @@ const Modal: FC<Props> = ({
         const element = node as ReactElement;
         return (
             <>
-                {React.cloneElement(element, { className: element.props.className + ' dark:bg-cinder-800' })}
+                {React.cloneElement(element, { className: 'dark:bg-cinder-800 ' + element.props.className })}
             </>
         )
     }
@@ -81,7 +83,7 @@ const Modal: FC<Props> = ({
             animation="zoom"
             maskAnimation="fade"
             mousePosition={mousePosition || rest.mousePosition}
-            closeIcon={<i className="fi fi-rr-cross-small text-shadow-none dark:text-gray-200"></i>}
+            closeIcon={closeIcon}
             maskProps={{ style: { background: 'rgba(0, 0, 0, 0.5)' } }}
             modalRender={modalRender}
             visible={visible}

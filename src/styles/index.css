@@ -125,6 +125,7 @@ hr {
 
 .rc-dialog-close {
     right: 15px;
+    opacity: 0.5;
 }
 
 .rc-dialog-header {
