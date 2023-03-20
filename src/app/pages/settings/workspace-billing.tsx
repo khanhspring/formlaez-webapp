@@ -209,7 +209,7 @@ function WorkspaceBilling() {
                                 <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
                                     <FormattedNumber value={PlusPlan.submissionPerMonth} />
                                 </td>
-                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
                                     <FormattedNumber value={BusinessPlan.submissionPerMonth} />
                                 </td>
                             </tr>

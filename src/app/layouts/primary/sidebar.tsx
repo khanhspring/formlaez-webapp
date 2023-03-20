@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate, useRouteLoaderData } from 'react-router
 import SimpleBar from 'simplebar-react';
 import Logo from '../../components/common/logo';
 import ZigzagIcon from '../../components/icons/zigzag-icon';
+import { FreePlan, Plans } from '../../constants/plans';
 import useWorkspaceContext from '../../hooks/auth/useWorkspaceContext';
 import { UserSession } from '../../models/user-session';
 import { Workspace } from '../../models/workspace';
@@ -15,6 +16,7 @@ function SideBar() {
     const workspace = useRouteLoaderData("workspace") as Workspace;
     const userSession = useRouteLoaderData('private') as UserSession;
     const workspaceContext = useWorkspaceContext();
+    const currentPlan = Plans[workspace.type] || FreePlan;
 
     const { pathname } = useLocation();
     const navigate = useNavigate();
@@ -35,7 +37,7 @@ function SideBar() {
 
         if (type === 'Private') {
             return path.startsWith(workspaceUrlPrefix + "/p")
-            || (path === workspaceUrlPrefix)
+                || (path === workspaceUrlPrefix)
         }
     }
 
@@ -75,9 +77,17 @@ function SideBar() {
 
                 <SimpleBar style={{ maxHeight: 'calc(100vh - 65px)' }}>
                     <div className="py-3 mt-2 flex flex-col gap-1 items-center justify-center">
-                        <Tooltip overlay={workspace?.name || 'Workspace'} placement="right">
-                            <div className="text-lg font-semibold flex w-10 h-10 rounded-full ring-2 items-center justify-center select-none bg-gradient-to-r from-cyan-500 to-blue-500 text-white transition">
+                        <Tooltip overlay={(workspace?.name || 'Workspace') + ' (' + currentPlan.name + ')'} placement="right">
+                            <div className="relative text-lg font-semibold flex w-10 h-10 rounded-full ring-2 items-center justify-center select-none bg-gradient-to-r from-cyan-500 to-blue-500 text-white transition">
                                 {shortName}
+                                <span className={
+                                    `absolute -top-2.5 -right-2.5 text-sm w-5 h-5 flex justify-center items-center rounded-full  ring-2`
+                                    + ` ${currentPlan.code === 'Free' ? 'bg-gray-400' : ''}`
+                                    + ` ${currentPlan.code === 'Plus' ? 'bg-yellow-600' : ''}`
+                                    + ` ${currentPlan.code === 'Business' ? 'bg-rose-700' : ''}`
+                                }>
+                                    {currentPlan.icon}
+                                </span>
                             </div>
                         </Tooltip>
                         <Dropdown overlay={switchWorkspaceDropdown} placement="bottomRight" trigger={['click']}>
