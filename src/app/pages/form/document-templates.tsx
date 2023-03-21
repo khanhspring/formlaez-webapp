@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { useParams, useRouteLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import confirm from "../../components/common/confirm/confirm";
 import DocumentTemplateItem from "../../components/common/document-template-item";
 import Empty from "../../components/common/empty";
 import ButtonAction from "../../components/layout/button-action";
 import PageTitle from "../../components/layout/page-title";
 import useDocumentTemplates from "../../hooks/document-template/useDocumentTemplates";
+import useRemoveDocumentTemplate from "../../hooks/document-template/useRemoveDocumentTemplate";
 import useForm from "../../hooks/form/useForm";
 import { DocumentTemplate } from "../../models/document-template";
-import { Workspace } from "../../models/workspace";
+import { showErrorIgnore403 } from "../../util/common";
 import { firstLetters } from "../../util/string-utils";
 import CreateDocumentTemplateModal from "./components/create-document-template-modal";
 import DocumentTemplateDetailModal from "./components/document-template-detail-modal";
@@ -18,11 +21,12 @@ import UpdateDocumentTemplateModal from "./components/update-document-template-m
 
 function DocumentTemplates() {
 
-    const workspace = useRouteLoaderData("workspace") as Workspace;
     const [createModalVisible, setCreateModelVisible] = useState(false);
     const [detailVisible, setDetailVisible] = useState(false);
     const [updateVisible, setUpdateVisible] = useState(false);
     const [selectedTemplate, setSelectedTemplate] = useState<DocumentTemplate>();
+
+    const { mutateAsync: remove } = useRemoveDocumentTemplate();
 
     const params = useParams();
     const { data: form } = useForm(params.formCode);
@@ -54,6 +58,24 @@ function DocumentTemplates() {
     const closeUpdate = () => {
         setSelectedTemplate(undefined);
         setUpdateVisible(false);
+    }
+
+    const confirmRemove = (id: number) => {
+        return remove(id, {
+            onError: (e) => showErrorIgnore403(e),
+            onSuccess: () => {
+                toast.success("Deleted template successfully!");
+                refetch();
+            }
+        })
+    }
+
+    const showConfirmRemove = (template: DocumentTemplate) => {
+        confirm({
+            title: 'Confirm',
+            content: 'Are you sure you want to delete this template?',
+            onOkAsync: () => confirmRemove(template.id)
+        })
     }
 
     const isEmpty = !isLoading && pages?.totalElements === 0
@@ -93,6 +115,7 @@ function DocumentTemplates() {
                                 key={index}
                                 onClick={() => showDetail(item)}
                                 onEdit={() => showUpdate(item)}
+                                onDelete={() => showConfirmRemove(item)}
                             />
                         ))
                     }

@@ -54,6 +54,15 @@ function Settings() {
                             <span>Plan & Billing</span>
                         </div>
                     </Link>
+                    <Link to={`/${workspace.code}/settings/usages`}>
+                        <div className={
+                            "px-3 py-2 hover:bg-slate-100 dark:hover:bg-cinder-600/80 cursor-pointer text-sm flex items-center gap-2 rounded transition"
+                            + ` ${isActive('usages') ? 'bg-slate-100 dark:bg-cinder-600/80' : ''}`
+                        }>
+                            <i className="fi fi-rr-pulse"></i>
+                            <span>Usages</span>
+                        </div>
+                    </Link>
                 </div>
             </div>
             <div className="flex-1 bg-slate-50 dark:bg-cinder-800 flex flex-col rounded">

@@ -86,7 +86,7 @@ const TeamMemberModal: FC<Props> = ({ team, visible, onClose }) => {
     const showConfirmRemoveMember = (member: TeamMember) => {
         confirm({
             title: 'Confirm',
-            content: 'Are you sure to remove this user from this team?',
+            content: 'Are you sure you want to remove this user from this team?',
             onOkAsync: () => onConfirmRemoveMember(member.user.id)
         })
     };

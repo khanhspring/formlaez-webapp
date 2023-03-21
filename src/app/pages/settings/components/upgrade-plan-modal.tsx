@@ -5,6 +5,7 @@ import Modal from "../../../components/common/modal";
 import { Plans } from "../../../constants/plans";
 import { useAppSelector } from "../../../hooks/redux-hook";
 import useGetWorkspace from "../../../hooks/workspace/useGetWorkspace";
+import { Subscription } from "../../../models/subscription";
 import { Workspace } from '../../../models/workspace';
 import { selectUserInfo } from "../../../slices/auth";
 const Paddle = (window as any).Paddle;
@@ -14,8 +15,9 @@ type Props = {
     onClose: () => void;
     plan: string;
     onSuccess: () => void;
+    currentSubscription: Subscription;
 }
-const UpgradePlanModal: FC<Props> = ({ visible, onClose, onSuccess, plan }) => {
+const UpgradePlanModal: FC<Props> = ({ visible, onClose, onSuccess, plan, currentSubscription }) => {
 
     const workspace = useRouteLoaderData("workspace") as Workspace;
     const userInfo = useAppSelector(selectUserInfo);
@@ -33,10 +35,12 @@ const UpgradePlanModal: FC<Props> = ({ visible, onClose, onSuccess, plan }) => {
             getWorkspace(workspace.code, {
                 onSuccess: () => {
                     revalidate();
-                    onSuccess();
-                    onClose();
-                    toast.dismiss(loading);
-                    toast.success("Subscribed successfully!");
+                    setTimeout(() => {
+                        onSuccess();
+                        onClose();
+                        toast.dismiss(loading);
+                        toast.success("Subscribed successfully!");
+                    }, 700)
                     clearInterval(intervalRef.current);
                 }
             })
@@ -53,7 +57,7 @@ const UpgradePlanModal: FC<Props> = ({ visible, onClose, onSuccess, plan }) => {
     }, [])
 
     useEffect(() => {
-        if (visible && selectedPlan && workspace.type === 'Free') {
+        if (visible && selectedPlan && (workspace.type === 'Free' || currentSubscription.status === 'Cancelled')) {
             Paddle.Checkout.open(
                 {
                     method: 'inline',
@@ -79,10 +83,11 @@ const UpgradePlanModal: FC<Props> = ({ visible, onClose, onSuccess, plan }) => {
         userInfo?.lastName,
         visible,
         workspace.id,
-        workspace.type
+        workspace.type,
+        currentSubscription.status
     ]);
 
-    if (workspace.type !== 'Free') {
+    if (workspace.type !== 'Free' && currentSubscription.status === 'Active') {
         return <></>
     }
 

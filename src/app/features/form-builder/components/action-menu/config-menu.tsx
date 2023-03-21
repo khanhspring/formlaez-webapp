@@ -69,7 +69,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
         }
         confirm({
             title: 'Confirm',
-            content: 'Are you sure to delete this?',
+            content: 'Are you sure you want to delete this?',
             onOk: handleDelete
         });
     }

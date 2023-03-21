@@ -29,6 +29,13 @@
     background: linear-gradient(45deg, #ff4ab3 8%, #7ff 24%, #fcd246 46%, #9ffe00 75%, #417efd 93%);
 }
 
+.logo-bg {
+    background: linear-gradient(45deg, #ff4ab3 8%, #7ff 24%, #fcd246 46%, #9ffe00 75%, #417efd 93%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -43,6 +50,7 @@ input:-webkit-autofill:active {
     background-position: right -10px top -10px;
     background-size: 60px;
 }
+
 .dark .team-item {
     background-image: url("../assets/images/team-dark-bg.svg");
 }
@@ -57,7 +65,7 @@ input:-webkit-autofill:active {
 }
 
 .box-shadow-none {
-    box-shadow: none!important;
+    box-shadow: none !important;
 }
 
 hr {

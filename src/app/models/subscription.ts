@@ -7,3 +7,8 @@ export type Subscription = {
     cancelUrl: string;
     status: 'Active' | 'Cancelled';
 }
+
+export type ChangeWorkspacePlanRequest = {
+    type: WorkspaceType;
+    workspaceId: number;
+}

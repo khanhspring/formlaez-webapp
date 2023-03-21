@@ -4,7 +4,7 @@ import {WorkspaceType} from '../models/workspace';
 export type PlanInfo = {
     code: WorkspaceType;
     name: string;
-    productId: number;
+    productId: string;
     formLimit: number;
     documentMergePerMonth: number;
     submissionPerMonth: number;
@@ -17,7 +17,7 @@ export type PlanInfo = {
 export const FreePlan: PlanInfo = {
     code: 'Free',
     name: 'Free',
-    productId: -1,
+    productId: "-1",
     icon: <i className="fi fi-rr-gift"></i>,
     price: 0,
     formLimit: 5,
@@ -30,7 +30,7 @@ export const FreePlan: PlanInfo = {
 export const PlusPlan: PlanInfo = {
     code: 'Plus',
     name: 'Plus',
-    productId: 47512,
+    productId: process.env.REACT_APP_PLAN_PLUS_ID || '-1',
     icon: <i className="fi fi-rr-flame"></i>,
     price: 25,
     formLimit: 20,
@@ -43,7 +43,7 @@ export const PlusPlan: PlanInfo = {
 export const BusinessPlan: PlanInfo = {
     code: 'Business',
     name: 'Business',
-    productId: 47513,
+    productId: process.env.REACT_APP_PLAN_BUSINESS_ID || '-1',
     icon: <i className="fi fi-rr-comet"></i>,
     price: 40,
     formLimit: 100,

@@ -26,27 +26,24 @@ const userSessionLoader = async (data: any) => {
       return redirect('/onboarding');
     }
     return userSession;
-  } catch (e) {
-    // return null to avoid error
-    return null;
+  } catch (e: any) {
+    return redirect('/logout');
   }
 };
 
 const workspaceLoader = async ({ params }: { params: Params }) => {
   try {
     return await WorkspaceService.getByCode(params['workspaceCode']);
-  } catch (e) {
-    // return null to avoid error
-    return null;
+  } catch (e: any) {
+    return redirect('/error');
   }
 };
 
 const teamLoader = async ({ params }: { params: Params }) => {
   try {
     return await TeamService.getByCode(params['teamCode']);
-  } catch (e) {
-    // return null to avoid error
-    return null;
+  } catch (e: any) {
+    return redirect('/error');
   }
 };
 
@@ -112,6 +109,10 @@ const router = createBrowserRouter([
                       {
                         path: 'billing',
                         element: lazyLoad('settings/workspace-billing', true),
+                      },
+                      {
+                        path: 'usages',
+                        element: lazyLoad('settings/workspace-usages', true),
                       }
                     ]
                   },
@@ -249,6 +250,10 @@ const router = createBrowserRouter([
           {
             path: "errors/401",
             element: <Error401 />
+          },
+          {
+            path: "error",
+            element: <Error />
           }
         ]
       }

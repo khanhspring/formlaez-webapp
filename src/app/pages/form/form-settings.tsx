@@ -87,7 +87,7 @@ function FormSettings() {
     const showArchiveConfirm = () => {
         confirm({
             title: 'Confirm',
-            content: 'Are you sure to archive this form?',
+            content: 'Are you sure you want to archive this form?',
             onOkAsync: onArchive
         })
     }
@@ -108,7 +108,7 @@ function FormSettings() {
     const showUnarchiveConfirm = () => {
         confirm({
             title: 'Confirm',
-            content: 'Are you sure to unarchive this form?',
+            content: 'Are you sure you want to unarchive this form?',
             onOkAsync: onUnarchive
         })
     }
@@ -140,7 +140,7 @@ function FormSettings() {
     const showRemoveConfirm = () => {
         confirm({
             title: 'Confirm',
-            content: 'Are you sure to delete this form?',
+            content: 'Are you sure you want to delete this form?',
             onOk: showRemoveDoubleConfirm
         })
     }

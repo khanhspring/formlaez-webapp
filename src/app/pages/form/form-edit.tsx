@@ -45,7 +45,7 @@ function FormEdit() {
     const showPublishConfirm = () => {
         confirm({
             title: 'Confirm',
-            content: 'Are you sure to publish this form?',
+            content: 'Are you sure you want to publish this form?',
             onOkAsync: onPublish
         })
     }

@@ -348,7 +348,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
     const showArchiveConfirm = (submission: FormSubmission) => {
         confirm({
             title: 'Confirm',
-            content: 'Are you sure to delete this submission?',
+            content: 'Are you sure you want to delete this submission?',
             onOkAsync: () => confirmArchive(submission.code)
         })
     }

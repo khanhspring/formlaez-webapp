@@ -1,13 +1,18 @@
 import moment from "moment";
 import { useState } from "react";
 import { FormattedNumber } from "react-intl";
-import { useRouteLoaderData } from "react-router-dom";
+import { useRevalidator, useRouteLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
 import Button from "../../components/common/button";
+import confirm from "../../components/common/confirm/confirm";
 import { BusinessPlan, FreePlan, Plans, PlusPlan } from "../../constants/plans";
+import useChangeWorkspacePlan from "../../hooks/subscription/useChangeWorkspacePlan";
 import useCurrentSubscription from "../../hooks/subscription/useCurrentSubscription";
-import { Workspace } from "../../models/workspace";
+import { ChangeWorkspacePlanRequest } from "../../models/subscription";
+import { Workspace, WorkspaceType } from "../../models/workspace";
+import { showErrorIgnore403 } from "../../util/common";
 import UpgradePlanModal from "./components/upgrade-plan-modal";
-import UpgradePlanSuccessModal from "./components/upgrade-plan-sucess-modal";
+import UpgradePlanSuccessModal from "./components/upgrade-plan-success-modal";
 
 function WorkspaceBilling() {
     const workspace = useRouteLoaderData("workspace") as Workspace;
@@ -18,6 +23,9 @@ function WorkspaceBilling() {
     const currentPlan = Plans[workspace.type] || FreePlan;
     const { data: currentSubscription, refetch: refetchCurrentSubscription } = useCurrentSubscription(workspace.id);
 
+    const {mutateAsync: changePlan} = useChangeWorkspacePlan();
+    const { revalidate } = useRevalidator();
+
     const onSelectPlan = (plan: string) => {
         setSelectedPlan(plan);
         setUpgradeVisible(true);
@@ -26,6 +34,29 @@ function WorkspaceBilling() {
     const onSuccess = () => {
         setUpgradeSuccessVisible(true);
         refetchCurrentSubscription();
+        revalidate();
+    }
+
+    const confirmChangePlan = (type: WorkspaceType) => {
+        const request: ChangeWorkspacePlanRequest = {
+            workspaceId: workspace.id,
+            type: type
+        };
+        return changePlan(request, {
+            onError: (e) => showErrorIgnore403(e),
+            onSuccess: () => {
+                toast.success("Changed plan successfully!");
+                revalidate();
+            }
+        })
+    }
+
+    const showConfirmChangePlan = (type: WorkspaceType) => {
+        confirm({
+            title: 'Confirm',
+            content: 'Change workspace plan to ' + type,
+            onOkAsync: () => confirmChangePlan(type)
+        })
     }
 
     return (
@@ -43,14 +74,35 @@ function WorkspaceBilling() {
                             {workspace.type === 'Enterprise' && <i className="fi fi-rr-diamond text-3xl"></i>}
                             <span className="text-lg font-bold">{workspace.type} Plan</span>
                             {
-                                currentSubscription?.status === 'Active' &&
-                                <a href={currentSubscription?.cancelUrl} target="_blank" rel="noreferrer">
-                                    <Button className="mt-2" status="danger">Unsubscribe</Button>
-                                </a>
+                                currentSubscription?.status === 'Cancelled' && currentSubscription.validTill &&
+                                <div className="text-sm italic flex flex-col items-center gap-1">
+                                    <div className="flex justify-center gap-1.5">
+                                        <span>Valid till {moment(currentSubscription.validTill).format("YYYY MMM DD")}</span>
+                                        {
+                                            !moment().isAfter(moment(currentSubscription.validTill)) &&
+                                            <i className="fi fi-sr-triangle-warning text-yellow-600 text-lg"></i>
+                                        }
+                                        {
+                                            moment().isAfter(moment(currentSubscription.validTill)) &&
+                                            <i className="fi fi-sr-triangle-warning text-rose-700 text-lg"></i>
+                                        }
+                                    </div>
+                                    <p>After this day your workspace will be changed to Free plan</p>
+                                </div>
                             }
                             {
-                                currentSubscription?.status === 'Cancelled' && currentSubscription.validTill &&
-                                <span className="text-sm italic">(Valid till {moment(currentSubscription.validTill).format("YYYY MMM DD")})</span>
+                                currentSubscription?.status === 'Active' && currentSubscription.validTill &&
+                                <div className="text-sm italic flex flex-col items-center gap-1">
+                                    <span>
+                                        Auto renew on {moment(currentSubscription.validTill).format("YYYY MMM DD")}
+                                    </span>
+                                </div>
+                            }
+                            {
+                                currentSubscription?.status === 'Active' &&
+                                <a href={currentSubscription?.cancelUrl} target="_blank" rel="noreferrer">
+                                    <Button className="mt-2 text-white" status="danger">Unsubscribe</Button>
+                                </a>
                             }
                             {
                                 currentSubscription?.status === 'Cancelled' &&
@@ -87,8 +139,19 @@ function WorkspaceBilling() {
                     </div>
                 </div>
 
-                <div className="mt-7 border-t border-slate-900/10 dark:border-cinder-700">
-                    <table className="mt-7 w-full">
+                <div className="mt-9 pt-3 border-t border-slate-900/10 dark:border-cinder-700">
+                    <p className="text-sm italic">
+                        We always appreciate your feedback to improve the system better and better.
+                    </p>
+                    <p className="text-sm italic">
+                        Leave your feedback
+                        <a href={process.env.REACT_APP_FEEDBACK_URL} target="_blank" rel="noreferrer" className="underline text-blue-700 mx-1 cursor-pointer">here</a>
+                        to receive discount code up to 10%
+                    </p>
+                </div>
+
+                <div className="mt-3">
+                    <table className="w-full">
                         <thead>
                             <tr>
                                 <th className="border border-slate-900/10 dark:border-cinder-600 px-3 py-5 align-bottom">
@@ -125,18 +188,45 @@ function WorkspaceBilling() {
                                             <span className="font-bold text-lg">${PlusPlan.price}</span>
                                         </div>
                                         {
-                                            workspace.type === 'Plus' &&
+                                            workspace.type === 'Plus' && currentSubscription?.status !== 'Cancelled' &&
                                             <span className="text-sm mt-2 w-full px-2.5 py-1.5 rounded flex justify-center items-center gap-1 bg-slate-200 dark:bg-cinder-700 border border-slate-900/10 dark:border-cinder-600">
                                                 Current plan
                                             </span>
                                         }
                                         {
-                                            workspace.type !== 'Plus' &&
+                                            workspace.type === 'Plus' && currentSubscription?.status === 'Cancelled' &&
                                             <Button
                                                 onClick={() => onSelectPlan('Plus')}
                                                 className="w-full mt-2"
                                             >
-                                                {workspace.type !== 'Free' ? 'Change' : 'Upgrade'}
+                                                Resubscribe
+                                            </Button>
+                                        }
+                                        {
+                                            workspace.type !== 'Plus' && workspace.type !== 'Free' && currentSubscription?.status === 'Cancelled' &&
+                                            <Button
+                                                onClick={() => onSelectPlan('Plus')}
+                                                className="w-full mt-2"
+                                            >
+                                                Subscribe
+                                            </Button>
+                                        }
+                                        {
+                                            workspace.type !== 'Plus' && workspace.type !== 'Free' && currentSubscription?.status === 'Active' &&
+                                            <Button
+                                                onClick={() => showConfirmChangePlan('Plus')}
+                                                className="w-full mt-2"
+                                            >
+                                                Change
+                                            </Button>
+                                        }
+                                        {
+                                            workspace.type !== 'Plus' && workspace.type === 'Free' &&
+                                            <Button
+                                                onClick={() => onSelectPlan('Plus')}
+                                                className="w-full mt-2"
+                                            >
+                                                Upgrade
                                             </Button>
                                         }
                                     </div>
@@ -152,18 +242,45 @@ function WorkspaceBilling() {
                                             <span className="font-bold text-lg">${BusinessPlan.price}</span>
                                         </div>
                                         {
-                                            workspace.type === 'Business' &&
+                                            workspace.type === 'Business' && currentSubscription?.status !== 'Cancelled' &&
                                             <span className="text-sm mt-2 w-full px-2.5 py-1.5 rounded flex justify-center items-center gap-1 bg-slate-200 dark:bg-cinder-700 border border-slate-900/10 dark:border-cinder-600">
                                                 Current plan
                                             </span>
                                         }
                                         {
-                                            workspace.type !== 'Business' &&
+                                            workspace.type === 'Business' && currentSubscription?.status === 'Cancelled' &&
                                             <Button
                                                 onClick={() => onSelectPlan('Business')}
                                                 className="w-full mt-2"
                                             >
-                                                {workspace.type !== 'Free' ? 'Change' : 'Upgrade'}
+                                                Resubscribe
+                                            </Button>
+                                        }
+                                        {
+                                            workspace.type !== 'Business' && workspace.type !== 'Free' && currentSubscription?.status === 'Cancelled' &&
+                                            <Button
+                                                onClick={() => onSelectPlan('Business')}
+                                                className="w-full mt-2"
+                                            >
+                                                Subscribe
+                                            </Button>
+                                        }
+                                        {
+                                            workspace.type !== 'Business' && workspace.type !== 'Free' && currentSubscription?.status === 'Active' &&
+                                            <Button
+                                                onClick={() => showConfirmChangePlan('Business')}
+                                                className="w-full mt-2"
+                                            >
+                                                Change
+                                            </Button>
+                                        }
+                                        {
+                                            workspace.type !== 'Business' && workspace.type === 'Free' &&
+                                            <Button
+                                                onClick={() => onSelectPlan('Business')}
+                                                className="w-full mt-2"
+                                            >
+                                                Upgrade
                                             </Button>
                                         }
                                     </div>
@@ -241,17 +358,64 @@ function WorkspaceBilling() {
                                     <FormattedNumber value={BusinessPlan.workspaceMember} />
                                 </td>
                             </tr>
+                            <tr>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                                    Teams
+                                </td>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                    Unlimited
+                                </td>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                    Unlimited
+                                </td>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                    Unlimited
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                                    Document templates
+                                </td>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                    Unlimited
+                                </td>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                    Unlimited
+                                </td>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                    Unlimited
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                                    Workspace joining per user
+                                </td>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                    Unlimited
+                                </td>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                    Unlimited
+                                </td>
+                                <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-cinder-600/50' : ''}`}>
+                                    Unlimited
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
+
+                <div className="mt-3">
+                    <p className="text-sm italic">Note: After you subscribe, you can cancel whenever you want.</p>
+                </div>
             </div>
             {
-                selectedPlan &&
+                selectedPlan && currentSubscription &&
                 <UpgradePlanModal
                     visible={upgradeVisible}
                     onClose={() => setUpgradeVisible(false)}
                     plan={selectedPlan}
                     onSuccess={onSuccess}
+                    currentSubscription={currentSubscription}
                 />
             }
             {

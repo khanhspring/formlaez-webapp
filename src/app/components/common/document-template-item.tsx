@@ -3,6 +3,7 @@ import Dropdown from 'rc-dropdown';
 import Menu, { MenuItem } from 'rc-menu';
 import Tooltip from 'rc-tooltip';
 import { FC, useState } from 'react';
+import { FormattedNumber } from 'react-intl';
 import { DocumentTemplate } from '../../models/document-template';
 
 type Props = {
@@ -88,7 +89,7 @@ const DocumentTemplateItem: FC<Props> = ({ documentTemplate, onClick, onEdit, on
                     <div className="flex items-center gap-1">
                         <i className="fi fi-rr-document text-xs"></i>
                         <span className="text-xs">
-                            {(documentTemplate.size / 100).toFixed(2)} KB
+                            <FormattedNumber value={Math.round((documentTemplate.size || 0) / 1024)} /> KB
                         </span>
                     </div>
                 </div>

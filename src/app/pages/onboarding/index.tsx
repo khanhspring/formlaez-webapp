@@ -80,7 +80,6 @@ const Onboarding: FC<Props> = () => {
                 formVisible &&
                 <div className='flex flex-col items-center gap-5 pb-20 pt-5 min-w-[300px] animate-fade-in-slow'>
                     <div className='flex flex-col items-center'>
-                        <h2 className='text-lg'>You have not joined any workspace.</h2>
                         <p className='text-lg'>Create your own workspace</p>
                         <p className='text-lg'>and experience the exciting features now</p>
                     </div>

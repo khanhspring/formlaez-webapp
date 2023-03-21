@@ -34,11 +34,18 @@ function getByFormId(formId?: number): Promise<DocumentTemplate[]> {
   );
 }
 
+function remove(id: number): Promise<any> {
+  return RestClient.delete<ResponseId>("/admin/document-templates/" + id).then(
+    (response) => response.data
+  );
+}
+
 const DocumentTemplateService = {
     search,
     create,
     update,
-    getByFormId
+    getByFormId,
+    remove
 };
 
 export default DocumentTemplateService;

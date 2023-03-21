@@ -19,13 +19,17 @@ const UpgradePlanSuccessModal: FC<Props> = ({ visible, onClose, plan }) => {
             hideCancel
             hideOk
         >
-            <div className="p-10 py-16 flex gap-5">
+            <div className="py-16 flex gap-5 flex-col justify-center items-center">
                 <div className="w-20 h-20 bg-emerald-700 rounded-full flex justify-center items-center">
                     <i className="fi fi-br-check text-3xl"></i>
                 </div>
-                <div className="flex-1 flex items-center">
-                    <p className="text-lg font-semibold">
-                        Congratulations! You have successfully upgraded your workspace to plan {selectedPlan.name}.
+                <div className="w-full flex flex-col justify-center items-center gap-3">
+                    <h1 className="text-2xl font-semibold">Congratulations!</h1>
+                    <p className="text-base">
+                        You have successfully change your workspace to plan {selectedPlan.name}.
+                    </p>
+                    <p className="text-3xl">
+                        😍🥳🎉
                     </p>
                 </div>
             </div>

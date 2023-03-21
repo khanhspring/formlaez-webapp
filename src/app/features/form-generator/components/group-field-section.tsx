@@ -19,7 +19,7 @@ const GroupFieldSection: FC<Props> = ({ section }) => {
     const onRemove = (remove: (index: number) => void, index: number) => {
         confirm({
             title: 'Confirm',
-            content: 'Are you sure to delete this?',
+            content: 'Are you sure you want to delete this?',
             onOk: () => remove(index)
         })
     }
