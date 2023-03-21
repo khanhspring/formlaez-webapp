@@ -1,9 +1,8 @@
-import LogoIcon from "../icons/logo-icon";
 
 function Logo() {
     return (
-        <h1 className="w-9 select-none">
-            <LogoIcon />
+        <h1 className="w-full select-none flex justify-center items-center font-bold text-sm">
+            FORMIFY
         </h1>
     );
 }
