@@ -44,7 +44,6 @@ const UpgradePlanModal: FC<Props> = ({ visible, onClose, onSuccess, plan }) => {
 
     }, [getWorkspace, onClose, onSuccess, revalidate, workspace.code])
 
-
     useEffect(() => {
         return () => {
             if (intervalRef.current) {
@@ -54,7 +53,7 @@ const UpgradePlanModal: FC<Props> = ({ visible, onClose, onSuccess, plan }) => {
     }, [])
 
     useEffect(() => {
-        if (visible && selectedPlan) {
+        if (visible && selectedPlan && workspace.type === 'Free') {
             Paddle.Checkout.open(
                 {
                     method: 'inline',
@@ -79,8 +78,13 @@ const UpgradePlanModal: FC<Props> = ({ visible, onClose, onSuccess, plan }) => {
         userInfo?.id,
         userInfo?.lastName,
         visible,
-        workspace.id
+        workspace.id,
+        workspace.type
     ]);
+
+    if (workspace.type !== 'Free') {
+        return <></>
+    }
 
     return (
         <Modal
