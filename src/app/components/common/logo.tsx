@@ -1,7 +1,7 @@
 
 function Logo() {
     return (
-        <h1 className="logo-bg w-full select-none flex justify-center items-center font-black text-sm">
+        <h1 className="w-full select-none flex justify-center items-center font-black text-sm">
             FORMIFY
         </h1>
     );

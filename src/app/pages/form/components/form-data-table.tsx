@@ -135,6 +135,13 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                 </>
             )
         }
+        if (field.type === 'Signature') {
+            return (
+                <>
+                    {rawValue && <i className="fi fi-rr-attribution-pencil"></i>}
+                </>
+            )
+        }
         return rawValue;
     }
 
@@ -458,14 +465,6 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
             <div className="flex items-center justify-between min-h-[40px] mt-3">
                 <div className="flex items-center gap-3">
                     <span>Total {formData?.totalElements || 0}</span>
-                    {/** API not supported yet
-                        <div className="relative hidden md:block">
-                            <div className="absolute w-7 h-full flex items-center justify-center text-xs text-gray-500">
-                                <i className="fi fi-rr-search"></i>
-                            </div>
-                            <input placeholder="Search" className="px-1 py-1.5 pl-7 bg-gray-200/70 dark:bg-cinder-700 rounded outline-none text-sm border border-slate-900/10 dark:border-cinder-600" />
-                        </div>
-                     */}
                     <Dropdown overlay={dateRange} trigger={['click']} placement="bottomRight">
                         <div className="hidden md:flex gap-2 py-1.5 px-3 cursor-pointer bg-slate-50 dark:bg-cinder-700 rounded items-center justify-center border border-slate-900/10 dark:border-cinder-600">
                             <i className="fi fi-rr-calendar text-xs text-gray-500"></i>

@@ -149,6 +149,17 @@ export const FormControlConfigFields: ConfigField[] = [
             required: true,
         })
     },
+    {
+        name: "Signature",
+        description: "Add a signature pad",
+        default: () => ({
+            code: nanoid(),
+            type: "Signature",
+            variableName: newId(),
+            title: "Signature",
+            required: true,
+        })
+    },
 ];
 
 export const DecoratorConfigFields: ConfigField[] = [

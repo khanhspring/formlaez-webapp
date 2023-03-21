@@ -15,6 +15,7 @@ import PdfField from "./pdf-field";
 import PictureChoiceField from "./picture-choice-field";
 import QrCodeField from "./qr-code-field";
 import RatingField from "./rating-field";
+import SignatureField from "./signature-field";
 import SwitchField from "./switch-field";
 import TextField from "./text-field";
 import TwitterTweetField from "./twitter-tweet-field";
@@ -63,6 +64,7 @@ const FieldItem: FC<Props> = ({ type, sectionIndex, index, section, field, ...dr
             case 'Dropdown': return <DropdownField field={field} context={actionContext} />;
             case 'PictureChoice': return <PictureChoiceField field={field} context={actionContext} />;
             case 'MultipleChoice': return <MultipleChoiceField field={field} context={actionContext} />;
+            case 'Signature': return <SignatureField field={field} context={actionContext} />;
         }
     }
 

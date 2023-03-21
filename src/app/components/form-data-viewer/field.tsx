@@ -65,6 +65,13 @@ const Field: FC<Props> = ({ field, data, showContentBlocks }) => {
                 </>
             )
         }
+        if (field.type === 'Signature') {
+            return (
+                <div className='bg-white rounded'>
+                    {rawValue && <img src={rawValue} alt={field.title}/>}
+                </div>
+            )
+        }
         return rawValue;
     }
 

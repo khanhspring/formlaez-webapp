@@ -7,6 +7,7 @@ import InputNumber from "../../../components/form/form-controls/input-number";
 import MultipleChoice from "../../../components/form/form-controls/multiple-choice";
 import OpinionScale from "../../../components/form/form-controls/opinion-scale";
 import Rating from "../../../components/form/form-controls/rating";
+import SignaturePad from "../../../components/form/form-controls/signature-pad";
 import Switch from "../../../components/form/form-controls/switch";
 import Textarea from "../../../components/form/form-controls/textarea";
 import FormItem from "../../../components/form/form-item";
@@ -87,6 +88,8 @@ const FieldItem: FC<Props> = ({ field, name }) => {
                 return <Rating />
             case "MultipleChoice":
                 return <MultipleChoice options={options} multipleSelection={field.multipleSelection} />
+            case "Signature":
+                return <SignaturePad />
 
             // content blocks
             case "Line":

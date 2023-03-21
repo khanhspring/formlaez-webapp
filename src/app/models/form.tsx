@@ -6,7 +6,7 @@ import { Workspace } from "./workspace";
 const FORM_SECTION_TYPES = ['Single', 'Group', 'Table'] as const;
 export type FormSectionType = typeof FORM_SECTION_TYPES[number];
 
-const FORM_FIELD_TYPES = ['Text', 'InputText', 'Image', 'Video', 'Pdf', 'Line', 'QRCode', 'TwitterTweet', 'InputNumber', 'Datetime', 'LongText', 'Email', 'Rating', 'OpinionScale', 'Switch', 'Dropdown', 'PictureChoice', 'MultipleChoice'] as const;
+const FORM_FIELD_TYPES = ['Text', 'InputText', 'Image', 'Video', 'Pdf', 'Line', 'QRCode', 'TwitterTweet', 'InputNumber', 'Datetime', 'LongText', 'Email', 'Rating', 'OpinionScale', 'Switch', 'Dropdown', 'PictureChoice', 'MultipleChoice', 'Signature'] as const;
 export type FormFieldType = typeof FORM_FIELD_TYPES[number];
 
 export type Meta = {
