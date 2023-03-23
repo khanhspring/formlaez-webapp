@@ -59,6 +59,14 @@ function WorkspaceBilling() {
         })
     }
 
+    if (process.env.REACT_APP_BILLING_ENABLED !== 'true') {
+        return (
+            <div className="flex justify-center items-center text-sm h-full">
+                This feature is currently unavailable
+            </div>
+        )
+    }
+
     return (
         <>
             <div className='px-6 py-4 border-b border-slate-900/10 dark:border-cinder-700'>

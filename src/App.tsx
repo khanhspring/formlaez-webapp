@@ -10,6 +10,7 @@ import PrimaryLayout from "./app/layouts/primary";
 import Error401 from "./app/pages/auth/error-401";
 import LoginCode from "./app/pages/auth/login-code";
 import Logout from "./app/pages/auth/logout";
+import SignUp from "./app/pages/auth/sign-up";
 import Error from "./app/pages/error/Error";
 import HomePage from "./app/pages/home";
 import Private from "./app/pages/private";
@@ -254,6 +255,10 @@ const router = createBrowserRouter([
           {
             path: "error",
             element: <Error />
+          },
+          {
+            path: "sign-up",
+            element: <SignUp />
           }
         ]
       }

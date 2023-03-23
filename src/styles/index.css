@@ -40,8 +40,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 50px #1E1E2D inset !important;
-    -webkit-text-fill-color: white !important;
+    -webkit-box-shadow: none!important;
+    -webkit-text-fill-color: inherit!important;
 }
 
 .team-item {

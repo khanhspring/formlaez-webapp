@@ -111,7 +111,7 @@ function FormSubmitted() {
             <div className="w-full flex justify-center mt-10">
                 <div className="mx-auto h-10 flex items-center justify-center gap-2 dark:text-gray-300 text-xs">
                     <span>2023©</span>
-                    <a href="https://formlaez.com" rel="noreferrer" target="_blank" className="hover:text-sky-500">Formlaez.com</a>
+                    <a href="https://formini.so" rel="noreferrer" target="_blank" className="hover:text-sky-500">Formini.so</a>
                 </div>
             </div>
         </div>

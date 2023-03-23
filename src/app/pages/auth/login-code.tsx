@@ -17,6 +17,7 @@ const LoginCode: FC<Props> = () => {
     let from = searchParams.get("state") || "/";
 
     useEffect(() => {
+        console.log(from, loginCode)
         if (loginCode) {
             dispatch(getToken(loginCode))
                 .then(() => {

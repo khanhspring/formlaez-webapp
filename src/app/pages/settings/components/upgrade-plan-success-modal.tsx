@@ -26,7 +26,7 @@ const UpgradePlanSuccessModal: FC<Props> = ({ visible, onClose, plan }) => {
                 <div className="w-full flex flex-col justify-center items-center gap-3">
                     <h1 className="text-2xl font-semibold">Congratulations!</h1>
                     <p className="text-base">
-                        You have successfully change your workspace to plan {selectedPlan.name}.
+                        You have successfully changed your workspace to plan {selectedPlan.name}.
                     </p>
                     <p className="text-3xl">
                         😍🥳🎉

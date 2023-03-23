@@ -26,7 +26,7 @@ export const showError = () => {
     toast.error("There was an error has ocurred. Please try again!")
 };
 
-export const showErrorIgnore403 = (error: any) => {
+export const showErrorIgnore403 = (error: any, message?: string) => {
     if (error.response?.status === 403) {
         return;
     }
@@ -34,7 +34,7 @@ export const showErrorIgnore403 = (error: any) => {
         toast.error("Your workspace has reached its usage limit. Please contact owners for more detail.", {autoClose: 5500})
         return;
     }
-    toast.error("There was an error has ocurred. Please try again!")
+    toast.error(message || "There was an error has ocurred. Please try again!")
 };
 
 export const showSuccess = () => {

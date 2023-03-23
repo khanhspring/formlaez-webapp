@@ -6,9 +6,10 @@ type Props = InputHTMLAttributes<any> & {
     status?: FieldStatus;
     suffix?: string | ReactElement<any>;
     wrapClassName?: string;
+    type?: 'text' | 'password';
 }
 
-const Input: FC<Props> = ({ className = '', status, value, suffix, wrapClassName, ...rest }) => {
+const Input: FC<Props> = ({ className = '', status, value, suffix, wrapClassName, type = 'text', ...rest }) => {
 
     const [internalValue, setInternalValue] = useState(value);
     const onValueChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,6 +34,7 @@ const Input: FC<Props> = ({ className = '', status, value, suffix, wrapClassName
                     'w-full outline-none px-4 py-2 text-sm bg-transparent placeholder:text-gray-500 rounded-l '
                     + className
                 }
+                type={type}
             />
             {
                 suffix &&

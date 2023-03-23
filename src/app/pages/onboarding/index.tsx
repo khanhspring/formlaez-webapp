@@ -73,7 +73,7 @@ const Onboarding: FC<Props> = () => {
             {
                 greetingVisible &&
                 <h2 className={`text-3xl mb-10 font-sans font-thin animate-fade-in-slow ${greetingHiding ? 'animate-fade-out-slow' : ''}`}>
-                    Hi there, welcome to Formlaez
+                    Hi there, welcome to Formini
                 </h2>
             }
             {
