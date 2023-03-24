@@ -61,8 +61,8 @@ function WorkspaceBilling() {
 
     if (process.env.REACT_APP_BILLING_ENABLED !== 'true') {
         return (
-            <div className="flex justify-center items-center text-sm h-full">
-                This feature is currently unavailable
+            <div className="flex-1 flex justify-center items-center">
+                <span className="text-sm italic">This feature is currently unavailable</span>
             </div>
         )
     }

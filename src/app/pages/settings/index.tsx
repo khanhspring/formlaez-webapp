@@ -65,7 +65,7 @@ function Settings() {
                     </Link>
                 </div>
             </div>
-            <div className="flex-1 bg-slate-50 dark:bg-cinder-800 flex flex-col rounded">
+            <div className="flex-1 bg-slate-50 dark:bg-cinder-800 flex flex-col rounded min-h-full">
                 <Outlet />
             </div>
         </div>

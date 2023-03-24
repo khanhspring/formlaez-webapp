@@ -1,13 +1,16 @@
 import Form from 'rc-field-form';
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import googleIcon from '../../../assets/images/google-icon.svg';
+import logo from "../../../assets/images/logo-w.svg";
 import Button from '../../components/common/button';
 import Input from '../../components/form/form-controls/input';
 import FormItem from '../../components/form/form-item';
+import { useAppSelector } from '../../hooks/redux-hook';
 import useConfirmSignUp from '../../hooks/sign-up/useConfirmSignUp';
 import useSignUp from '../../hooks/sign-up/useSignUp';
 import { ConfirmSignUpRequest, SignUpRequest } from '../../models/sign-up';
+import { selectTheme } from '../../slices/app-config';
 import { showErrorIgnore403 } from '../../util/common';
 
 const SignUp = () => {
@@ -18,6 +21,7 @@ const SignUp = () => {
     const { mutateAsync: confirmSignUp, isLoading: isConfirmLoading } = useConfirmSignUp();
     const [countdown, setCountdown] = useState(5);
     const intervalRef = useRef<any>();
+    const theme = useAppSelector(selectTheme);
 
     useEffect(() => {
         return () => {
@@ -248,7 +252,9 @@ const SignUp = () => {
             </div>
             <div className="bg-auth bg-cover flex-1 flex items-center justify-center">
                 <div className='w-full flex flex-col justify-center items-center'>
-                    <h1 className='text-white font-black text-3xl'>FORMINI</h1>
+                    <h1 className='text-white font-black text-3xl'>
+                        <img src={logo} alt="logo" className='h-10' />
+                    </h1>
                     <p className='mt-5 text-white font-semibold text-2xl text-center'>
                         Multipurpose online forms
                         <br />

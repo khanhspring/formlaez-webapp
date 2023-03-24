@@ -34,7 +34,7 @@ export const showErrorIgnore403 = (error: any, message?: string) => {
         toast.error("Your workspace has reached its usage limit. Please contact owners for more detail.", {autoClose: 5500})
         return;
     }
-    toast.error(message || "There was an error has ocurred. Please try again!")
+    toast.error(message || "Something went wrong. Please try again!")
 };
 
 export const showSuccess = () => {

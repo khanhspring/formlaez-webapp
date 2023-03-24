@@ -19,7 +19,8 @@
     <div id="root"></div>
     <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
     <script type="text/javascript">
-      Paddle.Setup({ vendor: "%REACT_APP_PADDLE_VENDOR_ID%" });
+      const vendorId = "%REACT_APP_PADDLE_VENDOR_ID%";
+      Paddle.Setup({ vendor: +vendorId });
       Paddle.Environment.set("%REACT_APP_PADDLE_ENV%");
     </script>
   </body>
