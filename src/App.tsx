@@ -92,6 +92,10 @@ const router = createBrowserRouter([
                     element: lazyLoad('form/form-settings', true)
                   },
                   {
+                    path: "p/f/:formCode/analysis",
+                    element: lazyLoad('form/form-data-analysis', true)
+                  },
+                  {
                     path: "t",
                     element: lazyLoad('team', true)
                   },
@@ -137,6 +141,10 @@ const router = createBrowserRouter([
                       {
                         path: "f/:formCode/document-templates",
                         element: lazyLoad('form/document-templates', true)
+                      },
+                      {
+                        path: "f/:formCode/analysis",
+                        element: lazyLoad('form/form-data-analysis', true)
                       },
                       {
                         path: "t/:teamCode",

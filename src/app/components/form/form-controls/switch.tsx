@@ -1,5 +1,5 @@
 import RcSwitch from "rc-switch";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { FieldStatus } from "../form-types";
 
 type Props = {
@@ -8,8 +8,11 @@ type Props = {
     value?: any;
 }
 
-const Switch: FC<Props> = ({ status, onChange = () => {}, value, ...rest }) => {
+const Switch: FC<Props> = ({ status, onChange = () => {}, value = false, ...rest }) => {
 
+    useEffect(() => {
+        onChange?.(value);
+    }, []);
 
     return (
         <RcSwitch

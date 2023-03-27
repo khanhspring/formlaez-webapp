@@ -7,7 +7,7 @@ import StringUtils from "../../../util/string-utils";
 type Props = {
     form?: Form;
 }
-const FormPageMenu: FC<Props> = ({form}) => {
+const FormPageMenu: FC<Props> = ({ form }) => {
 
     const workspace = useRouteLoaderData("workspace") as Workspace;
     const { pathname } = useLocation();
@@ -38,6 +38,14 @@ const FormPageMenu: FC<Props> = ({form}) => {
                     + ` ${isActive(params.formCode) ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`
                 }>
                     Database
+                </span>
+            </Link>
+            <Link to={`/${urlPrefix}/f/${params.formCode}/analysis`}>
+                <span className={
+                    `text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer`
+                    + ` ${isActive('analysis') ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`
+                }>
+                    Analysis
                 </span>
             </Link>
             <Link to={`/f/${params.formCode}/builder`}>
