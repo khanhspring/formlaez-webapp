@@ -1,5 +1,6 @@
 import moment from "moment";
 import { useState } from "react";
+import ReactConfetti from "react-confetti";
 import { FormattedNumber } from "react-intl";
 import { useRevalidator, useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -23,7 +24,7 @@ function WorkspaceBilling() {
     const currentPlan = Plans[workspace.type] || FreePlan;
     const { data: currentSubscription, refetch: refetchCurrentSubscription } = useCurrentSubscription(workspace.id);
 
-    const {mutateAsync: changePlan} = useChangeWorkspacePlan();
+    const { mutateAsync: changePlan } = useChangeWorkspacePlan();
     const { revalidate } = useRevalidator();
 
     const onSelectPlan = (plan: string) => {
@@ -433,6 +434,12 @@ function WorkspaceBilling() {
                     plan={selectedPlan}
                     onClose={() => setUpgradeSuccessVisible(false)}
                 />
+            }
+            {
+                selectedPlan && upgradeSuccessVisible &&
+                <div className="fixed top-0 left-0 w-full h-screen overflow-hidden pointer-events-none z-[1100]">
+                    <ReactConfetti gravity={0.15} />
+                </div>
             }
         </>
     );
