@@ -9,12 +9,18 @@ type Props = {
     analysisItem: FormDataAnalysisItem;
 }
 
-const SwitchChart: FC<Props> = ({ analysisItem }) => {
+const DropdownChart: FC<Props> = ({ analysisItem }) => {
 
     const theme = useAppSelector(selectTheme);
 
-    const trueValue = analysisItem.values.find(item => item.value === 'true') || { count: 0 };
-    const falseValue = analysisItem.values.find(item => item.value === 'false') || { count: 0 };
+    const dropdownOptions = analysisItem.field.options || [];
+
+    const getLabel = (val?: any) => {
+        const result = dropdownOptions.find(item => item.code === val);
+        return result?.label || 'Unknown';
+    }
+
+    const data: any[] = analysisItem.values.map(item => ({value: item.count, name: getLabel(item.value)})) || [];
 
     const option: EChartsOption = {
         tooltip: {
@@ -24,10 +30,7 @@ const SwitchChart: FC<Props> = ({ analysisItem }) => {
             {
                 type: 'pie',
                 radius: '80%',
-                data: [
-                    { value: trueValue.count, name: 'Yes' },
-                    { value: falseValue.count, name: 'No' },
-                ],
+                data: [...data],
                 emphasis: {
                     itemStyle: {
                         shadowBlur: 10,
@@ -57,4 +60,4 @@ const SwitchChart: FC<Props> = ({ analysisItem }) => {
     );
 }
 
-export default SwitchChart;
+export default DropdownChart;

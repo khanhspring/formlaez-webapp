@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import Empty from "../../components/common/empty";
 import PageTitle from "../../components/layout/page-title";
 import useFormDataAnalysis from "../../hooks/form-data-analysis/useFormDataAnalysis";
 import useForm from "../../hooks/form/useForm";
@@ -22,13 +23,24 @@ function FormDataAnalysis() {
                 shortTitle={firstLetters(form?.title)?.toUpperCase()}
                 prefix={<FormPageTitlePrefix form={form} />}
             />
-            <div className="flex flex-col items-center w-full">
-                <div className="flex flex-col items-center justify-between max-w-4xl w-full gap-5">
-                    {
-                        analysis?.items.map((item, index) =>
-                            <AnalysisChart analysisItem={item} key={index} />
-                        )
-                    }
+            <div className="flex flex-col items-center w-full pt-5 gap-5">
+                <div className="max-w-4xl w-full flex flex-col gap-5">
+                    <div className="w-full flex items-center justify-start py-3 px-5 font-bold bg-slate-100 dark:bg-cinder-800 rounded">
+                        <span>
+                            {analysis?.count} submission{analysis?.count && analysis?.count > 1 ? 's' : ''}
+                        </span>
+                    </div>
+                    <div className="w-full flex flex-col items-center justify-between gap-5">
+                        {
+                            analysis && analysis?.count > 0 && analysis?.items.map((item, index) =>
+                                <AnalysisChart analysisItem={item} key={index} />
+                            )
+                        }
+                        {
+                            (!analysis || analysis?.count === 0 || !analysis?.items) &&
+                            <Empty />
+                        }
+                    </div>
                 </div>
             </div>
         </div>

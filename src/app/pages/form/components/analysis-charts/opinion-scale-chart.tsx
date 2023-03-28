@@ -70,12 +70,17 @@ const OpinionScaleChart: FC<Props> = ({ analysisItem }) => {
     };
 
     return (
-        <div className="flex items-center justify-center w-full">
-            <ReactECharts
-                option={option}
-                style={{ height: 400, width: '100%' }}
-            />
-        </div>
+        <>
+            <div className="flex justify-between items-center">
+                <span className="font-sm">{analysisItem.field.title} ({analysisItem.count})</span>
+            </div>
+            <div className="flex items-center justify-center w-full">
+                <ReactECharts
+                    option={option}
+                    style={{ height: 400, width: '100%' }}
+                />
+            </div>
+        </>
     );
 }
 

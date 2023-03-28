@@ -13,8 +13,8 @@ export type FormDataAnalysisItem = {
     // number
     total: number;
     avg?: number;
-    min?: number;
-    max?: number;
+    min?: ValueItem;
+    max?: ValueItem;
 
     // date;
     years?: ValueItem[];
