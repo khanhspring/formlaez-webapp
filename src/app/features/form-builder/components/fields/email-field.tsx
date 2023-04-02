@@ -33,7 +33,7 @@ const EmailField: FC<Props> = ({ field, context }) => {
             <div className="relative w-full">
                 <input
                     value={values.placeholder}
-                    className="px-4 py-2 pr-7 rounded-md bg-slate-100 border border-slate-900/10 dark:border-transparent dark:bg-cinder-700 w-full text-gray-500 outline-none"
+                    className="px-4 py-2 pr-7 rounded-md bg-slate-100 border border-slate-900/10 dark:border-gray-700 dark:bg-gray-800 w-full text-gray-400 outline-none"
                     onChange={(e) => updateDebounce({placeholder: e.target.value})}
                     disabled={form?.status === 'Archived'}
                 />

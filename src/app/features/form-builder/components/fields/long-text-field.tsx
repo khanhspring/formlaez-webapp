@@ -32,7 +32,7 @@ const LongTextField: FC<Props> = ({ field, context }) => {
             }
             <textarea
                 value={values.placeholder}
-                className="px-4 py-2 rounded-md bg-slate-100 border border-slate-900/10 dark:border-transparent dark:bg-cinder-700 w-full text-gray-500 outline-none resize-none"
+                className="px-4 py-2 rounded-md bg-slate-100 border border-slate-900/10 dark:border-gray-700 dark:bg-gray-800 w-full text-gray-400 outline-none resize-none"
                 onChange={(e) => updateDebounce({placeholder: e.target.value})}
                 disabled={form?.status === 'Archived'}
             />

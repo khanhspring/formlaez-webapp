@@ -8,6 +8,7 @@ import PageTitle from '../../components/layout/page-title';
 import useForms from '../../hooks/form/useForms';
 import { Workspace } from '../../models/workspace';
 import CreateFormModal from './components/create-form-modal';
+import { PlusIcon, UserIcon } from '@heroicons/react/24/outline';
 
 function Private() {
 
@@ -31,10 +32,10 @@ function Private() {
 
     return (
         <>
-            <div className="w-full flex flex-col gap-2">
+            <div className="flex-1 w-full flex flex-col gap-2">
                 <PageTitle
                     title="Private" actions={<></>}
-                    shortTitle={<i className='fi fi-rr-user text-xs' />}
+                    shortTitle={<UserIcon className='w-4 h-4' />}
                     iconClassName="bg-gradient-to-r from-yellow-600 to-red-600"
                 />
                 <div className="flex items-center justify-between min-h-[40px] mt-3">
@@ -43,24 +44,29 @@ function Private() {
                         <ActionSearchInput onSearch={onSearch} loading={isFetching} />
                     </div>
                     <div className="flex items-center gap-2">
-                        <ButtonAction onClick={showCreateModal}>
-                            <i className="fi fi-rr-plus"></i>
+                        <ButtonAction onClick={showCreateModal} shape='circle'>
+                            <PlusIcon className='w-6 h-6' />
                         </ButtonAction>
                     </div>
                 </div>
                 {
                     !isFetching && pages && pages.totalElements === 0 &&
-                    <Empty />
+                    <div className='flex-1 flex items-center justify-center pb-10'>
+                        <Empty />
+                    </div>
                 }
-                <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
-                    {
-                        pages?.content?.map((item, index) => (
-                            <Link to={`/${workspace.code}/p/f/${item.code}`} key={index}>
-                                <FormItem form={item} />
-                            </Link>
-                        ))
-                    }
-                </div>
+                {
+                    pages && pages.totalElements > 0 &&
+                    <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
+                        {
+                            pages?.content?.map((item, index) => (
+                                <Link to={`/${workspace.code}/p/f/${item.code}`} key={index}>
+                                    <FormItem form={item} />
+                                </Link>
+                            ))
+                        }
+                    </div>
+                }
             </div>
             <CreateFormModal
                 visible={createModalVisible}

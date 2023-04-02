@@ -16,32 +16,38 @@ function FormDataAnalysis() {
     const { data: analysis } = useFormDataAnalysis(params.formCode);
 
     return (
-        <div className="w-full flex flex-col gap-2">
+        <div className="flex-1 w-full flex flex-col gap-2">
             <PageTitle
                 title={<FormPageTitle form={form} />}
                 actions={<FormPageMenu form={form} />}
                 shortTitle={firstLetters(form?.title)?.toUpperCase()}
                 prefix={<FormPageTitlePrefix form={form} />}
             />
-            <div className="flex flex-col items-center w-full pt-5 gap-5">
-                <div className="max-w-4xl w-full flex flex-col gap-5">
-                    <div className="w-full flex items-center justify-start py-3 px-5 font-bold bg-slate-100 dark:bg-cinder-800 rounded">
-                        <span>
-                            {analysis?.count} submission{analysis?.count && analysis?.count > 1 ? 's' : ''}
-                        </span>
+            <div className="flex-1 flex flex-col items-center w-full pt-5 gap-5">
+                {
+                    (analysis && analysis.count > 0 && analysis?.items) &&
+                    <div className="max-w-4xl w-full flex flex-col gap-5">
+                        <div className="w-full flex items-center justify-start py-3 px-5 font-bold bg-slate-100 dark:bg-slate-800 rounded">
+                            <span>
+                                {analysis?.count} submission{analysis?.count && analysis?.count > 1 ? 's' : ''}
+                            </span>
+                        </div>
+                        <div className="w-full flex flex-col items-center justify-between gap-5">
+                            {
+                                analysis && analysis?.count > 0 && analysis?.items.map((item, index) =>
+                                    <AnalysisChart analysisItem={item} key={index} />
+                                )
+                            }
+                        </div>
                     </div>
-                    <div className="w-full flex flex-col items-center justify-between gap-5">
-                        {
-                            analysis && analysis?.count > 0 && analysis?.items.map((item, index) =>
-                                <AnalysisChart analysisItem={item} key={index} />
-                            )
-                        }
-                        {
-                            (!analysis || analysis?.count === 0 || !analysis?.items) &&
-                            <Empty />
-                        }
+                }
+
+                {
+                    (!analysis || analysis?.count === 0 || !analysis?.items) &&
+                    <div className="flex-1 w-full flex flex-col items-center justify-center">
+                        <Empty description="No data for analysis" />
                     </div>
-                </div>
+                }
             </div>
         </div>
     );

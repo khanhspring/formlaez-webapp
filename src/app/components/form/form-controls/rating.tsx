@@ -10,7 +10,7 @@ type Props = InputHTMLAttributes<any> & {
 
 const Rating: FC<Props> = ({ className = '', status, onChange, value, ...rest }) => {
 
-    const options = _.range(1, 6);
+    const options: number[] = _.range(1, 6);
 
     const onClick = (val: number) => {
         if (value === val) {

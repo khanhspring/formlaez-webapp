@@ -36,7 +36,7 @@ const Breadcrumb: FC<Props> = () => {
     return (
         <div className="flex flex-col h-full justify-center px-7">
             <h2 className="text-lg font-semibold dark:text-gray-200">{pageName.name}</h2>
-            <div className="flex gap-1 text-xs text-gray-500 dark:text-gray-500">
+            <div className="flex gap-1 text-xs text-gray-500 dark:text-gray-300">
                 <Link to="/">
                     <span>Home</span>
                 </Link>

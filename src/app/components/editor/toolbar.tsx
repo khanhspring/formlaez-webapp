@@ -13,7 +13,7 @@ type Props = {
 const Toolbar: FC<Props> = ({ onInlineClick, onBlockClick, editorState }) => {
 
     return (
-        <div className={`z-50 inline-flex px-1 rounded items-center border border-slate-900/10 bg-slate-50 dark:border-transparent dark:bg-cinder-600 text-sm shadow-lg`}>
+        <div className={`z-50 inline-flex px-1 rounded items-center border border-slate-900/10 bg-slate-50 dark:border-transparent dark:bg-slate-600 text-sm shadow-lg`}>
             <ToolbarButton onToggle={onBlockClick} type="header-two" editorState={editorState}>
                 <span>H2</span>
             </ToolbarButton>
@@ -38,18 +38,18 @@ const Toolbar: FC<Props> = ({ onInlineClick, onBlockClick, editorState }) => {
             <ToolbarButton onToggle={onInlineClick} type="CODE" editorState={editorState}>
                 <i className="fi fi-sr-code-simple"></i>
             </ToolbarButton>
-            {/* TODO: <ToolbarButton onToggle={onInlineClick} type="align-left" editorState={editorState}>
+            <ToolbarButton onToggle={onInlineClick} type="align-left" editorState={editorState}>
                 <i className="fi fi-sr-align-left"></i>
             </ToolbarButton>
             <ToolbarButton onToggle={onInlineClick} type="align-center" editorState={editorState}>
-                <AlignCenterIcon className="w-4" />
+                <AlignCenterIcon className="!w-4" />
             </ToolbarButton>
             <ToolbarButton onToggle={onInlineClick} type="align-right" editorState={editorState}>
                 <i className="fi fi-sr-symbol"></i>
             </ToolbarButton>
             <ToolbarButton onToggle={onInlineClick} type="align-justify" editorState={editorState}>
-                <AlignJustifyIcon className="w-4" />
-            </ToolbarButton> */}
+                <AlignJustifyIcon className="!w-4" />
+            </ToolbarButton>
         </div>
     );
 }

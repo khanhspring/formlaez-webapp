@@ -68,14 +68,14 @@ function Form() {
                     <div className="flex items-center justify-center flex-1">
                         <div className='max-w-[5] flex flex-col justify-center items-center gap-3 pb-12'>
                             <h2 className='font-lg'>This form hasn't published yet.</h2>
-                            <div className='flex justify-center items-center gap-3'>
-                                <Link to={`/f/${params.formCode}/builder`}>
-                                    <Button>Continue to edit</Button>
-                                </Link>
-                                <span>or</span>
+                            <div className='flex flex-col justify-center items-center gap-3'>
                                 <Button onClick={showPublishConfirm}>
                                     Publish now
                                 </Button>
+                                <span>or</span>
+                                <Link to={`/f/${params.formCode}/builder`}>
+                                    <Button>Continue to edit</Button>
+                                </Link>
                             </div>
                         </div>
                     </div>

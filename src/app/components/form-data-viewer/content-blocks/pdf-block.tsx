@@ -17,7 +17,7 @@ const PdfBlock: FC<Props> = ({ url }) => {
             <div className="w-full my-1">
                 <button
                     onClick={() => setDetailVisible(true)}
-                    className="px-3 py-1 text-sm bg-slate-200 hover:bg-slate-300 dark:bg-cinder-600 rounded dark:hover:bg-cinder-600/70 transition"
+                    className="px-3 py-1 text-sm bg-slate-200 hover:bg-slate-300 dark:bg-slate-600 rounded dark:hover:bg-slate-600/70 transition"
                 >
                     View PDF
                 </button>

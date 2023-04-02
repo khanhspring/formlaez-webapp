@@ -4,7 +4,7 @@ import Dropdown from "rc-dropdown";
 import Menu, { MenuItem } from "rc-menu";
 import Switch from "rc-switch";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../../components/common/button";
 import confirm from "../../components/common/confirm/confirm";
@@ -15,8 +15,7 @@ import usePublishForm from "../../hooks/form/usePublishForm";
 import useRemoveForm from "../../hooks/form/useRemoveForm";
 import useUpdateFormSettings from "../../hooks/form/useUpdateFormSettings";
 import { UpdateFormSettingsRequest } from "../../models/form";
-import { Workspace } from "../../models/workspace";
-import { showError, showErrorIgnore403 } from "../../util/common";
+import { showErrorIgnore403 } from "../../util/common";
 import { firstLetters } from "../../util/string-utils";
 import FormPageMenu from "./components/form-page-menu";
 import FormPageTitle from "./components/form-page-title";
@@ -33,7 +32,6 @@ function FormSettings() {
 
     const params = useParams();
     const navigate = useNavigate();
-    const workspace = useRouteLoaderData("workspace") as Workspace;
     const { data: form, refetch } = useForm(params.formCode);
     const { mutateAsync: archive } = useArchiveForm();
     const { mutateAsync: publish } = usePublishForm();
@@ -201,7 +199,7 @@ function FormSettings() {
     const sharingScopeDropdownContent = (disabled: boolean) => (
         <>
             <button className={
-                `flex items-center gap-1 px-2.5 h-8 rounded bg-slate-200 dark:bg-cinder-700 text-sm`
+                `flex items-center gap-1 px-2.5 h-8 rounded bg-slate-200 dark:bg-slate-700 text-sm`
                 + ` ${disabled ? 'cursor-not-allowed opacity-90' : ''}`
             }>
                 {
@@ -246,9 +244,9 @@ function FormSettings() {
                 prefix={<FormPageTitlePrefix form={form} />}
             />
             <div className="mt-6 flex flex-col gap-6">
-                <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700">Sharing</h2>
+                <h2 className="pb-1 border-b border-slate-900/10 dark:border-slate-700">Sharing</h2>
                 <div className="flex items-center gap-2">
-                    <div className="px-3 py-2 rounded border border-slate-900/10 dark:border-cinder-700 text-sm">
+                    <div className="px-3 py-2 rounded border border-slate-900/10 dark:border-slate-700 text-sm">
                         {`${process.env.REACT_APP_DOMAIN}/f/v/${params.formCode}`}
                     </div>
                     <Button onClick={copyShareLink}>Copy link to share</Button>
@@ -261,8 +259,8 @@ function FormSettings() {
                     <p className="text-sm">Or scan this QR</p>
                 </div>
 
-                <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700 mt-3">Settings</h2>
-                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
+                <h2 className="pb-1 border-b border-slate-900/10 dark:border-slate-700 mt-3">Settings</h2>
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Access scope</h3>
                         <p className="text-xs font-light italic">
@@ -286,7 +284,7 @@ function FormSettings() {
                         }
                     </div>
                 </div>
-                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Accepting responses</h3>
                         <p className="text-xs font-light italic">
@@ -301,7 +299,7 @@ function FormSettings() {
                         />
                     </div>
                 </div>
-                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Allow response editing</h3>
                         <p className="text-xs font-light italic">
@@ -316,7 +314,7 @@ function FormSettings() {
                         />
                     </div>
                 </div>
-                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Allow to merge document</h3>
                         <p className="text-xs font-light italic">
@@ -332,10 +330,10 @@ function FormSettings() {
                     </div>
                 </div>
 
-                <h2 className="pb-1 border-b border-slate-900/10 dark:border-cinder-700 mt-3">Danger zone</h2>
+                <h2 className="pb-1 border-b border-slate-900/10 dark:border-slate-700 mt-3">Danger zone</h2>
                 {
                     !archived &&
-                    <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
+                    <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded transition">
                         <div className="flex flex-col gap-0.5">
                             <h3 className="text-sm">Archive this form</h3>
                             <p className="text-xs font-light italic">
@@ -345,7 +343,7 @@ function FormSettings() {
                         <div className="flex items-center">
                             <button
                                 onClick={showArchiveConfirm}
-                                className="flex items-center gap-1 px-2.5 h-8 rounded border border-rose-700 hover:bg-rose-700 hover:text-white dark:border-transparent dark:bg-cinder-700 dark:hover:bg-rose-700 text-sm text-rose-700 whitespace-nowrap"
+                                className="flex items-center gap-1 px-2.5 h-8 rounded border border-rose-700 hover:bg-rose-700 hover:text-white dark:border-transparent dark:bg-slate-700 dark:hover:bg-rose-700 text-sm text-rose-700 whitespace-nowrap"
                             >
                                 <span>Archive this form</span>
                             </button>
@@ -354,7 +352,7 @@ function FormSettings() {
                 }
                 {
                     archived &&
-                    <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
+                    <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded transition">
                         <div className="flex flex-col gap-0.5">
                             <h3 className="text-sm">Unarchive this form</h3>
                             <p className="text-xs font-light italic">
@@ -364,14 +362,14 @@ function FormSettings() {
                         <div className="flex items-center">
                             <button
                                 onClick={showUnarchiveConfirm}
-                                className="flex items-center gap-1 px-2.5 h-8 rounded border border-rose-700 hover:bg-rose-700 hover:text-white dark:border-transparent dark:bg-cinder-700 dark:hover:bg-rose-700 text-sm text-rose-700 whitespace-nowrap"
+                                className="flex items-center gap-1 px-2.5 h-8 rounded border border-rose-700 hover:bg-rose-700 hover:text-white dark:border-transparent dark:bg-slate-700 dark:hover:bg-rose-700 text-sm text-rose-700 whitespace-nowrap"
                             >
                                 <span>Unarchive this form</span>
                             </button>
                         </div>
                     </div>
                 }
-                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-cinder-800/80 rounded transition">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Delete this form</h3>
                         <p className="text-xs font-light italic">
@@ -381,7 +379,7 @@ function FormSettings() {
                     <div className="flex items-center">
                         <button
                             onClick={showRemoveConfirm}
-                            className="flex items-center gap-1 px-2.5 h-8 rounded border border-rose-700 hover:bg-rose-700 hover:text-white dark:border-transparent dark:bg-cinder-700 dark:hover:bg-rose-700 text-sm text-rose-700 whitespace-nowrap"
+                            className="flex items-center gap-1 px-2.5 h-8 rounded border border-rose-700 hover:bg-rose-700 hover:text-white dark:border-transparent dark:bg-slate-700 dark:hover:bg-rose-700 text-sm text-rose-700 whitespace-nowrap"
                         >
                             <span>Delete this form</span>
                         </button>

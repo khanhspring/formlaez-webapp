@@ -33,7 +33,7 @@ const DatetimeRangePicker: FC<Props> = ({ className = '', status, value, showTim
 
     return (
         <div className={
-            `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-cinder-600 dark:bg-cinder-700 `
+            `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-gray-700 dark:bg-gray-800 `
             + `${status && status === 'error' ? '!border-rose-700' : ''} `
             + `${status && status === 'warning' ? '!border-yellow-700' : ''} `
             + `${status && status === 'success' ? '!border-green-700' : ''} `
@@ -48,10 +48,10 @@ const DatetimeRangePicker: FC<Props> = ({ className = '', status, value, showTim
                 }}
                 suffixIcon={<i className="fi fi-rr-calendar text-md"></i>}
                 placeholder={placeholder}
-                className={`w-full border-none text-sm py-2 px-4 ${className}`}
+                className={`w-full border-none text-base py-2 px-4 ${className}`}
                 allowClear
                 clearIcon={<i className="fi fi-rr-cross-small text-[16px]"></i>}
-                dropdownClassName="rounded shadow bg-slate-100 dark:bg-cinder-800 z-[1100]"
+                dropdownClassName="rounded shadow bg-slate-100 dark:bg-slate-800 z-[1100]"
                 nextIcon={<i className="fi fi-rr-angle-small-right text-md"></i>}
                 superNextIcon={<i className="fi fi-rr-angle-double-small-right text-md"></i>}
                 prevIcon={<i className="fi fi-rr-angle-small-left text-md"></i>}

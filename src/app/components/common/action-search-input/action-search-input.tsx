@@ -38,7 +38,7 @@ const ActionSearchInput: FC<Props> = ({ onSearch, loading }) => {
             return (
                 <span
                     onClick={resetForm}
-                    className='flex items-center justify-center w-5 h-5 text-sm bg-slate-100 dark:bg-cinder-600 rounded-full cursor-pointer'
+                    className='flex items-center justify-center w-5 h-5 text-sm bg-slate-100 dark:bg-slate-600 rounded-full cursor-pointer'
                 >
                     <i className="fi fi-rr-cross-small"></i>
                 </span>

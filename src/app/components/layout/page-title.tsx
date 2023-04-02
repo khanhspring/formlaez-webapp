@@ -15,7 +15,7 @@ const PageTitle: FC<Props> = ({title, actions, shortTitle = defaultIcon, classNa
 
     return (
         <div className={
-            "py-2 border-b bg-white dark:bg-cinder-900 border-slate-900/10 dark:border-cinder-600 z-20 sticky top-[64px] flex items-center justify-between"
+            "py-2 border-b bg-white dark:bg-slate-900 border-slate-900/10 dark:border-slate-600 z-20 sticky top-[64px] flex items-center justify-between"
             + ` ${className}`
         }>
             <div className="flex items-center gap-2">
@@ -28,7 +28,7 @@ const PageTitle: FC<Props> = ({title, actions, shortTitle = defaultIcon, classNa
                 </div>
                 <h2 className="font-semibold text-lg">{title}</h2>
             </div>
-            <div className="flex items-center justify-center gap-2 text-xs transition">
+            <div className="flex items-center justify-center gap-3 text-xs transition">
                 {actions}
             </div>
         </div>

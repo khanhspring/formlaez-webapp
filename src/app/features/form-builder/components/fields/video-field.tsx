@@ -36,7 +36,7 @@ const VideoField: FC<Props> = ({ field, context }) => {
     }
 
     const videoConfig = (
-        <div className="w-[450px] bg-white dark:bg-cinder-800 rounded p-3">
+        <div className="w-[450px] bg-white dark:bg-slate-800 rounded p-3">
             <Form
                 form={form}
                 onFinish={onFinish}
@@ -68,8 +68,8 @@ const VideoField: FC<Props> = ({ field, context }) => {
                 afterClose={resetForm}
                 disabled={formInfo?.status === 'Archived'}
             >
-                <div className="p-3 bg-slate-200 dark:bg-cinder-600 rounded cursor-pointer flex gap-2 items-center dark:text-gray-400">
-                    <i className="fi fi-rr-picture"></i>
+                <div className="p-3 bg-slate-200 dark:bg-gray-800 rounded cursor-pointer flex gap-2 items-center dark:text-gray-400">
+                    <i className="fi fi-rr-play-alt"></i>
                     <span className="font-light">Embed a video</span>
                 </div>
             </Popup>

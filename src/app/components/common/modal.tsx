@@ -71,7 +71,7 @@ const Modal: FC<Props> = ({
         const element = node as ReactElement;
         return (
             <>
-                {React.cloneElement(element, { className: 'dark:bg-cinder-800 ' + element.props.className })}
+                {React.cloneElement(element, { className: 'dark:bg-gray-800 ' + element.props.className })}
             </>
         )
     }

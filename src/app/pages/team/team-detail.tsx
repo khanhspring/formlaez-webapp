@@ -14,6 +14,7 @@ import { firstLetters } from '../../util/string-utils';
 import CreateFormModal from './components/create-form-modal';
 import SettingsTeamModal from './components/settings-team-modal';
 import TeamMemberModal from './components/team-member-modal';
+import { PlusIcon } from '@heroicons/react/24/outline';
 
 function TeamDetail() {
 
@@ -90,7 +91,7 @@ function TeamDetail() {
 
     return (
         <>
-            <div className="w-full flex flex-col gap-2">
+            <div className="flex-1 w-full flex flex-col gap-2">
                 <PageTitle
                     title={teamTitle}
                     actions={pageActions}
@@ -103,24 +104,29 @@ function TeamDetail() {
                         <ActionSearchInput onSearch={onSearch} loading={isFetching} />
                     </div>
                     <div className="flex items-center gap-2">
-                        <ButtonAction onClick={showCreateModal}>
-                            <i className="fi fi-rr-plus"></i>
+                        <ButtonAction onClick={showCreateModal} shape='circle'>
+                            <PlusIcon className='w-6 h-6'/>
                         </ButtonAction>
                     </div>
                 </div>
                 {
                     !isFetching && pages && pages.totalElements === 0 &&
-                    <Empty />
+                    <div className='flex-1 flex items-center justify-center pb-10'>
+                        <Empty />
+                    </div>
                 }
-                <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
-                    {
-                        pages?.content?.map((item, index) => (
-                            <Link to={`/${workspace.code}/t/${team.code}/f/${item.code}`} key={index}>
-                                <FormItem form={item} team={team} />
-                            </Link>
-                        ))
-                    }
-                </div>
+                {
+                    pages && pages.totalElements > 0 &&
+                    <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
+                        {
+                            pages?.content?.map((item, index) => (
+                                <Link to={`/${workspace.code}/t/${team.code}/f/${item.code}`} key={index}>
+                                    <FormItem form={item} team={team} />
+                                </Link>
+                            ))
+                        }
+                    </div>
+                }
             </div>
             <CreateFormModal
                 visible={createModalVisible}

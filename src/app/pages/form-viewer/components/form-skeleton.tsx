@@ -7,8 +7,8 @@ type Props = {
 const FormFieldSkeleton: FC<Props> = ({titleWidth = 1/2}) => {
     return (
         <div className="flex flex-col gap-2">
-            <div className="w-1/2 h-3 bg-slate-900/10 dark:bg-cinder-700 rounded-sm" style={{width: `${titleWidth * 100}%`}}></div>
-            <div className="w-full h-9 bg-slate-900/10 dark:bg-cinder-700 rounded border border-slate-90/10 dark:border-cinder-600"></div>
+            <div className="w-1/2 h-3 bg-slate-900/10 dark:bg-slate-700 rounded-sm" style={{width: `${titleWidth * 100}%`}}></div>
+            <div className="w-full h-9 bg-slate-900/10 dark:bg-slate-700 rounded border border-slate-90/10 dark:border-slate-600"></div>
         </div>
     )
 }
@@ -16,7 +16,7 @@ const FormFieldSkeleton: FC<Props> = ({titleWidth = 1/2}) => {
 const FormImageSkeleton = () => {
     return (
         <div className="flex flex-col gap-2">
-            <div className="w-full h-56 bg-slate-900/10 dark:bg-cinder-700 rounded border border-slate-90/10 dark:border-cinder-600"></div>
+            <div className="w-full h-56 bg-slate-900/10 dark:bg-slate-700 rounded border border-slate-90/10 dark:border-slate-600"></div>
         </div>
     )
 }

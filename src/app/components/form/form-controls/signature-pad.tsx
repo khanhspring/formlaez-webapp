@@ -45,7 +45,7 @@ const SignaturePad: FC<Props> = ({ className = '', status, value, onChange, ...r
                 <Tooltip overlay="Clear" placement="bottom">
                     <span
                         onClick={onClear}
-                        className="flex items-center justify-center px-2 py-1 bg-slate-100 dark:bg-cinder-700 rounded cursor-pointer transition opacity-80 hover:opacity-100"
+                        className="flex items-center justify-center px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded cursor-pointer transition opacity-80 hover:opacity-100"
                     >
                         <i className="fi fi-rr-broom"></i>
                     </span>

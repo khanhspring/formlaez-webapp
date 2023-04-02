@@ -109,7 +109,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
             const selectedValues = (rawValue || []) as any[];
             const selected = (field.options || []).filter(option => selectedValues?.includes(option.code));
             return selected?.map((item, index) =>
-                <span key={index} className="mr-1 my-0.5 px-2 inline-block bg-slate-200 dark:bg-cinder-600 rounded-xl">
+                <span key={index} className="mr-1 my-0.5 px-2 inline-block bg-slate-200 dark:bg-slate-600 rounded-xl">
                     {item.label}
                 </span>
             )
@@ -199,7 +199,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                     ellipsis: { showTitle: false },
                     render(value, record, index) {
                         return (
-                            <span className="px-1 py-0 rounded-lg bg-slate-200 dark:bg-cinder-600 cursor-default">
+                            <span className="px-1 py-0 rounded-lg bg-slate-200 dark:bg-slate-600 cursor-default">
                                 {record?.data[section.code]?.length || 0}
                             </span>
                         );
@@ -255,7 +255,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                 return (
                     <span
                         onClick={() => selectSubmission(record)}
-                        className="text-xs bg-slate-200 dark:bg-cinder-600 inline-block px-1 py-0.5 min-w-[75px] rounded cursor-pointer"
+                        className="text-xs bg-slate-200 dark:bg-slate-600 inline-block px-1 py-0.5 min-w-[75px] rounded cursor-pointer"
                     >
                         {value.substring(0, 8)}
                     </span>
@@ -466,7 +466,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                 <div className="flex items-center gap-3">
                     <span>Total {formData?.totalElements || 0}</span>
                     <Dropdown overlay={dateRange} trigger={['click']} placement="bottomRight">
-                        <div className="hidden md:flex gap-2 py-1.5 px-3 cursor-pointer bg-slate-50 dark:bg-cinder-700 rounded items-center justify-center border border-slate-900/10 dark:border-cinder-600">
+                        <div className="hidden md:flex gap-2 py-1.5 px-3 cursor-pointer bg-slate-50 dark:bg-slate-700 rounded items-center justify-center border border-slate-900/10 dark:border-slate-600">
                             <i className="fi fi-rr-calendar text-xs text-gray-500"></i>
                             <span className="text-sm">
                                 {DateRangeLabels[dateRangeSelected]}
@@ -530,7 +530,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                     emptyText={isLoading || isFetching ? 'Loading...' : 'No data'}
                     className="table-form-data text-slate-900 dark:text-white"
                 />
-                <div className="w-full mt-3 p-1 z-[200] bg-white/90 border border-slate-900/10 dark:bg-cinder-700/80 dark:border-cinder-600 sticky bottom-0 flex items-center justify-center">
+                <div className="w-full mt-3 p-1 z-[200] bg-white/90 border border-slate-900/10 dark:bg-gray-800/80 dark:border-gray-700 sticky bottom-0 flex items-center justify-center">
                     <Pagination
                         total={formData?.totalElements || 0}
                         pageSize={formData?.size || 0}

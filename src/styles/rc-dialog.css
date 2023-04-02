@@ -1,0 +1,31 @@
+.rc-dialog {
+    margin: auto;
+}
+
+.rc-dialog-close {
+    right: 15px;
+    opacity: 0.5;
+}
+
+.rc-dialog-header {
+    background: transparent;
+    border-bottom: transparent;
+    color: inherit;
+    padding: 14px 20px 15px 20px;
+}
+
+.rc-dialog-fade-enter,
+.rc-dialog-fade-appear,
+.rc-dialog-zoom-enter {
+    animation-duration: 0.2s;
+}
+
+.rc-dialog-fade-leave,
+.rc-dialog-zoom-leave,
+.rc-dialog-zoom-appear {
+    animation-duration: 0.2s;
+}
+
+.rc-dialog-title {
+    font-size: 1rem;
+}

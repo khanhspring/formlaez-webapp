@@ -4,6 +4,7 @@ import { Link, useRouteLoaderData } from "react-router-dom";
 import { Form } from "../../../models/form";
 import { Workspace } from "../../../models/workspace";
 import { firstLetters } from "../../../util/string-utils";
+import { UserIcon } from "@heroicons/react/24/outline";
 
 type Props = {
     form?: Form;
@@ -36,7 +37,7 @@ const FormPageTitlePrefix: FC<Props> = ({ form }) => {
                         <Link to={`/${workspace?.code}/p`}>
                             <div className="flex items-center justify-center w-6 h-6 bg-gradient-to-r from-yellow-600 to-red-600 rounded-full transition group-hover:ring-2 ring-yellow-600/30 text-white hover:ring-2 cursor-pointer">
                                 <span className="font-semibold flex justify-center items-center">
-                                    <i className='fi fi-rr-user text-xs' />
+                                    <UserIcon className='w-4 h-4' />
                                 </span>
                             </div>
                         </Link>

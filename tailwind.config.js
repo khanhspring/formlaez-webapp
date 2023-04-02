@@ -10,14 +10,6 @@ module.exports = {
       fontFamily: {
         intel: ['Inter', 'Helvetica', 'sans-serif'],
       },
-      colors: {
-        cinder: {
-          900: '#151521',
-          800: '#1B1B28',
-          700: '#1E1E2D',
-          600: '#2B2B40'
-        }
-      },
       keyframes: {
         'fade-in': {
           '0%': { opacity: 0.1 },
@@ -35,7 +27,8 @@ module.exports = {
         'fade-out-slow': 'fade-out 0.45s ease-in-out forwards',
       },
       backgroundImage: {
-        'auth': "url('../assets/images/auth-bg.png')"
+        'auth': "url('../assets/images/auth-bg.png')",
+        'caro': "url('../assets/images/caro.svg')",
       }
     },
   },

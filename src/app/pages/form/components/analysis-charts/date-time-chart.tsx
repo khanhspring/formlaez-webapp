@@ -128,7 +128,7 @@ const DateTimeChart: FC<Props> = ({ analysisItem }) => {
                 <div className="flex items-center">
                     <button
                         onClick={() => setOption('date')}
-                        className={`text-xs px-2 py-1 bg-slate-200 dark:bg-cinder-700 rounded-tl rounded-bl ${option === 'date' ? '!bg-blue-700 text-white' : ''}`}
+                        className={`text-xs px-2 py-1 bg-slate-200 dark:bg-slate-700 rounded-tl rounded-bl ${option === 'date' ? '!bg-blue-700 text-white' : ''}`}
                     >
                         Date
                     </button>
@@ -136,14 +136,14 @@ const DateTimeChart: FC<Props> = ({ analysisItem }) => {
                         analysisItem.field.showTime &&
                         <button
                             onClick={() => setOption('dateTime')}
-                            className={`text-xs px-2 py-1 bg-slate-200 dark:bg-cinder-700 ${option === 'dateTime' ? '!bg-blue-700 text-white' : ''}`}
+                            className={`text-xs px-2 py-1 bg-slate-200 dark:bg-slate-700 ${option === 'dateTime' ? '!bg-blue-700 text-white' : ''}`}
                         >
                             Datetime
                         </button>
                     }
                     <button
                         onClick={() => setOption('year')}
-                        className={`text-xs px-2 py-1 bg-slate-200 dark:bg-cinder-700 rounded-tr rounded-br ${option === 'year' ? '!bg-blue-700 text-white' : ''}`}
+                        className={`text-xs px-2 py-1 bg-slate-200 dark:bg-slate-700 rounded-tr rounded-br ${option === 'year' ? '!bg-blue-700 text-white' : ''}`}
                     >
                         Year
                     </button>

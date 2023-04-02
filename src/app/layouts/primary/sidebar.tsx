@@ -10,6 +10,7 @@ import useWorkspaceContext from '../../hooks/auth/useWorkspaceContext';
 import { UserSession } from '../../models/user-session';
 import { Workspace } from '../../models/workspace';
 import StringUtils, { firstLetters } from '../../util/string-utils';
+import { Cog6ToothIcon, UserGroupIcon, UserIcon } from '@heroicons/react/24/outline'
 
 function SideBar() {
 
@@ -57,7 +58,7 @@ function SideBar() {
                             <span>{item.workspace.name}</span>
                             {
                                 workspace.code === item.workspace.code &&
-                                <span className='text-xs font-light inline-block px-1.5 py-0.5 rounded-xl bg-slate-200 dark:bg-cinder-800'>Current</span>
+                                <span className='text-xs font-light inline-block px-1.5 py-0.5 rounded-xl bg-slate-200 dark:bg-slate-800'>Current</span>
                             }
                         </div>
                     </MenuItem>
@@ -67,16 +68,18 @@ function SideBar() {
     )
 
     return (
-        <div className="w-[90px] hidden md:block min-h-screen bg-slate-50 dark:bg-cinder-700 border-r border-slate-900/10 dark:border-transparent">
-            <div className="sticky top-0 w-full flex flex-col justify-start">
-                <div className="px-3 flex items-center w-full h-[65px] bg-white border-b border-slate-900/10 dark:bg-cinder-800">
-                    <div className="flex w-full items-center justify-center">
+        <div className="w-[290px] hidden md:block min-h-screen bg-slate-50 dark:bg-gray-900 border-r border-slate-900/10 dark:border-gray-800">
+            <div className="sticky top-0 w-full h-full flex flex-col justify-start">
+                <div className="px-2 flex items-center w-full h-[65px] bg-white border-b border-slate-900/10 dark:bg-gray-900 dark:border-gray-800">
+                    <div className="flex w-full items-center justify-between gap-3 px-4">
                         <Logo />
+                        <div>
+                            {shortName}
+                        </div>
                     </div>
                 </div>
 
-                <SimpleBar style={{ maxHeight: 'calc(100vh - 65px)' }}>
-                    <div className="py-3 mt-2 flex flex-col gap-1 items-center justify-center">
+                {/* <div className="py-3 mt-2 flex flex-col gap-1 items-center justify-center">
                         <Tooltip overlay={(workspace?.name || 'Workspace') + ' (' + currentPlan.name + ')'} placement="right">
                             <div className="relative text-lg font-semibold flex w-10 h-10 rounded-full ring-2 items-center justify-center select-none bg-gradient-to-r from-cyan-500 to-blue-500 text-white transition">
                                 {shortName}
@@ -95,59 +98,50 @@ function SideBar() {
                                 <i className="fi fi-rr-menu-dots text-slate-700 group-hover:text-blue-500 dark:text-gray-400 dark:group-hover:text-gray-200 transition"></i>
                             </span>
                         </Dropdown>
+                    </div> */}
+
+                <div className="flex-1 flex flex-col py-2">
+                    <div className='w-full flex flex-col items-start px-2 gap-2'>
+                        <Link
+                            to={`/${workspace.code}/p`}
+                            className={
+                                "w-full flex items-center gap-2 px-2.5 py-2 transition rounded"
+                                + ` ${isActive('Private') ? 'text-slate-900 dark:text-white dark:bg-gray-800' : 'text-slate-900/60 dark:text-slate-500'}`
+                            }
+                        >
+                            <UserIcon className="h-6 w-6 p-0.5 rounded" />
+                            <span className="text-sm font-normal">Private</span>
+                        </Link>
+                        <Link
+                            to={`/${workspace.code}/t`}
+                            className={
+                                "w-full flex items-center gap-2 px-2.5 py-2 transition rounded"
+                                + ` ${isActive('Team') ? 'text-slate-900 dark:text-white dark:bg-gray-800' : 'text-slate-900/60 dark:text-slate-500'}`
+                            }
+                        >
+                            <UserGroupIcon className="h-6 w-6 p-0.5 rounded" />
+                            <span className="text-sm font-normal">Teams</span>
+                        </Link>
                     </div>
 
-                    <div className="flex flex-col justify-center pt-2 gap-1.5">
-                        <div className="flex items-center justify-center">
+                    <div className='border-t border-slate-900/10 dark:border-gray-800 my-2' />
+
+                    {
+                        workspaceContext.isOwner &&
+                        <div className='w-full flex flex-col items-start px-2 gap-2'>
                             <Link
-                                to={`/${workspace.code}/p`}
+                                to={`/${workspace.code}/settings`}
                                 className={
-                                    "flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition"
-                                    + ` ${isActive('Private') ? 'text-slate-900 dark:text-white' : 'text-slate-900/60 dark:text-slate-500'}`
+                                    "w-full flex items-center gap-2 px-2.5 py-2 transition rounded"
+                                    + ` ${isActive('Settings') ? 'text-slate-900 dark:text-white dark:bg-gray-800' : 'text-slate-900/60 dark:text-slate-500'}`
                                 }
                             >
-                                <i className="fi fi-rr-user text-xl"></i>
-                                <span className="text-xs font-normal">Private</span>
+                                <Cog6ToothIcon className="h-6 w-6 p-0.5 rounded" />
+                                <span className="text-sm font-normal">Settings</span>
                             </Link>
                         </div>
-                        <div className="flex items-center justify-center">
-                            <Link
-                                to={`/${workspace.code}/t`}
-                                className={
-                                    "flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition"
-                                    + ` ${isActive('Team') ? 'text-slate-900 dark:text-white' : 'text-slate-900/60 dark:text-slate-500'}`
-                                }
-                            >
-                                <i className="fi fi-rr-users-alt text-xl"></i>
-                                <span className="text-xs font-normal">Teams</span>
-                            </Link>
-                        </div>
-
-                        {
-                            workspaceContext.isOwner &&
-                            <>
-                                <div className="py-2 flex items-center justify-center">
-                                    <span className="w-5">
-                                        <ZigzagIcon className="fill-slate-900/60 dark:fill-gray-700/90" />
-                                    </span>
-                                </div>
-
-                                <div className="flex items-center justify-center">
-                                    <Link
-                                        to={`/${workspace.code}/settings`}
-                                        className={
-                                            "flex gap-2.5 flex-col items-center justify-center w-[70px] h-[70px] rounded-md group transition"
-                                            + ` ${isActive('Settings') ? 'text-slate-900 dark:text-white' : 'text-slate-900/60 dark:text-slate-500'}`
-                                        }
-                                    >
-                                        <i className="fi fi-rr-settings text-xl"></i>
-                                        <span className="text-xs font-normal">Settings</span>
-                                    </Link>
-                                </div>
-                            </>
-                        }
-                    </div>
-                </SimpleBar>
+                    }
+                </div>
             </div>
         </div>
     );

@@ -20,7 +20,7 @@ const Input: FC<Props> = ({ className = '', status, value, suffix, wrapClassName
 
     return (
         <div className={
-            `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-cinder-600 dark:bg-cinder-700 `
+            `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600 `
             + `${status && status === 'error' ? '!border-rose-700' : ''} `
             + `${status && status === 'warning' ? '!border-yellow-700' : ''} `
             + `${status && status === 'success' ? '!border-green-700' : ''} `
@@ -31,7 +31,7 @@ const Input: FC<Props> = ({ className = '', status, value, suffix, wrapClassName
                 onChange={onValueChange}
                 value={orElseEmptyString(internalValue)}
                 className={
-                    'w-full outline-none px-4 py-2 text-sm bg-transparent placeholder:text-gray-500 rounded-l '
+                    'w-full outline-none px-4 py-2 text-base bg-transparent placeholder:text-gray-500 rounded-l '
                     + className
                 }
                 type={type}

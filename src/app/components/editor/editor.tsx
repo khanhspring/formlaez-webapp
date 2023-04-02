@@ -1,10 +1,12 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 
 import { ContentBlock, ContentState, convertFromHTML, convertFromRaw, DefaultDraftBlockRenderMap, DraftHandleValue, Editor as DraftEditor, EditorState, RichUtils } from "draft-js";
-import { stateToHTML } from "draft-js-export-html";
+import { RenderConfig, stateToHTML } from "draft-js-export-html";
 import Immutable from "immutable";
 import DraftUtils from "./drafjs.util";
 import Toolbar from "./toolbar";
+import { stateFromHTML } from "draft-js-import-html";
+import { CustomBlockObject } from "draft-js-import-html";
 
 type Props = {
     autoFocus?: boolean;
@@ -98,10 +100,6 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
             return "text-justify";
         }
 
-        if (block.getType() === 'unstyled') {
-            return "my-3";
-        }
-
         return '';
     }, [])
 
@@ -120,6 +118,18 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
         }
     }
 
+    const blockStyleExportFn = (block: ContentBlock): RenderConfig | undefined => {
+        const blockAlignment = block.getData() && block.getData().get('text-align');
+        if (blockAlignment) {
+            return {
+                element: 'section',
+                attributes: {
+                    className: `text-${blockAlignment}`
+                }
+            }
+        }
+    }
+
     const onAfterChange = useCallback((newEditorState?: EditorState) => {
         if (updateTimeout.current) {
             clearTimeout(updateTimeout.current);
@@ -128,19 +138,42 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
             const currentContent = newEditorState ? newEditorState.getCurrentContent() : editorState.getCurrentContent();
             const currentHtmlContent = stateToHTML(currentContent, {
                 defaultBlockTag: 'section',
-                blockStyleFn: blockStyleFn as any
+                blockStyleFn: blockStyleExportFn
             });
             onHtmlChange?.(currentHtmlContent);
         }, 1500)
-    }, [blockStyleFn, editorState, onHtmlChange]);
+    }, [editorState, onHtmlChange]);
 
     const onBlur = () => {
         onAfterChange();
     }
 
+    const customBlockImportFn = (element: Element): CustomBlockObject | undefined | null => {
+        const className = element.getAttribute('class');
+        if (className && className.includes("text-right")) {
+            return {
+                data: {'text-align': 'right'}
+            }
+        }
+
+        if (className && className.includes("text-center")) {
+            return {
+                data: {'text-align': 'center'}
+            }
+        }
+
+        if (className && className.includes("text-justify")) {
+            return {
+                data: {'text-align': 'justify'}
+            }
+        }
+    }
+
     useEffect(() => {
         if (initHtmlContent) {
-            const editorState = EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(initHtmlContent, undefined, blockRenderMap).contentBlocks));
+            const editorState = EditorState.createWithContent(stateFromHTML(initHtmlContent, {
+                customBlockFn: customBlockImportFn
+            }));
             setEditorState(editorState);
             return;
         }
@@ -158,7 +191,7 @@ const Editor: FC<Props> = ({ autoFocus, placeholder, initHtmlContent, initConten
             <div className={`sticky top-[100px] w-full h-0 translate-y-[-30px] ${showToolbar ? 'block' : 'hidden'}`}>
                 <Toolbar onBlockClick={onBlockClick} onInlineClick={onInlineClick} editorState={editorState} />
             </div>
-            <div className="w-full max-w-none prose dark:prose-invert prose-sm prose-headings:mt-0 text-justify">
+            <div className="w-full max-w-none prose dark:prose-invert prose-base prose-headings:m-0">
                 <DraftEditor
                     ref={editor}
                     editorState={editorState}

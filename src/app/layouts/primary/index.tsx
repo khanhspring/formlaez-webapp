@@ -9,7 +9,7 @@ export default function PrimaryLayout() {
         <>
             <div className="flex min-h-[100vh] items-stretch">
                 <SideBar />
-                <div className="w-full md:w-[calc(100%_-_90px)] flex flex-col dark:bg-cinder-900">
+                <div className="w-full md:w-[calc(100%_-_290px)] flex flex-col dark:bg-gray-900">
                     <Header />
                     <main className="w-full flex-1 py-7 px-7 flex flex-col">
                         <Outlet />

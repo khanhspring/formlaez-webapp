@@ -11,12 +11,20 @@ const ToolbarButton: FC<Props> = ({ onToggle, type, editorState, children }) => 
     const currentStyle = editorState.getCurrentInlineStyle();
 
     const selection = editorState.getSelection();
-    const blockType = editorState
+    const block = editorState
         .getCurrentContent()
-        .getBlockForKey(selection.getStartKey())
-        .getType();
+        .getBlockForKey(selection.getStartKey());
 
-    const isActive = currentStyle.has(type) || blockType === type;
+    const blockType = block.getType();
+
+    const alignData = block.getData().get("text-align");
+
+    const isActive = currentStyle.has(type) || blockType === type || (
+        (alignData === 'center' && type === 'align-center')
+        || (alignData === 'right' && type === 'align-right')
+        || (alignData === 'left' && type === 'align-left')
+        || (alignData === 'justify' && type === 'align-justify')
+    );
 
     const onMouseDown = (e: any) => {
         onToggle(type);
@@ -24,7 +32,7 @@ const ToolbarButton: FC<Props> = ({ onToggle, type, editorState, children }) => 
     }
 
     return (
-        <span className={`cursor-pointer px-1.5 py-1 flex items-center justify-center fill-white ${isActive ? 'text-blue-700 fill-blue-700' : ''}`} onMouseDown={onMouseDown}>
+        <span className={`cursor-pointer px-1.5 py-1 flex items-center justify-center ${isActive ? 'text-blue-700 fill-blue-700' : 'fill-white'}`} onMouseDown={onMouseDown}>
             {children}
         </span>
     );

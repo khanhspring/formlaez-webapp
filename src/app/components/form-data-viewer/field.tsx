@@ -32,7 +32,7 @@ const Field: FC<Props> = ({ field, data, showContentBlocks }) => {
             const selectedValues = (rawValue || []) as any[];
             const selected = (field.options || []).filter(option => selectedValues?.includes(option.code));
             return selected?.map((item, index) =>
-                <span key={index} className="mr-1 my-0.5 px-2 inline-block bg-slate-200 dark:bg-cinder-600 rounded-xl">
+                <span key={index} className="mr-1 my-0.5 px-2 inline-block bg-slate-200 dark:bg-slate-600 rounded-xl">
                     {item.label}
                 </span>
             )

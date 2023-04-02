@@ -1,12 +1,9 @@
-import { Link, useParams, useRouteLoaderData } from "react-router-dom";
-import ButtonAction from "../../components/layout/button-action";
+import { useParams } from "react-router-dom";
 import useFormDetail from "../../hooks/form/useFormDetail";
-import { Workspace } from "../../models/workspace";
 import FormDataTable from "./components/form-data-table";
 
 function DataFullScreen() {
 
-    const workspace = useRouteLoaderData("workspace") as Workspace;
     const params = useParams();
     const { data: form } = useFormDetail(params.formCode);
 

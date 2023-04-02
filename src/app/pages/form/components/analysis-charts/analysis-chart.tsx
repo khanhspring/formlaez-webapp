@@ -30,7 +30,7 @@ const AnalysisChart: FC<Props> = ({ analysisItem }) => {
     }
 
     return (
-        <div className="w-full flex flex-col bg-slate-50 dark:bg-cinder-800 rounded-md p-5">
+        <div className="w-full flex flex-col bg-slate-50 dark:bg-slate-800 rounded-md p-5">
             {renderChar()}
         </div>
     )

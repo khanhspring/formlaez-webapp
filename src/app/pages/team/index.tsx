@@ -9,6 +9,7 @@ import useWorkspaceContext from '../../hooks/auth/useWorkspaceContext';
 import useTeams from '../../hooks/team/useTeams';
 import { Workspace } from '../../models/workspace';
 import CreateTeamModal from './components/create-team-modal';
+import { PlusIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 
 function Team() {
 
@@ -33,11 +34,11 @@ function Team() {
 
     return (
         <>
-            <div className="w-full flex flex-col gap-2">
+            <div className="flex-1 w-full flex flex-col gap-2">
                 <PageTitle
                     title={"Teams"}
                     actions={<></>}
-                    shortTitle={<i className='fi fi-rr-users-alt text-xs' />}
+                    shortTitle={<UserGroupIcon className='w-4 h-4' />}
                     iconClassName="bg-gradient-to-r from-teal-500 to-emerald-500"
                 />
                 <div className="flex items-center justify-between min-h-[40px] mt-3">
@@ -48,25 +49,30 @@ function Team() {
                     <div className="flex items-center gap-2">
                         {
                             workspaceContext.isOwner &&
-                            <ButtonAction onClick={showCreateModal}>
-                                <i className="fi fi-rr-plus"></i>
+                            <ButtonAction onClick={showCreateModal} shape='circle'>
+                                <PlusIcon className='w-6 h-6'/>
                             </ButtonAction>
                         }
                     </div>
                 </div>
                 {
                     !isFetching && pages && pages.totalElements === 0 &&
-                    <Empty />
+                    <div className='flex-1 flex items-center justify-center pb-10'>
+                        <Empty />
+                    </div>
                 }
-                <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
-                    {
-                        pages?.content.map((item, index) =>
-                            <Link to={`/${workspace.code}/t/${item.code}`} key={index}>
-                                <TeamItem team={item} />
-                            </Link>
-                        )
-                    }
-                </div>
+                {
+                    pages && pages.totalElements > 0 &&
+                    <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
+                        {
+                            pages?.content.map((item, index) =>
+                                <Link to={`/${workspace.code}/t/${item.code}`} key={index}>
+                                    <TeamItem team={item} />
+                                </Link>
+                            )
+                        }
+                    </div>
+                }
             </div>
             <CreateTeamModal
                 visible={createModalVisible}

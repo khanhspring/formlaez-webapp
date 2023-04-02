@@ -28,7 +28,7 @@ const EmptyForm: FC<Props> = ({ form }) => {
             className="bg-transparent"
             disabled={form?.status === 'Archived'}
         >
-            <div className={`w-full p-5 rounded border border-cinder-700 border-dashed cursor-pointer`}>
+            <div className={`w-full p-5 rounded border border-slate-700 border-dashed cursor-pointer`}>
                 {
                     form?.status !== 'Archived' ? 'Click to add new form element' : 'Empty form'
                 }

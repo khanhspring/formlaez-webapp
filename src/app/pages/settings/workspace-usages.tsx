@@ -12,19 +12,19 @@ function WorkspaceBilling() {
 
     return (
         <>
-            <div className='px-6 py-4 border-b border-slate-900/10 dark:border-cinder-700'>
+            <div className='px-6 py-4 border-b border-slate-900/10 dark:border-slate-700'>
                 <h1 className='leading-5 font-bold'>Workspace usages</h1>
             </div>
             <div className='p-6'>
                 <table className="w-full">
                     <thead>
                         <tr>
-                            <th className="border border-slate-900/10 dark:border-cinder-600 px-3 py-5 align-bottom">
+                            <th className="border border-slate-900/10 dark:border-slate-600 px-3 py-5 align-bottom">
                                 <div className="flex flex-col items-start font-normal gap-1">
                                     <span className="text-sm font-bold">Content</span>
                                 </div>
                             </th>
-                            <th className="border border-slate-900/10 dark:border-cinder-600 px-3 py-5 align-bottom">
+                            <th className="border border-slate-900/10 dark:border-slate-600 px-3 py-5 align-bottom">
                                 <div className="flex flex-col items-start font-normal gap-1">
                                     <span className="text-sm font-bold">Usages</span>
                                 </div>
@@ -33,42 +33,42 @@ function WorkspaceBilling() {
                     </thead>
                     <tbody>
                         <tr>
-                            <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                            <td className={`border border-slate-900/10 dark:border-slate-600 px-3 py-2 text-sm`}>
                                 Forms
                             </td>
-                            <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                            <td className={`border border-slate-900/10 dark:border-slate-600 px-3 py-2 text-sm`}>
                                 <FormattedNumber value={usages?.totalForm || 0} /> / <FormattedNumber value={currentPlan.formLimit} />
                             </td>
                         </tr>
                         <tr>
-                            <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                            <td className={`border border-slate-900/10 dark:border-slate-600 px-3 py-2 text-sm`}>
                                 Members
                             </td>
-                            <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                            <td className={`border border-slate-900/10 dark:border-slate-600 px-3 py-2 text-sm`}>
                                 <FormattedNumber value={usages?.totalMember || 0} /> / <FormattedNumber value={currentPlan.workspaceMember} />
                             </td>
                         </tr>
                         <tr>
-                            <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                            <td className={`border border-slate-900/10 dark:border-slate-600 px-3 py-2 text-sm`}>
                                 File storages
                             </td>
-                            <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                            <td className={`border border-slate-900/10 dark:border-slate-600 px-3 py-2 text-sm`}>
                                 <FormattedNumber value={Math.round((usages?.totalFileStorage || 0) / 1024)} roundingMode={'halfEven'} /> KB / {currentPlan.fileStorageLimit}
                             </td>
                         </tr>
                         <tr>
-                            <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                            <td className={`border border-slate-900/10 dark:border-slate-600 px-3 py-2 text-sm`}>
                                 Submissions this month
                             </td>
-                            <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                            <td className={`border border-slate-900/10 dark:border-slate-600 px-3 py-2 text-sm`}>
                                 <FormattedNumber value={usages?.totalSubmission || 0} /> / <FormattedNumber value={currentPlan.submissionPerMonth} />
                             </td>
                         </tr>
                         <tr>
-                            <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                            <td className={`border border-slate-900/10 dark:border-slate-600 px-3 py-2 text-sm`}>
                                 Document merges this month
                             </td>
-                            <td className={`border border-slate-900/10 dark:border-cinder-600 px-3 py-2 text-sm`}>
+                            <td className={`border border-slate-900/10 dark:border-slate-600 px-3 py-2 text-sm`}>
                                 <FormattedNumber value={usages?.totalDocumentMerge || 0} /> / <FormattedNumber value={currentPlan.documentMergePerMonth} />
                             </td>
                         </tr>

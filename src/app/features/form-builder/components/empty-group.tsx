@@ -35,7 +35,7 @@ const EmptyGroup: FC<Props> = ({ form, section, sectionIndex }) => {
             className="bg-transparent"
             disabled={form?.status === 'Archived'}
         >
-            <div className='w-full px-5 py-2 rounded border border-cinder-700 border-dashed cursor-pointer'>
+            <div className='w-full px-5 py-2 rounded border border-slate-700 border-dashed cursor-pointer'>
                 {
                     form?.status !== 'Archived' ? 'Click to add new group element' : 'Empty group'
                 }

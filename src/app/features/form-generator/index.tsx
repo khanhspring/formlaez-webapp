@@ -87,7 +87,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                 <div className='mb-10'>
                     <div
                         onClick={onThemeSelect}
-                        className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer text-slate-900 bg-white/70 dark:text-white dark:bg-cinder-800/70 hover:bg-white dark:hover:bg-cinder-800 border border-bg-slate-900 dark:border-transparent group absolute top-5 right-5"
+                        className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer text-slate-900 bg-white/70 dark:text-white dark:bg-slate-800/70 hover:bg-white dark:hover:bg-slate-800 border border-bg-slate-900 dark:border-transparent group absolute top-5 right-5"
                     >
                         {
                             theme === 'dark' &&
@@ -100,7 +100,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                     </div>
                     {
                         user &&
-                        <div className='absolute top-6 right-[70px] rounded-2xl px-3 py-1 text-sm bg-white/70 dark:bg-cinder-800/70 border border-bg-slate-900 dark:border-transparent hover:bg-white dark:hover:bg-cinder-800'>
+                        <div className='absolute top-6 right-[70px] rounded-2xl px-3 py-1 text-sm bg-white/70 dark:bg-slate-800/70 border border-bg-slate-900 dark:border-transparent hover:bg-white dark:hover:bg-slate-800'>
                             {user?.firstName} {user?.lastName}
                         </div>
                     }
@@ -108,7 +108,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                         !user &&
                         <div
                             onClick={login}
-                            className='absolute top-6 right-[70px] rounded-2xl px-3 py-1 text-sm bg-white/70 dark:bg-cinder-800/70 border border-bg-slate-900 dark:border-transparent hover:bg-white dark:hover:bg-cinder-800 cursor-pointer'
+                            className='absolute top-6 right-[70px] rounded-2xl px-3 py-1 text-sm bg-white/70 dark:bg-slate-800/70 border border-bg-slate-900 dark:border-transparent hover:bg-white dark:hover:bg-slate-800 cursor-pointer'
                         >
                             Login
                         </div>
@@ -139,7 +139,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                 </div>
             }
             <div className='w-full px-4 flex-1'>
-                <div className="w-full max-w-[530px] m-auto">
+                <div className="w-full max-w-[640px] m-auto">
                     <RcForm
                         initialValues={initValues}
                         onFinish={handleOnFinish}

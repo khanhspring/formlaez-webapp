@@ -28,7 +28,7 @@
     background-color: white;
 }
 .dark .rc-dropdown .rc-menu {
-    background-color: #2B2B40;
+    background-color: var(--bg-gray-800);
 }
 
 .rc-dropdown .rc-menu>li {
@@ -62,12 +62,12 @@
 
 .rc-dropdown .rc-menu .rc-menu-item:hover,
 .rc-dropdown .rc-menu .rc-menu-item-active {
-    background-color: rgb(226 232 240);
+    background-color: var(--bg-slate-50);
 }
 
 .dark .rc-dropdown .rc-menu .rc-menu-item:hover,
 .dark .rc-dropdown .rc-menu .rc-menu-item-active{
-    background-color: rgba(27, 27, 40, 0.7);
+    background-color: var(--bg-gray-900);
 }
 
 .rc-dropdown .rc-menu .rc-menu-item-selected {

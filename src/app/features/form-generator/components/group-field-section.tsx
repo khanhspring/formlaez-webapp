@@ -36,19 +36,19 @@ const GroupFieldSection: FC<Props> = ({ section }) => {
                             {fields.map((field, index) => (
                                 <div
                                     key={index}
-                                    className="border border-slate-900/10 dark:border-cinder-600 rounded"
+                                    className="border border-slate-900/10 dark:border-gray-700 rounded"
                                 >
-                                    <div className="bg-slate-200 dark:bg-cinder-700 px-3 min-h-[40px] text-sm flex justify-between items-center rounded-tl rounded-tr">
+                                    <div className="bg-slate-200 dark:bg-gray-800 px-3 min-h-[40px] text-base flex justify-between items-center rounded-tl rounded-tr">
                                         <div className="flex gap-2">
                                             <span>{section.title || 'Untitled group'}</span>
-                                            <span className="inline-block h-5 min-w-[20px] rounded-[10px] bg-slate-300 dark:bg-cinder-900 text-center">{index + 1}</span>
+                                            <span className="inline-block h-5 min-w-[20px] rounded-[10px] bg-slate-300 dark:bg-slate-900 text-center">{index + 1}</span>
                                         </div>
                                         {
                                             fields.length > 1 &&
                                             <Tooltip overlay="Delete">
                                                 <span
                                                     onClick={() => onRemove(remove, index)}
-                                                    className="flex items-center justify-center h-6 min-w-[24px] rounded-[10px] hover:bg-slate-300 dark:hover:bg-cinder-900 hover:text-red-700 text-center cursor-pointer"
+                                                    className="flex items-center justify-center h-6 min-w-[24px] rounded-[10px] hover:bg-slate-300 dark:hover:bg-slate-900 hover:text-red-700 text-center cursor-pointer"
                                                 >
                                                     <i className="fi fi-rr-trash"></i>
                                                 </span>
@@ -73,7 +73,7 @@ const GroupFieldSection: FC<Props> = ({ section }) => {
                         <div className="p-3 flex pb-5 justify-center">
                             <button
                                 onClick={() => add({})}
-                                className="px-2.5 py-1.5 min-w-[100px] rounded-2xl text-sm transition bg-blue-700 hover:bg-blue-600 text-white flex items-center justify-center gap-2"
+                                className="px-2.5 py-1.5 min-w-[100px] rounded-2xl text-base transition bg-blue-700 hover:bg-blue-600 text-white flex items-center justify-center gap-2"
                                 type="button"
                             >
                                 <span>Add</span>

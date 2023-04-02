@@ -11,8 +11,8 @@ const HtmlBlock: FC<Props> = ({ content }) => {
     }
 
     return (
-        <div className="w-full my-1">
-            <div className="prose prose-sm dark:prose-invert max-w-max html-block text-justify" dangerouslySetInnerHTML={{__html: content}}/>
+        <div className="w-full my-3">
+            <div className="prose prose-base dark:prose-invert max-w-full" dangerouslySetInnerHTML={{__html: content}}/>
         </div>
     );
 }

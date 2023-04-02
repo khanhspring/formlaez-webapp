@@ -31,17 +31,17 @@ const OpinionScaleField: FC<Props> = ({ field, context }) => {
                 </div>
             }
             <div className="relative w-full flex items-center gap-2 text-lg justify-between h-10">
-                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-500 rounded flex items-center justify-center">0</span>
-                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-500 rounded flex items-center justify-center">1</span>
-                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-500 rounded flex items-center justify-center">2</span>
-                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-500 rounded flex items-center justify-center">3</span>
-                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-500 rounded flex items-center justify-center">4</span>
-                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-500 rounded flex items-center justify-center">5</span>
-                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-500 rounded flex items-center justify-center">6</span>
-                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-500 rounded flex items-center justify-center">7</span>
-                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-500 rounded flex items-center justify-center">8</span>
-                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-500 rounded flex items-center justify-center">9</span>
-                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-500 rounded flex items-center justify-center">10</span>
+                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded flex items-center justify-center">0</span>
+                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded flex items-center justify-center">1</span>
+                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded flex items-center justify-center">2</span>
+                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded flex items-center justify-center">3</span>
+                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded flex items-center justify-center">4</span>
+                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded flex items-center justify-center">5</span>
+                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded flex items-center justify-center">6</span>
+                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded flex items-center justify-center">7</span>
+                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded flex items-center justify-center">8</span>
+                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded flex items-center justify-center">9</span>
+                <span className="cursor-pointer flex-1 h-full border border-slate-900/10 text-slate-800 dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800 rounded flex items-center justify-center">10</span>
             </div>
         </div>
     );

@@ -13,7 +13,7 @@ const FormItemLabel: FC<Props> = ({ content, required }) => {
     }
 
     return (
-        <div className="text-sm mb-1 flex gap-1 items-center">
+        <div className="text-base mb-1 flex gap-1 items-center">
             <RequiredMark visible={required} />
             <span>{content}</span>
         </div>

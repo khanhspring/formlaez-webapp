@@ -1,3 +1,4 @@
+import { ArrowLeftIcon, Cog6ToothIcon, EyeIcon } from "@heroicons/react/24/outline";
 import Dropdown from "rc-dropdown";
 import Menu, { MenuItem } from "rc-menu";
 import Tooltip from "rc-tooltip";
@@ -102,13 +103,13 @@ function FormEdit() {
 
     return (
         <>
-            <div className="px-10 min-h-[55px] flex items-center justify-between sticky top-0 z-50 bg-white border-b border-slate-900/10 dark:border-transparent dark:bg-cinder-700">
+            <div className="px-10 min-h-[55px] flex items-center justify-between sticky top-0 z-50 bg-white border-b border-slate-900/10 dark:border-transparent dark:bg-gray-800">
                 <div className="flex items-center flex-1">
                     <span onClick={back} className="py-3 pr-5 flex items-center cursor-pointer">
-                        <i className="fi fi-rr-arrow-left"></i>
+                        <ArrowLeftIcon className="w-6 h-6"/>
                     </span>
                 </div>
-                <div className="flex items-center justify-center flex-1 w-full overflow-hidden">
+                <div className="hidden md:flex items-center justify-center flex-1 w-full overflow-hidden">
                     <div className="w-full flex items-center justify-center overflow-hidden">
                         {formTitle}
                     </div>
@@ -120,18 +121,18 @@ function FormEdit() {
                     }
                     <Link to={`/f/${formDetail?.code}/preview`} target="_blank">
                         <button className="flex items-center gap-1 text-sm opacity-80 hover:opacity-100">
-                            <i className="fi fi-rr-eye mt-0.5"></i>
+                            <EyeIcon className="w-5 h-5"/>
                             <span>Preview</span>
                         </button>
                     </Link>
                     <Dropdown overlay={settingsMenu} trigger={['click']} placement="bottomRight">
                         <button className="flex items-center gap-1 text-sm opacity-80 hover:opacity-100 h-12" aria-label="Config">
-                            <i className="fi fi-rr-settings-sliders mt-0.5"></i>
+                            <Cog6ToothIcon className="w-5 h-5"/>
                         </button>
                     </Dropdown>
                 </div>
             </div>
-            <div className="w-full flex flex-col pb-72">
+            <div className="flex-1 w-full flex flex-col pb-72 bg-dots">
                 {
                     formDetail &&
                     <FormBuilder initForm={formDetail} onTitleChange={onTitleChange} />

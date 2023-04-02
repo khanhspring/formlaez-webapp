@@ -46,12 +46,12 @@ const OptionsProperty: FC<Props> = ({ field, context, disabled }) => {
                                     <SimpleBar
                                         style={{ maxHeight: '300px' }}
                                         autoHide={false}
-                                        className="border border-cinder-600 p-3"
+                                        className="border border-slate-600 p-3"
                                     >
                                         <div className="w-full flex flex-col items-start gap-2 pr-5">
                                             {fields.map((field, index) => (
                                                 <div key={index} className="w-full relative flex items-center gap-2 group/option-item">
-                                                    <span className="text-xs w-5 h-5 flex items-center justify-center rounded-full border border-cinder-600 bg-cinder-600/50">
+                                                    <span className="text-xs w-5 h-5 flex items-center justify-center rounded-full border border-slate-600 bg-slate-600/50">
                                                         {index + 1}
                                                     </span>
                                                     <FormItem {...field} name={[field.name, 'label']} hideError>
@@ -67,7 +67,7 @@ const OptionsProperty: FC<Props> = ({ field, context, disabled }) => {
                                                         <button
                                                             aria-label="Remove"
                                                             onClick={() => remove(index)}
-                                                            className="absolute w-6 h-6 -right-3 top-[50%] translate-y-[-50%] rounded-full border border-cinder-600 bg-cinder-600/50 items-center justify-center hover:border-rose-700 hover:bg-rose-700/30 transition hidden group-hover/option-item:flex"
+                                                            className="absolute w-6 h-6 -right-3 top-[50%] translate-y-[-50%] rounded-full border border-slate-600 bg-slate-600/50 items-center justify-center hover:border-rose-700 hover:bg-rose-700/30 transition hidden group-hover/option-item:flex"
                                                         >
                                                             <i className="fi fi-rr-cross-small"></i>
                                                         </button>
@@ -82,7 +82,7 @@ const OptionsProperty: FC<Props> = ({ field, context, disabled }) => {
                                         <button
                                             aria-label="Add"
                                             onClick={() => add({ code: nanoid(), label: 'Unlabeled option' })}
-                                            className="w-6 h-6 rounded-full border border-cinder-600 bg-cinder-600/50 items-center justify-center transition flex mt-2"
+                                            className="w-6 h-6 rounded-full border border-slate-600 bg-slate-600/50 items-center justify-center transition flex mt-2"
                                         >
                                             <i className="fi fi-rr-plus-small"></i>
                                         </button>

@@ -127,12 +127,12 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
     const disabled = form?.status === 'Archived';
 
     return (
-        <div className="w-[290px] bg-white dark:bg-cinder-700 rounded py-2 px-1 flex flex-col gap-0.5">
+        <div className="w-[290px] bg-white dark:bg-slate-700 rounded py-2 px-1 flex flex-col gap-0.5">
             {
                 (isFormControl || context.type === 'Group') &&
                 <div
                     className={
-                        `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600`
+                        `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-slate-600`
                     }
                     onClick={onCopy}
                 >
@@ -147,7 +147,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                 (isFormControl || context.type === 'Group') &&
                 <div
                     className={
-                        `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600`
+                        `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-slate-600`
                     }
                     onClick={onCopyPlaceholder || context.type === 'Group'}
                 >
@@ -162,7 +162,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                 (context.type === 'Group') &&
                 <div
                     className={
-                        `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600`
+                        `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-slate-600`
                     }
                     onClick={onCopyParagraphPlaceholder}
                 >
@@ -175,14 +175,14 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
             {
                 (isFormControl || context.type === 'Group') &&
                 <div className="py-2">
-                    <div className="border-b border-slate-900/10 dark:border-b-cinder-600"></div>
+                    <div className="border-b border-slate-900/10 dark:border-b-slate-600"></div>
                 </div>
             }
             {
                 (isFormControl || context.type === 'Group') &&
                 <div
                     className={
-                        `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600`
+                        `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-slate-600`
                     }
                     onClick={onEditProperties}
                 >
@@ -195,7 +195,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
             }
             <div
                 className={
-                    `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600`
+                    `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-slate-600`
                     + ` ${disabled ? 'cursor-not-allowed' : ''}`
                 }
                 onClick={onDuplicate}
@@ -208,7 +208,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
             </div>
             <div
                 className={
-                    `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600`
+                    `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-slate-600`
                     + ` ${disabled ? 'cursor-not-allowed' : ''}`
                 }
                 onClick={onDelete}
@@ -223,12 +223,12 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                 isFormControl &&
                 <>
                     <div className="py-2">
-                        <div className="border-b border-slate-900/10 dark:border-b-cinder-600"></div>
+                        <div className="border-b border-slate-900/10 dark:border-b-slate-600"></div>
                     </div>
 
                     <div
                         className={
-                            `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600`
+                            `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-slate-600`
                             + ` ${disabled ? 'cursor-not-allowed' : ''}`
                         }
                         onClick={changeRequire}
@@ -243,7 +243,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                     </div>
                     <div
                         className={
-                            `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600`
+                            `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-slate-600`
                             + ` ${disabled ? 'cursor-not-allowed' : ''}`
                         }
                         onClick={changeHideTitle}
@@ -263,7 +263,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                 <>
                     <div
                         className={
-                            `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600`
+                            `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-slate-600`
                             + ` ${disabled ? 'cursor-not-allowed' : ''}`
                         }
                         onClick={changeMultipleSelection}
@@ -283,7 +283,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                 <>
                     <div
                         className={
-                            `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-cinder-600`
+                            `px-2 py-1 flex justify-between items-center cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-slate-600`
                             + ` ${disabled ? 'cursor-not-allowed' : ''}`
                         }
                         onClick={changeShowTime}

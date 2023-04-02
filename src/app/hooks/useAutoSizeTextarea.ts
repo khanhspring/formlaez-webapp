@@ -33,13 +33,14 @@ const useAutoSizeTextarea = (
         } else {
           textarea.style.minWidth = span.offsetWidth + 1 + "px";
         }
-        span.parentNode?.removeChild(span);
       }
 
       if (autoHeight) {
         const textareaContentHeight = textarea.scrollHeight;
         textarea.style.height = textareaContentHeight + "px";
       }
+
+      span.parentNode?.removeChild(span);
     }
 
     document.addEventListener("input", detectSize);
@@ -53,7 +54,10 @@ const useAutoSizeTextarea = (
   }, [autoWidth, autoHeight, container, maxWidth, textarea]);
 };
 
-const getMaxWidth = (container?: RefObject<any>, maxWidth?: number): number | undefined => {
+const getMaxWidth = (
+  container?: RefObject<any>,
+  maxWidth?: number
+): number | undefined => {
   if (!maxWidth && !container) {
     return;
   }

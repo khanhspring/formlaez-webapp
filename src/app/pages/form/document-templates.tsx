@@ -18,6 +18,7 @@ import FormPageMenu from "./components/form-page-menu";
 import FormPageTitle from "./components/form-page-title";
 import FormPageTitlePrefix from "./components/form-page-title-prefix";
 import UpdateDocumentTemplateModal from "./components/update-document-template-modal";
+import { PlusIcon } from "@heroicons/react/24/outline";
 
 function DocumentTemplates() {
 
@@ -82,7 +83,7 @@ function DocumentTemplates() {
 
     return (
         <>
-            <div className="w-full flex flex-col gap-2">
+            <div className="flex-1 w-full flex flex-col gap-2">
                 <PageTitle
                     title={<FormPageTitle form={form} />}
                     actions={<FormPageMenu form={form} />}
@@ -94,15 +95,15 @@ function DocumentTemplates() {
                         <span>Total {pages?.totalElements || 0}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <ButtonAction onClick={showCreateModal}>
-                            <i className="fi fi-rr-plus"></i>
+                        <ButtonAction onClick={showCreateModal} shape="circle">
+                            <PlusIcon className="w-6 h-6"/>
                         </ButtonAction>
                     </div>
                 </div>
 
                 {
                     isEmpty &&
-                    <div className="mt-6">
+                    <div className="flex-1 flex items-center justify-center">
                         <Empty description="No data" />
                     </div>
                 }

@@ -35,7 +35,7 @@ const Drawer: FC<Props> = ({ title, closeIcon, children, ...rest }) => {
         <RcDrawer
             {...rest}
             {...motionProps}
-            className="dark:bg-cinder-800"
+            className="dark:bg-gray-800"
         >
             {
                 !hideHeader &&

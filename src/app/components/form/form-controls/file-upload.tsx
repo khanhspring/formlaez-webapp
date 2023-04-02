@@ -39,7 +39,7 @@ const FileUpload: FC<Props> = ({ status, onChange = () => { }, value, accept, pl
     return (
         <div className='w-full'>
             <div className={
-                `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-cinder-600 dark:bg-cinder-700`
+                `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-gray-700 dark:bg-gray-800`
                 + ` ${status && status === 'error' ? '!border-rose-700' : ''} `
                 + ` ${status && status === 'warning' ? '!border-yellow-700' : ''} `
                 + ` ${status && status === 'success' ? '!border-green-700' : ''} `
@@ -64,7 +64,7 @@ const FileUpload: FC<Props> = ({ status, onChange = () => { }, value, accept, pl
                         multiple={multiple}
                     >
                     </Upload>
-                    <p className="text-sm font-light absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0">{placeholder}</p>
+                    <p className="text-base font-light absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0">{placeholder}</p>
                 </div>
             </div>
             {
@@ -72,7 +72,7 @@ const FileUpload: FC<Props> = ({ status, onChange = () => { }, value, accept, pl
                 <div className='w-full flex flex-col gap-1 mt-1'>
                     {
                         files.map((item, index) =>
-                            <div className='text-sm bg-cinder-800/50 px-1.5 py-1 rounded flex items-center justify-between group/file-item' key={index}>
+                            <div className='text-base bg-slate-800/50 px-1.5 py-1 rounded flex items-center justify-between group/file-item' key={index}>
                                 <span>{item.name}</span>
                                 <i
                                     onClick={() => remove(index)}

@@ -32,7 +32,7 @@ const TextField: FC<Props> = ({ field, context }) => {
             {
                 formInfo?.status === 'Archived' &&
                 <div className="w-full">
-                    <div className="prose prose-sm dark:prose-invert max-w-max html-block text-justify" dangerouslySetInnerHTML={{ __html: values.content || '' }} />
+                    <div className="prose prose-base dark:prose-invert max-w-full" dangerouslySetInnerHTML={{ __html: values.content || '' }} />
                 </div>
             }
         </>

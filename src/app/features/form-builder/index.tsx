@@ -141,7 +141,7 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
     }
 
     const coverColors = (
-        <div className="w-[550px] bg-white dark:bg-cinder-800 rounded p-3">
+        <div className="w-[550px] bg-white dark:bg-slate-800 rounded p-3">
             <h2>Background colors</h2>
             <div className="w-full grid grid-cols-4 gap-2 mt-3">
                 {
@@ -185,14 +185,14 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
                                     >
                                         <button
                                             onClick={() => { }}
-                                            className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-cinder-700/70 dark:hover:bg-cinder-700"
+                                            className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-slate-700/70 dark:hover:bg-slate-700"
                                         >
                                             Change cover
                                         </button>
                                     </Popup>
                                     <button
                                         onClick={removeCover}
-                                        className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-cinder-700/70 dark:hover:bg-cinder-700"
+                                        className="px-2 py-1 text-xs rounded transition bg-white/70 hover:bg-white dark:bg-slate-700/70 dark:hover:bg-slate-700"
                                     >
                                         Remove
                                     </button>
@@ -212,14 +212,14 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
                     </div>
                 </div>
             }
-            <div className="w-full max-w-[530px] m-auto mt-10 text-sm">
+            <div className="w-full max-w-[700px] m-auto mt-10 px-7 text-base">
                 {
                     (!form?.coverType || form?.coverType === 'None') && form?.status !== 'Archived' &&
                     <>
                         <div className="w-full">
                             <button
                                 onClick={addCover}
-                                className="px-2 py-1 transition border border-slate-900/10 bg-slate-100 hover:bg-slate-200 dark:border-transparent dark:bg-cinder-700/70 dark:hover:bg-cinder-700 rounded text-sm"
+                                className="px-2 py-1 transition border border-slate-900/10 bg-slate-100 hover:bg-slate-200 dark:border-transparent dark:bg-slate-700/70 dark:hover:bg-slate-700 rounded text-sm"
                             >
                                 Add cover
                             </button>
