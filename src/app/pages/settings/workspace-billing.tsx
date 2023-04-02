@@ -160,7 +160,7 @@ function WorkspaceBilling() {
                 </div>
 
                 <div className="mt-3">
-                    <table className="w-full">
+                    <table className="w-full dark:bg-gray-800">
                         <thead>
                             <tr>
                                 <th className="border border-slate-900/10 dark:border-slate-600 px-3 py-5 align-bottom">

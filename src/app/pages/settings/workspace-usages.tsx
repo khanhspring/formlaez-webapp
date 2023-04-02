@@ -16,15 +16,15 @@ function WorkspaceBilling() {
                 <h1 className='leading-5 font-bold'>Workspace usages</h1>
             </div>
             <div className='p-6'>
-                <table className="w-full">
+                <table className="w-full dark:bg-gray-800">
                     <thead>
                         <tr>
-                            <th className="border border-slate-900/10 dark:border-slate-600 px-3 py-5 align-bottom">
+                            <th className="border border-slate-900/10 dark:border-slate-600 px-3 py-3 align-bottom">
                                 <div className="flex flex-col items-start font-normal gap-1">
                                     <span className="text-sm font-bold">Content</span>
                                 </div>
                             </th>
-                            <th className="border border-slate-900/10 dark:border-slate-600 px-3 py-5 align-bottom">
+                            <th className="border border-slate-900/10 dark:border-slate-600 px-3 py-3 align-bottom">
                                 <div className="flex flex-col items-start font-normal gap-1">
                                     <span className="text-sm font-bold">Usages</span>
                                 </div>

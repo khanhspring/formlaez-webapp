@@ -67,12 +67,12 @@ function SideBar() {
     )
 
     return (
-        <div className="w-[290px] hidden md:block min-h-screen bg-slate-50 dark:bg-gray-900 border-r border-slate-900/10 dark:border-gray-800">
+        <div className="w-[290px] hidden md:block min-h-screen dark:bg-gray-900 border-r border-slate-900/10 dark:border-gray-800">
             <div className="sticky top-0 w-full h-full flex flex-col justify-start">
                 <div className="px-2 flex items-center w-full h-[65px] bg-white border-b border-slate-900/10 dark:bg-gray-900 dark:border-gray-800">
                     <div className="flex w-full items-center justify-between gap-3 px-4">
                         <Logo />
-                        <Dropdown overlay={switchWorkspaceDropdown} placement="bottomRight" trigger={['click']}>
+                        <Dropdown overlay={switchWorkspaceDropdown} placement="bottomLeft" trigger={['click']}>
                             <div className='px-4 py-2 bg-slate-100 dark:bg-gray-800 rounded-3xl flex justify-center items-center gap-2 cursor-pointer'>
                                 <span className='font-bold'>{shortName}</span>
                                 <span className={
@@ -95,21 +95,21 @@ function SideBar() {
                             to={`/${workspace.code}/p`}
                             className={
                                 "w-full flex items-center gap-2 px-2.5 py-2 transition rounded"
-                                + ` ${isActive('Private') ? 'text-slate-900 dark:text-white dark:bg-gray-800' : 'text-slate-900/60 dark:text-slate-500'}`
+                                + ` ${isActive('Private') ? 'text-slate-900 dark:text-white bg-slate-100 dark:bg-gray-800' : 'text-slate-900 dark:text-slate-500'}`
                             }
                         >
                             <UserIcon className="h-6 w-6 p-0.5 rounded" />
-                            <span className="text-sm font-normal">Private</span>
+                            <span className="font-normal">Private</span>
                         </Link>
                         <Link
                             to={`/${workspace.code}/t`}
                             className={
                                 "w-full flex items-center gap-2 px-2.5 py-2 transition rounded"
-                                + ` ${isActive('Team') ? 'text-slate-900 dark:text-white dark:bg-gray-800' : 'text-slate-900/60 dark:text-slate-500'}`
+                                + ` ${isActive('Team') ? 'text-slate-900 dark:text-white bg-slate-100 dark:bg-gray-800' : 'text-slate-900 dark:text-slate-500'}`
                             }
                         >
                             <UserGroupIcon className="h-6 w-6 p-0.5 rounded" />
-                            <span className="text-sm font-normal">Teams</span>
+                            <span className="font-normal">Teams</span>
                         </Link>
                     </div>
 
@@ -120,11 +120,11 @@ function SideBar() {
                                 to={`/${workspace.code}/settings`}
                                 className={
                                     "w-full flex items-center gap-2 px-2.5 py-2 transition rounded"
-                                    + ` ${isActive('Settings') ? 'text-slate-900 dark:text-white dark:bg-gray-800' : 'text-slate-900/60 dark:text-slate-500'}`
+                                    + ` ${isActive('Settings') ? 'text-slate-900 dark:text-white bg-slate-100 dark:bg-gray-800' : 'text-slate-900 dark:text-slate-500'}`
                                 }
                             >
                                 <Cog6ToothIcon className="h-6 w-6 p-0.5 rounded" />
-                                <span className="text-sm font-normal">Settings</span>
+                                <span className="font-normal">Settings</span>
                             </Link>
                         </div>
                     }

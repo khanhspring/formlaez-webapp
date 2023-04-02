@@ -23,7 +23,7 @@ function Settings() {
             <div className="w-[290px] bg-slate-50 dark:bg-gray-800/50 flex flex-col rounded">
                 <div className="px-5 py-4 border-b border-slate-900/10 dark:border-slate-700 flex items-center gap-2 overflow-hidden">
                     <span className="text-sm font-bold whitespace-nowrap text-ellipsis overflow-hidden">
-                        Xuân Khánh Trần's Workspace
+                        {workspace.name}
                     </span>
                 </div>
                 <div className="flex flex-col p-4 gap-2">
