@@ -1,7 +1,6 @@
 import RcForm from "rc-field-form";
 import Tooltip from "rc-tooltip";
 import { FC } from "react";
-import Button from "../../../components/common/button";
 import confirm from "../../../components/common/confirm/confirm";
 import { FormSection } from "../../../models/form";
 import FieldItem from "./field-item";

@@ -1,6 +1,6 @@
 import type { Moment } from 'moment';
 import moment from 'moment';
-import Picker, { RangePicker } from 'rc-picker';
+import { RangePicker } from 'rc-picker';
 import generateConfig from 'rc-picker/lib/generate/moment';
 import enUS from 'rc-picker/lib/locale/en_US';
 import { FC, InputHTMLAttributes } from "react";

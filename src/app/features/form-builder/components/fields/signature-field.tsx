@@ -20,7 +20,7 @@ const SignatureField: FC<Props> = ({ field, context }) => {
             {
                 !(field.hideTitle === true) &&
                 <div className="flex items-center">
-                    <RequiredMark visible={field.required}/>
+                    <RequiredMark visible={field.required} />
                     <input
                         value={values.title}
                         className="flex-1 w-full text-slate-900 dark:text-gray-100 bg-transparent outline-none"
@@ -30,8 +30,10 @@ const SignatureField: FC<Props> = ({ field, context }) => {
                     />
                 </div>
             }
-            <div className="w-full h-40 bg-white rounded">
+            <div className="flex items-center justify-center">
+                <div className="max-w-[400px] w-full aspect-video bg-white rounded">
 
+                </div>
             </div>
         </div>
     );

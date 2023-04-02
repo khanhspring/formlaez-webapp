@@ -2,7 +2,6 @@ import Dropdown from 'rc-dropdown';
 import Menu, { MenuItem } from 'rc-menu';
 import Tooltip from 'rc-tooltip';
 import { Link, useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom';
-import SimpleBar from 'simplebar-react';
 import Logo from '../../components/common/logo';
 import ZigzagIcon from '../../components/icons/zigzag-icon';
 import { FreePlan, Plans } from '../../constants/plans';
@@ -10,7 +9,7 @@ import useWorkspaceContext from '../../hooks/auth/useWorkspaceContext';
 import { UserSession } from '../../models/user-session';
 import { Workspace } from '../../models/workspace';
 import StringUtils, { firstLetters } from '../../util/string-utils';
-import { Cog6ToothIcon, UserGroupIcon, UserIcon } from '@heroicons/react/24/outline'
+import { ChevronDoubleDownIcon, Cog6ToothIcon, UserGroupIcon, UserIcon } from '@heroicons/react/24/outline'
 
 function SideBar() {
 
@@ -73,32 +72,22 @@ function SideBar() {
                 <div className="px-2 flex items-center w-full h-[65px] bg-white border-b border-slate-900/10 dark:bg-gray-900 dark:border-gray-800">
                     <div className="flex w-full items-center justify-between gap-3 px-4">
                         <Logo />
-                        <div>
-                            {shortName}
-                        </div>
-                    </div>
-                </div>
-
-                {/* <div className="py-3 mt-2 flex flex-col gap-1 items-center justify-center">
-                        <Tooltip overlay={(workspace?.name || 'Workspace') + ' (' + currentPlan.name + ')'} placement="right">
-                            <div className="relative text-lg font-semibold flex w-10 h-10 rounded-full ring-2 items-center justify-center select-none bg-gradient-to-r from-cyan-500 to-blue-500 text-white transition">
-                                {shortName}
+                        <Dropdown overlay={switchWorkspaceDropdown} placement="bottomRight" trigger={['click']}>
+                            <div className='px-4 py-2 bg-slate-100 dark:bg-gray-800 rounded-3xl flex justify-center items-center gap-2 cursor-pointer'>
+                                <span className='font-bold'>{shortName}</span>
                                 <span className={
-                                    `absolute -top-2.5 -right-2.5 text-sm w-5 h-5 flex justify-center items-center rounded-full  ring-2`
+                                    'w-7 h-7 flex items-center justify-center rounded-full ring-2'
                                     + ` ${currentPlan.code === 'Free' ? 'bg-gray-400' : ''}`
                                     + ` ${currentPlan.code === 'Plus' ? 'bg-yellow-600' : ''}`
                                     + ` ${currentPlan.code === 'Business' ? 'bg-rose-700' : ''}`
                                 }>
                                     {currentPlan.icon}
                                 </span>
+                                <ChevronDoubleDownIcon className='w-4 h-4' />
                             </div>
-                        </Tooltip>
-                        <Dropdown overlay={switchWorkspaceDropdown} placement="bottomRight" trigger={['click']}>
-                            <span className="flex items-center justify-center w-10 h-6 cursor-pointer group text-lg">
-                                <i className="fi fi-rr-menu-dots text-slate-700 group-hover:text-blue-500 dark:text-gray-400 dark:group-hover:text-gray-200 transition"></i>
-                            </span>
                         </Dropdown>
-                    </div> */}
+                    </div>
+                </div>
 
                 <div className="flex-1 flex flex-col py-2">
                     <div className='w-full flex flex-col items-start px-2 gap-2'>
@@ -124,11 +113,9 @@ function SideBar() {
                         </Link>
                     </div>
 
-                    <div className='border-t border-slate-900/10 dark:border-gray-800 my-2' />
-
                     {
                         workspaceContext.isOwner &&
-                        <div className='w-full flex flex-col items-start px-2 gap-2'>
+                        <div className='w-full flex flex-col items-start px-2 gap-2 mt-2'>
                             <Link
                                 to={`/${workspace.code}/settings`}
                                 className={
@@ -143,7 +130,7 @@ function SideBar() {
                     }
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

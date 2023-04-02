@@ -37,11 +37,11 @@ const Rating: FC<Props> = ({ className = '', status, onChange, value, ...rest })
                         }
                     >
                         {
-                            (!value || val > (value || 0)) &&
+                            (!value || val > +(value || 0)) &&
                             <i className="fi fi-rs-star cursor-pointer text-slate-900 hover:text-slate-700 dark:text-gray-400 dark:hover:text-gray-200 transition"></i>
                         }
                         {
-                            (val <= (value || 0)) &&
+                            (val <= +(value || 0)) &&
                             <i className="fi fi-ss-star cursor-pointer text-yellow-400 hover:text-yellow-600 transition"></i>
                         }
                     </span>

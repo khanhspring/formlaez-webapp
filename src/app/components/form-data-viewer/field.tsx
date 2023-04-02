@@ -67,7 +67,7 @@ const Field: FC<Props> = ({ field, data, showContentBlocks }) => {
         }
         if (field.type === 'Signature') {
             return (
-                <div className='bg-white rounded'>
+                <div className='bg-white max-w-[350px] w-full rounded'>
                     {rawValue && <img src={rawValue} alt={field.title}/>}
                 </div>
             )
@@ -80,10 +80,10 @@ const Field: FC<Props> = ({ field, data, showContentBlocks }) => {
     if (isFormControl) {
         return (
             <div className='flex flex-col gap-1'>
-                <label className='text-xs text-slate-900/70 dark:text-gray-300'>
+                <label className='text-sm text-slate-900/70 dark:text-gray-300'>
                     {field.title}
                 </label>
-                <div className='text-sm'>
+                <div className='text-base'>
                     {toString() || <span className='text-sm font-light text-slate-900 dark:text-gray-500'>No data</span>}
                 </div>
             </div>
