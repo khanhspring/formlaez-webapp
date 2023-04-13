@@ -12,6 +12,7 @@ import useSignUp from '../../hooks/sign-up/useSignUp';
 import { ConfirmSignUpRequest, SignUpRequest } from '../../models/sign-up';
 import { selectTheme } from '../../slices/app-config';
 import { showErrorIgnore403 } from '../../util/common';
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
 
@@ -108,7 +109,7 @@ const SignUp = () => {
                                     >
                                         <Input
                                             placeholder='email@example.com'
-                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10'
+                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                         />
                                     </FormItem>
                                     <Button className='w-full py-2.5' loading={isLoading}>
@@ -118,12 +119,12 @@ const SignUp = () => {
                             </div>
                             <div className='mt-7 flex gap-1.5 text-sm font-semibold'>
                                 <span className='text-slate-500'>Already have an Account?</span>
-                                <a
-                                    href={process.env.REACT_APP_AUTH_LOGIN_URL}
+                                <Link
+                                    to={"/sign-in"}
                                     className="text-blue-500"
                                 >
                                     Sign in
-                                </a>
+                                </Link>
                             </div>
                         </>
                     }
@@ -142,7 +143,7 @@ const SignUp = () => {
                                         title='Email'
                                     >
                                         <Input
-                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10'
+                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                             disabled
                                         />
                                     </FormItem>
@@ -156,7 +157,7 @@ const SignUp = () => {
                                     >
                                         <Input
                                             placeholder='Verification code'
-                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10'
+                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                             className='autofill:bg-transparent'
                                         />
                                     </FormItem>
@@ -170,7 +171,7 @@ const SignUp = () => {
                                     >
                                         <Input
                                             placeholder='First name'
-                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10'
+                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                             className='autofill:bg-transparent'
                                         />
                                     </FormItem>
@@ -184,7 +185,7 @@ const SignUp = () => {
                                     >
                                         <Input
                                             placeholder='Last name'
-                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10'
+                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                             autoComplete="off"
                                             className='autofill:bg-transparent'
                                         />
@@ -200,7 +201,7 @@ const SignUp = () => {
                                     >
                                         <Input
                                             placeholder='Password'
-                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10'
+                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                             type='password'
                                             autoComplete="new-password"
                                             className='autofill:bg-transparent'

@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet, Params, redirect, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Params, redirect, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Loading from "./app/components/common/loading";
 import { RequireAuth } from "./app/components/common/require-auth";
@@ -8,8 +8,8 @@ import BlankLayout from "./app/layouts/blank";
 import OnlyFooterLayout from "./app/layouts/only-footer";
 import PrimaryLayout from "./app/layouts/primary";
 import Error401 from "./app/pages/auth/error-401";
-import LoginCode from "./app/pages/auth/login-code";
 import Logout from "./app/pages/auth/logout";
+import SignIn from "./app/pages/auth/sign-in";
 import SignUp from "./app/pages/auth/sign-up";
 import Error from "./app/pages/error/Error";
 import HomePage from "./app/pages/home";
@@ -245,12 +245,8 @@ const router = createBrowserRouter([
         element: <BlankLayout />,
         children: [
           {
-            path: "/login",
-            element: lazyLoad('login')
-          },
-          {
-            path: "login/code",
-            element: <LoginCode />
+            path: "/sign-in",
+            element: <SignIn />
           },
           {
             path: "logout",

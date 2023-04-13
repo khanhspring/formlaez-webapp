@@ -1,4 +1,5 @@
 import axios from "axios";
+import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import TokenStorageService from "../services/token-storage-service";
 
@@ -15,7 +16,8 @@ RestClient.interceptors.request.use(
     const token = TokenStorageService.getToken();
     if (token) {
       config.headers = config.headers || {};
-      config.headers["Authorization"] = "Bearer " + TokenStorageService.getToken();
+      config.headers["Authorization"] =
+        "Bearer " + TokenStorageService.getToken();
     }
     config.baseURL = process.env.REACT_APP_API_BASE_URL + "/";
     return config;
@@ -36,10 +38,7 @@ RestClient.interceptors.response.use(
 
     if (error.response?.status === 401 && !ignore401) {
       TokenStorageService.removeToken();
-
-      const currentUrl = window.location.pathname;
-      const currentUrlEncoded = encodeURIComponent(currentUrl);
-      window.location.href = process.env.REACT_APP_AUTH_LOGIN_URL + `?state=${currentUrlEncoded}` ;
+      redirect("/errors/401");
       return;
     }
     if (error.response?.status === 403 && !ignore403) {
