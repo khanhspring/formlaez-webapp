@@ -1,5 +1,5 @@
-import logoBlack from "../../../assets/images/logo-d.svg";
-import logo from "../../../assets/images/logo-w.svg";
+import logoBlack from "../../../assets/images/formini-logo.svg";
+import logo from "../../../assets/images/formini-logo.svg";
 import { useAppSelector } from "../../hooks/redux-hook";
 import { selectTheme } from "../../slices/app-config";
 
@@ -8,7 +8,7 @@ function Logo() {
     const theme = useAppSelector(selectTheme);
 
     return (
-        <h1 className="w-20 select-none flex justify-center items-center">
+        <h1 className="w-24 select-none flex justify-center items-center">
             {
                 theme === 'dark' &&
                 <img src={logo} alt="logo" className="w-full"/>

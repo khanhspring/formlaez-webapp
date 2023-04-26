@@ -29,6 +29,8 @@ module.exports = {
       backgroundImage: {
         'auth': "url('../assets/images/auth-bg.png')",
         'caro': "url('../assets/images/caro.svg')",
+        'avatar': "url('../assets/images/avatar-bg.jpg')",
+        'pattern-1': "url('../assets/images/pattern-1.png')",
       }
     },
   },

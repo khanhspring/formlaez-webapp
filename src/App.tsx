@@ -249,19 +249,19 @@ const router = createBrowserRouter([
             element: <SignIn />
           },
           {
-            path: "logout",
+            path: "/logout",
             element: <Logout />
           },
           {
-            path: "errors/401",
+            path: "/error/401",
             element: <Error401 />
           },
           {
-            path: "error",
+            path: "/error",
             element: <Error />
           },
           {
-            path: "sign-up",
+            path: "/sign-up",
             element: <SignUp />
           }
         ]

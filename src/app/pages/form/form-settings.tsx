@@ -244,9 +244,9 @@ function FormSettings() {
                 prefix={<FormPageTitlePrefix form={form} />}
             />
             <div className="mt-6 flex flex-col gap-6">
-                <h2 className="pb-1 border-b border-slate-900/10 dark:border-slate-700">Sharing</h2>
+                <h2 className="pb-1 border-b border-slate-900/10 dark:border-gray-800">Sharing</h2>
                 <div className="flex items-center gap-2">
-                    <div className="px-3 py-2 rounded border border-slate-900/10 dark:border-slate-700 text-sm">
+                    <div className="px-3 py-2 rounded border border-slate-900/10 dark:border-gray-800 text-sm">
                         {`${process.env.REACT_APP_DOMAIN}/f/v/${params.formCode}`}
                     </div>
                     <Button onClick={copyShareLink}>Copy link to share</Button>
@@ -259,7 +259,7 @@ function FormSettings() {
                     <p className="text-sm">Or scan this QR</p>
                 </div>
 
-                <h2 className="pb-1 border-b border-slate-900/10 dark:border-slate-700 mt-3">Settings</h2>
+                <h2 className="pb-1 border-b border-slate-900/10 dark:border-gray-800 mt-3">Settings</h2>
                 <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Access scope</h3>
@@ -330,7 +330,7 @@ function FormSettings() {
                     </div>
                 </div>
 
-                <h2 className="pb-1 border-b border-slate-900/10 dark:border-slate-700 mt-3">Danger zone</h2>
+                <h2 className="pb-1 border-b border-slate-900/10 dark:border-gray-800 mt-3">Danger zone</h2>
                 {
                     !archived &&
                     <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded transition">

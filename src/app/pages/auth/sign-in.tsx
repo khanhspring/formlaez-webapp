@@ -1,24 +1,34 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import Form from 'rc-field-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import googleIcon from '../../../assets/images/google-icon.svg';
-import logo from "../../../assets/images/logo-w.svg";
-import { auth } from '../../../firebase';
+import logo from "../../../assets/images/formini-logo.svg";
 import Button from '../../components/common/button';
 import Input from '../../components/form/form-controls/input';
 import FormItem from '../../components/form/form-item';
+import { auth } from '../../configurations/firebase';
+import { useAppDispatch } from "../../hooks/redux-hook";
+import { validateTokenAndLogin } from "../../slices/auth";
 
 const SignIn = () => {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const signIn = (values: any) => {
 
     }
+
     const signInWithGoogle = () => {
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ prompt: 'select_account' });
         signInWithPopup(auth, provider)
             .then((result) => {
-                console.log(result);
+                result.user.getIdToken().then(token => {
+                    dispatch(validateTokenAndLogin(token))
+                    .then(() => {
+                        navigate("/");
+                    });
+                })
             }).catch((error) => {
                 console.log(error);
             });

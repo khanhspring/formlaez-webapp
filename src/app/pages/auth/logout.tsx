@@ -1,14 +1,19 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Loading from "../../components/common/loading";
-import TokenStorageService from '../../services/token-storage-service';
+import { useAppDispatch } from '../../hooks/redux-hook';
+import { logout } from '../../slices/auth';
 
 const Logout = () => {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
     useEffect(() => {
-        TokenStorageService.removeToken();
-        if (process.env.REACT_APP_AUTH_LOGOUT_URL) {
-            window.location.href = process.env.REACT_APP_AUTH_LOGOUT_URL
-        }
-    }, [])
+        dispatch(logout())
+        .then(() => {
+            navigate("/sign-in");
+        })
+    }, [dispatch, navigate])
 
     return (
         <Loading center/>

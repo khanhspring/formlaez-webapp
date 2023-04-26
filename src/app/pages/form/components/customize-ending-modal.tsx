@@ -94,8 +94,8 @@ const CustomizeEndingModal: FC<Props> = ({ formTitle, formId, visible, onClose }
                         }
                     </div>
                 </div>
-                <div className='w-[250px] border-l border-slate-900/10 dark:border-slate-700'>
-                    <h2 className="py-2 px-3 leading-6 border-b border-slate-900/10 dark:border-slate-700">
+                <div className='w-[250px] border-l border-slate-900/10 dark:border-gray-800'>
+                    <h2 className="py-2 px-3 leading-6 border-b border-slate-900/10 dark:border-gray-800">
                         Customize ending page
                     </h2>
                     <div className='py-2 px-3 flex flex-col gap-3'>

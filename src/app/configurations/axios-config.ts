@@ -1,5 +1,4 @@
 import axios from "axios";
-import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import TokenStorageService from "../services/token-storage-service";
 
@@ -38,8 +37,8 @@ RestClient.interceptors.response.use(
 
     if (error.response?.status === 401 && !ignore401) {
       TokenStorageService.removeToken();
-      redirect("/errors/401");
-      return;
+      window.location.href = "/error/401";
+      return Promise.reject(error);
     }
     if (error.response?.status === 403 && !ignore403) {
       toast.error("You have no permission to perform this action!");

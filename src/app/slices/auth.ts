@@ -22,14 +22,8 @@ let uid = undefined;
 let userInfo: UserInfo | undefined = undefined;
 if (token) {
   const jwt = JwtUtils.parseJwt(token);
-  uid = jwt.uid;
-
-  userInfo = {
-    id: jwt.uid,
-    firstName: jwt['first_name'],
-    lastName: jwt['last_name'],
-    email: jwt['email']
-  }
+  uid = jwt['user_id'];
+  userInfo = JwtUtils.extractUserInfo(token);
 }
 
 const initialState: AuthState = {
@@ -54,23 +48,31 @@ export const getToken = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk("auth/logout", async () => {
-  await AuthService.logout();
+  removeToken();
 });
+
+export const validateTokenAndLogin = createAsyncThunk(
+  "auth/validateToken",
+  async (token: string, thunkAPI) => {
+    try {
+      await AuthService.validate(token);
+      thunkAPI.dispatch(login(token));
+    } catch (e) {
+        thunkAPI.rejectWithValue(e);
+    }
+  }
+);
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     login: (state, action: PayloadAction<string>) => {
+        saveToken(action.payload);
         const jwt = JwtUtils.parseJwt(action.payload);
         state.isAuthenticated = true;
-        state.userId = jwt.uid;
-        const userInfo: UserInfo = {
-          id: jwt.uid,
-          firstName: jwt['first_name'],
-          lastName: jwt['last_name'],
-          email: jwt['email'],
-        }
+        state.userId = jwt['user_id'];
+        const userInfo: UserInfo = JwtUtils.extractUserInfo(action.payload);
         state.userInfo = userInfo;
     },
   },

@@ -1,24 +1,14 @@
-import Dropdown from "rc-dropdown";
-import Menu, { MenuItem } from "rc-menu";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Avatar from "../../components/common/avatar";
 import Breadcrumb from "../../components/common/breadcrumb";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
 import { changeTheme, selectTheme } from "../../slices/app-config";
-import { selectUserInfo } from "../../slices/auth";
-import ChangePasswordModal from "./components/change-password-modal";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 function Header() {
 
     const currentTheme = useAppSelector(selectTheme);
-    const userInfo = useAppSelector(selectUserInfo);
     const [theme, setTheme] = useState<'dark' | 'light'>(currentTheme);
-    const [changePasswordVisible, setChangePasswordVisible] = useState(false);
 
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
 
     const onThemeSelect = () => {
         if (theme === 'dark') {
@@ -29,38 +19,6 @@ function Header() {
             dispatch(changeTheme('dark'));
         }
     }
-
-    const onLogout = () => {
-        navigate("/logout");
-    }
-
-    const userMenu = (
-        <div className="flex flex-col rounded bg-slate-50 dark:bg-gray-800">
-            <div className="w-full px-4 py-3 flex flex-col gap-1">
-                <span className="font-bold text-sm">{userInfo?.firstName} {userInfo?.lastName}</span>
-                {
-                    userInfo?.email &&
-                    <span className="text-xs">{userInfo?.email}</span>
-                }
-            </div>
-            <div className="w-full border-t border-slate-900/10 dark:border-gray-800">
-                <Menu className="text-sm box-shadow-none">
-                    <MenuItem key="changePassword" onClick={() => setChangePasswordVisible(true)}>
-                        <div className="flex gap-3 items-center">
-                            <i className="fi fi-rr-fingerprint"></i>
-                            <span>Change password</span>
-                        </div>
-                    </MenuItem>
-                    <MenuItem key="logout" onClick={onLogout}>
-                        <div className="flex gap-3 items-center">
-                            <i className="fi fi-rr-sign-out-alt"></i>
-                            <span>Logout</span>
-                        </div>
-                    </MenuItem>
-                </Menu>
-            </div>
-        </div>
-    )
 
     return (
         <>
@@ -86,10 +44,6 @@ function Header() {
                     </div>
                 </div>
             </div>
-            <ChangePasswordModal
-                visible={changePasswordVisible}
-                onClose={() => setChangePasswordVisible(false)}
-            />
         </>
     );
 }

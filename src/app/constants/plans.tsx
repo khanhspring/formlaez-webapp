@@ -1,5 +1,6 @@
+import { BoltIcon, FireIcon, GiftIcon } from '@heroicons/react/24/solid';
 import { ReactNode } from 'react';
-import {WorkspaceType} from '../models/workspace';
+import { WorkspaceType } from '../models/workspace';
 
 export type PlanInfo = {
     code: WorkspaceType;
@@ -18,7 +19,7 @@ export const FreePlan: PlanInfo = {
     code: 'Free',
     name: 'Free',
     productId: "-1",
-    icon: <i className="fi fi-rr-gift"></i>,
+    icon: <GiftIcon className='w-full' />,
     price: 0,
     formLimit: 5,
     documentMergePerMonth: 25,
@@ -31,7 +32,7 @@ export const PlusPlan: PlanInfo = {
     code: 'Plus',
     name: 'Plus',
     productId: process.env.REACT_APP_PLAN_PLUS_ID || '-1',
-    icon: <i className="fi fi-rr-flame"></i>,
+    icon: <FireIcon className='w-full' />,
     price: 25,
     formLimit: 20,
     documentMergePerMonth: 100,
@@ -44,7 +45,7 @@ export const BusinessPlan: PlanInfo = {
     code: 'Business',
     name: 'Business',
     productId: process.env.REACT_APP_PLAN_BUSINESS_ID || '-1',
-    icon: <i className="fi fi-rr-comet"></i>,
+    icon: <BoltIcon className='w-full'/>,
     price: 40,
     formLimit: 100,
     documentMergePerMonth: 500,

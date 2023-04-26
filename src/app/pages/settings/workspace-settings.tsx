@@ -31,11 +31,9 @@ function WorkspaceSettings() {
      }
 
     return (
-        <>
-            <div className='px-6 py-4 border-b border-slate-900/10 dark:border-slate-700'>
-                <h1 className='leading-5 font-bold'>Workspace settings</h1>
-            </div>
-            <div className='p-6'>
+        <div className="mt-6 flex flex-col gap-6">
+            <h2 className="pb-1 border-b border-slate-900/10 dark:border-gray-800">Settings</h2>
+            <div className='w-full'>
                 <div className='max-w-[560px] m-auto'>
                     <RcForm
                         onFinish={onFinish}
@@ -64,7 +62,7 @@ function WorkspaceSettings() {
                     </RcForm>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

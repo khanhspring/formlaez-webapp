@@ -18,6 +18,8 @@ import { selectUserId } from "../../slices/auth";
 import { showErrorIgnore403 } from "../../util/common";
 import AddWorkspaceMemberModal from "./components/add-workspace-member-modal";
 import UpdateWorkspaceMemberModal from "./components/update-workspace-member-modal";
+import ButtonAction from "../../components/layout/button-action";
+import { PlusIcon } from "@heroicons/react/24/outline";
 
 function WorkspaceMembers() {
     const workspace = useRouteLoaderData("workspace") as Workspace;
@@ -30,7 +32,7 @@ function WorkspaceMembers() {
     const [addMemberVisible, setAddMemberVisible] = useState(false);
     const [isLastAdmin, setLastAdmin] = useState(false);
     const [searchKeyword, setSearchKeyword] = useState<string>();
-    const { data: pages, refetch } = useWorkspaceMembers({ size: -1, workspaceId: workspace.id });
+    const { data: pages, refetch, isFetching } = useWorkspaceMembers({ size: -1, workspaceId: workspace.id });
     const [members, setMembers] = useState<WorkspaceMember[]>([]);
     const { mutateAsync: removeMember } = useRemoveWorkspaceMember();
 
@@ -83,7 +85,7 @@ function WorkspaceMembers() {
     const showRemoveMemberWarning = (userId: string) => {
         confirm({
             title: 'Confirm',
-            content: 'This action will also remove this user from the teams this user has joined, make sure the team owner role has been transferred to another user?',
+            content: 'This action will also remove this user from the teams this user has joined, make sure the team owner role has been transferred to another user!',
             onOkAsync: () => onConfirmRemoveMember(userId),
             width: 550,
             danger: true
@@ -119,9 +121,9 @@ function WorkspaceMembers() {
             dataIndex: 'user',
             render: (value, record, index) => {
                 return (
-                    <div className='flex flex-col gap-0.5'>
+                    <div className='flex items-center gap-1'>
                         <span className='text-sm font-bold'>{record.user.firstName} {record.user.lastName}</span>
-                        <span className='text-xs'>{record.user.email}</span>
+                        <span className='text-xs'>({record.user.email})</span>
                     </div>
                 );
             },
@@ -186,16 +188,19 @@ function WorkspaceMembers() {
     }
 
     return (
-        <>
-            <div className='px-6 py-4 border-b border-slate-900/10 dark:border-slate-700'>
-                <h1 className='leading-5 font-bold'>Workspace members</h1>
-            </div>
-            <div className='p-6'>
-                <div className="flex justify-between items-center">
-                    <ActionSearchInput onSearch={onSearch} />
-                    <Button onClick={() => setAddMemberVisible(true)}>
-                        Add member
-                    </Button>
+        <div className="mt-6 flex flex-col gap-6">
+            <h2 className="pb-1 border-b border-slate-900/10 dark:border-gray-800">Members</h2>
+            <div className='w-full'>
+                <div className="flex items-center justify-between min-h-[40px] mt-3">
+                    <div className="flex items-center gap-3">
+                        <span>Total {pages ? pages?.totalElements : '...'}</span>
+                        <ActionSearchInput onSearch={onSearch} loading={isFetching} />
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <ButtonAction onClick={() => setAddMemberVisible(true)} shape='circle'>
+                            <PlusIcon className='w-6 h-6' />
+                        </ButtonAction>
+                    </div>
                 </div>
                 <Table
                     columns={[...columns, ...actionColumns]}
@@ -221,7 +226,7 @@ function WorkspaceMembers() {
                     refetch={refetch}
                 />
             }
-        </>
+        </div>
     );
 }
 

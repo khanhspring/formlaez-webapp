@@ -1,18 +1,16 @@
 import Form from 'rc-field-form';
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import googleIcon from '../../../assets/images/google-icon.svg';
-import logo from "../../../assets/images/logo-w.svg";
+import logo from "../../../assets/images/formini-logo.svg";
 import Button from '../../components/common/button';
 import Input from '../../components/form/form-controls/input';
 import FormItem from '../../components/form/form-item';
-import { useAppSelector } from '../../hooks/redux-hook';
 import useConfirmSignUp from '../../hooks/sign-up/useConfirmSignUp';
 import useSignUp from '../../hooks/sign-up/useSignUp';
 import { ConfirmSignUpRequest, SignUpRequest } from '../../models/sign-up';
-import { selectTheme } from '../../slices/app-config';
 import { showErrorIgnore403 } from '../../util/common';
-import { Link } from 'react-router-dom';
 
 const SignUp = () => {
 
@@ -22,7 +20,6 @@ const SignUp = () => {
     const { mutateAsync: confirmSignUp, isLoading: isConfirmLoading } = useConfirmSignUp();
     const [countdown, setCountdown] = useState(5);
     const intervalRef = useRef<any>();
-    const theme = useAppSelector(selectTheme);
 
     useEffect(() => {
         return () => {
