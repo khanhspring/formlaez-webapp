@@ -43,7 +43,7 @@ function Header() {
                     <span className="text-xs">{userInfo?.email}</span>
                 }
             </div>
-            <div className="w-full border-t border-slate-900/10 dark:border-slate-700">
+            <div className="w-full border-t border-slate-900/10 dark:border-gray-800">
                 <Menu className="text-sm box-shadow-none">
                     <MenuItem key="changePassword" onClick={() => setChangePasswordVisible(true)}>
                         <div className="flex gap-3 items-center">
@@ -68,7 +68,7 @@ function Header() {
                 <div className="flex h-full items-center justify-between">
                     <Breadcrumb />
                     <div className="flex flex-1 gap-2 items-center justify-end px-7">
-                        <div className="hidden md:flex flex-1 gap-2 items-center justify-end pr-4 border-r border-slate-900/10 dark:border-gray-700">
+                        <div className="hidden md:flex flex-1 gap-2 items-center justify-end">
                             <div
                                 onClick={onThemeSelect}
                                 className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer bg-slate-400/10 dark:bg-slate-800/70 hover:bg-slate-400/20 dark:hover:bg-slate-800 group"
@@ -83,13 +83,6 @@ function Header() {
                                 }
                             </div>
                         </div>
-                        <Dropdown overlay={userMenu} trigger={['click']} placement="bottomRight">
-                            <div className="p-1 rounded ml-2 flex items-center gap-1.5 group cursor-pointer">
-                                <Avatar name={userInfo?.firstName + ' ' + userInfo?.lastName} className="w-8 h-8 group-hover:ring-2" />
-                                <span className="text-sm font-semibold">{userInfo?.firstName + ' ' + userInfo?.lastName}</span>
-                                <ChevronDownIcon className="w-4 h-4"/>
-                            </div>
-                        </Dropdown>
                     </div>
                 </div>
             </div>
