@@ -17,7 +17,7 @@ const FormItemError: FC<Props> = ({ meta, help }) => {
     return (
         <div className="min-h-[20px] flex flex-col">
             <p className="text-[13px] text-rose-700 leading-5">{error}</p>
-            {help && <span className="text-xs font-light opacity-70 inline-block mb-3">{help}</span>}
+            {help && <span className="text-xs font-light opacity-50 inline-block mb-3">{help}</span>}
         </div>
     );
 }

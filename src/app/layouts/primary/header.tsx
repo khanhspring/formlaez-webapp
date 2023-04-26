@@ -1,8 +1,8 @@
+import { Bars3Icon, MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import Breadcrumb from "../../components/common/breadcrumb";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
 import { changeTheme, selectTheme, setMenuVisible } from "../../slices/app-config";
-import { Bars3Icon } from "@heroicons/react/24/solid";
 
 function Header() {
 
@@ -36,14 +36,8 @@ function Header() {
                                 onClick={onThemeSelect}
                                 className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer bg-slate-400/10 dark:bg-slate-800/70 hover:bg-slate-400/20 dark:hover:bg-slate-800 group"
                             >
-                                {
-                                    theme === 'dark' &&
-                                    <i className="fi fi-rr-brightness text-slate-500 group-hover:text-blue-500 dark:text-gray-400 dark:group-hover:text-gray-100 transition"></i>
-                                }
-                                {
-                                    theme !== 'dark' &&
-                                    <i className="fi fi-rr-moon-stars text-slate-500 group-hover:text-blue-500 dark:text-gray-400 dark:group-hover:text-gray-100 transition"></i>
-                                }
+                                {theme !== 'dark' && <MoonIcon className="w-5 h-5"/>}
+                                {theme === 'dark' && <SunIcon className="w-5 h-5"/>}
                             </div>
                             <div
                                 onClick={openMenu}

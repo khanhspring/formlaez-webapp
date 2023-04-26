@@ -1,3 +1,4 @@
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { FC, useCallback, useEffect, useRef } from "react";
 import { useRevalidator, useRouteLoaderData } from 'react-router-dom';
 import { toast } from "react-toastify";
@@ -107,7 +108,9 @@ const UpgradePlanModal: FC<Props> = ({ visible, onClose, onSuccess, plan, curren
                 <div className="flex-1 flex flex-col items-center justify-center">
                     <div className="w-full flex flex-col gap-2">
                         <h2 className="text-3xl">
-                            {selectedPlan.icon}
+                            <div className="w-16">
+                                {selectedPlan.icon}
+                            </div>
                         </h2>
                         <p className="text-2xl font-bold">{selectedPlan.name}</p>
                         <h3 className="text-2xl font-semibold">
@@ -123,23 +126,23 @@ const UpgradePlanModal: FC<Props> = ({ visible, onClose, onSuccess, plan, curren
                         <h3 className="font-bold">Includes</h3>
                         <div className="flex flex-col gap-2 text-sm mt-3">
                             <div className="flex gap-2 items-center">
-                                <i className="fi fi-rr-checkbox"></i>
+                                <CheckCircleIcon className="w-5 h-5" />
                                 <span>{selectedPlan.formLimit} forms</span>
                             </div>
                             <div className="flex gap-2 items-center">
-                                <i className="fi fi-rr-checkbox"></i>
+                                <CheckCircleIcon className="w-5 h-5" />
                                 <span>{selectedPlan.submissionPerMonth} submissions / month</span>
                             </div>
                             <div className="flex gap-2 items-center">
-                                <i className="fi fi-rr-checkbox"></i>
+                                <CheckCircleIcon className="w-5 h-5" />
                                 <span>{selectedPlan.documentMergePerMonth} document merges / month</span>
                             </div>
                             <div className="flex gap-2 items-center">
-                                <i className="fi fi-rr-checkbox"></i>
+                                <CheckCircleIcon className="w-5 h-5" />
                                 <span>{selectedPlan.fileStorageLimit} storage</span>
                             </div>
                             <div className="flex gap-2 items-center">
-                                <i className="fi fi-rr-checkbox"></i>
+                                <CheckCircleIcon className="w-5 h-5" />
                                 <span>{selectedPlan.workspaceMember} workspace members</span>
                             </div>
                         </div>

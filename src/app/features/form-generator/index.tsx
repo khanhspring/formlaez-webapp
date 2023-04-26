@@ -1,3 +1,4 @@
+import { ArrowRightIcon, MoonIcon, SunIcon } from '@heroicons/react/24/solid';
 import * as _ from 'lodash';
 import RcForm from "rc-field-form";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
@@ -78,6 +79,33 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
         scrollToField(firstError.name);
     }
 
+    const userHeader = (
+        <div className='flex items-center justify-center gap-2 absolute top-5 right-5'>
+            {
+                user &&
+                <div className='rounded-2xl px-3 py-1 text-sm bg-white/70 dark:bg-slate-800/70 border border-bg-slate-900 dark:border-transparent hover:bg-white dark:hover:bg-slate-800'>
+                    {user?.firstName} {user?.lastName}
+                </div>
+            }
+            {
+                !user &&
+                <div
+                    onClick={login}
+                    className='rounded-2xl px-3 py-1 text-sm bg-white/70 dark:bg-slate-800/70 border border-bg-slate-900 dark:border-transparent hover:bg-white dark:hover:bg-slate-800 cursor-pointer'
+                >
+                    Login
+                </div>
+            }
+            <div
+                onClick={onThemeSelect}
+                className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer text-slate-900 bg-white/70 dark:text-white dark:bg-slate-800/70 hover:bg-white dark:hover:bg-slate-800 border border-bg-slate-900 dark:border-transparent group"
+            >
+                {theme !== 'dark' && <MoonIcon className="w-5 h-5" />}
+                {theme === 'dark' && <SunIcon className="w-5 h-5" />}
+            </div>
+        </div>
+    )
+
     const sections = (formLayout?.pages && formLayout.pages[0]?.sections) || [];
 
     return (
@@ -85,34 +113,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
             {
                 !hideHeader &&
                 <div className='mb-10'>
-                    <div
-                        onClick={onThemeSelect}
-                        className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer text-slate-900 bg-white/70 dark:text-white dark:bg-slate-800/70 hover:bg-white dark:hover:bg-slate-800 border border-bg-slate-900 dark:border-transparent group absolute top-5 right-5"
-                    >
-                        {
-                            theme === 'dark' &&
-                            <i className="fi fi-rr-brightness"></i>
-                        }
-                        {
-                            theme !== 'dark' &&
-                            <i className="fi fi-rr-moon-stars"></i>
-                        }
-                    </div>
-                    {
-                        user &&
-                        <div className='absolute top-6 right-[70px] rounded-2xl px-3 py-1 text-sm bg-white/70 dark:bg-slate-800/70 border border-bg-slate-900 dark:border-transparent hover:bg-white dark:hover:bg-slate-800'>
-                            {user?.firstName} {user?.lastName}
-                        </div>
-                    }
-                    {
-                        !user &&
-                        <div
-                            onClick={login}
-                            className='absolute top-6 right-[70px] rounded-2xl px-3 py-1 text-sm bg-white/70 dark:bg-slate-800/70 border border-bg-slate-900 dark:border-transparent hover:bg-white dark:hover:bg-slate-800 cursor-pointer'
-                        >
-                            Login
-                        </div>
-                    }
+                    {userHeader}
                     {
                         formLayout.coverType === 'Color' &&
                         <div className={
@@ -155,7 +156,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                             <Button loading={loading}>
                                 <span className="flex gap-1.5 items-center justify-center py-0.5 w-72 text-white">
                                     Submit
-                                    <i className="fi fi-rs-paper-plane"></i>
+                                    <ArrowRightIcon className='w-5 h-5' />
                                 </span>
                             </Button>
                         </div>

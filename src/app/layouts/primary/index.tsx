@@ -18,7 +18,7 @@ export default function PrimaryLayout() {
     return (
         <>
             <div className="flex min-h-[100vh] items-stretch">
-                <div className="w-[320px] hidden md:block min-h-screen">
+                <div className="w-[320px] hidden md:flex min-h-screen bg-gray-950 sticky top-0">
                     <SideBar />
                 </div>
                 <div className="w-full md:w-[calc(100%_-_320px)] flex flex-col dark:bg-gray-900">

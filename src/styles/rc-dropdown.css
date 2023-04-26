@@ -24,7 +24,7 @@
     background-clip: padding-box;
     border: none;
     min-width: 100px;
-    padding: 7px 0;
+    padding: 10px;
     background-color: white;
 }
 .dark .rc-dropdown .rc-menu {
@@ -34,6 +34,7 @@
 .rc-dropdown .rc-menu>li {
     margin: 0;
     padding: 0;
+    border-radius: 5px;
 }
 
 .rc-dropdown .rc-menu:before {

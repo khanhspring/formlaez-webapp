@@ -10,6 +10,7 @@ export type PlanInfo = {
     documentMergePerMonth: number;
     submissionPerMonth: number;
     fileStorageLimit: string;
+    fileStorageLimitInBytes: number;
     workspaceMember: number;
     icon: ReactNode;
     price: number;
@@ -25,6 +26,7 @@ export const FreePlan: PlanInfo = {
     documentMergePerMonth: 25,
     submissionPerMonth: 100,
     fileStorageLimit: '100 MB',
+    fileStorageLimitInBytes: 100 * 1024 * 1024,
     workspaceMember: 1
 }
 
@@ -38,6 +40,7 @@ export const PlusPlan: PlanInfo = {
     documentMergePerMonth: 100,
     submissionPerMonth: 500,
     fileStorageLimit: '1 GB',
+    fileStorageLimitInBytes:  1 * 1020 * 1024 * 1024,
     workspaceMember: 2
 }
 
@@ -51,6 +54,7 @@ export const BusinessPlan: PlanInfo = {
     documentMergePerMonth: 500,
     submissionPerMonth: 2000,
     fileStorageLimit: '5 GB',
+    fileStorageLimitInBytes: 5 * 1020 * 1024 * 1024,
     workspaceMember: 5
 }
 

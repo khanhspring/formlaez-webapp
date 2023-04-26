@@ -1,12 +1,11 @@
+import Dropdown from 'rc-dropdown';
+import Menu, { MenuItem } from 'rc-menu';
 import { FC } from 'react';
-import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom';
-import { Workspace } from '../../../models/workspace';
-import StringUtils, { firstLetters } from '../../../util/string-utils';
-import Tooltip from 'rc-tooltip';
+import { useNavigate, useRouteLoaderData } from 'react-router-dom';
 import { FreePlan, Plans } from '../../../constants/plans';
 import { UserSession } from '../../../models/user-session';
-import Menu, { MenuItem } from 'rc-menu';
-import Dropdown from 'rc-dropdown';
+import { Workspace } from '../../../models/workspace';
+import StringUtils, { firstLetters } from '../../../util/string-utils';
 
 type Props = {
 }
@@ -18,7 +17,6 @@ const WorkspaceSwitcher: FC<Props> = ({ }) => {
     const currentPlan = Plans[workspace.type] || FreePlan;
     const shortName = StringUtils.firstLetters(workspace?.name, 1)?.toUpperCase() || 'W';
 
-    const { pathname } = useLocation();
     const navigate = useNavigate();
 
     const switchWorkspace = (workspace: Workspace) => {
@@ -34,11 +32,18 @@ const WorkspaceSwitcher: FC<Props> = ({ }) => {
                             <span className='bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center ring-2 text-xs'>
                                 {firstLetters(item.workspace.name, 1)}
                             </span>
-                            <span>{item.workspace.name} ({item.workspace.type})</span>
-                            {
-                                workspace.code === item.workspace.code &&
-                                <span className='text-xs font-light inline-block px-1.5 py-0.5 rounded-xl bg-slate-200 dark:bg-neutral-700'>Current</span>
-                            }
+                            <div className='flex flex-col'>
+                                <div className='flex gap-2'>
+                                    <span>{item.workspace.name}</span>
+                                    {
+                                        workspace.code === item.workspace.code &&
+                                        <span className='text-xs font-light inline-block px-1.5 py-0.5 rounded-xl bg-slate-200 dark:bg-neutral-700'>Current</span>
+                                    }
+                                </div>
+                                <div className='text-xs opacity-50'>
+                                    {item.workspace.type}
+                                </div>
+                            </div>
                         </div>
                     </MenuItem>
                 )

@@ -1,4 +1,5 @@
 import { ArrowLeftIcon, Cog6ToothIcon, EyeIcon } from "@heroicons/react/24/outline";
+import { TvIcon } from "@heroicons/react/24/solid";
 import Dropdown from "rc-dropdown";
 import Menu, { MenuItem } from "rc-menu";
 import Tooltip from "rc-tooltip";
@@ -83,7 +84,7 @@ function FormEdit() {
         <Menu className="text-sm">
             <MenuItem key="endingPage" onClick={() => setCustomizeEndingVisible(true)}>
                 <div className="flex gap-2 items-center">
-                    <i className="fi fi-rr-subtitles"></i>
+                    <TvIcon className="w-5 h-5"/>
                     <span>Customize ending page</span>
                 </div>
             </MenuItem>

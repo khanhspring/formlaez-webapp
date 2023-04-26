@@ -1,15 +1,15 @@
 import { ChartPieIcon, CogIcon, CreditCardIcon, LockClosedIcon, Square3Stack3DIcon, UsersIcon } from '@heroicons/react/24/solid';
+import { useEffect } from 'react';
 import { Link, useLocation, useRouteLoaderData } from 'react-router-dom';
 import Logo from '../../components/common/logo';
 import useWorkspaceContext from '../../hooks/auth/useWorkspaceContext';
+import { useAppDispatch } from '../../hooks/redux-hook';
 import useTeams from '../../hooks/team/useTeams';
 import { Workspace } from '../../models/workspace';
+import { setMenuVisible } from '../../slices/app-config';
 import StringUtils, { firstLetters } from '../../util/string-utils';
 import UserMenu from './components/user-menu';
 import WorkspaceSwitcher from './components/workspace-switcher';
-import { useAppDispatch } from '../../hooks/redux-hook';
-import { setMenuVisible } from '../../slices/app-config';
-import { useEffect } from 'react';
 
 function SideBar() {
 
@@ -57,7 +57,7 @@ function SideBar() {
     }
 
     return (
-        <div className="w-full min-h-screen bg-gray-950">
+        <div className="w-full bg-gray-950">
             <div className="sticky top-0">
                 <div className="px-7 flex items-center w-full h-[65px]">
                     <div className="flex w-full items-center justify-between gap-3">
@@ -104,7 +104,7 @@ function SideBar() {
                                         <span className={`flex justify-center items-center w-6 h-6 rounded-md border border-neutral-700 bg-neutral-800 text-xs ${isActive('TeamItem', item.code) ? 'text-white' : 'text-neutral-600'}`}>
                                             {firstLetters(item.name)}
                                         </span>
-                                        <span className="font-normal">{item.name}</span>
+                                        <span className="font-normal text-white">{item.name}</span>
                                     </Link>
                                 )
                             }
