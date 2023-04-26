@@ -74,22 +74,22 @@ const SignUp = () => {
     }
 
     return (
-        <div className="text-slate-700 bg-white min-h-screen w-full flex items-stretch justify-center">
+        <div className="min-h-screen w-full flex items-stretch justify-center">
             <div className="w-full flex-1 flex items-center justify-center">
                 <div className="w-full max-w-[420px] p-8 flex flex-col items-center">
                     <h2 className="font-bold text-3xl">Sign Up</h2>
-                    <p className="font-semibold mt-2.5 text-slate-500 text-sm">Adventure starts here</p>
+                    <p className="font-semibold mt-2.5 text-sm">Adventure starts here</p>
                     {
                         step === 1 &&
                         <>
                             <a
                                 href={process.env.REACT_APP_AUTH_GOOGLE_LOGIN_URL}
-                                className="mt-7 w-full flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 px-3 py-2 border border-slate-900/10 rounded transition"
+                                className="mt-7 w-full flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-gray-800 dark:hover:bg-gray-800/70 px-3 py-2 border border-slate-900/10 rounded transition"
                             >
                                 <img src={googleIcon} alt="Google" className='h-4' />
                                 <span className='text-sm'>Continue with Google</span>
                             </a>
-                            <span className='mt-7 text-xs text-slate-500 font-semibold'>Or with email</span>
+                            <span className='mt-7 text-xs font-semibold'>Or with email</span>
                             <div className='w-full mt-7'>
                                 <Form
                                     className='w-full'
@@ -106,7 +106,6 @@ const SignUp = () => {
                                     >
                                         <Input
                                             placeholder='email@example.com'
-                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                         />
                                     </FormItem>
                                     <Button className='w-full py-2.5' loading={isLoading}>
@@ -115,7 +114,7 @@ const SignUp = () => {
                                 </Form>
                             </div>
                             <div className='mt-7 flex gap-1.5 text-sm font-semibold'>
-                                <span className='text-slate-500'>Already have an Account?</span>
+                                <span>Already have an Account?</span>
                                 <Link
                                     to={"/sign-in"}
                                     className="text-blue-500"
@@ -140,7 +139,6 @@ const SignUp = () => {
                                         title='Email'
                                     >
                                         <Input
-                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                             disabled
                                         />
                                     </FormItem>
@@ -154,7 +152,6 @@ const SignUp = () => {
                                     >
                                         <Input
                                             placeholder='Verification code'
-                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                             className='autofill:bg-transparent'
                                         />
                                     </FormItem>
@@ -168,7 +165,6 @@ const SignUp = () => {
                                     >
                                         <Input
                                             placeholder='First name'
-                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                             className='autofill:bg-transparent'
                                         />
                                     </FormItem>
@@ -182,7 +178,6 @@ const SignUp = () => {
                                     >
                                         <Input
                                             placeholder='Last name'
-                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                             autoComplete="off"
                                             className='autofill:bg-transparent'
                                         />
@@ -198,7 +193,6 @@ const SignUp = () => {
                                     >
                                         <Input
                                             placeholder='Password'
-                                            wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                             type='password'
                                             autoComplete="new-password"
                                             className='autofill:bg-transparent'
@@ -212,7 +206,7 @@ const SignUp = () => {
                             <div className='mt-5'>
                                 <button
                                     onClick={() => setStep(1)}
-                                    className="text-slate-500 font-semibold text-sm"
+                                    className="font-semibold text-sm"
                                 >
                                     Back
                                 </button>
@@ -223,7 +217,7 @@ const SignUp = () => {
                         step === 3 &&
                         <>
                             <div className="mt-7 w-20 h-20 bg-emerald-500 rounded-full flex justify-center items-center">
-                                <i className="fi fi-br-check text-3xl text-white"></i>
+                                <i className="fi fi-br-check text-3xl"></i>
                             </div>
                             <div className="mt-4 w-full flex flex-col justify-center items-center gap-3">
                                 <h1 className="text-xl font-semibold">Congratulations!</h1>

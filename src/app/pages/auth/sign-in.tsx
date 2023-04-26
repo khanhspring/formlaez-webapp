@@ -35,18 +35,18 @@ const SignIn = () => {
     }
 
     return (
-        <div className="text-slate-700 bg-white min-h-screen w-full flex items-stretch justify-center">
+        <div className="min-h-screen w-full flex items-stretch justify-center">
             <div className="w-full flex-1 flex items-center justify-center">
                 <div className="w-full max-w-[420px] p-8 flex flex-col items-center">
                     <h2 className="font-bold text-3xl">Sign In</h2>
                     <span
                         onClick={signInWithGoogle}
-                        className="mt-7 w-full flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 px-3 py-2 border border-slate-900/10 rounded transition cursor-pointer"
+                        className="mt-7 w-full flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-gray-800 dark:hover:bg-gray-800/70 px-3 py-2 border border-slate-900/10 rounded transition cursor-pointer"
                     >
                         <img src={googleIcon} alt="Google" className='h-4' />
                         <span className='text-sm'>Continue with Google</span>
                     </span>
-                    <span className='mt-7 text-xs text-slate-500 font-semibold'>Or with email</span>
+                    <span className='mt-7 text-xs font-semibold'>Or with email</span>
                     <div className='w-full mt-7'>
                         <Form
                             className='w-full'
@@ -63,7 +63,6 @@ const SignIn = () => {
                             >
                                 <Input
                                     placeholder='email@example.com'
-                                    wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                 />
                             </FormItem>
                             <FormItem
@@ -76,7 +75,6 @@ const SignIn = () => {
                             >
                                 <Input
                                     placeholder='Password'
-                                    wrapClassName='dark:bg-slate-100 dark:border-slate-900/10 dark:hover:!border-slate-900/10'
                                     type='password'
                                     autoComplete="new-password"
                                     className='autofill:bg-transparent'
@@ -88,7 +86,7 @@ const SignIn = () => {
                         </Form>
                     </div>
                     <div className='mt-7 flex gap-1.5 text-sm font-semibold'>
-                        <span className='text-slate-500'>New here?</span>
+                        <span>New here?</span>
                         <Link
                             to={"/sign-up"}
                             className="text-blue-500"

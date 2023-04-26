@@ -7,9 +7,10 @@ type Props = DrawerProps & PropsWithChildren & {
     title?: ReactNode;
     closeIcon?: ReactNode;
     bodyWrapperClassName?: string;
+    className?: string;
 }
 
-const Drawer: FC<Props> = ({ title, closeIcon, children, bodyWrapperClassName, ...rest }) => {
+const Drawer: FC<Props> = ({ title, closeIcon, children, className, bodyWrapperClassName, ...rest }) => {
 
     const closeButton = () => {
         if (_.isNil(closeIcon) || closeIcon === true) {
@@ -36,7 +37,7 @@ const Drawer: FC<Props> = ({ title, closeIcon, children, bodyWrapperClassName, .
         <RcDrawer
             {...rest}
             {...motionProps}
-            className="dark:bg-gray-800"
+            className={`dark:bg-gray-800 ${className}`}
         >
             {
                 !hideHeader &&

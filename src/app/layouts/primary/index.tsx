@@ -36,6 +36,7 @@ export default function PrimaryLayout() {
                 closeIcon={null}
                 placement="left"
                 bodyWrapperClassName="!p-0"
+                className="!bg-gray-950"
                 onClose={closeMenu}
             >
                 <SideBar />

@@ -74,16 +74,16 @@ function SideBar() {
                     <div className='w-full flex flex-col items-start gap-2'>
                         <Link
                             to={`/${workspace.code}/p`}
-                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white ${isActive('Private') ? 'bg-neutral-800' : 'bg-transparent'}`}
+                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Private') ? 'bg-neutral-800' : 'bg-transparent'}`}
                         >
-                            <LockClosedIcon className={`h-5 w-5 ${isActive('Private') ? 'text-white' : 'text-neutral-600'}`} />
+                            <LockClosedIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Private') ? 'text-white' : 'text-neutral-600'}`} />
                             <span className="font-normal">Private</span>
                         </Link>
                         <Link
                             to={`/${workspace.code}/t`}
-                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white ${isActive('Team') ? 'bg-neutral-800' : 'bg-transparent'}`}
+                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Team') ? 'bg-neutral-800' : 'bg-transparent'}`}
                         >
-                            <Square3Stack3DIcon className={`h-5 w-5 ${isActive('Team') ? 'text-white' : 'text-neutral-600'}`} />
+                            <Square3Stack3DIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Team') ? 'text-white' : 'text-neutral-600'}`} />
                             <span className="font-normal">Teams</span>
                         </Link>
                     </div>
@@ -98,10 +98,10 @@ function SideBar() {
                                 teams?.content.map((item, index) =>
                                     <Link
                                         to={`/${workspace.code}/t/${item.code}`}
-                                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded ${isActive('TeamItem', item.code) ? 'bg-neutral-800' : 'bg-transparent'}`}
+                                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded group ${isActive('TeamItem', item.code) ? 'bg-neutral-800' : 'bg-transparent'}`}
                                         key={index}
                                     >
-                                        <span className={`flex justify-center items-center w-6 h-6 rounded-md border border-neutral-700 bg-neutral-800 text-xs ${isActive('TeamItem', item.code) ? 'text-white' : 'text-neutral-600'}`}>
+                                        <span className={`flex justify-center items-center w-6 h-6 rounded-md border border-neutral-700 bg-neutral-800 text-xs group-hover:text-white transition ${isActive('TeamItem', item.code) ? 'text-white' : 'text-neutral-600'}`}>
                                             {firstLetters(item.name)}
                                         </span>
                                         <span className="font-normal text-white">{item.name}</span>
@@ -119,30 +119,30 @@ function SideBar() {
                             </div>
                             <Link
                                 to={`/${workspace.code}/settings`}
-                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white ${isActive('Settings') ? 'bg-neutral-800' : 'bg-transparent'}`}
+                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Settings') ? 'bg-neutral-800' : 'bg-transparent'}`}
                             >
-                                <CogIcon className={`h-5 w-5 ${isActive('Settings') ? 'text-white' : 'text-neutral-600'}`} />
+                                <CogIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Settings') ? 'text-white' : 'text-neutral-600'}`} />
                                 <span className="font-normal">Settings</span>
                             </Link>
                             <Link
                                 to={`/${workspace.code}/settings/members`}
-                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white ${isActive('Members') ? 'bg-neutral-800' : 'bg-transparent'}`}
+                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Members') ? 'bg-neutral-800' : 'bg-transparent'}`}
                             >
-                                <UsersIcon className={`h-5 w-5 ${isActive('Members') ? 'text-white' : 'text-neutral-600'}`} />
+                                <UsersIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Members') ? 'text-white' : 'text-neutral-600'}`} />
                                 <span className="font-normal">Members</span>
                             </Link>
                             <Link
                                 to={`/${workspace.code}/settings/billing`}
-                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white ${isActive('Billing') ? 'bg-neutral-800' : 'bg-transparent'}`}
+                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Billing') ? 'bg-neutral-800' : 'bg-transparent'}`}
                             >
-                                <CreditCardIcon className={`h-5 w-5 ${isActive('Billing') ? 'text-white' : 'text-neutral-600'}`} />
+                                <CreditCardIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Billing') ? 'text-white' : 'text-neutral-600'}`} />
                                 <span className="font-normal">Plan & Billing</span>
                             </Link>
                             <Link
                                 to={`/${workspace.code}/settings/usages`}
-                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white ${isActive('Usages') ? 'bg-neutral-800' : 'bg-transparent'}`}
+                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Usages') ? 'bg-neutral-800' : 'bg-transparent'}`}
                             >
-                                <ChartPieIcon className={`h-5 w-5 ${isActive('Usages') ? 'text-white' : 'text-neutral-600'}`} />
+                                <ChartPieIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Usages') ? 'text-white' : 'text-neutral-600'}`} />
                                 <span className="font-normal">Usages</span>
                             </Link>
                         </div>
