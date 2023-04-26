@@ -24,7 +24,6 @@
     "echarts-for-react": "^3.0.2",
     "ez-rc-popup": "^0.1.8",
     "firebase": "^9.19.1",
-    "history": "^5.3.0",
     "immutable": "^3.7.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",

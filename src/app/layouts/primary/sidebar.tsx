@@ -7,6 +7,9 @@ import { Workspace } from '../../models/workspace';
 import StringUtils, { firstLetters } from '../../util/string-utils';
 import UserMenu from './components/user-menu';
 import WorkspaceSwitcher from './components/workspace-switcher';
+import { useAppDispatch } from '../../hooks/redux-hook';
+import { setMenuVisible } from '../../slices/app-config';
+import { useEffect } from 'react';
 
 function SideBar() {
 
@@ -14,6 +17,11 @@ function SideBar() {
     const workspaceContext = useWorkspaceContext();
     const { data: teams } = useTeams({ workspaceId: workspace?.id, page: 0, size: -1 });
     const { pathname } = useLocation();
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(setMenuVisible(false));
+    }, [pathname]);
 
     const isActive = (type: 'Private' | 'Team' | 'TeamItem' | 'Settings' | 'Members' | 'Billing' | 'Usages', suffix?: string) => {
         const workspaceUrlPrefix = "/" + workspace?.code;
@@ -49,7 +57,7 @@ function SideBar() {
     }
 
     return (
-        <div className="w-[320px] hidden md:block min-h-screen bg-gray-950">
+        <div className="w-full min-h-screen bg-gray-950">
             <div className="sticky top-0">
                 <div className="px-7 flex items-center w-full h-[65px]">
                     <div className="flex w-full items-center justify-between gap-3">

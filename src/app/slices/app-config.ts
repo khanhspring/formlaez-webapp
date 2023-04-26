@@ -13,6 +13,7 @@ const setTheme = (theme: "dark" | "light") => {
 
 export interface AppConfigState {
   theme: "dark" | "light";
+  menuVisible: boolean;
 }
 
 let systemTheme: "dark" | "light";
@@ -28,26 +29,28 @@ setTheme(selectedTheme || systemTheme);
 
 const initialState: AppConfigState = {
   theme: selectedTheme || systemTheme,
+  menuVisible: false
 };
 
 export const appConfig = createSlice({
   name: "app-config",
   initialState,
   reducers: {
-    changeTheme: (
-      state,
-      action: PayloadAction<"dark" | "light">
-    ) => {
+    changeTheme: (state, action: PayloadAction<"dark" | "light">) => {
       ThemeStorageService.saveTheme(action.payload);
       state.theme = action.payload;
       setTheme(action.payload);
     },
+    setMenuVisible: (state, action: PayloadAction<boolean>) => {
+      state.menuVisible = action.payload
+    },
   },
 });
 
-export const { changeTheme } = appConfig.actions;
+export const { changeTheme, setMenuVisible } = appConfig.actions;
 
 export const selectTheme = (state: RootState) => state.appConfig.theme;
+export const selectMenuVisible = (state: RootState) => state.appConfig.menuVisible;
 
 const { reducer } = appConfig;
 export default reducer;

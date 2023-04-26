@@ -6,9 +6,10 @@ import motionProps from './motion';
 type Props = DrawerProps & PropsWithChildren & {
     title?: ReactNode;
     closeIcon?: ReactNode;
+    bodyWrapperClassName?: string;
 }
 
-const Drawer: FC<Props> = ({ title, closeIcon, children, ...rest }) => {
+const Drawer: FC<Props> = ({ title, closeIcon, children, bodyWrapperClassName, ...rest }) => {
 
     const closeButton = () => {
         if (_.isNil(closeIcon) || closeIcon === true) {
@@ -29,7 +30,7 @@ const Drawer: FC<Props> = ({ title, closeIcon, children, ...rest }) => {
         }
     }
 
-    const hideHeader = !_.isNil(closeIcon) && !closeIcon && !title;
+    const hideHeader = _.isNil(closeIcon) && !closeIcon && !title;
 
     return (
         <RcDrawer
@@ -48,7 +49,7 @@ const Drawer: FC<Props> = ({ title, closeIcon, children, ...rest }) => {
                     </>
                 </div>
             }
-            <div className="px-5 py-2">
+            <div className={`px-5 py-2 ${bodyWrapperClassName}`}>
                 {children}
             </div>
         </RcDrawer>
