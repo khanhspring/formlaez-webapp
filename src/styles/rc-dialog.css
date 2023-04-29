@@ -17,13 +17,13 @@
 .rc-dialog-fade-enter,
 .rc-dialog-fade-appear,
 .rc-dialog-zoom-enter {
-    animation-duration: 0.2s;
+    animation-duration: 0.05s;
 }
 
 .rc-dialog-fade-leave,
 .rc-dialog-zoom-leave,
 .rc-dialog-zoom-appear {
-    animation-duration: 0.2s;
+    animation-duration: 0.05s;
 }
 
 .rc-dialog-title {

@@ -27,7 +27,7 @@ function Header() {
 
     return (
         <>
-            <div className="sticky top-0 z-40 w-full h-[65px] bg-white border-b border-slate-900/10 dark:bg-gray-900 dark:border-gray-800">
+            <div className="sticky top-0 z-40 w-full h-[65px] bg-white dark:bg-steel-gray-950">
                 <div className="flex h-full items-center justify-between">
                     <Breadcrumb />
                     <div className="flex flex-1 gap-2 items-center justify-end px-7">

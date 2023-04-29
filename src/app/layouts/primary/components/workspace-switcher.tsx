@@ -24,10 +24,16 @@ const WorkspaceSwitcher: FC<Props> = ({ }) => {
     }
 
     const switchWorkspaceDropdown = (
-        <Menu className="text-sm">
+        <Menu className="text-sm flex flex-col gap-2">
+            <MenuItem className='w-full text-xs dark:text-white' disabled key="-1">
+                Your workspaces
+            </MenuItem>
             {
                 userSession?.joinedWorkspaces?.map((item, index) =>
-                    <MenuItem key={item.workspace.code} onClick={() => switchWorkspace(item.workspace)}>
+                    <MenuItem
+                        key={index}
+                        onClick={() => switchWorkspace(item.workspace)}
+                    >
                         <div className="flex gap-3 items-center px-2">
                             <span className='bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center ring-2 text-xs'>
                                 {firstLetters(item.workspace.name, 1)}
