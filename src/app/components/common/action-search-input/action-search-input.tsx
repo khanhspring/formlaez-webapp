@@ -70,7 +70,7 @@ const ActionSearchInput: FC<Props> = ({ onSearch, loading }) => {
                         maxLength={255}
                         className="!py-1.5 !px-3"
                         suffix={suffix}
-                        wrapClassName="dark:bg-steel-gray-950 dark:border-steel-gray-900 dark:hover:border-steel-gray-800"
+                        wrapClassName="bg-white dark:bg-steel-gray-950 dark:border-steel-gray-900 dark:hover:border-steel-gray-800"
                     />
                 </FormItem>
             </RcForm>

@@ -242,7 +242,7 @@ const SignUp = () => {
                     }
                 </div>
             </div>
-            <div className="bg-auth bg-cover flex-1 flex items-center justify-center">
+            <div className="bg-auth bg-cover hidden md:flex flex-1 items-center justify-center">
                 <div className='w-full flex flex-col justify-center items-center'>
                     <h1 className='text-white font-black text-3xl'>
                         <img src={logo} alt="logo" className='h-10' />

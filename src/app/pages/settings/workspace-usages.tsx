@@ -24,7 +24,7 @@ function WorkspaceBilling() {
                                         <span className="font-bold">Content</span>
                                     </div>
                                 </th>
-                                <th className="px-3 py-3 align-bottom">
+                                <th className="px-3 py-3 align-bottom min-w-[170px]">
                                     <div className="flex flex-col items-start font-normal gap-1">
                                         <span className="font-bold">Usages</span>
                                     </div>
