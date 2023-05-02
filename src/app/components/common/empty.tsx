@@ -7,7 +7,7 @@ type Props = {
 
 const Empty: FC<Props> = ({ description }) => {
     return (
-        <div className="w-full flex flex-col gap-2 items-center justify-center py-10">
+        <div className="w-full flex flex-col gap-2 items-center justify-center">
             <EmptyIcon className="fill-white !w-24" />
             {
                 description &&

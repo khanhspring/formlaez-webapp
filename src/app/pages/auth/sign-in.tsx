@@ -23,7 +23,7 @@ const SignIn = () => {
         provider.setCustomParameters({ prompt: 'select_account' });
         signInWithPopup(auth, provider)
             .then((result) => {
-                result.user.getIdToken().then(token => {
+                result.user.getIdToken().then((token) => {
                     dispatch(validateTokenAndLogin(token))
                     .then(() => {
                         navigate("/");

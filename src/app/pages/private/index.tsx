@@ -51,7 +51,7 @@ function Private() {
                 </div>
                 {
                     !isFetching && pages && pages.totalElements === 0 &&
-                    <div className='flex-1 flex items-center justify-center pb-10'>
+                    <div className='flex-1 flex items-center justify-center'>
                         <Empty />
                     </div>
                 }

@@ -21,10 +21,10 @@ const Input: FC<Props> = ({ className = '', status, value, suffix, wrapClassName
     return (
         <div className={
             `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600 `
+            + `${wrapClassName} `
             + `${status && status === 'error' ? '!border-rose-700' : ''} `
             + `${status && status === 'warning' ? '!border-yellow-700' : ''} `
             + `${status && status === 'success' ? '!border-green-700' : ''} `
-            + `${wrapClassName} `
         }>
             <input
                 {...rest}

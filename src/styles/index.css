@@ -5,6 +5,18 @@
     --bg-gray-300: rgb(209 213 219);
     --bg-gray-700: rgb(55 65 81);
     --bg-gray-500: rgb(107 114 128);
+
+    --steel-gray-50: rgb(246 246 249);
+    --steel-gray-100: rgb(235 235 243);
+    --steel-gray-200: rgb(211 212 228);
+    --steel-gray-300: rgb(173 175 204);
+    --steel-gray-400: rgb(128 132 176);
+    --steel-gray-500: rgb(96 101 151);
+    --steel-gray-600: rgb(76 79 125);
+    --steel-gray-700: rgb(62 64 102);
+    --steel-gray-800: rgb(54 56 86);
+    --steel-gray-900: rgb(49 50 73);
+    --steel-gray-950: rgb(30 30 45);
 }
 
 @import "~@flaticon/flaticon-uicons/css/all/all";
@@ -48,7 +60,7 @@
 }
 
 .bg-dots {
-    background: linear-gradient(90deg, #fff 21px, transparent 1%) center, linear-gradient(#fff 21px, transparent 1%) center, var(--bg-gray-800);
+    background: linear-gradient(90deg, #fff 21px, transparent 1%) center, linear-gradient(#fff 21px, transparent 1%) center, vrar(--bg-gray-800);
     background-size: 22px 22px;
 }
 

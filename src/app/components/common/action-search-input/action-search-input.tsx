@@ -38,7 +38,7 @@ const ActionSearchInput: FC<Props> = ({ onSearch, loading }) => {
             return (
                 <span
                     onClick={resetForm}
-                    className='flex items-center justify-center w-5 h-5 text-sm bg-slate-100 dark:bg-slate-600 rounded-full cursor-pointer'
+                    className='flex items-center justify-center w-5 h-5 text-sm bg-slate-100 dark:bg-steel-gray-900 rounded-full cursor-pointer'
                 >
                     <i className="fi fi-rr-cross-small"></i>
                 </span>
@@ -65,7 +65,13 @@ const ActionSearchInput: FC<Props> = ({ onSearch, loading }) => {
                     name={'keywords'}
                     hideError
                 >
-                    <Input placeholder="Search..." maxLength={255} className="!py-1.5 !px-3" suffix={suffix} />
+                    <Input
+                        placeholder="Search..."
+                        maxLength={255}
+                        className="!py-1.5 !px-3"
+                        suffix={suffix}
+                        wrapClassName="dark:bg-steel-gray-950 dark:border-steel-gray-900 dark:hover:border-steel-gray-800"
+                    />
                 </FormItem>
             </RcForm>
         </div>
