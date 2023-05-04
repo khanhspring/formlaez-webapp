@@ -78,8 +78,8 @@ function TeamDetail() {
     )
 
     const teamTitle = (
-        <span className='flex gap-2 items-center'>
-            {team.name}
+        <span className='flex gap-2 items-center whitespace-nowrap'>
+            <span className='text-ellipsis overflow-hidden'>{team.name}</span>
             {
                 team.description &&
                 <Tooltip overlay={<div className='max-w-[270px]'>{team.description}</div>} placement="bottom">

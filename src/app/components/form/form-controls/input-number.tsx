@@ -13,7 +13,7 @@ const InputNumber: FC<Props> = ({ className = '', status, onChange = () => {}, v
 
     return (
         <div className={
-            `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-gray-700 dark:bg-gray-800 `
+            `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-steel-gray-800 dark:bg-steel-gray-900 dark:hover:border-steel-gray-700 shadow-sm `
             + `${status && status === 'error' ? '!border-rose-700' : ''} `
             + `${status && status === 'warning' ? '!border-yellow-700' : ''} `
             + `${status && status === 'success' ? '!border-green-700' : ''} `
@@ -21,7 +21,7 @@ const InputNumber: FC<Props> = ({ className = '', status, onChange = () => {}, v
             <RcInputNumber
                 value={value}
                 onChange={onChange}
-                className="w-full rounded border-none bg-transparent h-auto outline-none shadow-none text-base min-h-[36px]"
+                className="w-full rounded border-none bg-transparent h-auto outline-none shadow-none text-base min-h-[40px]"
                 placeholder={rest.placeholder}
                 formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 disabled={disabled}

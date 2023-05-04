@@ -1,0 +1,103 @@
+.rc-input-number-input {
+    text-align: left;
+    background-color: transparent;
+    padding: 8px 16px;
+    font-size: inherit;
+    line-height: 20px;
+}
+
+.rc-input-number-input {
+    color: #0f172a;
+}
+
+.dark .rc-input-number-input {
+    color: white;
+}
+
+.rc-input-number-input::placeholder {
+    color: #6b7280;
+}
+
+.rc-input-number-handler-wrap {
+    display: flex;
+    flex-direction: column;
+    border-color: rgba(15, 23, 42, 0.1);
+    width: 30px;
+}
+
+.dark .rc-input-number-handler-wrap {
+    border-color: var(--steel-gray-700);
+}
+
+.rc-input-number-handler-wrap .rc-input-number-handler {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-color: rgba(15, 23, 42, 0.1);
+}
+
+.dark .rc-input-number-handler-wrap .dark .rc-input-number-handler {
+    border-color: var(--steel-gray-700);
+}
+
+.rc-input-number-handler:hover {
+    background-color: rgb(226 232 240);
+}
+
+.dark .rc-input-number-handler:hover {
+    background-color: var(--steel-gray-700);
+}
+
+.rc-input-number:hover .rc-input-number-handler-wrap {
+    border-color: rgba(15, 23, 42, 0.1);
+}
+
+.dark .rc-input-number:hover .rc-input-number-handler-wrap {
+    border-color: var(--steel-gray-700);
+}
+
+.rc-input-number:hover .rc-input-number-handler {
+    border-color: rgba(15, 23, 42, 0.1);
+}
+
+.dark .rc-input-number:hover .rc-input-number-handler {
+    border-color: var(--steel-gray-700);
+}
+
+.rc-input-number-disabled:hover {
+    border-color: var(--steel-gray-700);
+}
+
+.rc-input-number-disabled:hover .rc-input-number-handler-up,
+.rc-input-number-disabled:hover .rc-input-number-handler-wrap {
+    border-color: rgba(15, 23, 42, 0.1);
+}
+
+.dark .rc-input-number-disabled:hover .rc-input-number-handler-up,
+.dark .rc-input-number-disabled:hover .rc-input-number-handler-wrap {
+    border-color: var(--steel-gray-700);
+}
+
+.rc-input-number-disabled .rc-input-number-input {
+    background-color: rgb(241 245 249);
+    opacity: 1;
+}
+
+.dark .rc-input-number-disabled .rc-input-number-input {
+    background-color: #1E1E2D;
+}
+
+.rc-input-number-disabled .rc-input-number-handler {
+    opacity: 0.3;
+}
+
+.rc-input-number-disabled .rc-input-number-handler:hover {
+    color: #999;
+    border-color: rgba(15, 23, 42, 0.1);
+    cursor: not-allowed;
+}
+
+.dark .rc-input-number-disabled .rc-input-number-handler:hover {
+    border-color: var(--steel-gray-700);
+}

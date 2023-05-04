@@ -34,7 +34,7 @@
 
 .rc-select .rc-select-selection-search-input {
     appearance: none;
-    padding: 7px 16px;
+    padding: 8px 16px;
     border: none;
     border-radius: 4px;
 }
@@ -170,7 +170,7 @@
     cursor: pointer;
 }
 .dark .rc-select-allow-clear .rc-select-clear {
-    background-color: var(--bg-gray-800);
+    background-color: var(--steel-gray-800);
 }
 
 .rc-select-show-arrow.rc-select-multiple .rc-select-selector {
@@ -208,7 +208,7 @@
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 .dark .rc-select-dropdown {
-    background: var(--bg-gray-800);
+    background: var(--steel-gray-800);
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -256,7 +256,7 @@
     color: white;
 }
 .dark .rc-select-item-option-active {
-    background: var(--bg-gray-700);
+    /* background: var(--bg-gray-700); */
 }
 
 .rc-select-item-option-disabled {

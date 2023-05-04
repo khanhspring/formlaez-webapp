@@ -1,6 +1,7 @@
 import Select from 'rc-select';
 import { FC, InputHTMLAttributes, ReactNode } from "react";
 import { FieldStatus } from "../form-types";
+import { CheckIcon } from '@heroicons/react/24/solid';
 
 type OptionType = {
     label?: React.ReactNode;
@@ -31,7 +32,7 @@ const Dropdown: FC<Props> = ({ status, onChange = () => { }, value, options = []
 
     return (
         <div className={
-            `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-gray-700 dark:bg-gray-800 `
+            `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-steel-gray-800 dark:bg-steel-gray-900 dark:hover:border-steel-gray-700 shadow-sm `
             + `${status && status === 'error' ? '!border-rose-700' : ''} `
             + `${status && status === 'warning' ? '!border-yellow-700' : ''} `
             + `${status && status === 'success' ? '!border-green-700' : ''} `
@@ -47,6 +48,7 @@ const Dropdown: FC<Props> = ({ status, onChange = () => { }, value, options = []
                 placeholder={rest.placeholder}
                 inputIcon={<i className="fi fi-sr-angle-small-down text-base" />}
                 clearIcon={<i className="fi fi-sr-cross-small text-[16px]" />}
+                menuItemSelectedIcon={<CheckIcon className='w-5 h-5'/>}
                 options={options}
                 notFoundContent={notFoundContent}
                 onSearch={handleSearch}

@@ -4,6 +4,8 @@ import { ActionContext, FormField } from "../../../../models/form";
 import { useUpdateField } from "../../hooks/useUpdateField";
 import { selectForm } from "../../slice";
 import RequiredMark from "../required-mark";
+import { StarIcon } from "@heroicons/react/24/solid";
+import { StarIcon as StarOutlineIcon } from "@heroicons/react/24/outline";
 
 type Props = {
     field: FormField;
@@ -31,11 +33,11 @@ const RatingField: FC<Props> = ({ field, context }) => {
                 </div>
             }
             <div className="relative w-full flex items-center gap-2 text-3xl justify-center text-slate-900 dark:text-gray-200">
-                <i className="fi fi-ss-star cursor-pointer"></i>
-                <i className="fi fi-ss-star cursor-pointer"></i>
-                <i className="fi fi-ss-star cursor-pointer"></i>
-                <i className="fi fi-ss-star cursor-pointer"></i>
-                <i className="fi fi-rs-star cursor-pointer"></i>
+                <StarIcon className="w-10 h-10 cursor-pointer text-yellow-400"/>
+                <StarIcon className="w-10 h-10 cursor-pointer text-yellow-400"/>
+                <StarIcon className="w-10 h-10 cursor-pointer text-yellow-400"/>
+                <StarIcon className="w-10 h-10 cursor-pointer text-yellow-400"/>
+                <StarOutlineIcon className="w-10 h-10 cursor-pointer text-slate-900 dark:text-gray-400"/>
             </div>
         </div>
     );

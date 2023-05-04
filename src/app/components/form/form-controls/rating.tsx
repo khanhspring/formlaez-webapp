@@ -1,6 +1,8 @@
 import * as _ from "lodash";
 import { FC, InputHTMLAttributes } from "react";
 import { FieldStatus } from "../form-types";
+import { StarIcon } from "@heroicons/react/24/solid";
+import { StarIcon as StarOutlineIcon } from "@heroicons/react/24/outline";
 
 type Props = InputHTMLAttributes<any> & {
     status?: FieldStatus;
@@ -38,11 +40,11 @@ const Rating: FC<Props> = ({ className = '', status, onChange, value, ...rest })
                     >
                         {
                             (!value || val > +(value || 0)) &&
-                            <i className="fi fi-rs-star cursor-pointer text-slate-900 hover:text-slate-700 dark:text-gray-400 dark:hover:text-gray-200 transition"></i>
+                            <StarOutlineIcon className="w-10 h-10 cursor-pointer text-slate-900 hover:text-slate-700 dark:text-gray-400 dark:hover:text-gray-200 transition"/>
                         }
                         {
                             (val <= +(value || 0)) &&
-                            <i className="fi fi-ss-star cursor-pointer text-yellow-400 hover:text-yellow-600 transition"></i>
+                            <StarIcon className="w-10 h-10 cursor-pointer text-yellow-400 hover:text-yellow-600 transition"/>
                         }
                     </span>
                 ))

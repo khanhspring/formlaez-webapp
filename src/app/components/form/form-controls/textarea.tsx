@@ -44,7 +44,7 @@ const Textarea: FC<Props> = ({
             rows={rows}
             value={orElseEmptyString(value)}
             className={
-                'border bg-slate-100 border-slate-900/10 dark:border-gray-700 dark:bg-gray-800 rounded outline-none px-4 py-2 resize-none placeholder:text-gray-400 '
+                'border bg-slate-100 border-slate-900/10 dark:border-steel-gray-800 dark:bg-steel-gray-900 dark:hover:border-steel-gray-700 shadow-sm rounded outline-none px-4 py-2 resize-none placeholder:text-gray-400 '
                 + `${status && status === 'error' ? '!border-rose-700' : ''} `
                 + `${status && status === 'warning' ? '!border-yellow-700' : ''} `
                 + `${status && status === 'success' ? '!border-green-700' : ''} `

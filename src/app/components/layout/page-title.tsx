@@ -11,24 +11,26 @@ type Props = {
     prefix?: ReactNode;
 }
 
-const PageTitle: FC<Props> = ({title, actions, shortTitle = defaultIcon, className, iconClassName, prefix}) => {
+const PageTitle: FC<Props> = ({ title, actions, shortTitle = defaultIcon, className, iconClassName, prefix }) => {
 
     return (
         <div className={
-            "py-2 border-b border-slate-900/10 dark:border-steel-gray-900 z-20 sticky top-[64px] flex items-center justify-between  backdrop-blur flex-none bg-white/80 supports-backdrop-blur:bg-white/95 dark:bg-steel-gray-950/80"
+            "w-full max-w-full overflow-hidden py-2 border-b border-slate-900/10 dark:border-steel-gray-900 z-20 sticky top-[64px] flex items-center justify-between gap-10 backdrop-blur flex-none bg-white/80 supports-backdrop-blur:bg-white/95 dark:bg-steel-gray-950/80"
             + ` ${className}`
         }>
-            <div className="flex items-center gap-2">
-                {prefix}
-                <div className={
-                    "flex items-center justify-center w-6 h-6 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition group-hover:ring-2 text-white"
-                    + ` ${iconClassName}`
-                }>
-                    <span className="font-semibold flex justify-center items-center">{shortTitle}</span>
+            <div className="flex items-center gap-2 overflow-hidden">
+                <div className='flex items-center gap-2'>
+                    {prefix}
+                    <div className={
+                        "flex items-center justify-center w-6 h-6 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition group-hover:ring-2 text-white"
+                        + ` ${iconClassName}`
+                    }>
+                        <span className="font-semibold flex justify-center items-center">{shortTitle}</span>
+                    </div>
                 </div>
-                <h2 className="font-semibold text-lg">{title}</h2>
+                <div className="font-semibold text-lg overflow-hidden">{title}</div>
             </div>
-            <div className="flex items-center justify-center gap-3 text-xs transition">
+            <div className="flex-1 flex items-center justify-end gap-3 text-xs transition">
                 {actions}
             </div>
         </div>

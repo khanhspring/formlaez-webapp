@@ -28,7 +28,7 @@ const OpinionScale: FC<Props> = ({ className = '', status, onChange, value, ...r
                         onClick={() => onClick(val)}
                         key={index}
                         className={
-                            `rounded border bg-slate-100 border-slate-900/10 hover:bg-slate-200 dark:border-gray-700 dark:bg-gray-800 flex-1 h-10 flex items-center justify-center cursor-pointer dark:hover:bg-gray-700 transition `
+                            `rounded border bg-slate-100 border-slate-900/10 hover:bg-slate-200 dark:border-steel-gray-800 dark:bg-steel-gray-900 flex-1 h-10 flex items-center justify-center cursor-pointer dark:hover:bg-steel-gray-700 transition `
                             + `${status && status === 'error' ? '!border-rose-700' : ''} `
                             + `${status && status === 'warning' ? '!border-yellow-700' : ''} `
                             + `${status && status === 'success' ? '!border-green-700' : ''} `
