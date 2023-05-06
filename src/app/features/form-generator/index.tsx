@@ -10,6 +10,7 @@ import { changeTheme, selectTheme } from "../../slices/app-config";
 import { selectUserInfo } from '../../slices/auth';
 import SectionItem from "./components/section-item";
 import { resetState, updateValues } from "./slice";
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     formLayout: Form;
@@ -26,11 +27,10 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
     const mounted = useRef(false);
     const [form] = RcForm.useForm();
     const user = useAppSelector(selectUserInfo);
+    const navigate = useNavigate();
 
     const login = () => {
-        const currentUrl = window.location.pathname;
-        const currentUrlEncoded = encodeURIComponent(currentUrl);
-        window.location.href = process.env.REACT_APP_AUTH_LOGIN_URL + `?state=${currentUrlEncoded}`;
+        navigate("/sign-in");
     }
 
     const currentTheme = useAppSelector(selectTheme);

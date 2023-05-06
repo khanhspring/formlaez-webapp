@@ -33,7 +33,7 @@ function WorkspaceBilling() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td className={`px-3 py-3 font-bold`}>
+                                <td className={`px-3 py-3 font-normal`}>
                                     Forms
                                 </td>
                                 <td className={`px-3 py-3`}>
@@ -45,7 +45,7 @@ function WorkspaceBilling() {
                                 </td>
                             </tr>
                             <tr>
-                                <td className={`px-3 py-3 font-bold`}>
+                                <td className={`px-3 py-3 font-normal`}>
                                     Members
                                 </td>
                                 <td className={`px-3 py-3`}>
@@ -57,7 +57,7 @@ function WorkspaceBilling() {
                                 </td>
                             </tr>
                             <tr>
-                                <td className={`px-3 py-3 font-bold`}>
+                                <td className={`px-3 py-3 font-normal`}>
                                     File storages
                                 </td>
                                 <td className={`px-3 py-3`}>
@@ -69,7 +69,7 @@ function WorkspaceBilling() {
                                 </td>
                             </tr>
                             <tr>
-                                <td className={`px-3 py-3 font-bold`}>
+                                <td className={`px-3 py-3 font-normal`}>
                                     Submissions this month
                                 </td>
                                 <td className={`px-3 py-3`}>
@@ -81,7 +81,7 @@ function WorkspaceBilling() {
                                 </td>
                             </tr>
                             <tr>
-                                <td className={`px-3 py-3 font-bold`}>
+                                <td className={`px-3 py-3 font-normal`}>
                                     Document merges this month
                                 </td>
                                 <td className={`px-3 py-3`}>

@@ -121,9 +121,9 @@ function WorkspaceMembers() {
             dataIndex: 'user',
             render: (value, record, index) => {
                 return (
-                    <div className='flex items-center gap-1'>
+                    <div className='flex flex-col gap-0.5'>
                         <span className='text-sm font-bold'>{record.user.firstName} {record.user.lastName}</span>
-                        <span className='text-xs'>({record.user.email})</span>
+                        <span className='text-xs'>{record.user.email}</span>
                     </div>
                 );
             },

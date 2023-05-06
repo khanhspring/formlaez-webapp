@@ -8,6 +8,7 @@ import useUpdateWorkspace from '../../hooks/workspace/useUpdateWorkspace';
 import { UpdateWorkspaceRequest, Workspace } from '../../models/workspace';
 import { showErrorIgnore403 } from '../../util/common';
 import FormItemLabel from '../../components/form/form-item-label';
+import Textarea from '../../components/form/form-controls/textarea';
 
 function WorkspaceSettings() {
     const workspace = useRouteLoaderData("workspace") as Workspace;
@@ -50,7 +51,6 @@ function WorkspaceSettings() {
                                 rules={[
                                     { required: true, message: "This field is required" },
                                 ]}
-                                help="You can use your organization or company name. Keep it simple."
                             >
                                 <Input placeholder="Name" maxLength={255} />
                             </FormItem>
@@ -62,7 +62,7 @@ function WorkspaceSettings() {
                             <FormItem
                                 name={'description'}
                             >
-                                <Input placeholder="Description" maxLength={1000} />
+                                <Textarea placeholder="Description" maxLength={1000} rows={2}/>
                             </FormItem>
                         </div>
                         <div className='flex'>
