@@ -31,7 +31,7 @@ const ImageField: FC<Props> = ({ field, context }) => {
     }
 
     const imageConfig = (
-        <div className="w-[450px] bg-white dark:bg-slate-800 rounded p-3">
+        <div className="w-[450px] bg-white dark:bg-steel-gray-950 rounded p-3">
             <Form
                 form={form}
                 onFinish={onFinish}
@@ -63,7 +63,7 @@ const ImageField: FC<Props> = ({ field, context }) => {
                 afterClose={resetForm}
                 disabled={formInfo?.status === 'Archived'}
             >
-                <div className="p-3 bg-slate-200 dark:bg-gray-800 rounded cursor-pointer flex gap-2 items-center dark:text-gray-400">
+                <div className="p-3 bg-slate-200 dark:bg-steel-gray-900 rounded cursor-pointer flex gap-2 items-center dark:text-gray-400">
                     <i className="fi fi-rr-picture"></i>
                     <span className="font-light">Add an image</span>
                 </div>
