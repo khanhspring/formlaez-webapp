@@ -466,7 +466,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                 <div className="flex items-center gap-3">
                     <span>Total {formData?.totalElements || 0}</span>
                     <Dropdown overlay={dateRange} trigger={['click']} placement="bottomRight">
-                        <div className="hidden md:flex gap-2 py-1.5 px-3 cursor-pointer bg-slate-50 dark:bg-slate-700 rounded items-center justify-center border border-slate-900/10 dark:border-slate-600">
+                        <div className="hidden md:flex gap-2 py-1.5 px-3 cursor-pointer bg-slate-50 dark:bg-steel-gray-900 rounded items-center justify-center border border-slate-900/10 dark:border-steel-gray-800">
                             <i className="fi fi-rr-calendar text-xs text-gray-500"></i>
                             <span className="text-sm">
                                 {DateRangeLabels[dateRangeSelected]}
@@ -530,7 +530,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                     emptyText={isLoading || isFetching ? 'Loading...' : 'No data'}
                     className="table-form-data text-slate-900 dark:text-white"
                 />
-                <div className="w-full mt-3 p-1 z-[200] bg-white/90 border border-slate-900/10 dark:bg-gray-800/80 dark:border-gray-700 sticky bottom-0 flex items-center justify-center">
+                <div className="w-full mt-3 p-1 z-[200] bg-white/90 border border-slate-900/10 dark:bg-steel-gray-900/80 dark:border-steel-gray-900 backdrop-blur supports-backdrop-blur:bg-white/95 sticky bottom-0 flex items-center justify-center">
                     <Pagination
                         total={formData?.totalElements || 0}
                         pageSize={formData?.size || 0}

@@ -68,7 +68,7 @@
 
 .dark .rc-dropdown .rc-menu .rc-menu-item:hover,
 .dark .rc-dropdown .rc-menu .rc-menu-item-active{
-    background-color: var(--steel-gray-800);
+    background-color: var(--steel-gray-900);
 }
 
 .rc-dropdown .rc-menu .rc-menu-item-selected {

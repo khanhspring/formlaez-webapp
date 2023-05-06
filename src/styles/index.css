@@ -75,8 +75,16 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: none !important;
     -webkit-text-fill-color: inherit !important;
+    -webkit-box-shadow: 0 0 0 30px #F1F5F9 inset !important;
+}
+
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark input:-webkit-autofill:active {
+    -webkit-text-fill-color: #fff !important;
+    -webkit-box-shadow: 0 0 0 30px #313249 inset !important;
 }
 
 .team-item {
@@ -171,11 +179,11 @@ hr {
     width: 28px;
     height: 28px;
     border-radius: 5px;
-    background-color: #F1F5F9;
+    background-color: var(--gray-steel-800);
 }
 
 .dark .rc-pagination .rc-pagination-item {
-    background-color: var(--bg-gray-700);
+    background-color: var(--gray-steel-900);
 }
 
 .rc-pagination .rc-pagination-item:hover {
@@ -186,7 +194,7 @@ hr {
 }
 
 .dark .rc-pagination .rc-pagination-item:hover {
-    background-color: var(--bg-gray-700);
+    background-color: var(--gray-steel-800);
 }
 
 .rc-pagination .rc-pagination-item-active,

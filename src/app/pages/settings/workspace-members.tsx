@@ -165,6 +165,7 @@ function WorkspaceMembers() {
                                 disabled={!canRemoveMember}
                                 onClick={() => canRemoveMember ? showUpdateMemberModal(record) : undefined}
                                 disabledTooltip="Add another owner to change this user role"
+                                tooltipPlacement="bottomRight"
                             >
                                 <i className="fi fi-rr-pencil"></i>
                             </ButtonTableAction>
@@ -173,6 +174,7 @@ function WorkspaceMembers() {
                                 danger
                                 onClick={() => canRemoveMember ? showConfirmRemoveMember(record) : undefined}
                                 disabledTooltip="Add another owner to remove this user from the workspace"
+                                tooltipPlacement="bottomRight"
                             >
                                 <i className="fi fi-rr-trash"></i>
                             </ButtonTableAction>

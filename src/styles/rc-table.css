@@ -10,7 +10,7 @@
 
 .dark .rc-table th,
 .dark .rc-table td {
-    border-color: var(--bg-gray-700);
+    border-color: var(--steel-gray-800);
 }
 
 .rc-table th {
@@ -22,7 +22,7 @@
 }
 
 .dark .rc-table-header {
-    border-color: var(--bg-gray-700);
+    border-color: var(--steel-gray-800);
 }
 
 .rc-table-body {
@@ -30,7 +30,7 @@
 }
 
 .dark .rc-table-body {
-    border-color: var(--bg-gray-700);
+    border-color: var(--steel-gray-800);
 }
 
 .rc-table-fixed-column .rc-table-body::after {
@@ -38,7 +38,7 @@
 }
 
 .dark .rc-table-fixed-column .rc-table-body::after {
-    border-color: var(--bg-gray-700);
+    border-color: var(--steel-gray-800);
 }
 
 .rc-table-expanded-row-fixed::after {
@@ -46,7 +46,7 @@
 }
 
 .dark .rc-table-expanded-row-fixed::after {
-    border-color: var(--bg-gray-700);
+    border-color: var(--steel-gray-800);
 }
 
 .rc-table-content {
@@ -55,7 +55,7 @@
 }
 
 .dark .rc-table-content {
-    border-color: var(--bg-gray-700);
+    border-color: var(--steel-gray-800);
 }
 
 .rc-table tbody tr td {
@@ -63,7 +63,7 @@
 }
 
 .dark .rc-table tbody tr td {
-    background-color: var(--bg-gray-800);
+    background-color: var(--steel-gray-900);
 }
 
 .rc-table thead th {
@@ -71,7 +71,7 @@
 }
 
 .dark .rc-table thead th {
-    background-color: var(--bg-gray-800);
+    background-color: var(--steel-gray-900);
 }
 
 .rc-table-cell.rc-table-cell-row-hover {
@@ -79,7 +79,7 @@
 }
 
 .dark .rc-table-cell.rc-table-cell-row-hover {
-    background-color: var(--bg-gray-700);
+    background-color: var(--steel-gray-800);
 }
 
 .rc-table-ping-left .rc-table-cell-fix-left-first,
@@ -89,7 +89,7 @@
 
 .dark .rc-table-ping-left .rc-table-cell-fix-left-first,
 .dark .rc-table-ping-left .rc-table-cell-fix-left-last {
-    outline: 1px solid var(--bg-gray-700);
+    outline: 1px solid var(--steel-gray-800);
 }
 
 .rc-table-ping-left .rc-table-cell-fix-left-first::after,
@@ -109,7 +109,7 @@
 
 .dark .rc-table-ping-right .rc-table-cell-fix-right-first,
 .dark .rc-table-ping-right .rc-table-cell-fix-right-last {
-    outline: 1px solid var(--bg-gray-700);
+    outline: 1px solid var(--steel-gray-800);
 }
 
 .rc-table-ping-right .rc-table-cell-fix-right-first::after,

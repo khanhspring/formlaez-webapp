@@ -104,7 +104,7 @@ function FormEdit() {
 
     return (
         <>
-            <div className="px-10 min-h-[55px] flex items-center justify-between sticky top-0 z-50 bg-white border-b border-slate-900/10 dark:border-transparent dark:bg-gray-800">
+            <div className="px-10 min-h-[55px] flex items-center justify-between sticky top-0 z-50 bg-white border-b border-slate-900/10 dark:border-transparent dark:bg-steel-gray-950">
                 <div className="flex items-center flex-1">
                     <span onClick={back} className="py-3 pr-5 flex items-center cursor-pointer">
                         <ArrowLeftIcon className="w-6 h-6"/>

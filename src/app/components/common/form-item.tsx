@@ -17,7 +17,7 @@ const FormItem: FC<Props> = ({ form }) => {
     }
 
     return (
-        <div className="flex items-center p-2 rounded-md border border-slate-900/10 bg-slate-50 dark:border-transparent dark:bg-gray-800/50 dark:hover:bg-gray-800 transition relative group">
+        <div className="flex items-center p-2 rounded-md border border-slate-900/10 bg-slate-50 dark:border-transparent dark:bg-steel-gray-900 dark:hover:bg-steel-gray-800 transition relative group">
             <div className="flex items-center justify-center w-10 h-10 rounded-md group-hover:ring-2 bg-gradient-to-r from-cyan-500 to-blue-500 transition">
                 <span className="font-bold text-lg text-white dark:text-white">
                     {firstLetters(form?.title)?.toUpperCase() || 'F'}

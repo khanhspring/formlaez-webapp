@@ -31,8 +31,8 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(({
                 + ` ${status === 'primary' ? ' bg-blue-700 hover:bg-blue-600 text-white' : ''}`
                 + ` ${pressing && status === 'primary' ? ' !bg-blue-700 ring-2 ring-blue-700/50' : ''}`
 
-                + ` ${status === 'secondary' ? ' bg-slate-200 hover:bg-slate-300 dark:bg-gray-700 dark:hover:bg-gray-600' : ''}`
-                + ` ${pressing && status === 'secondary' ? ' dark:!bg-gray-700 ring-2 dark:ring-slate-900/50' : ''}`
+                + ` ${status === 'secondary' ? ' bg-slate-200 hover:bg-slate-300 dark:bg-steel-gray-900 dark:hover:bg-steel-gray-800' : ''}`
+                + ` ${pressing && status === 'secondary' ? ' dark:!bg-steel-gray-900 ring-2 dark:ring-slate-900/50' : ''}`
 
                 + ` ${status === 'danger' ? ' bg-rose-700 hover:bg-rose-500' : ''}`
                 + ` ${pressing && status === 'danger' ? ' !bg-rose-700 ring-2 ring-rose-700/50' : ''}`

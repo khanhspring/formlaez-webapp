@@ -11,7 +11,7 @@ const TeamItem: FC<Props> = ({ team }) => {
     const members = team.members?.map(m => m.user.firstName + ' ' + m.user.lastName)
 
     return (
-        <div className="flex flex-col gap-2 h-full px-7 pt-10 pb-7 rounded-md border border-slate-900/10 dark:border-steel-gray-900 transition relative group">
+        <div className="flex flex-col gap-2 h-full px-7 pt-10 pb-7 rounded-md border border-slate-900/10 bg-slate-50 dark:border-steel-gray-900 dark:bg-steel-gray-900 dark:hover:bg-steel-gray-800 transition relative group">
             <div className="flex flex-col gap-2.5">
                 <div className='flex items-center justify-center w-8 h-8 rounded-full ring-1 ring-teal-500/50 p-0.5'>
                     <div className="flex items-center justify-center w-full h-full bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full text-white transition group-hover:ring-2 ring-teal-500/50">

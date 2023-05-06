@@ -19,7 +19,7 @@ const UserMenu: FC<Props> = ({ }) => {
     }
 
     const userMenu = (
-        <div className="flex flex-col rounded bg-slate-50 dark:bg-gray-800">
+        <div className="flex flex-col rounded bg-slate-50 dark:bg-steel-gray-800">
             <div className="w-full px-4 py-3 flex flex-col gap-1">
                 <span className="font-bold text-sm">{userInfo?.firstName} {userInfo?.lastName}</span>
                 {

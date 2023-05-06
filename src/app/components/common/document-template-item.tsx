@@ -5,6 +5,7 @@ import Tooltip from 'rc-tooltip';
 import { FC, useState } from 'react';
 import { FormattedNumber } from 'react-intl';
 import { DocumentTemplate } from '../../models/document-template';
+import { ArrowUpOnSquareIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/solid';
 
 type Props = {
     documentTemplate?: DocumentTemplate;
@@ -53,9 +54,9 @@ const DocumentTemplateItem: FC<Props> = ({ documentTemplate, onClick, onEdit, on
     return (
         <div
             onClick={onClick}
-            className="cursor-pointer flex items-center p-2 rounded-md border border-slate-900/10 bg-slate-50 dark:border-transparent dark:bg-gray-800/50 dark:hover:bg-gray-800 relative group"
+            className="cursor-pointer flex items-center p-2 rounded-md border border-slate-900/10 bg-slate-50 dark:border-transparent dark:bg-steel-gray-900 dark:hover:bg-steel-gray-800 relative group"
         >
-            <div className="flex items-center justify-center w-10 h-10 rounded group-hover:ring-2 bg-gradient-to-r from-cyan-500 to-blue-500 transition rounded-full">
+            <div className="flex items-center justify-center w-10 h-10 group-hover:ring-2 bg-gradient-to-r from-cyan-500 to-blue-500 transition rounded-full">
                 <span className='text-xs text-white rounded-full'>{documentTemplate.extension}</span>
             </div>
             <div className="flex-1 flex gap-1 flex-col pl-2 overflow-hidden ml-0.5">
@@ -75,7 +76,7 @@ const DocumentTemplateItem: FC<Props> = ({ documentTemplate, onClick, onEdit, on
                         <span onClick={e => { e.stopPropagation(); }}
                             className="w-6 h-5 flex justify-center items-center rounded"
                         >
-                            <i className="fi fi-rr-menu-dots"></i>
+                            <EllipsisHorizontalIcon className='w-6 h-6'/>
                         </span>
                     </Dropdown>
                 </div>

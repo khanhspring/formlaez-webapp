@@ -56,7 +56,7 @@ const ExternalScroll: FC<Props> = ({ target }) => {
 
     return (
         <div className="fixed z-[1000] bottom-[70px] right-7 w-[140px] h-[55px]">
-            <div className='w-full h-full border border-slate-900/10 bg-slate-200 dark:border-gray-700 dark:bg-gray-800 shadow-lg overflow-hidden rounded p-2'>
+            <div className='w-full h-full border border-slate-900/10 bg-slate-200 dark:border-steel-gray-800 dark:bg-steel-gray-900 shadow-lg overflow-hidden rounded p-2'>
                 <div ref={container} className='w-full h-full relative'>
                     <ReactSlider
                         value={value}
@@ -68,7 +68,7 @@ const ExternalScroll: FC<Props> = ({ target }) => {
                     <div className='absolute w-full h-full top-0 left-0 flex justify-between'>
                         {
                             cols.map((item, index) =>
-                                <div key={index} className="w-2.5 h-full bg-slate-300 dark:bg-slate-900 top-0 left-0 rounded"></div>
+                                <div key={index} className="w-2.5 h-full bg-slate-300 dark:bg-steel-gray-950 top-0 left-0 rounded"></div>
                             )
                         }
                     </div>

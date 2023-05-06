@@ -7,9 +7,10 @@ type Props = PropsWithChildren & {
     danger?: boolean;
     disabled?: boolean;
     disabledTooltip?: ReactNode;
+    tooltipPlacement?: string;
 }
 
-const ButtonTableAction: FC<Props> = ({ title, onClick, danger, disabled, disabledTooltip, children }) => {
+const ButtonTableAction: FC<Props> = ({ title, onClick, danger, disabled, disabledTooltip, tooltipPlacement = 'bottom', children }) => {
 
     const buttonInner = (
         <button
@@ -35,7 +36,7 @@ const ButtonTableAction: FC<Props> = ({ title, onClick, danger, disabled, disabl
     }
 
     return (
-        <Tooltip overlay={disabledTooltip} placement="bottom">
+        <Tooltip overlay={disabledTooltip} placement={tooltipPlacement} showArrow={false}>
             {buttonInner}
         </Tooltip>
     )

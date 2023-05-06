@@ -27,7 +27,7 @@ function FormDataAnalysis() {
                 {
                     (analysis && analysis.count > 0 && analysis?.items) &&
                     <div className="max-w-4xl w-full flex flex-col gap-5">
-                        <div className="w-full flex items-center justify-start py-3 px-5 font-bold bg-slate-100 dark:bg-slate-800 rounded">
+                        <div className="w-full flex items-center justify-start py-3 px-5 font-bold bg-slate-50 dark:bg-steel-gray-900 rounded">
                             <span>
                                 {analysis?.count} submission{analysis?.count && analysis?.count > 1 ? 's' : ''}
                             </span>

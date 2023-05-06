@@ -13,6 +13,10 @@ import FormDataTable from './components/form-data-table';
 import FormPageMenu from './components/form-page-menu';
 import FormPageTitle from './components/form-page-title';
 import FormPageTitlePrefix from "./components/form-page-title-prefix";
+import DraftBg from '../../../assets/images/form-draft-bg.svg';
+import DraftBgDark from '../../../assets/images/form-draft-bg-dark.svg';
+import { useAppSelector } from "../../hooks/redux-hook";
+import { selectTheme } from "../../slices/app-config";
 
 function Form() {
 
@@ -20,6 +24,7 @@ function Form() {
     const params = useParams();
     const { data: form, refetch } = useFormDetail(params.formCode);
     const { mutateAsync: publish } = usePublishForm();
+    const theme = useAppSelector(selectTheme);
 
     const onPublish = (): Promise<any> => {
         if (!form) {
@@ -66,13 +71,20 @@ function Form() {
                 {
                     form?.status === 'Draft' &&
                     <div className="flex items-center justify-center flex-1">
-                        <div className='max-w-[5] flex flex-col justify-center items-center gap-3 pb-12'>
+                        <div className='max-w-[5] flex flex-col justify-center items-center gap-10'>
                             <h2 className='font-lg'>This form hasn't published yet.</h2>
-                            <div className='flex flex-col justify-center items-center gap-3'>
+                            {
+                                theme === 'dark' &&
+                                <img src={DraftBgDark}/>
+                            }
+                            {
+                                theme !== 'dark' &&
+                                <img src={DraftBg}/>
+                            }
+                            <div className='flex justify-center items-center gap-3'>
                                 <Button onClick={showPublishConfirm}>
                                     Publish now
                                 </Button>
-                                <span>or</span>
                                 <Link to={`/f/${params.formCode}/builder`}>
                                     <Button>Continue to edit</Button>
                                 </Link>

@@ -165,7 +165,7 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
                     'w-full h-[30vh] min-h-[150px] group/form-cover'
                     + ` ${form.coverColor || 'bg-001'}`
                 }>
-                    <div className="w-full max-w-[530px] m-auto relative h-full flex items-center justify-center">
+                    <div className="w-full max-w-[645px] m-auto relative h-full flex items-center justify-center">
                         {
                             form?.status !== 'Archived' &&
                             <>

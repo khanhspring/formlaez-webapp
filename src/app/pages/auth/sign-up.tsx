@@ -84,7 +84,7 @@ const SignUp = () => {
                         <>
                             <a
                                 href={process.env.REACT_APP_AUTH_GOOGLE_LOGIN_URL}
-                                className="mt-7 w-full flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-gray-800 dark:hover:bg-gray-800/70 px-3 py-2 border border-slate-900/10 rounded transition"
+                                className="mt-7 w-full flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-steel-gray-900 dark:hover:bg-steel-gray-800 px-3 py-2 border border-slate-900/10 rounded transition"
                             >
                                 <img src={googleIcon} alt="Google" className='h-4' />
                                 <span className='text-sm'>Continue with Google</span>

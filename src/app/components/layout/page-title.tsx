@@ -15,7 +15,7 @@ const PageTitle: FC<Props> = ({ title, actions, shortTitle = defaultIcon, classN
 
     return (
         <div className={
-            "w-full max-w-full overflow-hidden py-2 border-b border-slate-900/10 dark:border-steel-gray-900 z-20 sticky top-[64px] flex items-center justify-between gap-10 backdrop-blur flex-none bg-white/80 supports-backdrop-blur:bg-white/95 dark:bg-steel-gray-950/80"
+            "w-full max-w-full overflow-hidden py-2 border-b border-slate-900/10 dark:border-steel-gray-900 z-20 sticky top-[64px] flex items-center justify-between gap-10 dark:bg-steel-gray-950"
             + ` ${className}`
         }>
             <div className="flex items-center gap-2 overflow-hidden">
