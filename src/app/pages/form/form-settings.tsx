@@ -20,6 +20,8 @@ import { firstLetters } from "../../util/string-utils";
 import FormPageMenu from "./components/form-page-menu";
 import FormPageTitle from "./components/form-page-title";
 import FormPageTitlePrefix from "./components/form-page-title-prefix";
+import { DocumentDuplicateIcon } from "@heroicons/react/24/solid";
+import Tooltip from "rc-tooltip";
 
 type Settings = {
     acceptResponses?: boolean;
@@ -246,10 +248,15 @@ function FormSettings() {
             <div className="mt-6 flex flex-col gap-6">
                 <h2 className="pb-1 border-b border-slate-900/10 dark:border-gray-800">Sharing</h2>
                 <div className="flex items-center gap-2">
-                    <div className="px-3 py-2 rounded border border-slate-900/10 dark:border-gray-800 text-sm">
+                    <div className="px-2 py-1.5 rounded border border-slate-900/10 dark:border-gray-800 text-sm">
                         {`${process.env.REACT_APP_DOMAIN}/f/v/${params.formCode}`}
                     </div>
-                    <Button onClick={copyShareLink}>Copy link to share</Button>
+                    <Button onClick={copyShareLink} className="hidden lg:block whitespace-nowrap">Copy link to share</Button>
+                    <Tooltip overlay="Copy link to share" placement="bottom" showArrow={false}>
+                        <span onClick={copyShareLink} className="lg:hidden block cursor-pointer">
+                            <DocumentDuplicateIcon className="w-6 h-6" />
+                        </span>
+                    </Tooltip>
                 </div>
 
                 <div className="flex items-center gap-2">

@@ -46,7 +46,7 @@ const FormPageMenu: FC<Props> = ({ form }) => {
                 </Link>
             </MenuItem>
             <MenuItem key="builder">
-                <Link to={`/${urlPrefix}/f/${params.formCode}/builder`}>
+                <Link to={`/f/${params.formCode}/builder`}>
                     Builder
                 </Link>
             </MenuItem>
