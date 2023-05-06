@@ -31,7 +31,7 @@ const DatetimePicker: FC<Props> = ({ className = '', status, value, showTime, ..
 
     return (
         <div className={
-            `w-full relative flex rounded border bg-slate-100 border-slate-900/10 dark:border-steel-gray-800 dark:bg-steel-gray-900 dark:hover:border-steel-gray-700 shadow-sm `
+            `w-full relative flex rounded border bg-white border-slate-900/10 dark:border-steel-gray-800 dark:bg-steel-gray-900 dark:hover:border-steel-gray-700 shadow-sm `
             + `${status && status === 'error' ? '!border-rose-700' : ''} `
             + `${status && status === 'warning' ? '!border-yellow-700' : ''} `
             + `${status && status === 'success' ? '!border-green-700' : ''} `

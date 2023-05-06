@@ -75,7 +75,7 @@
 }
 
 .rc-table-cell.rc-table-cell-row-hover {
-    background-color: rgb(203 213 225);
+    background-color: var(--bg-slate-200);
 }
 
 .dark .rc-table-cell.rc-table-cell-row-hover {

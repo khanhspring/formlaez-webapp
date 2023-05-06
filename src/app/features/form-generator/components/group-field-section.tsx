@@ -37,10 +37,10 @@ const GroupFieldSection: FC<Props> = ({ section }) => {
                                     key={index}
                                     className="border border-slate-900/10 dark:border-gray-700 rounded"
                                 >
-                                    <div className="bg-slate-200 dark:bg-gray-800 px-3 min-h-[40px] text-base flex justify-between items-center rounded-tl rounded-tr">
-                                        <div className="flex gap-2">
+                                    <div className="bg-slate-200 dark:bg-steel-gray-900 px-3 min-h-[40px] text-base flex justify-between items-center rounded-tl rounded-tr">
+                                        <div className="flex gap-2 items-center">
                                             <span>{section.title || 'Untitled group'}</span>
-                                            <span className="inline-block h-5 min-w-[20px] rounded-[10px] bg-slate-300 dark:bg-slate-900 text-center">{index + 1}</span>
+                                            <span className="inline-block h-5 min-w-[20px] leading-5 rounded-[10px] bg-slate-300 dark:bg-slate-900 text-center">{index + 1}</span>
                                         </div>
                                         {
                                             fields.length > 1 &&

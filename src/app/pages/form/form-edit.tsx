@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, Cog6ToothIcon, EyeIcon } from "@heroicons/react/24/outline";
-import { TvIcon } from "@heroicons/react/24/solid";
+import { MoonIcon, SunIcon, TvIcon } from "@heroicons/react/24/solid";
 import Dropdown from "rc-dropdown";
 import Menu, { MenuItem } from "rc-menu";
 import Tooltip from "rc-tooltip";
@@ -13,6 +13,8 @@ import useFormDetail from "../../hooks/form/useFormDetail";
 import usePublishForm from "../../hooks/form/usePublishForm";
 import { showErrorIgnore403 } from "../../util/common";
 import CustomizeEndingModal from "./components/customize-ending-modal";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
+import { changeTheme, selectTheme } from "../../slices/app-config";
 
 function FormEdit() {
 
@@ -22,6 +24,21 @@ function FormEdit() {
     const { mutateAsync: publish } = usePublishForm();
     const [customizeEndingVisible, setCustomizeEndingVisible] = useState(false);
     const navigate = useNavigate();
+
+    const currentTheme = useAppSelector(selectTheme);
+    const [theme, setTheme] = useState<'dark' | 'light'>(currentTheme);
+
+    const dispatch = useAppDispatch();
+
+    const onThemeSelect = () => {
+        if (theme === 'dark') {
+            setTheme('light');
+            dispatch(changeTheme('light'));
+        } else {
+            setTheme('dark');
+            dispatch(changeTheme('dark'));
+        }
+    }
 
     useEffect(() => {
         setTitle(formDetail?.title);
@@ -126,6 +143,13 @@ function FormEdit() {
                             <span>Preview</span>
                         </button>
                     </Link>
+                    <div
+                        onClick={onThemeSelect}
+                        className="w-9 h-9 p-2 text-lg rounded-full flex items-center justify-center transition cursor-pointer bg-slate-400/10 dark:bg-slate-800/70 hover:bg-slate-400/20 dark:hover:bg-slate-800 group"
+                    >
+                        {theme !== 'dark' && <MoonIcon className="w-5 h-5"/>}
+                        {theme === 'dark' && <SunIcon className="w-5 h-5"/>}
+                    </div>
                     <Dropdown overlay={settingsMenu} trigger={['click']} placement="bottomRight">
                         <button className="flex items-center gap-1 text-sm opacity-80 hover:opacity-100 h-12" aria-label="Config">
                             <Cog6ToothIcon className="w-5 h-5"/>

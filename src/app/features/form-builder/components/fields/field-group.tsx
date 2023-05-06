@@ -65,7 +65,7 @@ const FieldGroup: FC<Props> = ({ section, sectionIndex, ...dragHandleProps }) =>
     return (
         <div className="pt-2 pb-2">
             <div
-                className="flex flex-col relative rounded border border-slate-900/10 dark:border-gray-700 dark:bg-slate-900 group/field-group"
+                className="flex flex-col relative rounded border border-slate-900/10 dark:border-gray-700 group/field-group"
                 onMouseOver={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
             >
@@ -78,7 +78,7 @@ const FieldGroup: FC<Props> = ({ section, sectionIndex, ...dragHandleProps }) =>
                         section: section
                     }}
                 />
-                <div className="bg-slate-200 dark:bg-gray-800 px-3 py-2 rounded-t rounded-sm">
+                <div className="bg-slate-200 dark:bg-steel-gray-900 px-3 py-2 rounded-t rounded-sm">
                     <input
                         value={values.title}
                         className="flex-1 w-full text-slate-900 dark:text-gray-100 bg-transparent outline-none placeholder:text-slate-700 dark:placeholder:text-gray-200"

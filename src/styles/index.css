@@ -2,6 +2,8 @@
     --bg-gray-800: rgb(31 41 55);
     --bg-gray-900: rgb(17 24 39);
     --bg-slate-50: rgb(248 250 252);
+    --bg-slate-100: rgb(241 245 249);
+    --bg-slate-200: rgb(226 232 240);
     --bg-gray-300: rgb(209 213 219);
     --bg-gray-700: rgb(55 65 81);
     --bg-gray-500: rgb(107 114 128);
@@ -76,7 +78,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     -webkit-text-fill-color: inherit !important;
-    -webkit-box-shadow: 0 0 0 30px #F1F5F9 inset !important;
+    -webkit-box-shadow: 0 0 0 30px #fff inset !important;
 }
 
 .dark input:-webkit-autofill,

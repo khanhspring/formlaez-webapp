@@ -89,7 +89,7 @@ const AddNewMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                             .filter(item => item.name.toLowerCase().includes(query?.toLowerCase()))
                             .map((item, index) =>
                                 <div
-                                    className="px-2 py-1 cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-steel-gray-800 flex flex-col gap-1"
+                                    className="px-2 py-1 cursor-pointer hover:bg-slate-200 dark:bg-transparent dark:hover:bg-steel-gray-800 flex flex-col gap-1"
                                     key={index}
                                     onClick={() => onAddFieldClick(item)}
                                 >
@@ -108,7 +108,7 @@ const AddNewMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                             .filter(item => item.name.toLowerCase().includes(query?.toLowerCase()))
                             .map((item, index) =>
                                 <div
-                                    className="px-2 py-1 cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-steel-gray-800 flex flex-col gap-1"
+                                    className="px-2 py-1 cursor-pointer hover:bg-slate-200 dark:bg-transparent dark:hover:bg-steel-gray-800 flex flex-col gap-1"
                                     key={index}
                                     onClick={() => onAddFieldClick(item)}
                                 >
@@ -129,7 +129,7 @@ const AddNewMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                                     .filter(item => item.name.toLowerCase().includes(query?.toLowerCase()))
                                     .map((item, index) =>
                                         <div
-                                            className="px-2 py-1 cursor-pointer bg-slate-50 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-steel-gray-800 flex flex-col gap-1"
+                                            className="px-2 py-1 cursor-pointer hover:bg-slate-200 dark:bg-transparent dark:hover:bg-steel-gray-800 flex flex-col gap-1"
                                             key={index}
                                             onClick={() => onAddGroupClick(item)}
                                         >

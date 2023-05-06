@@ -32,7 +32,7 @@ const InputTextField: FC<Props> = ({ field, context }) => {
             }
             <input
                 value={values.placeholder}
-                className="px-4 py-2 rounded-md bg-slate-100 text-slate-500 border border-slate-900/10 dark:border-steel-gray-800 dark:bg-steel-gray-900 w-full dark:text-gray-400 outline-none"
+                className="px-4 py-2 rounded-md bg-white text-slate-500 border border-slate-900/10 dark:border-steel-gray-800 dark:bg-steel-gray-900 w-full dark:text-gray-400 outline-none"
                 onChange={(e) => updateDebounce({ placeholder: e.target.value })}
                 disabled={form?.status === 'Archived'}
             />

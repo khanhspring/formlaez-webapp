@@ -90,7 +90,7 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
                                         <button
                                             aria-label="Add"
                                             onClick={() => add({ code: nanoid(), label: 'Unlabeled option' })}
-                                            className="w-6 h-6 rounded-full border border-slate-900/10 bg-slate-100 hover:bg-slate-200 dark:border-slate-600 dark:bg-slate-600/50 dark:hover:bg-slate-600/80 items-center justify-center transition flex"
+                                            className="w-6 h-6 rounded-full border border-slate-900/10 bg-white hover:bg-slate-200 dark:border-slate-600 dark:bg-slate-600/50 dark:hover:bg-slate-600/80 items-center justify-center transition flex"
                                         >
                                             <i className="fi fi-rr-plus-small text-lg"></i>
                                         </button>
