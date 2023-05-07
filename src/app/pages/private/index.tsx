@@ -1,3 +1,5 @@
+import { PlusIcon } from '@heroicons/react/24/outline';
+import { LockClosedIcon } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 import { Link, useRouteLoaderData } from 'react-router-dom';
 import ActionSearchInput from '../../components/common/action-search-input/action-search-input';
@@ -8,7 +10,6 @@ import PageTitle from '../../components/layout/page-title';
 import useForms from '../../hooks/form/useForms';
 import { Workspace } from '../../models/workspace';
 import CreateFormModal from './components/create-form-modal';
-import { PlusIcon, UserIcon } from '@heroicons/react/24/outline';
 
 function Private() {
 
@@ -35,7 +36,7 @@ function Private() {
             <div className="flex-1 w-full flex flex-col gap-2">
                 <PageTitle
                     title="Private" actions={<></>}
-                    shortTitle={<UserIcon className='w-4 h-4' />}
+                    shortTitle={<LockClosedIcon className='w-4 h-4' />}
                     iconClassName="bg-gradient-to-r from-yellow-600 to-red-600"
                 />
                 <div className="flex items-center justify-between min-h-[40px] mt-3">

@@ -7,9 +7,11 @@ import { selectUserInfo } from '../../../slices/auth';
 import ChangePasswordModal from './change-password-modal';
 import SidebarAvatar from './sidebar-avatar';
 
-type Props = {}
+type Props = {
+    collapsed?: boolean;
+}
 
-const UserMenu: FC<Props> = ({ }) => {
+const UserMenu: FC<Props> = ({ collapsed }) => {
     const userInfo = useAppSelector(selectUserInfo);
     const [changePasswordVisible, setChangePasswordVisible] = useState(false);
     const navigate = useNavigate();
@@ -51,10 +53,13 @@ const UserMenu: FC<Props> = ({ }) => {
             <Dropdown overlay={userMenu}>
                 <div className="p-3 rounded flex items-center gap-2 group cursor-pointer border border-neutral-800">
                     <SidebarAvatar name={userInfo?.firstName + ' ' + userInfo?.lastName} className="group-hover:ring-1" />
-                    <div className='flex flex-col'>
-                        <span className="text-sm font-semibold text-white">{userInfo?.firstName + ' ' + userInfo?.lastName}</span>
-                        <span className="text-xs font-light text-zinc-400">{userInfo?.email}</span>
-                    </div>
+                    {
+                        !collapsed &&
+                        <div className='flex flex-col'>
+                            <span className="text-sm font-semibold text-white">{userInfo?.firstName + ' ' + userInfo?.lastName}</span>
+                            <span className="text-xs font-light text-zinc-400">{userInfo?.email}</span>
+                        </div>
+                    }
                 </div>
             </Dropdown>
             <ChangePasswordModal

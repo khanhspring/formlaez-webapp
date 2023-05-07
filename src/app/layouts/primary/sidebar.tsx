@@ -1,17 +1,24 @@
-import { ChartPieIcon, CogIcon, CreditCardIcon, LockClosedIcon, Square3Stack3DIcon, UsersIcon } from '@heroicons/react/24/solid';
+import { ChartPieIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon, CogIcon, CreditCardIcon, LockClosedIcon, Square3Stack3DIcon, UsersIcon } from '@heroicons/react/24/solid';
+import { FC } from 'react';
 import { Link, useLocation, useRouteLoaderData } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import Logo from '../../components/common/logo';
 import useWorkspaceContext from '../../hooks/auth/useWorkspaceContext';
+import { useAppDispatch } from '../../hooks/redux-hook';
 import useTeams from '../../hooks/team/useTeams';
 import { Workspace } from '../../models/workspace';
+import { setMenuVisible } from '../../slices/app-config';
 import StringUtils, { firstLetters } from '../../util/string-utils';
 import UserMenu from './components/user-menu';
 import WorkspaceSwitcher from './components/workspace-switcher';
-import { useAppDispatch } from '../../hooks/redux-hook';
-import { setMenuVisible } from '../../slices/app-config';
 
-function SideBar() {
+type Props = {
+    collapsed?: boolean;
+    setCollapsed?: (val: boolean) => void;
+    hideCollapse?: boolean;
+}
+
+const SideBar: FC<Props> = ({ collapsed, hideCollapse, setCollapsed = () => { } }) => {
 
     const workspace = useRouteLoaderData("workspace") as Workspace;
     const workspaceContext = useWorkspaceContext();
@@ -56,8 +63,117 @@ function SideBar() {
         dispatch(setMenuVisible(false));
     }
 
+    if (collapsed) {
+        return (
+            <div className="w-full h-full relative">
+                <div
+                    className='absolute w-6 h-6 bottom-3 -right-3 rounded bg-steel-gray-900 flex items-center justify-center py-2 cursor-pointer z-[1000]'
+                    onClick={() => setCollapsed(false)}
+                >
+                    <ChevronDoubleRightIcon className='w-5 h-5 text-steel-gray-300' />
+                </div>
+                <div className="sticky top-0">
+                    <div className='w-full'>
+                        <div className="px-7 flex items-center w-full h-[65px]">
+                            <div className="flex flex-col w-full items-center justify-center gap-3">
+                                <WorkspaceSwitcher />
+                            </div>
+                        </div>
+
+                        <div className="flex-1 flex flex-col py-2 px-2 mt-1">
+                            <UserMenu collapsed />
+                        </div>
+                    </div>
+                    <SimpleBar style={{ height: 'calc(100vh - 160px)' }} autoHide={false}>
+                        <div className="flex-1 flex flex-col py-2 px-4 mt-4 pb-10">
+                            <div className='w-full flex flex-col items-center justify-center gap-2'>
+                                <Link
+                                    onClick={closeMenu}
+                                    to={`/${workspace.code}/p`}
+                                    className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Private') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                >
+                                    <LockClosedIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Private') ? 'text-white' : 'text-zinc-600'}`} />
+                                </Link>
+                                <Link
+                                    onClick={closeMenu}
+                                    to={`/${workspace.code}/t`}
+                                    className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Team') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                >
+                                    <Square3Stack3DIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Team') ? 'text-white' : 'text-zinc-600'}`} />
+                                </Link>
+                            </div>
+
+                            {
+                                (teams?.content.length || 0) > 0 &&
+                                <div className='w-full flex flex-col items-center justify-center gap-2 mt-2'>
+                                    {
+                                        teams?.content.map((item, index) =>
+                                            <Link
+                                                onClick={closeMenu}
+                                                to={`/${workspace.code}/t/${item.code}`}
+                                                className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded group ${isActive('TeamItem', item.code) ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                                key={index}
+                                            >
+                                                <span className={`flex justify-center items-center w-6 h-6 rounded-md border border-zinc-700 bg-zinc-800 text-xs group-hover:text-white transition ${isActive('TeamItem', item.code) ? 'text-white' : 'text-zinc-600'}`}>
+                                                    {firstLetters(item.name)}
+                                                </span>
+                                            </Link>
+                                        )
+                                    }
+                                </div>
+                            }
+
+                            {
+                                workspaceContext.isOwner &&
+                                <div className='w-full flex flex-col items-center justify-center gap-2 mt-2'>
+                                    <Link
+                                        onClick={closeMenu}
+                                        to={`/${workspace.code}/settings`}
+                                        className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Settings') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                    >
+                                        <CogIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Settings') ? 'text-white' : 'text-zinc-600'}`} />
+                                    </Link>
+                                    <Link
+                                        onClick={closeMenu}
+                                        to={`/${workspace.code}/settings/members`}
+                                        className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Members') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                    >
+                                        <UsersIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Members') ? 'text-white' : 'text-zinc-600'}`} />
+                                    </Link>
+                                    <Link
+                                        onClick={closeMenu}
+                                        to={`/${workspace.code}/settings/billing`}
+                                        className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Billing') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                    >
+                                        <CreditCardIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Billing') ? 'text-white' : 'text-zinc-600'}`} />
+                                    </Link>
+                                    <Link
+                                        onClick={closeMenu}
+                                        to={`/${workspace.code}/settings/usages`}
+                                        className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Usages') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                    >
+                                        <ChartPieIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Usages') ? 'text-white' : 'text-zinc-600'}`} />
+                                    </Link>
+                                </div>
+                            }
+                        </div>
+                    </SimpleBar>
+                </div>
+            </div >
+        );
+    }
+
     return (
-        <div className="w-full h-full overflow-hidden">
+        <div className="w-full h-full relative">
+            {
+                !hideCollapse &&
+                <div
+                    className='absolute w-6 h-6 bottom-3 -right-3 rounded bg-steel-gray-900 flex items-center justify-center py-2 cursor-pointer z-[1000]'
+                    onClick={() => setCollapsed(true)}
+                >
+                    <ChevronDoubleLeftIcon className='w-5 h-5 text-steel-gray-300' />
+                </div>
+            }
             <div className="sticky top-0">
                 <div className='w-full'>
                     <div className="px-7 flex items-center w-full h-[65px]">

@@ -50,11 +50,11 @@ const ConfigAction: FC<Props> = ({ invisible = false, context, ...dragHandleProp
             {
                 (!invisible || addNewMenuVisible || configMenuVisible) &&
                 <div className="flex flex-col items-center justify-end">
-                    <Popup trigger="click" content={menu} placement="left" open={configMenuVisible} onOpenChange={setConfigMenuVisible} className="bg-transparent">
+                    <Popup trigger="click" content={menu} placement="left" open={configMenuVisible} onOpenChange={setConfigMenuVisible} className="bg-transparent z-[1200]">
                         <span>
                             <Tooltip overlay={configMenuTooltip} mouseLeaveDelay={0} mouseEnterDelay={0.4}>
                                 <span
-                                    className="w-5 h-6 flex items-center justify-center rounded-sm cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-700 transition group"
+                                    className="w-5 h-6 flex items-center justify-center rounded-sm cursor-pointer hover:bg-slate-300 dark:hover:bg-steel-gray-800 transition group"
                                     ref={dragMenuRef}
                                     {...dragHandleProps}
                                 >
@@ -65,12 +65,12 @@ const ConfigAction: FC<Props> = ({ invisible = false, context, ...dragHandleProp
                     </Popup>
                     {
                         form?.status !== 'Archived' &&
-                        <Popup trigger="click" content={addMenu} placement="left" open={addNewMenuVisible} onOpenChange={setAddNewMenuVisible} className="bg-transparent">
+                        <Popup trigger="click" content={addMenu} placement="left" open={addNewMenuVisible} onOpenChange={setAddNewMenuVisible} className="bg-transparent z-[1200]">
                             <span>
                                 <Tooltip overlay={addNewMenuTooltip} mouseLeaveDelay={0} mouseEnterDelay={0.4}>
                                     <span
                                         ref={addMenuRef}
-                                        className="w-5 h-6 flex items-center justify-center rounded-sm cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-700 transition group"
+                                        className="w-5 h-6 flex items-center justify-center rounded-sm cursor-pointer hover:bg-slate-300 dark:hover:bg-steel-gray-800 transition group"
                                     >
                                         <i className="fi fi-rr-plus text-slate-900 dark:text-gray-300 text-sm"></i>
                                     </span>
