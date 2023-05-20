@@ -122,6 +122,11 @@ export type AddFormSection = {
     sectionIndex?: number;
 }
 
+export type AddFormSections = {
+    sections: FormSection[];
+    sectionIndex?: number;
+}
+
 export type ReorderFormSection = {
     fromIndex: number;
     toIndex: number;
@@ -141,8 +146,17 @@ export type ActionContext = {
     section?: FormSection;
 }
 
+export type SelectionItem = {
+    sectionIndex: number;
+    sectionCode: string;
+}
+
 export type RemoveFormSection = {
     sectionIndex?: number;
+}
+
+export type RemoveFormSections = {
+    codes: string[]
 }
 
 export type RemoveFormField = {

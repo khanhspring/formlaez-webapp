@@ -10,6 +10,7 @@ type Props = TextareaHTMLAttributes<any> & {
     autoHeight?: boolean;
     autoWidth?: boolean;
     autoSize?: boolean;
+    autoFocus?: boolean;
     maxWidth?: number;
     rows?: number;
     value?: string;
@@ -23,6 +24,7 @@ const Textarea: FC<Props> = ({
     autoHeight = false,
     autoWidth = false,
     autoSize = false,
+    autoFocus = false,
     maxWidth,
     rows = 1,
     ...rest
@@ -34,7 +36,15 @@ const Textarea: FC<Props> = ({
 
     useEffect(() => {
         setCurrent(ref.current);
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            if (autoFocus && current) {
+                current.focus();
+            }
+        }, 200)
+    }, [autoFocus, current])
 
     return (
         <textarea

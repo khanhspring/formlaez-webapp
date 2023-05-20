@@ -4,7 +4,7 @@ import Dropdown from "rc-dropdown";
 import Menu, { MenuItem } from "rc-menu";
 import Switch from "rc-switch";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../../components/common/button";
 import confirm from "../../components/common/confirm/confirm";
@@ -22,6 +22,8 @@ import FormPageTitle from "./components/form-page-title";
 import FormPageTitlePrefix from "./components/form-page-title-prefix";
 import { DocumentDuplicateIcon } from "@heroicons/react/24/solid";
 import Tooltip from "rc-tooltip";
+import { Workspace } from "../../models/workspace";
+import { Team } from "../../models/team";
 
 type Settings = {
     acceptResponses?: boolean;
@@ -39,6 +41,9 @@ function FormSettings() {
     const { mutateAsync: publish } = usePublishForm();
     const { mutateAsync: remove } = useRemoveForm();
     const { mutateAsync: updateSettings } = useUpdateFormSettings();
+
+    const workspace = useRouteLoaderData("workspace") as Workspace;
+    const team = useRouteLoaderData("team") as Team;
 
     const [settings, setSettings] = useState<Settings>();
 
@@ -121,7 +126,11 @@ function FormSettings() {
             onError: (e) => showErrorIgnore403(e),
             onSuccess: () => {
                 toast.success('Deleted form successfully!');
-                navigate(`/`);
+                if (form.scope === 'Team') {
+                    navigate(`/${workspace?.code}/t/${team?.code}`);
+                    return;
+                }
+                navigate(`/${workspace?.code}/p`);
             }
         })
     }
@@ -132,7 +141,7 @@ function FormSettings() {
             content: <>This action cannot be undone. This will delete the <strong>{form?.title}</strong> form and remove all submissions of the form.</>,
             onOkAsync: onConfirmRemove,
             okText: 'I understand the consequences, delete this repository',
-            width: 520,
+            width: 550,
             danger: true
         })
     }

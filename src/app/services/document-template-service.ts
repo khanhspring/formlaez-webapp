@@ -19,7 +19,7 @@ export function create(request: CreateDocumentTemplateRequest): Promise<Response
 
   return RestClient
       .post<ResponseId>("/admin/document-templates", formData, {headers: {"Content-Type": "multipart/form-data"}})
-      .then(response => response.data);;
+      .then(response => response.data);
 }
 
 function update(request: UpdateDocumentTemplateRequest): Promise<any> {

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import TokenStorageService from "../services/token-storage-service";
+import { getUserToken } from "./firebase";
 
 const RestClient = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
@@ -11,12 +12,11 @@ const RestClient = axios.create({
 });
 
 RestClient.interceptors.request.use(
-  function (config) {
-    const token = TokenStorageService.getToken();
+  async function (config) {
+    const token = await getUserToken();
     if (token) {
       config.headers = config.headers || {};
-      config.headers["Authorization"] =
-        "Bearer " + TokenStorageService.getToken();
+      config.headers["Authorization"] = "Bearer " + token;
     }
     config.baseURL = process.env.REACT_APP_API_BASE_URL + "/";
     return config;

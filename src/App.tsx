@@ -19,6 +19,7 @@ import UserSessionService from "./app/services/user-session-service";
 import WorkspaceService from "./app/services/workspace-service";
 import { selectTheme } from "./app/slices/app-config";
 import { lazyLoad } from "./app/util/lazy-load";
+import { useAuth } from "./app/hooks/auth/useAuth";
 
 const userSessionLoader = async (data: any) => {
   try {
@@ -273,6 +274,7 @@ const router = createBrowserRouter([
 function App() {
 
   const theme = useAppSelector(selectTheme);
+  useAuth();
 
   return (
     <>

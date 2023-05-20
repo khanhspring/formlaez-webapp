@@ -31,7 +31,7 @@ const SignatureField: FC<Props> = ({ field, context }) => {
                 </div>
             }
             <div className="flex items-center justify-center">
-                <div className="max-w-[400px] w-full aspect-video bg-white rounded">
+                <div className="max-w-[400px] w-full aspect-video bg-white rounded border border-slate-200">
 
                 </div>
             </div>

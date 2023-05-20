@@ -99,6 +99,32 @@ const addSection = (
   return [formClone, section, index + 1];
 };
 
+const addSections = (
+  form: Form,
+  sections: FormSection[],
+  index?: number
+): [Form, FormSection[], number] | undefined => {
+  if (!_.isNumber(index)) {
+    return;
+  }
+
+  const formClone = _.cloneDeep(form);
+  if (!formClone) {
+    return;
+  }
+
+  const page = formClone.pages[0];
+  let pageSections = page.sections;
+
+  if (!pageSections) {
+    page.sections = [];
+    pageSections = page.sections;
+  }
+
+  pageSections.splice(index + 1, 0, ...sections);
+  return [formClone, sections, index + 1];
+};
+
 const reorderSection = (
   form: Form,
   fromIndex: number,
@@ -173,6 +199,31 @@ const removeSection = (
 
   const removed = sections.splice(sectionIndex, 1);
   return [formClone, removed[0]];
+};
+
+const removeSections = (
+  form: Form,
+  codes?: string[]
+): [Form, FormSection[]] | undefined => {
+  if (!codes || _.isEmpty(codes)) {
+    return;
+  }
+
+  const formClone = _.cloneDeep(form);
+  if (!formClone) {
+    return;
+  }
+
+  const page = formClone.pages[0];
+  const sections = page.sections || [];
+
+  const removedItems: FormSection[] = [];
+  for (const code of codes) {
+    const sectionIndex = sections.findIndex(item => item.code === code);
+    const removed = sections.splice(sectionIndex, 1);
+    removedItems.push(removed[0]);
+  }
+  return [formClone, removedItems];
 };
 
 const removeField = (
@@ -432,9 +483,11 @@ const FormUtil = {
   addSingleField,
   addGroupField,
   addSection,
+  addSections,
   reorderSection,
   reorderField,
   removeSection,
+  removeSections,
   removeField,
   updateField,
   updateFieldPartial,

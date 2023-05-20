@@ -4,7 +4,7 @@
 
 .rc-table th,
 .rc-table td {
-    border-color: var(--bg-slate-50);
+    border-color: var(--bg-slate-100);
     padding: 3px 5px;
 }
 
@@ -59,11 +59,11 @@
 }
 
 .rc-table tbody tr td {
-    background-color: rgb(241 245 249);
+    background-color: white;
 }
 
 .dark .rc-table tbody tr td {
-    background-color: var(--steel-gray-900);
+    background-color: var(--steel-gray-950);
 }
 
 .rc-table thead th {
@@ -75,11 +75,11 @@
 }
 
 .rc-table-cell.rc-table-cell-row-hover {
-    background-color: var(--bg-slate-200);
+    background-color: var(--bg-slate-100);
 }
 
 .dark .rc-table-cell.rc-table-cell-row-hover {
-    background-color: var(--steel-gray-800);
+    background-color: var(--steel-gray-900);
 }
 
 .rc-table-ping-left .rc-table-cell-fix-left-first,

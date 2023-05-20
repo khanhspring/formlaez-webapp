@@ -8,6 +8,12 @@ function create(request: CreateFormSectionRequest): Promise<ResponseId> {
   );
 }
 
+function createBulk(request: CreateFormSectionRequest[]): Promise<any> {
+  return RestClient.post<ResponseId>("/admin/forms/sections/bulk", request).then(
+    (response) => response.data
+  );
+}
+
 function update(request: UpdateFormSectionRequest): Promise<any> {
   return RestClient.put<any>("/admin/forms/sections/" + request.code, request).then(
     (response) => response.data
@@ -26,11 +32,19 @@ function remove(code: string): Promise<any> {
   );
 }
 
+function removeAll(codes: string[]): Promise<any> {
+  return RestClient.delete<any>("/admin/forms/sections", {data: codes}).then(
+    (response) => response.data
+  );
+}
+
 const FormSectionService = {
   create,
+  createBulk,
   update,
   move,
-  remove
+  remove,
+  removeAll
 };
 
 export default FormSectionService;

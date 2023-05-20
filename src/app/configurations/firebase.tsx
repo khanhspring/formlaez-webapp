@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { Auth, GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { Auth, getAuth, getIdToken, onAuthStateChanged } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,5 +20,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth: Auth = getAuth(app);
+
+export const getUserToken = async () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const token = await getIdToken(user);
+        resolve(token)
+      } else {
+        resolve(null)
+      }
+      unsubscribe();
+    });
+  })
+}
 
 export default app;

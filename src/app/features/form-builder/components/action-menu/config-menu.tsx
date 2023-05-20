@@ -1,6 +1,6 @@
 import copy from 'copy-to-clipboard';
 import Switch from "rc-switch";
-import { FC, useCallback } from "react";
+import { FC, useCallback, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { toast } from "react-toastify";
 import confirm from "../../../../components/common/confirm/confirm";
@@ -21,6 +21,9 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
     const dispatch = useAppDispatch();
     const { values, update } = useUpdateField(context.field as any, context);
     const form = useAppSelector(selectForm);
+    const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
+
+    useHotkeys('esc', ()=> onMenuClick(), { preventDefault: true, enabled: visible });
 
     const variableName = context.type === 'Group' ? context.section?.variableName : context.field?.variableName;
     const onCopy = useCallback(() => {
@@ -49,6 +52,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
     }, [onMenuClick, variableName])
 
     const handleDelete = () => {
+        setDeleteConfirmationVisible(false);
         if (disabled) {
             return;
         }
@@ -67,13 +71,16 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
         if (disabled) {
             return;
         }
+        setDeleteConfirmationVisible(true);
         confirm({
             title: 'Confirm',
             content: 'Are you sure you want to delete this?',
-            onOk: handleDelete
+            onOk: handleDelete,
+            onCancel: () => {setDeleteConfirmationVisible(false)}
         });
     }
-    useHotkeys('delete, backspace', onDelete, { preventDefault: true, enabled: visible });
+    useHotkeys('delete, backspace', onDelete, { preventDefault: true, enabled: visible && !deleteConfirmationVisible });
+    useHotkeys('shift+delete, shift+backspace', handleDelete, { preventDefault: true, enabled: visible });
 
     const changeRequire = () => {
         if (disabled) {

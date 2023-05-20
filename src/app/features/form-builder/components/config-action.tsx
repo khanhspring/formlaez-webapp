@@ -46,7 +46,7 @@ const ConfigAction: FC<Props> = ({ invisible = false, context, ...dragHandleProp
     )
 
     return (
-        <div className="absolute top-0 right-full h-full w-5 flex items-center justify-end pr-[3px]">
+        <div className="absolute top-0 right-full h-full w-5 flex items-center justify-end pr-[3px] selection-area-allowed">
             {
                 (!invisible || addNewMenuVisible || configMenuVisible) &&
                 <div className="flex flex-col items-center justify-end">

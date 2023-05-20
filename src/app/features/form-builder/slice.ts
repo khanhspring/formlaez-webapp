@@ -6,6 +6,7 @@ import {
   ActionContext,
   AddFormField,
   AddFormSection,
+  AddFormSections,
   CreateFormFieldRequest,
   CreateFormSectionRequest,
   DuplicateFormField,
@@ -17,8 +18,10 @@ import {
   PartialUpdateFormSection,
   RemoveFormField,
   RemoveFormSection,
+  RemoveFormSections,
   ReorderFormField,
   ReorderFormSection,
+  SelectionItem,
   UpdateFormField,
   UpdateFormFieldRequest,
   UpdateFormInfo,
@@ -110,6 +113,46 @@ export const addSection = createAsyncThunk(
     };
     try {
       return await FormSectionService.create(request);
+    } catch (err) {
+      thunkAPI.dispatch(loadForm(formBuilderState.form.code));
+      throw err;
+    }
+  }
+);
+
+export const addSections = createAsyncThunk(
+  "form/addSections",
+  async (command: AddFormSections, thunkAPI) => {
+    const state = thunkAPI.getState() as any;
+    const formBuilderState = state.formBuilder as FormBuilderState;
+
+    if (!formBuilderState?.form) {
+      thunkAPI.abort();
+      return;
+    }
+
+    const result = FormUtil.addSections(
+      formBuilderState.form,
+      command.sections,
+      command.sectionIndex
+    );
+
+    if (!result) {
+      thunkAPI.abort();
+      return;
+    }
+
+    const [formResult, newSections, addedIndex] = result;
+    thunkAPI.dispatch(updateForm(formResult));
+
+    let position = addedIndex;
+    const request: CreateFormSectionRequest[] = newSections.map(item => ({
+      ...item,
+      pageId: formResult.pages[0].id,
+      position: position++,
+    }));
+    try {
+      return await FormSectionService.createBulk(request);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -264,6 +307,40 @@ export const removeSection = createAsyncThunk(
 
     try {
       return await FormSectionService.remove(removedSection.code);
+    } catch (err) {
+      thunkAPI.dispatch(loadForm(formBuilderState.form.code));
+      throw err;
+    }
+  }
+);
+
+export const removeSections = createAsyncThunk(
+  "form/removeSections",
+  async (command: RemoveFormSections, thunkAPI) => {
+    const state = thunkAPI.getState() as any;
+    const formBuilderState = state.formBuilder as FormBuilderState;
+
+    if (!formBuilderState?.form) {
+      thunkAPI.abort();
+      return;
+    }
+
+    const result = FormUtil.removeSections(
+      formBuilderState.form,
+      command.codes
+    );
+
+    if (!result) {
+      thunkAPI.abort();
+      return;
+    }
+    const [formResult, removedSections] = result;
+    thunkAPI.dispatch(updateForm(formResult));
+
+    const removedCodes = removedSections?.map(item => item.code);
+
+    try {
+      return await FormSectionService.removeAll(removedCodes);
     } catch (err) {
       thunkAPI.dispatch(loadForm(formBuilderState.form.code));
       throw err;
@@ -571,9 +648,12 @@ export const updateFormInfo = createAsyncThunk(
 export interface FormBuilderState {
   form?: Form;
   currentItem?: ActionContext;
+  selectedItems: SelectionItem[];
 }
 
-const initialState: FormBuilderState = {};
+const initialState: FormBuilderState = {
+  selectedItems: []
+};
 
 const showError = () => toast.error("Something went wrong. Please try again!");
 
@@ -589,6 +669,24 @@ export const formBuilderSlice = createSlice({
     },
     setCurrentItem: (state, action: PayloadAction<ActionContext>) => {
       state.currentItem = action.payload;
+    },
+    setSelectedItems: (state, action: PayloadAction<SelectionItem[]>) => {
+      state.selectedItems = action.payload;
+    },
+    applySelectedItems: (state, action: PayloadAction<{added: SelectionItem[], removed: SelectionItem[]}>) => {
+      const {added, removed} = action.payload;
+      let selectedItems = [...state.selectedItems];
+
+      added.forEach(item => {
+        selectedItems = selectedItems.filter(selected => selected.sectionCode !== item.sectionCode);
+        selectedItems.push(item);
+      });
+
+      removed.forEach(item => {
+        selectedItems = selectedItems.filter(selected => selected.sectionCode !== item.sectionCode);
+      });
+
+      state.selectedItems = selectedItems;
     },
     resetState: () => initialState,
   },
@@ -652,11 +750,11 @@ export const formBuilderSlice = createSlice({
   },
 });
 
-export const { updateForm, clearCurrentItem, setCurrentItem, resetState } =
+export const { updateForm, clearCurrentItem, setCurrentItem, applySelectedItems, setSelectedItems, resetState } =
   formBuilderSlice.actions;
 
 export const selectForm = (state: RootState) => state.formBuilder.form;
-export const selectCurrentItem = (state: RootState) =>
-  state.formBuilder.currentItem;
+export const selectCurrentItem = (state: RootState) => state.formBuilder.currentItem;
+export const selectSelectedItems = (state: RootState) => state.formBuilder.selectedItems;
 
 export default formBuilderSlice.reducer;

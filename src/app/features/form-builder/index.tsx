@@ -10,6 +10,7 @@ import PropertiesDrawer from "./components/properties-drawer";
 import SectionItem from "./components/sections/section-item";
 import { useDebounced } from "./hooks/useDebounced";
 import { reorderField, reorderSection, resetState, selectForm, updateForm, updateFormInfo } from "./slice";
+import FormBodySelection from "./components/form-body-selection";
 
 // disable all react-beautiful-dnd development warnings
 // @ts-ignore
@@ -212,66 +213,68 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
                     </div>
                 </div>
             }
-            <div className="w-full max-w-[700px] m-auto mt-10 px-7 text-base">
-                {
-                    (!form?.coverType || form?.coverType === 'None') && form?.status !== 'Archived' &&
-                    <>
-                        <div className="w-full">
-                            <button
-                                onClick={addCover}
-                                className="px-2 py-1 transition border border-slate-900/10 bg-slate-100 hover:bg-slate-200 dark:border-transparent dark:bg-slate-700/70 dark:hover:bg-slate-700 rounded text-sm"
-                            >
-                                Add cover
-                            </button>
-                        </div>
-                        <div className="w-full pb-5 pt-1">
-                            <Textarea
-                                value={title}
-                                className="w-full text-3xl font-bold border-none !bg-transparent !px-0"
-                                autoHeight
-                                placeholder="Untitled"
-                                onChange={e => handleTitleChange(e.target.value)}
-                            />
-                        </div>
-                    </>
-                }
-                {
-                    (!form?.coverType || form?.coverType === 'None') && form?.status === 'Archived' &&
-                    <div className="w-full pb-5 pt-1">
-                        <div className="w-full text-3xl font-bold border-none !bg-transparent !px-0">
-                            <h1>{title}</h1>
-                        </div>
-                    </div>
-                }
-                {
-                    _.isEmpty(sections) && <EmptyForm form={form} />
-                }
-                <DragDropContext onDragEnd={onDragEnd}>
-                    <Droppable droppableId="pageWrap" type="page" isDropDisabled={form?.status === 'Archived'}>
-                        {(provided, snapshot) => (
-                            <div
-                                {...provided.droppableProps}
-                                ref={provided.innerRef}
-                            >
-                                {sections.map((item, index) => (
-                                    <Draggable key={item.code} draggableId={'section_' + item.code} index={index} isDragDisabled={form?.status === 'Archived'}>
-                                        {(provided, snapshot) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                style={{ ...provided.draggableProps.style }}
-                                            >
-                                                <SectionItem section={item} sectionIndex={index} {...provided.dragHandleProps} />
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
+            <FormBodySelection>
+                <div className="w-full max-w-[700px] m-auto px-7 text-base selection-area-allowed">
+                    {
+                        (!form?.coverType || form?.coverType === 'None') && form?.status !== 'Archived' &&
+                        <>
+                            <div className="w-full">
+                                <button
+                                    onClick={addCover}
+                                    className="px-2 py-1 transition border border-slate-900/10 bg-slate-100 hover:bg-slate-200 dark:border-transparent dark:bg-slate-700/70 dark:hover:bg-slate-700 rounded text-sm"
+                                >
+                                    Add cover
+                                </button>
                             </div>
-                        )}
-                    </Droppable>
-                </DragDropContext>
-            </div>
+                            <div className="w-full pb-5 pt-1">
+                                <Textarea
+                                    value={title}
+                                    className="w-full text-3xl font-bold border-none !bg-transparent !px-0"
+                                    autoHeight
+                                    placeholder="Untitled"
+                                    onChange={e => handleTitleChange(e.target.value)}
+                                />
+                            </div>
+                        </>
+                    }
+                    {
+                        (!form?.coverType || form?.coverType === 'None') && form?.status === 'Archived' &&
+                        <div className="w-full pb-5 pt-1">
+                            <div className="w-full text-3xl font-bold border-none !bg-transparent !px-0">
+                                <h1>{title}</h1>
+                            </div>
+                        </div>
+                    }
+                    {
+                        _.isEmpty(sections) && <EmptyForm form={form} />
+                    }
+                    <DragDropContext onDragEnd={onDragEnd}>
+                        <Droppable droppableId="pageWrap" type="page" isDropDisabled={form?.status === 'Archived'}>
+                            {(provided, snapshot) => (
+                                <div
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                >
+                                    {sections.map((item, index) => (
+                                        <Draggable key={item.code} draggableId={'section_' + item.code} index={index} isDragDisabled={form?.status === 'Archived'}>
+                                            {(provided, snapshot) => (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    style={{ ...provided.draggableProps.style }}
+                                                >
+                                                    <SectionItem section={item} sectionIndex={index} {...provided.dragHandleProps} />
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                </div>
+            </FormBodySelection>
             <PropertiesDrawer />
         </>
     );

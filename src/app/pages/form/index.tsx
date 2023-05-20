@@ -75,11 +75,11 @@ function Form() {
                             <h2 className='font-lg'>This form hasn't published yet.</h2>
                             {
                                 theme === 'dark' &&
-                                <img src={DraftBgDark}/>
+                                <img src={DraftBgDark} alt=""/>
                             }
                             {
                                 theme !== 'dark' &&
-                                <img src={DraftBg}/>
+                                <img src={DraftBg} alt=""/>
                             }
                             <div className='flex justify-center items-center gap-3'>
                                 <Button onClick={showPublishConfirm}>

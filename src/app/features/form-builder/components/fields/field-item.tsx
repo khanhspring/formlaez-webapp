@@ -20,6 +20,8 @@ import SwitchField from "./switch-field";
 import TextField from "./text-field";
 import TwitterTweetField from "./twitter-tweet-field";
 import VideoField from "./video-field";
+import { useAppSelector } from "../../../../hooks/redux-hook";
+import { selectSelectedItems } from "../../slice";
 
 type Props = {
     type: FormFieldType;
@@ -32,6 +34,7 @@ type Props = {
 const FieldItem: FC<Props> = ({ type, sectionIndex, index, section, field, ...dragHandleProps }) => {
 
     const [isHover, setIsHover] = useState(false);
+    const selectedItems = useAppSelector(selectSelectedItems);
 
     const actionType = (section.type === 'Group' || section.type === 'Table') ? 'GroupField' : 'SingleField';
     const actionContext: ActionContext = {
@@ -44,13 +47,13 @@ const FieldItem: FC<Props> = ({ type, sectionIndex, index, section, field, ...dr
 
     const renderField = () => {
         switch (type) {
-            case 'Text': return <TextField field={field} context={actionContext}/>;
+            case 'Text': return <TextField field={field} context={actionContext} />;
             case 'Image': return <ImageField field={field} context={actionContext} />;
             case 'Video': return <VideoField field={field} context={actionContext} />;
             case 'Pdf': return <PdfField field={field} context={actionContext} />;
             case 'Line': return <LineField />;
-            case 'QRCode': return <QrCodeField field={field} context={actionContext}/>;
-            case 'TwitterTweet': return <TwitterTweetField field={field} context={actionContext}/>;
+            case 'QRCode': return <QrCodeField field={field} context={actionContext} />;
+            case 'TwitterTweet': return <TwitterTweetField field={field} context={actionContext} />;
 
             // form controls
             case 'InputText': return <InputTextField field={field} context={actionContext} />;
@@ -68,19 +71,32 @@ const FieldItem: FC<Props> = ({ type, sectionIndex, index, section, field, ...dr
         }
     }
 
+    const isSelected = () => {
+        return !!selectedItems?.some(item => item.sectionCode === section.code);
+    }
+
     return (
         <div
-            className="w-full py-1.5 flex items-start gap-1 relative"
-            onMouseOver={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}
+            className="py-[1px] selectable"
+            selection-data-code={section.code}
+            selection-data-index={sectionIndex}
         >
-            <ConfigAction
-                {...dragHandleProps}
-                invisible={!isHover}
-                context={actionContext}
-            />
-            <div className="w-full">
-                {renderField()}
+            <div
+                className={
+                    "w-full py-1.5 flex items-start gap-1 relative px-1"
+                    + ` ${isSelected() ? 'bg-slate-100 dark:bg-steel-gray-900/60' : ''}`
+                }
+                onMouseOver={() => setIsHover(true)}
+                onMouseLeave={() => setIsHover(false)}
+            >
+                <ConfigAction
+                    {...dragHandleProps}
+                    invisible={!isHover}
+                    context={actionContext}
+                />
+                <div className="w-full">
+                    {renderField()}
+                </div>
             </div>
         </div>
     );
