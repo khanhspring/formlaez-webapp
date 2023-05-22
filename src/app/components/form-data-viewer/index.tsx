@@ -45,6 +45,14 @@ const FormDataViewer: FC<Props> = ({ form, submission, showContentBlocks = false
                 <div className='border-b border-slate-900/10 dark:border-slate-600 flex flex-col gap-4 py-5'>
                     <div className='flex flex-col gap-1'>
                         <label className='text-xs text-slate-900/70 dark:text-gray-300'>
+                            ID
+                        </label>
+                        <div className='text-sm'>
+                            {submission?.code}
+                        </div>
+                    </div>
+                    <div className='flex flex-col gap-1'>
+                        <label className='text-xs text-slate-900/70 dark:text-gray-300'>
                             Submitter
                         </label>
                         <div className='text-sm'>

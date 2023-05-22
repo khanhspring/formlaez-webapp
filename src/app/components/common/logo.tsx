@@ -1,4 +1,4 @@
-import logoBlack from "../../../assets/images/formini-logo.svg";
+import logoBlue from "../../../assets/images/formini-logo-blue.svg";
 import logo from "../../../assets/images/formini-logo.svg";
 import { useAppSelector } from "../../hooks/redux-hook";
 import { selectTheme } from "../../slices/app-config";
@@ -15,7 +15,7 @@ function Logo() {
             }
             {
                 theme !== 'dark' &&
-                <img src={logoBlack} alt="logo" className="w-full"/>
+                <img src={logoBlue} alt="logo" className="w-full"/>
             }
         </h1>
     );

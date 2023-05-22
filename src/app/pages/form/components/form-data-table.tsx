@@ -37,8 +37,8 @@ type ColumnWidth = {
 }
 
 const ColumnWidthConfig: ColumnWidth = {
-    index: 45,
-    id: 120,
+    index: 40,
+    id: 90,
     user: 155,
     dateTime: 135,
     action: 100,
@@ -255,7 +255,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                 return (
                     <span
                         onClick={() => selectSubmission(record)}
-                        className="text-xs bg-slate-200 dark:bg-steel-gray-700 inline-block px-1 py-0.5 min-w-[75px] rounded cursor-pointer"
+                        className="text-xs bg-zinc-200 dark:bg-steel-gray-800 inline-block px-1 py-0.5 min-w-[75px] rounded cursor-pointer"
                     >
                         {value.substring(0, 8)}
                     </span>
@@ -546,7 +546,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                 <Drawer
                     title={
                         <div className="w-full flex justify-between items-center">
-                            <span>{selectedSubmission?.code}</span>
+                            <span>Submission detail</span>
                             <label className="text-xs font-normal flex items-center gap-2 cursor-pointer">
                                 Show content blocks <Switch checked={showContentBlocks} onChange={setShowContentBlocks} />
                             </label>

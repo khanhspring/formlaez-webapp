@@ -67,10 +67,10 @@ const SideBar: FC<Props> = ({ collapsed, hideCollapse, setCollapsed = () => { } 
         return (
             <div className="w-full h-full relative">
                 <div
-                    className='absolute w-7 h-7 bottom-3 -right-3 rounded bg-steel-gray-900 flex items-center justify-center py-2 cursor-pointer z-[1000]'
+                    className='absolute w-7 h-7 bottom-3 -right-3 rounded bg-zinc-300 dark:bg-steel-gray-900 flex items-center justify-center py-2 cursor-pointer z-[1000]'
                     onClick={() => setCollapsed(false)}
                 >
-                    <ChevronDoubleRightIcon className='w-5 h-5 text-steel-gray-300' />
+                    <ChevronDoubleRightIcon className='w-5 h-5 text-slate-900 dark:text-steel-gray-300' />
                 </div>
                 <div className="sticky top-0">
                     <div className='w-full'>
@@ -90,16 +90,16 @@ const SideBar: FC<Props> = ({ collapsed, hideCollapse, setCollapsed = () => { } 
                                 <Link
                                     onClick={closeMenu}
                                     to={`/${workspace.code}/p`}
-                                    className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Private') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                    className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Private') ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                                 >
-                                    <LockClosedIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Private') ? 'text-white' : 'text-zinc-600'}`} />
+                                    <LockClosedIcon className={`h-5 w-5 group-hover:text-zinc-500 dark:group-hover:text-white transition ${isActive('Private') ? 'text-zinc-500 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`} />
                                 </Link>
                                 <Link
                                     onClick={closeMenu}
                                     to={`/${workspace.code}/t`}
-                                    className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Team') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                    className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Team') ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                                 >
-                                    <Square3Stack3DIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Team') ? 'text-white' : 'text-zinc-600'}`} />
+                                    <Square3Stack3DIcon className={`h-5 w-5 group-hover:text-zinc-500 dark:group-hover:text-white transition ${isActive('Team') ? 'text-zinc-500 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`} />
                                 </Link>
                             </div>
 
@@ -111,10 +111,10 @@ const SideBar: FC<Props> = ({ collapsed, hideCollapse, setCollapsed = () => { } 
                                             <Link
                                                 onClick={closeMenu}
                                                 to={`/${workspace.code}/t/${item.code}`}
-                                                className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded group ${isActive('TeamItem', item.code) ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                                className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded group ${isActive('TeamItem', item.code) ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                                                 key={index}
                                             >
-                                                <span className={`flex justify-center items-center w-6 h-6 rounded-md border border-zinc-700 bg-zinc-800 text-xs group-hover:text-white transition ${isActive('TeamItem', item.code) ? 'text-white' : 'text-zinc-600'}`}>
+                                                <span className={`flex justify-center items-center w-6 h-6 rounded-md border border-zinc-400 dark:border-zinc-700 dark:bg-zinc-800 text-xs group-hover:text-zinc-600 dark:group-hover:text-white transition ${isActive('TeamItem', item.code) ? 'text-zinc-600 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`}>
                                                     {firstLetters(item.name)}
                                                 </span>
                                             </Link>
@@ -129,30 +129,30 @@ const SideBar: FC<Props> = ({ collapsed, hideCollapse, setCollapsed = () => { } 
                                     <Link
                                         onClick={closeMenu}
                                         to={`/${workspace.code}/settings`}
-                                        className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Settings') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                        className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Settings') ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                                     >
-                                        <CogIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Settings') ? 'text-white' : 'text-zinc-600'}`} />
+                                        <CogIcon className={`h-5 w-5 group-hover:text-zinc-500 dark:group-hover:text-white transition ${isActive('Settings') ? 'text-zinc-500 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`} />
                                     </Link>
                                     <Link
                                         onClick={closeMenu}
                                         to={`/${workspace.code}/settings/members`}
-                                        className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Members') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                        className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Members') ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                                     >
-                                        <UsersIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Members') ? 'text-white' : 'text-zinc-600'}`} />
+                                        <UsersIcon className={`h-5 w-5 group-hover:text-zinc-500 dark:group-hover:text-white transition ${isActive('Members') ? 'text-zinc-500 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`} />
                                     </Link>
                                     <Link
                                         onClick={closeMenu}
                                         to={`/${workspace.code}/settings/billing`}
-                                        className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Billing') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                        className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Billing') ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                                     >
-                                        <CreditCardIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Billing') ? 'text-white' : 'text-zinc-600'}`} />
+                                        <CreditCardIcon className={`h-5 w-5 group-hover:text-zinc-500 dark:group-hover:text-white transition ${isActive('Billing') ? 'text-zinc-500 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`} />
                                     </Link>
                                     <Link
                                         onClick={closeMenu}
                                         to={`/${workspace.code}/settings/usages`}
-                                        className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Usages') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                        className={`w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Usages') ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                                     >
-                                        <ChartPieIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Usages') ? 'text-white' : 'text-zinc-600'}`} />
+                                        <ChartPieIcon className={`h-5 w-5 group-hover:text-zinc-500 dark:group-hover:text-white transition ${isActive('Usages') ? 'text-zinc-500 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`} />
                                     </Link>
                                 </div>
                             }
@@ -168,10 +168,10 @@ const SideBar: FC<Props> = ({ collapsed, hideCollapse, setCollapsed = () => { } 
             {
                 !hideCollapse &&
                 <div
-                    className='absolute w-7 h-7 bottom-3 -right-3 rounded bg-steel-gray-900 flex items-center justify-center py-2 cursor-pointer z-[1000]'
+                    className='absolute w-7 h-7 bottom-3 -right-3 rounded bg-zinc-300 dark:bg-steel-gray-900 flex items-center justify-center py-2 cursor-pointer z-[1000]'
                     onClick={() => setCollapsed(true)}
                 >
-                    <ChevronDoubleLeftIcon className='w-5 h-5 text-steel-gray-300' />
+                    <ChevronDoubleLeftIcon className='w-5 h-5 text-slate-900 dark:text-steel-gray-300' />
                 </div>
             }
             <div className="sticky top-0">
@@ -194,17 +194,17 @@ const SideBar: FC<Props> = ({ collapsed, hideCollapse, setCollapsed = () => { } 
                             <Link
                                 onClick={closeMenu}
                                 to={`/${workspace.code}/p`}
-                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Private') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded group ${isActive('Private') ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                             >
-                                <LockClosedIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Private') ? 'text-white' : 'text-zinc-600'}`} />
+                                <LockClosedIcon className={`h-5 w-5 group-hover:text-zinc-500 dark:group-hover:text-white transition ${isActive('Private') ? 'text-zinc-500 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`} />
                                 <span className="font-normal">Private</span>
                             </Link>
                             <Link
                                 onClick={closeMenu}
                                 to={`/${workspace.code}/t`}
-                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Team') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded group ${isActive('Team') ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                             >
-                                <Square3Stack3DIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Team') ? 'text-white' : 'text-zinc-600'}`} />
+                                <Square3Stack3DIcon className={`h-5 w-5 group-hover:text-zinc-500 dark:group-hover:text-white transition ${isActive('Team') ? 'text-zinc-500 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`} />
                                 <span className="font-normal">Teams</span>
                             </Link>
                         </div>
@@ -220,13 +220,13 @@ const SideBar: FC<Props> = ({ collapsed, hideCollapse, setCollapsed = () => { } 
                                         <Link
                                             onClick={closeMenu}
                                             to={`/${workspace.code}/t/${item.code}`}
-                                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded group ${isActive('TeamItem', item.code) ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded group ${isActive('TeamItem', item.code) ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                                             key={index}
                                         >
-                                            <span className={`flex justify-center items-center w-6 h-6 rounded-md border border-zinc-700 bg-zinc-800 text-xs group-hover:text-white transition ${isActive('TeamItem', item.code) ? 'text-white' : 'text-zinc-600'}`}>
+                                            <span className={`flex justify-center items-center w-6 h-6 rounded-md border border-zinc-400 dark:border-zinc-700 dark:bg-zinc-800 text-xs group-hover:text-zinc-600 dark:group-hover:text-white transition ${isActive('TeamItem', item.code) ? 'text-zinc-600 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`}>
                                                 {firstLetters(item.name)}
                                             </span>
-                                            <span className="font-normal text-white">{item.name}</span>
+                                            <span className="font-normal">{item.name}</span>
                                         </Link>
                                     )
                                 }
@@ -242,33 +242,33 @@ const SideBar: FC<Props> = ({ collapsed, hideCollapse, setCollapsed = () => { } 
                                 <Link
                                     onClick={closeMenu}
                                     to={`/${workspace.code}/settings`}
-                                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Settings') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded group ${isActive('Settings') ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                                 >
-                                    <CogIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Settings') ? 'text-white' : 'text-zinc-600'}`} />
+                                    <CogIcon className={`h-5 w-5 group-hover:text-zinc-500 dark:group-hover:text-white transition ${isActive('Settings') ? 'text-zinc-500 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`} />
                                     <span className="font-normal">Settings</span>
                                 </Link>
                                 <Link
                                     onClick={closeMenu}
                                     to={`/${workspace.code}/settings/members`}
-                                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Members') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded group ${isActive('Members') ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                                 >
-                                    <UsersIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Members') ? 'text-white' : 'text-zinc-600'}`} />
+                                    <UsersIcon className={`h-5 w-5 group-hover:text-zinc-500 dark:group-hover:text-white transition ${isActive('Members') ? 'text-zinc-500 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`} />
                                     <span className="font-normal">Members</span>
                                 </Link>
                                 <Link
                                     onClick={closeMenu}
                                     to={`/${workspace.code}/settings/billing`}
-                                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Billing') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded group ${isActive('Billing') ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                                 >
-                                    <CreditCardIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Billing') ? 'text-white' : 'text-zinc-600'}`} />
+                                    <CreditCardIcon className={`h-5 w-5 group-hover:text-zinc-500 dark:group-hover:text-white transition ${isActive('Billing') ? 'text-zinc-500 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`} />
                                     <span className="font-normal">Plan & Billing</span>
                                 </Link>
                                 <Link
                                     onClick={closeMenu}
                                     to={`/${workspace.code}/settings/usages`}
-                                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded text-white group ${isActive('Usages') ? 'bg-zinc-800' : 'bg-transparent'}`}
+                                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded group ${isActive('Usages') ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-transparent'}`}
                                 >
-                                    <ChartPieIcon className={`h-5 w-5 group-hover:text-white transition ${isActive('Usages') ? 'text-white' : 'text-zinc-600'}`} />
+                                    <ChartPieIcon className={`h-5 w-5 group-hover:text-zinc-500 dark:group-hover:text-white transition ${isActive('Usages') ? 'text-zinc-500 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`} />
                                     <span className="font-normal">Usages</span>
                                 </Link>
                             </div>

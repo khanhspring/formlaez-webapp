@@ -39,15 +39,18 @@ const SignIn = () => {
         provider.setCustomParameters({ prompt: 'select_account' });
         signInWithPopup(auth, provider)
             .then((result) => {
+                const loadingId = toast.loading("Signing in...");
                 result.user.getIdToken().then((token) => {
                     dispatch(validateTokenAndLogin(token))
                     .then(() => {
                         navigate("/");
+                    }).finally(() => {
+                        toast.done(loadingId);
                     });
                 })
             }).catch((error) => {
                 toast.error("An error was occurred. Please try again!");
-            });
+            })
     }
 
     return (

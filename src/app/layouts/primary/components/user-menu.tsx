@@ -21,43 +21,32 @@ const UserMenu: FC<Props> = ({ collapsed }) => {
     }
 
     const userMenu = (
-        <div className="flex flex-col rounded bg-slate-50 dark:bg-steel-gray-800">
-            <div className="w-full px-4 py-3 flex flex-col gap-1">
-                <span className="font-bold text-sm">{userInfo?.firstName} {userInfo?.lastName}</span>
-                {
-                    userInfo?.email &&
-                    <span className="text-xs">{userInfo?.email}</span>
-                }
-            </div>
-            <div className="w-full border-t border-slate-900/10 dark:border-gray-700">
-                <Menu className="text-sm box-shadow-none">
-                    <MenuItem key="changePassword" onClick={() => setChangePasswordVisible(true)}>
-                        <div className="flex gap-3 items-center">
-                            <i className="fi fi-rr-fingerprint"></i>
-                            <span>Change password</span>
-                        </div>
-                    </MenuItem>
-                    <MenuItem key="logout" onClick={onLogout}>
-                        <div className="flex gap-3 items-center">
-                            <i className="fi fi-rr-sign-out-alt"></i>
-                            <span>Logout</span>
-                        </div>
-                    </MenuItem>
-                </Menu>
-            </div>
-        </div>
+        <Menu className="text-sm">
+            <MenuItem key="changePassword" onClick={() => setChangePasswordVisible(true)}>
+                <div className="flex gap-3 items-center">
+                    <i className="fi fi-rr-fingerprint"></i>
+                    <span>Change password</span>
+                </div>
+            </MenuItem>
+            <MenuItem key="logout" onClick={onLogout}>
+                <div className="flex gap-3 items-center">
+                    <i className="fi fi-rr-sign-out-alt"></i>
+                    <span>Logout</span>
+                </div>
+            </MenuItem>
+        </Menu>
     );
 
     return (
         <>
             <Dropdown overlay={userMenu}>
-                <div className="p-3 rounded flex items-center gap-2 group cursor-pointer border border-neutral-800">
-                    <SidebarAvatar name={userInfo?.firstName + ' ' + userInfo?.lastName} className="group-hover:ring-1" />
+                <div className="p-3 rounded flex items-center gap-2 group cursor-pointer border border-zinc-300 dark:border-neutral-800">
+                    <SidebarAvatar name={userInfo?.firstName + ' ' + userInfo?.lastName} className="ring-cyan-400/50 group-hover:ring-2" />
                     {
                         !collapsed &&
                         <div className='flex flex-col'>
-                            <span className="text-sm font-semibold text-white">{userInfo?.firstName + ' ' + userInfo?.lastName}</span>
-                            <span className="text-xs font-light text-zinc-400">{userInfo?.email}</span>
+                            <span className="text-sm font-semibold">{userInfo?.firstName + ' ' + userInfo?.lastName}</span>
+                            <span className="text-xs font-light text-zinc-700 dark:text-zinc-400">{userInfo?.email}</span>
                         </div>
                     }
                 </div>

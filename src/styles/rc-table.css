@@ -4,7 +4,7 @@
 
 .rc-table th,
 .rc-table td {
-    border-color: var(--bg-slate-100);
+    border-color: var(--zinc-200);
     padding: 3px 5px;
 }
 
@@ -14,11 +14,11 @@
 }
 
 .rc-table th {
-    padding: 10px 5px;
+    padding: 7px 5px;
 }
 
 .rc-table-header {
-    border-color: var(--bg-slate-50);
+    border-color: var(--zinc-200);
 }
 
 .dark .rc-table-header {
@@ -26,7 +26,7 @@
 }
 
 .rc-table-body {
-    border-color: var(--bg-slate-50);
+    border-color: var(--zinc-200);
 }
 
 .dark .rc-table-body {
@@ -34,7 +34,7 @@
 }
 
 .rc-table-fixed-column .rc-table-body::after {
-    border-color: var(--bg-slate-50);
+    border-color: var(--zinc-200);
 }
 
 .dark .rc-table-fixed-column .rc-table-body::after {
@@ -42,7 +42,7 @@
 }
 
 .rc-table-expanded-row-fixed::after {
-    border-color: var(--bg-slate-50);
+    border-color: var(--zinc-200);
 }
 
 .dark .rc-table-expanded-row-fixed::after {
@@ -50,7 +50,7 @@
 }
 
 .rc-table-content {
-    border-color: var(--bg-slate-50);
+    border-color: var(--zinc-200);
     border-radius: 0;
 }
 
@@ -67,7 +67,7 @@
 }
 
 .rc-table thead th {
-    background-color: rgb(241 245 249);
+    background-color: var(--zinc-100);
 }
 
 .dark .rc-table thead th {
@@ -75,7 +75,7 @@
 }
 
 .rc-table-cell.rc-table-cell-row-hover {
-    background-color: var(--bg-slate-100);
+    background-color: var(--zinc-100);
 }
 
 .dark .rc-table-cell.rc-table-cell-row-hover {
@@ -84,7 +84,7 @@
 
 .rc-table-ping-left .rc-table-cell-fix-left-first,
 .rc-table-ping-left .rc-table-cell-fix-left-last {
-    outline: 1px solid var(--bg-slate-50);
+    outline: 1px solid var(--zinc-200);
 }
 
 .dark .rc-table-ping-left .rc-table-cell-fix-left-first,
@@ -104,7 +104,7 @@
 
 .rc-table-ping-right .rc-table-cell-fix-right-first,
 .rc-table-ping-right .rc-table-cell-fix-right-last {
-    outline: 1px solid var(--bg-slate-50);
+    outline: 1px solid var(--zinc-200);
 }
 
 .dark .rc-table-ping-right .rc-table-cell-fix-right-first,

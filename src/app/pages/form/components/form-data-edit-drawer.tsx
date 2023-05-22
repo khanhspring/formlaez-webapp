@@ -37,7 +37,7 @@ const FormDataEditDrawer: FC<Props> = ({ submission, form, onClose, visible }) =
 
     return (
         <Drawer
-            title={submission?.code}
+            title="Edit submission"
             open={visible}
             width={600}
             onClose={onClose}

@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 import { auth } from "../configurations/firebase";
 import AuthService from "../services/auth-service";
+import { toast } from "react-toastify";
 
 export type UserInfo = {
   id: string;
@@ -34,6 +35,7 @@ export const validateTokenAndLogin = createAsyncThunk(
       await AuthService.validate(token);
       thunkAPI.dispatch(setAuthenticated(true));
     } catch (e) {
+        toast.error("An error was occurred. Please try again!");
         thunkAPI.rejectWithValue(e);
     }
   }
