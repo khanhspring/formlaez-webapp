@@ -42,7 +42,7 @@ export default function PrimaryLayout() {
                 closeIcon={null}
                 placement="left"
                 bodyWrapperClassName="!p-0"
-                className="!bg-gray-950"
+                className="!bg-slate-50 dark:!bg-gray-950"
                 onClose={closeMenu}
             >
                 <SideBar hideCollapse/>

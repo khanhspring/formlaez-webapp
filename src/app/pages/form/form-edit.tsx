@@ -1,24 +1,25 @@
-import { ArrowLeftIcon, Cog6ToothIcon, EyeIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon, Cog6ToothIcon, EyeIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { MoonIcon, SunIcon, TvIcon } from "@heroicons/react/24/solid";
 import Dropdown from "rc-dropdown";
 import Menu, { MenuItem } from "rc-menu";
 import Tooltip from "rc-tooltip";
 import { useEffect, useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../../components/common/button";
 import confirm from "../../components/common/confirm/confirm";
 import ChatGPTIcon from "../../components/icons/chatgpt-icon";
 import FormBuilder from "../../features/form-builder";
+import { selectForm } from "../../features/form-builder/slice";
 import useFormDetail from "../../hooks/form/useFormDetail";
 import usePublishForm from "../../hooks/form/usePublishForm";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
+import StorageService from "../../services/storage-service";
 import { changeTheme, selectTheme } from "../../slices/app-config";
 import { showErrorIgnore403 } from "../../util/common";
 import AIFormBuilderModal from "./components/ai-form-builder-modal";
 import CustomizeEndingModal from "./components/customize-ending-modal";
-import { selectForm } from "../../features/form-builder/slice";
-import { useHotkeys } from "react-hotkeys-hook";
 
 function FormEdit() {
 
@@ -33,6 +34,8 @@ function FormEdit() {
 
     const currentTheme = useAppSelector(selectTheme);
     const [theme, setTheme] = useState<'dark' | 'light'>(currentTheme);
+
+    const usePersonalOpenAI = !!StorageService.getItem("OpenAIApiKey");
 
     const dispatch = useAppDispatch();
     useHotkeys('ctrl+enter, control+enter', () => setAIFormBuilderVisible(true), { preventDefault: true, enabled: true });
@@ -171,13 +174,22 @@ function FormEdit() {
                 }
             </div>
             <div className="fixed bottom-20 right-20 flex items-center justify-center flex-col gap-2">
-                <div
-                    className="w-12 h-12 flex items-center justify-center rounded-full bg-[#4aa181] p-2 cursor-pointer shadow-lg hover:rotate-180 transition"
-                    onClick={() => setAIFormBuilderVisible(true)}
-                >
-                    <ChatGPTIcon className="fill-white text-white" />
-                </div>
-                <span className="text-xs bg-slate-200 dark:bg-steel-gray-500 px-2 py-1 rounded">Ctrl+Enter</span>
+                <Tooltip overlay="Ctrl+Enter" placement="bottom">
+                    <div
+                        className="w-12 h-12 flex items-center justify-center rounded-full bg-[#4aa181] p-2 cursor-pointer shadow-lg hover:rotate-180 transition relative color-border"
+                        onClick={() => setAIFormBuilderVisible(true)}
+                    >
+                        <ChatGPTIcon className="fill-white text-white" />
+                    </div>
+                </Tooltip>
+                {
+                    usePersonalOpenAI &&
+                    <div className="w-5 h-5 absolute -top-1 -left-1 rounded-full bg-slate-100 dark:bg-steel-gray-700">
+                        <Tooltip overlay="You are using your own OpenAI API key">
+                            <span><UserCircleIcon className="text-slate-900 dark:text-white"/></span>
+                        </Tooltip>
+                    </div>
+                }
             </div>
             {
                 formDetail &&

@@ -121,10 +121,16 @@ function WorkspaceMembers() {
             dataIndex: 'user',
             render: (value, record, index) => {
                 return (
-                    <div className='flex flex-col gap-0.5'>
-                        <span className='text-sm font-bold'>{record.user.firstName} {record.user.lastName}</span>
-                        <span className='text-xs'>{record.user.email}</span>
-                    </div>
+                    <>{record.user.firstName} {record.user.lastName}</>
+                );
+            },
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            render: (value, record, index) => {
+                return (
+                    <>{record.user.email}</>
                 );
             },
         },
@@ -190,7 +196,7 @@ function WorkspaceMembers() {
     }
 
     return (
-        <div className="mt-6 flex flex-col gap-6">
+        <div className="mt-6 flex flex-col gap-6 max-w-5xl w-full m-auto">
             <h2 className="pb-1 border-b border-slate-900/10 dark:border-gray-800">Members</h2>
             <div className='w-full'>
                 <div className="flex items-center justify-between min-h-[40px] mt-3">

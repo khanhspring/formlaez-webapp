@@ -1,3 +1,4 @@
+import { ArrowRightOnRectangleIcon, FingerPrintIcon, LightBulbIcon } from '@heroicons/react/24/outline';
 import Dropdown from 'rc-dropdown';
 import Menu, { MenuItem } from 'rc-menu';
 import { FC, useState } from 'react';
@@ -5,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../hooks/redux-hook';
 import { selectUserInfo } from '../../../slices/auth';
 import ChangePasswordModal from './change-password-modal';
+import SetupOpenAIApiKeyModal from './setup-openai-api-key-modal';
 import SidebarAvatar from './sidebar-avatar';
 
 type Props = {
@@ -14,6 +16,7 @@ type Props = {
 const UserMenu: FC<Props> = ({ collapsed }) => {
     const userInfo = useAppSelector(selectUserInfo);
     const [changePasswordVisible, setChangePasswordVisible] = useState(false);
+    const [setupOpenAIApiKeyVisible, setSetupOpenAIApiKeyVisible] = useState(false);
     const navigate = useNavigate();
 
     const onLogout = () => {
@@ -22,15 +25,21 @@ const UserMenu: FC<Props> = ({ collapsed }) => {
 
     const userMenu = (
         <Menu className="text-sm">
+            <MenuItem key="setUpOpenAIApiKey" onClick={() => setSetupOpenAIApiKeyVisible(true)}>
+                <div className="flex gap-3 items-center">
+                    <LightBulbIcon className='w-5 h-5' />
+                    <span>Setup OpenAI API Key</span>
+                </div>
+            </MenuItem>
             <MenuItem key="changePassword" onClick={() => setChangePasswordVisible(true)}>
                 <div className="flex gap-3 items-center">
-                    <i className="fi fi-rr-fingerprint"></i>
+                    <FingerPrintIcon className='w-5 h-5' />
                     <span>Change password</span>
                 </div>
             </MenuItem>
             <MenuItem key="logout" onClick={onLogout}>
                 <div className="flex gap-3 items-center">
-                    <i className="fi fi-rr-sign-out-alt"></i>
+                    <ArrowRightOnRectangleIcon className='w-5 h-5' />
                     <span>Logout</span>
                 </div>
             </MenuItem>
@@ -54,6 +63,10 @@ const UserMenu: FC<Props> = ({ collapsed }) => {
             <ChangePasswordModal
                 visible={changePasswordVisible}
                 onClose={() => setChangePasswordVisible(false)}
+            />
+            <SetupOpenAIApiKeyModal
+                visible={setupOpenAIApiKeyVisible}
+                onClose={() => setSetupOpenAIApiKeyVisible(false)}
             />
         </>
     );

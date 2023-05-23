@@ -40,3 +40,11 @@ export const showErrorIgnore403 = (error: any, message?: string) => {
 export const showSuccess = () => {
     toast.success("Successfully!")
 };
+
+export const showErrorByCondition = (error: any, errorCode: string, message: string, defaultMessage?: string) => {
+    if (error.response.data.code === errorCode) {
+        toast.error(message, {autoClose: 5500})
+        return;
+    }
+    toast.error(defaultMessage || "Something went wrong. Please try again!")
+};

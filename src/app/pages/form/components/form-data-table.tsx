@@ -530,7 +530,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                     emptyText={isLoading || isFetching ? 'Loading...' : 'No data'}
                     className="table-form-data text-slate-900 dark:text-white"
                 />
-                <div className="w-full mt-3 p-1 z-[200] bg-white/90 border border-slate-900/10 dark:bg-steel-gray-900/60 dark:border-steel-gray-900 backdrop-blur supports-backdrop-blur:bg-white/80 sticky bottom-0 flex items-center justify-center">
+                <div className="w-full mt-3 p-0.5 z-[200] bg-white/90 border border-slate-900/10 dark:bg-steel-gray-900/60 dark:border-steel-gray-900 backdrop-blur supports-backdrop-blur:bg-white/80 sticky bottom-0 flex items-center justify-center">
                     <Pagination
                         total={formData?.totalElements || 0}
                         pageSize={formData?.size || 0}

@@ -1,6 +1,6 @@
 import RestClient from "../configurations/axios-config";
 import { PageResponse, ResponseId } from "../models/common";
-import { AddWorkspaceMemberRequest, CreateWorkspaceRequest, RemoveWorkspaceMemberRequest, SearchWorkspaceMemberRequest, UpdateWorkspaceMemberRoleRequest, UpdateWorkspaceRequest, Workspace, WorkspaceMember } from "../models/workspace";
+import { AddWorkspaceMemberRequest, CreateWorkspaceRequest, RemoveWorkspaceMemberRequest, SearchWorkspaceMemberRequest, UpdateWorkspaceMemberRoleRequest, UpdateWorkspaceOpenAIApiRequest, UpdateWorkspaceRequest, Workspace, WorkspaceMember, WorkspaceOpenAIApiSetting } from "../models/workspace";
 
 export function create(request: CreateWorkspaceRequest): Promise<ResponseId> {
     return RestClient
@@ -44,6 +44,18 @@ export function updateMemberRole(request: UpdateWorkspaceMemberRoleRequest): Pro
         .then(response => response.data);;
 }
 
+export function getOpenAIApiSetting(workspaceId: number): Promise<WorkspaceOpenAIApiSetting> {
+    return RestClient
+        .get<any>("/admin/workspaces/" + workspaceId + "/openai-api")
+        .then(response => response.data);;
+}
+
+export function updateOpenAIApiSetting(request: UpdateWorkspaceOpenAIApiRequest): Promise<any> {
+    return RestClient
+        .post<any>("/admin/workspaces/" + request.workspaceId + "/openai-api", request)
+        .then(response => response.data);;
+}
+
 const WorkspaceService = {
     create,
     update,
@@ -51,7 +63,9 @@ const WorkspaceService = {
     searchMembers,
     addMember,
     removeMember,
-    updateMemberRole
+    updateMemberRole,
+    getOpenAIApiSetting,
+    updateOpenAIApiSetting
 };
 
 export default WorkspaceService;

@@ -61,3 +61,14 @@ export type UpdateWorkspaceMemberRoleRequest = {
     userId: string;
     role: WorkspaceMemberRole;
 }
+
+export type UpdateWorkspaceOpenAIApiRequest = {
+    workspaceId: number;
+    apiKey: string;
+    model: string;
+}
+
+export type WorkspaceOpenAIApiSetting = {
+    apiKey: string;
+    model: string;
+}

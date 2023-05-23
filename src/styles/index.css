@@ -81,7 +81,7 @@
 }
 
 .dark .bg-dots {
-    background: linear-gradient(90deg, var(--bg-gray-900) 21px, transparent 1%) center, linear-gradient(var(--bg-gray-900) 21px, transparent 1%) center, var( --bg-gray-500);
+    background: linear-gradient(90deg, var(--bg-gray-900) 21px, transparent 1%) center, linear-gradient(var(--bg-gray-900) 21px, transparent 1%) center, var(--bg-gray-500);
     background-size: 22px 22px;
 }
 
