@@ -5,7 +5,7 @@ type ResultType = (...args: any) => void;
 
 export const useDebounced = (
   func: InputFunc,
-  wait: number = 900
+  wait: number = 500
 ): ResultType => {
   const timeout = useRef<any>(null);
 
