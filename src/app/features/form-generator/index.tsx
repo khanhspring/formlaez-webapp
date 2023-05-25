@@ -120,7 +120,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                             `w-full h-[30vh] min-h-[150px] flex items-center justify-center`
                             + ` ${formLayout.coverColor || 'bg-001'}`
                         }>
-                            <div className="w-full max-w-[530px] m-auto">
+                            <div className="w-full max-w-[640px] m-auto">
                                 <h1 className="text-3xl font-bold text-white text-center text-shadow-gray whitespace-pre-line">
                                     {formLayout?.title}
                                 </h1>
@@ -130,7 +130,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                     {
                         formLayout.coverType === 'None' &&
                         <div className='w-full px-4'>
-                            <div className="w-full max-w-[530px] m-auto pt-16">
+                            <div className="w-full max-w-[640px] m-auto pt-16">
                                 <h1 className="text-3xl font-bold">
                                     {formLayout?.title}
                                 </h1>

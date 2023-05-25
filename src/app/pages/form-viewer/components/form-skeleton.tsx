@@ -25,7 +25,7 @@ const FormSkeleton = () => {
 
     return (
         <div className='w-full min-h-screen max-h-screen overflow-hidden flex flex-col relative'>
-            <div className="w-full max-w-[530px] mx-auto pt-16">
+            <div className="w-full max-w-[640px] mx-auto pt-16">
                 <div className="flex justify-start gap-3">
                     <h1 className="text-3xl font-bold">Formini | Untitled form</h1>
                 </div>
