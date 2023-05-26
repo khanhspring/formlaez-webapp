@@ -25,6 +25,7 @@ export type MergeDocumentRequest = {
     code: string;
     templateId: number;
     fileName: string;
+    fileType?: 'Docx' | 'Pdf';
 }
 
 export type SearchFormSubmissionRequest = Pageable & {

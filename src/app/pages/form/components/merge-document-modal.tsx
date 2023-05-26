@@ -28,6 +28,7 @@ const MergeDocumentModal: FC<Props> = ({ form, submission, visible, onClose }) =
         }
         if (submission && templatePages && templatePages.totalElements > 0) {
             rcForm.setFieldValue("templateCode", templatePages.content[0].code);
+            rcForm.setFieldValue("fileType", 'Docx');
         }
     }, [visible, rcForm, submission, templatePages]);
 
@@ -45,11 +46,13 @@ const MergeDocumentModal: FC<Props> = ({ form, submission, visible, onClose }) =
             return;
         }
         const selectedTemplate = templates[0];
+        const fileType: any = values.fileType;
 
         const request: MergeDocumentRequest = {
             code: submission.code,
             templateId: selectedTemplate.id,
-            fileName: selectedTemplate.title + ".docx"
+            fileName: selectedTemplate.title + "." + fileType.toLowerCase(),
+            fileType: fileType
         }
         mergeDocument(request, {
             onError: (e) => showErrorIgnore403(e),
@@ -57,7 +60,8 @@ const MergeDocumentModal: FC<Props> = ({ form, submission, visible, onClose }) =
         }).finally(onClose)
     }
 
-    const options = templatePages?.content?.map(item => ({ ...item, value: item.code, label: item.title }));
+    const templateOptions = templatePages?.content?.map(item => ({ ...item, value: item.code, label: item.title }));
+    const fileTypeOptions = [{value: 'Docx', label: 'Docx'}, {value: 'Pdf', label: 'PDF'}]
 
     return (
         <Modal
@@ -78,7 +82,16 @@ const MergeDocumentModal: FC<Props> = ({ form, submission, visible, onClose }) =
                         { required: true, message: "This field is required" },
                     ]}
                 >
-                    <Dropdown options={options} placeholder="Select a template"/>
+                    <Dropdown options={templateOptions} placeholder="Select a template" />
+                </FormItem>
+                <FormItem
+                    title='File format'
+                    name={'fileType'}
+                    rules={[
+                        { required: true, message: "This field is required" },
+                    ]}
+                >
+                    <Dropdown options={fileTypeOptions} placeholder="Select a file format" />
                 </FormItem>
             </RcForm>
         </Modal>

@@ -195,7 +195,7 @@ function FormEdit() {
                 formDetail &&
                 <CustomizeEndingModal
                     visible={customizeEndingVisible}
-                    formId={formDetail.id}
+                    formDetail={formDetail}
                     formTitle={formDetail.title}
                     onClose={() => setCustomizeEndingVisible(false)}
                 />

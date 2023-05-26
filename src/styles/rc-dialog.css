@@ -5,6 +5,7 @@
 .rc-dialog-close {
     right: 15px;
     opacity: 0.5;
+    z-index: 1000;
 }
 
 .rc-dialog-header {

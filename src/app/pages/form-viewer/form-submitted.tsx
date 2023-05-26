@@ -25,7 +25,7 @@ function FormSubmitted() {
     const { data: templates } = useDocumentTemplatesByFormId(form?.id, !!form?.allowPrinting);
     const { mutateAsync: mergeDocument } = useMergeSubmittedDocument();
 
-    const downloadDocument = (template: DocumentTemplate) => {
+    const downloadDocument = (template: DocumentTemplate, fileType: 'Pdf' | 'Docx') => {
         if (!params.submissionCode) {
             return;
         }
@@ -33,7 +33,8 @@ function FormSubmitted() {
         const request: MergeDocumentRequest = {
             code: params.submissionCode,
             templateId: template.id,
-            fileName: template.title + ".docx"
+            fileName: template.title + "." + fileType.toLowerCase(),
+            fileType: fileType
         }
         const mergeDocumentPromise = mergeDocument(request)
 
@@ -89,7 +90,7 @@ function FormSubmitted() {
                                 <DocumentTemplatePublicItem
                                     documentTemplate={item}
                                     key={index}
-                                    onClick={() => downloadDocument(item)}
+                                    onClick={(fileType) => downloadDocument(item, fileType)}
                                 />
                             )
                         }
