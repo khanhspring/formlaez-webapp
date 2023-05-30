@@ -21,7 +21,11 @@
     <script type="text/javascript">
       const vendorId = "%REACT_APP_PADDLE_VENDOR_ID%";
       Paddle.Setup({ vendor: +vendorId });
-      Paddle.Environment.set("%REACT_APP_PADDLE_ENV%");
+
+      const paddleEnv = "%REACT_APP_PADDLE_ENV%";
+      if (paddleEnv === 'sandbox') {
+      Paddle.Environment.set("sandbox");
+      }
     </script>
   </body>
 </html>
