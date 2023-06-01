@@ -54,7 +54,7 @@ const DocumentTemplateItem: FC<Props> = ({ documentTemplate, onClick, onEdit, on
     return (
         <div
             onClick={onClick}
-            className="cursor-pointer flex items-center p-2 rounded-md border border-slate-900/10 bg-slate-50 dark:border-transparent dark:bg-steel-gray-900 dark:hover:bg-steel-gray-800 relative group"
+            className="cursor-pointer flex items-center p-2 rounded-md border border-slate-900/10 bg-zinc-50 dark:border-transparent dark:bg-steel-gray-900 dark:hover:bg-steel-gray-800 relative group"
         >
             <div className="flex items-center justify-center w-10 h-10 group-hover:ring-2 bg-gradient-to-r from-cyan-500 to-blue-500 transition rounded-full">
                 <span className='text-xs text-white rounded-full'>{documentTemplate.extension}</span>

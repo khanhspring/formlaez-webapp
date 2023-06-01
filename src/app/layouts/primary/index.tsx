@@ -24,7 +24,7 @@ export default function PrimaryLayout() {
     return (
         <>
             <div className="flex min-h-[100vh] items-stretch">
-                <div className={`hidden md:flex h-screen border-r border-r-slate-900/10 bg-slate-50 dark:bg-cinder-950 dark:border-r-transparent sticky top-0 ${collapsed ? 'w-[80px]' : 'w-[300px]'}`}>
+                <div className={`hidden md:flex h-screen border-r border-r-slate-900/10 bg-zinc-50 dark:bg-cinder-950 dark:border-r-transparent sticky top-0 ${collapsed ? 'w-[80px]' : 'w-[300px]'}`}>
                     <SideBar collapsed={collapsed} setCollapsed={setCollapsed}/>
                 </div>
                 <div className={`w-full flex flex-col dark:bg-steel-gray-950 ${collapsed ? 'md:w-[calc(100%_-_80px)]' : ' md:w-[calc(100%_-_300px)]'}`}>
@@ -42,7 +42,7 @@ export default function PrimaryLayout() {
                 closeIcon={null}
                 placement="left"
                 bodyWrapperClassName="!p-0"
-                className="!bg-slate-50 dark:!bg-gray-950"
+                className="!bg-zinc-50 dark:!bg-gray-950"
                 onClose={closeMenu}
             >
                 <SideBar hideCollapse/>

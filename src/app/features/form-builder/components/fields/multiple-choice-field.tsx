@@ -16,13 +16,15 @@ type Props = {
 
 const MultipleChoiceField: FC<Props> = ({ field, context }) => {
 
-    const { values, updateDebounce } = useUpdateField(field, context);
+    const { values: {title}, updateDebounce: updateTitle } = useUpdateField(field, context);
+    const { values: {multipleSelection} } = useUpdateField(field, context);
+    const { values: {options}, updateDebounce: updateOptions } = useUpdateField(field, context);
     const form = useAppSelector(selectForm);
 
     const containerRef = useRef<HTMLDivElement>(null);
 
     const onValuesChange = (changed: any, formValues: any) => {
-        updateDebounce({ options: formValues.options });
+        updateOptions({ options: formValues.options });
     }
 
     return (
@@ -32,16 +34,16 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
                 <div className="flex items-center">
                     <RequiredMark visible={field.required} />
                     <input
-                        value={values.title}
+                        value={title}
                         className="flex-1 w-full text-slate-900 dark:text-gray-100 bg-transparent outline-none"
-                        onChange={(e) => updateDebounce({ title: e.target.value })}
+                        onChange={(e) => updateTitle({ title: e.target.value })}
                         placeholder="Multiple choice"
                         disabled={form?.status === 'Archived'}
                     />
                 </div>
             }
             {
-                values.multipleSelection &&
+                multipleSelection &&
                 <div className="wf-full">
                     <span className="text-xs text-slate-900/80 dark:text-gray-500">(Choose as many as you like)</span>
                 </div>
@@ -53,7 +55,7 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
                 <Form
                     onValuesChange={onValuesChange}
                     className="flex flex-col items-start gap-2"
-                    initialValues={{ options: [...values.options || []] }}
+                    initialValues={{ options: [...options || []] }}
                 >
                     <Form.List
                         name="options"

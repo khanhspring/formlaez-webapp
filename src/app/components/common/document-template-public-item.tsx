@@ -37,7 +37,7 @@ const DocumentTemplatePublicItem: FC<Props> = ({ documentTemplate, onClick }) =>
     return (
         <>
             <Dropdown overlay={fileTypeMenu} trigger={['click']}>
-                <div className="cursor-pointer flex items-center p-2 rounded-md border border-slate-900/10 bg-slate-50 dark:border-transparent dark:bg-steel-gray-900 relative group">
+                <div className="cursor-pointer flex items-center p-2 rounded-md border border-slate-900/10 bg-zinc-50 dark:border-transparent dark:bg-steel-gray-900 relative group">
                     <div className="flex items-center justify-center w-10 h-10 rounded group-hover:ring-2 bg-gradient-to-r from-cyan-500 to-blue-500 transition">
                         <span className='text-xs'>
                             <DocumentIcon className='w-5 h-5' />

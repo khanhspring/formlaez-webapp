@@ -54,7 +54,7 @@ const ConfigAction: FC<Props> = ({ invisible = false, context, ...dragHandleProp
                         <span>
                             <Tooltip overlay={configMenuTooltip} mouseLeaveDelay={0} mouseEnterDelay={0.4}>
                                 <span
-                                    className="w-5 h-6 flex items-center justify-center rounded-sm cursor-pointer hover:bg-slate-300 dark:hover:bg-steel-gray-800 transition group"
+                                    className="w-5 h-6 flex items-center justify-center rounded-sm cursor-pointer hover:bg-zinc-200 dark:hover:bg-steel-gray-800 transition group"
                                     ref={dragMenuRef}
                                     {...dragHandleProps}
                                 >
@@ -70,7 +70,7 @@ const ConfigAction: FC<Props> = ({ invisible = false, context, ...dragHandleProp
                                 <Tooltip overlay={addNewMenuTooltip} mouseLeaveDelay={0} mouseEnterDelay={0.4}>
                                     <span
                                         ref={addMenuRef}
-                                        className="w-5 h-6 flex items-center justify-center rounded-sm cursor-pointer hover:bg-slate-300 dark:hover:bg-steel-gray-800 transition group"
+                                        className="w-5 h-6 flex items-center justify-center rounded-sm cursor-pointer hover:bg-zinc-200 dark:hover:bg-steel-gray-800 transition group"
                                     >
                                         <i className="fi fi-rr-plus text-slate-900 dark:text-gray-300 text-sm"></i>
                                     </span>

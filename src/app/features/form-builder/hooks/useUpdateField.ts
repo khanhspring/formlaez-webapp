@@ -1,13 +1,12 @@
 import * as _ from "lodash";
-import { useState, useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../../../hooks/redux-hook";
 import {
   ActionContext,
   FormField,
-  PartialUpdateFormField,
-  UpdateFormField,
+  PartialUpdateFormField
 } from "../../../models/form";
-import { updateField, updateFieldPartial } from "../slice";
+import { updateFieldPartial } from "../slice";
 import { useDebounced } from "./useDebounced";
 
 type Values = { [property: string]: any };

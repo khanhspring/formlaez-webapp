@@ -12,7 +12,8 @@ type Props = {
 
 const LongTextField: FC<Props> = ({ field, context }) => {
 
-    const {values, updateDebounce} = useUpdateField(field, context);
+    const { values: {title}, updateDebounce: updateTitle } = useUpdateField(field, context);
+    const { values: {placeholder}, updateDebounce: updatePlaceholder } = useUpdateField(field, context);
     const form = useAppSelector(selectForm);
 
     return (
@@ -22,18 +23,18 @@ const LongTextField: FC<Props> = ({ field, context }) => {
                 <div className="flex items-center">
                     <RequiredMark visible={field.required}/>
                     <input
-                        value={values.title}
+                        value={title}
                         className="flex-1 w-full text-slate-900 dark:text-gray-100 bg-transparent outline-none"
-                        onChange={(e) => updateDebounce({title: e.target.value})}
+                        onChange={(e) => updateTitle({title: e.target.value})}
                         placeholder="Long text"
                         disabled={form?.status === 'Archived'}
                     />
                 </div>
             }
             <textarea
-                value={values.placeholder}
+                value={placeholder}
                 className="px-4 py-2 rounded-md bg-white border border-slate-900/10 dark:border-steel-gray-800 dark:bg-steel-gray-900 w-full text-gray-400 outline-none resize-none"
-                onChange={(e) => updateDebounce({placeholder: e.target.value})}
+                onChange={(e) => updatePlaceholder({placeholder: e.target.value})}
                 disabled={form?.status === 'Archived'}
             />
         </div>

@@ -4,6 +4,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hook';
 import { SelectionItem } from '../../../models/form';
 import { applySelectedItems, removeSections, selectSelectedItems, setSelectedItems } from '../slice';
+import _ from 'lodash';
 
 type Props = PropsWithChildren & {
 
@@ -49,7 +50,7 @@ const FormBodySelection: FC<Props> = ({ children }) => {
 
     const onBeforeStart = (e: any) => {
         const className = e.event?.target.className || '';
-        if (!className.includes('selection-area-allowed')) {
+        if (!className || !className.includes('selection-area-allowed')) {
             return false;
         }
     }

@@ -13,7 +13,8 @@ type Props = {
 const InputTextField: FC<Props> = ({ field, context }) => {
 
     const form = useAppSelector(selectForm);
-    const { values, updateDebounce } = useUpdateField(field, context);
+    const { values: {title}, updateDebounce: updateTitle } = useUpdateField(field, context);
+    const { values: {placeholder}, updateDebounce: updatePlaceholder } = useUpdateField(field, context);
 
     return (
         <div className="flex flex-col gap-1.5 mb-2">
@@ -22,18 +23,18 @@ const InputTextField: FC<Props> = ({ field, context }) => {
                 <div className="flex items-center">
                     <RequiredMark visible={field.required}/>
                     <input
-                        value={values.title}
+                        value={title}
                         className="flex-1 w-full text-slate-900 dark:text-gray-100 bg-transparent outline-none"
-                        onChange={(e) => updateDebounce({ title: e.target.value })}
+                        onChange={(e) => updateTitle({ title: e.target.value })}
                         placeholder="Input text"
                         disabled={form?.status === 'Archived'}
                     />
                 </div>
             }
             <input
-                value={values.placeholder}
+                value={placeholder}
                 className="px-4 py-2 rounded-md bg-white text-slate-500 border border-slate-900/10 dark:border-steel-gray-800 dark:bg-steel-gray-900 w-full dark:text-gray-400 outline-none"
-                onChange={(e) => updateDebounce({ placeholder: e.target.value })}
+                onChange={(e) => updatePlaceholder({ placeholder: e.target.value })}
                 disabled={form?.status === 'Archived'}
             />
         </div>

@@ -117,7 +117,7 @@ function TeamDetail() {
                 }
                 {
                     pages && pages.totalElements > 0 &&
-                    <div className="grid gap-5 grid-cols-1 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6">
+                    <div className="grid gap-5 grid-cols-1 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-6">
                         {
                             pages?.content?.map((item, index) => (
                                 <Link to={`/${workspace.code}/t/${team.code}/f/${item.code}`} key={index}>

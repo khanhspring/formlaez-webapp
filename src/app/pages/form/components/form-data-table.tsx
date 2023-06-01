@@ -255,7 +255,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                 return (
                     <span
                         onClick={() => selectSubmission(record)}
-                        className="text-xs bg-zinc-200 dark:bg-steel-gray-800 inline-block px-1 py-0.5 min-w-[75px] rounded cursor-pointer"
+                        className="text-xs bg-zinc-200/80 dark:bg-steel-gray-800 inline-block px-1 py-0.5 min-w-[75px] rounded cursor-pointer"
                     >
                         {value.substring(0, 8)}
                     </span>
@@ -466,7 +466,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                 <div className="flex items-center gap-3">
                     <span>Total {formData?.totalElements || 0}</span>
                     <Dropdown overlay={dateRange} trigger={['click']} placement="bottomRight">
-                        <div className="hidden md:flex gap-2 py-1.5 px-3 cursor-pointer bg-slate-50 dark:bg-steel-gray-900 rounded items-center justify-center border border-slate-900/10 dark:border-steel-gray-800">
+                        <div className="hidden md:flex gap-2 py-1.5 px-3 cursor-pointer bg-zinc-50 dark:bg-steel-gray-900 rounded items-center justify-center border border-slate-900/10 dark:border-steel-gray-800">
                             <i className="fi fi-rr-calendar text-xs text-gray-500"></i>
                             <span className="text-sm">
                                 {DateRangeLabels[dateRangeSelected]}

@@ -167,7 +167,7 @@ function WorkspaceBilling() {
                                             <span className="font-bold">Content</span>
                                         </div>
                                     </th>
-                                    <th className={`w-52 border border-slate-900/10 dark:border-slate-600 px-4 py-5 align-top ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <th className={`w-52 border border-slate-900/10 dark:border-slate-600 px-4 py-5 align-top ${workspace.type === 'Free' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <div className="flex flex-col items-start font-normal gap-1">
                                             <span className="text-xl h-10">
                                                 <div className="w-10">{FreePlan.icon}</div>
@@ -185,7 +185,7 @@ function WorkspaceBilling() {
                                             }
                                         </div>
                                     </th>
-                                    <th className={`w-52 border border-slate-900/10 dark:border-slate-600 px-4 py-5 align-top ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <th className={`w-52 border border-slate-900/10 dark:border-slate-600 px-4 py-5 align-top ${workspace.type === 'Plus' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <div className="flex flex-col items-start font-normal gap-1">
                                             <span className="text-xl h-10">
                                                 <div className="w-10">{PlusPlan.icon}</div>
@@ -239,7 +239,7 @@ function WorkspaceBilling() {
                                             }
                                         </div>
                                     </th>
-                                    <th className={`w-52 border border-slate-900/10 dark:border-slate-600 px-4 py-5 align-top ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <th className={`w-52 border border-slate-900/10 dark:border-slate-600 px-4 py-5 align-top ${workspace.type === 'Business' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <div className="flex flex-col items-start font-normal gap-1">
                                             <span className="text-xl h-10">
                                                 <div className="w-10">{BusinessPlan.icon}</div>
@@ -300,13 +300,13 @@ function WorkspaceBilling() {
                                     <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 font-semibold`}>
                                         Forms
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <FormattedNumber value={FreePlan.formLimit} />
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <FormattedNumber value={PlusPlan.formLimit} />
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <FormattedNumber value={BusinessPlan.formLimit} />
                                     </td>
                                 </tr>
@@ -314,13 +314,13 @@ function WorkspaceBilling() {
                                     <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 font-semibold`}>
                                         Document merges (per month)
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <FormattedNumber value={FreePlan.documentMergePerMonth} />
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <FormattedNumber value={PlusPlan.documentMergePerMonth} />
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <FormattedNumber value={BusinessPlan.documentMergePerMonth} />
                                     </td>
                                 </tr>
@@ -328,13 +328,13 @@ function WorkspaceBilling() {
                                     <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 font-semibold`}>
                                         Submissions (per month)
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <FormattedNumber value={FreePlan.submissionPerMonth} />
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <FormattedNumber value={PlusPlan.submissionPerMonth} />
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Business' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <FormattedNumber value={BusinessPlan.submissionPerMonth} />
                                     </td>
                                 </tr>
@@ -342,13 +342,13 @@ function WorkspaceBilling() {
                                     <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 font-semibold`}>
                                         File storage
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         Up to {FreePlan.fileStorageLimit}
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         Up to {PlusPlan.fileStorageLimit}
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         Up to {BusinessPlan.fileStorageLimit}
                                     </td>
                                 </tr>
@@ -356,13 +356,13 @@ function WorkspaceBilling() {
                                     <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 font-semibold`}>
                                         Workspace members
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <FormattedNumber value={FreePlan.workspaceMember} />
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <FormattedNumber value={PlusPlan.workspaceMember} />
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         <FormattedNumber value={BusinessPlan.workspaceMember} />
                                     </td>
                                 </tr>
@@ -370,13 +370,13 @@ function WorkspaceBilling() {
                                     <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 font-semibold`}>
                                         Teams
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         Unlimited
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         Unlimited
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         Unlimited
                                     </td>
                                 </tr>
@@ -384,13 +384,13 @@ function WorkspaceBilling() {
                                     <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 font-semibold`}>
                                         Document templates
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         Unlimited
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         Unlimited
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         Unlimited
                                     </td>
                                 </tr>
@@ -398,13 +398,13 @@ function WorkspaceBilling() {
                                     <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 font-semibold`}>
                                         Workspace joining per user
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Free' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         Unlimited
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4  ${workspace.type === 'Plus' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         Unlimited
                                     </td>
-                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-slate-50 dark:bg-steel-gray-900' : ''}`}>
+                                    <td className={`border border-slate-900/10 dark:border-slate-600 px-4 py-4 ${workspace.type === 'Business' ? 'bg-zinc-50 dark:bg-steel-gray-900' : ''}`}>
                                         Unlimited
                                     </td>
                                 </tr>

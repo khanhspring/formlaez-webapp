@@ -64,7 +64,7 @@ const FileUpload: FC<Props> = ({ status, onChange = () => { }, value, accept, pl
                         multiple={multiple}
                     >
                     </Upload>
-                    <p className="text-base font-light absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0">{placeholder}</p>
+                    <p className="text-base font-light absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-full flex justify-center">{placeholder}</p>
                 </div>
             </div>
             {

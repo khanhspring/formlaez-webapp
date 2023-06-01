@@ -276,7 +276,7 @@ function FormSettings() {
                 </div>
 
                 <h2 className="pb-1 border-b border-slate-900/10 dark:border-gray-800 mt-3">Settings</h2>
-                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-steel-gray-900 rounded transition">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-zinc-50 dark:hover:bg-steel-gray-900 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Access scope</h3>
                         <p className="text-xs font-light italic">
@@ -300,7 +300,7 @@ function FormSettings() {
                         }
                     </div>
                 </div>
-                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-steel-gray-900 rounded transition">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-zinc-50 dark:hover:bg-steel-gray-900 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Accepting responses</h3>
                         <p className="text-xs font-light italic">
@@ -315,7 +315,7 @@ function FormSettings() {
                         />
                     </div>
                 </div>
-                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-steel-gray-900 rounded transition">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-zinc-50 dark:hover:bg-steel-gray-900 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Allow response editing</h3>
                         <p className="text-xs font-light italic">
@@ -330,7 +330,7 @@ function FormSettings() {
                         />
                     </div>
                 </div>
-                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-steel-gray-900 rounded transition">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-zinc-50 dark:hover:bg-steel-gray-900 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Allow to merge document</h3>
                         <p className="text-xs font-light italic">
@@ -349,7 +349,7 @@ function FormSettings() {
                 <h2 className="pb-1 border-b border-slate-900/10 dark:border-gray-800 mt-3">Danger zone</h2>
                 {
                     !archived &&
-                    <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-steel-gray-900 rounded transition">
+                    <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-zinc-50 dark:hover:bg-steel-gray-900 rounded transition">
                         <div className="flex flex-col gap-0.5">
                             <h3 className="text-sm">Archive this form</h3>
                             <p className="text-xs font-light italic">
@@ -368,7 +368,7 @@ function FormSettings() {
                 }
                 {
                     archived &&
-                    <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-steel-gray-900 rounded transition">
+                    <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-zinc-50 dark:hover:bg-steel-gray-900 rounded transition">
                         <div className="flex flex-col gap-0.5">
                             <h3 className="text-sm">Unarchive this form</h3>
                             <p className="text-xs font-light italic">
@@ -385,7 +385,7 @@ function FormSettings() {
                         </div>
                     </div>
                 }
-                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-slate-50 dark:hover:bg-steel-gray-900 rounded transition">
+                <div className="flex items-center justify-between gap-10 px-2 py-1 hover:bg-zinc-50 dark:hover:bg-steel-gray-900 rounded transition">
                     <div className="flex flex-col gap-0.5">
                         <h3 className="text-sm">Delete this form</h3>
                         <p className="text-xs font-light italic">
