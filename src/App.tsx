@@ -292,7 +292,7 @@ function App() {
       />
       <RouterProvider
         router={router}
-        fallbackElement={<Loading center />}
+        fallbackElement={<Loading />}
       />
     </>
   );

@@ -8,7 +8,7 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
     const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
     if (!isAuthenticated) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
+        return <Navigate to="/sign-in" state={{ from: location }} replace />;
     }
 
     return children;

@@ -7,7 +7,7 @@ export function lazyLoad(path: string, requireAuth?: boolean) {
 
     if (requireAuth) {
         return (
-            <Suspense fallback={<Loading center/>}>
+            <Suspense fallback={<Loading/>}>
                 <RequireAuth>
                     <LazyElement />
                 </RequireAuth>
@@ -16,7 +16,7 @@ export function lazyLoad(path: string, requireAuth?: boolean) {
     }
 
     return (
-        <Suspense fallback={<Loading center/>}>
+        <Suspense fallback={<Loading/>}>
             <LazyElement />
         </Suspense>
     );

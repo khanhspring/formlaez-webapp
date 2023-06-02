@@ -18,8 +18,8 @@ export const useAuth = () => {
         const userInfo: UserInfo = {
             id: user.uid,
             email: user.email || '',
-            firstName: firstName,
-            lastName: lastName
+            firstName: firstName.trim(),
+            lastName: lastName.trim()
         }
 
         dispatch(setUserInfo(userInfo));

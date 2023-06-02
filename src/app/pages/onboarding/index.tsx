@@ -68,7 +68,7 @@ const Onboarding: FC<Props> = () => {
     return (
         <div className='w-full min-h-[100vh] flex items-center justify-center'>
             {
-                isSessionLoading && <Loading center />
+                isSessionLoading && <Loading />
             }
             {
                 greetingVisible &&

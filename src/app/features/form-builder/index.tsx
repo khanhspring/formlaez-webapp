@@ -229,7 +229,7 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
                             <div className="w-full pb-5 pt-1">
                                 <Textarea
                                     value={title}
-                                    className="w-full text-3xl font-bold border-none !bg-transparent !px-0"
+                                    className="w-full text-3xl font-bold border-none !bg-transparent !px-0 !shadow-none"
                                     autoHeight
                                     placeholder="Untitled"
                                     onChange={e => handleTitleChange(e.target.value)}
@@ -240,7 +240,7 @@ const FormBuilder: FC<Props> = ({ initForm, onTitleChange }) => {
                     {
                         (!form?.coverType || form?.coverType === 'None') && form?.status === 'Archived' &&
                         <div className="w-full pb-5 pt-1">
-                            <div className="w-full text-3xl font-bold border-none !bg-transparent !px-0">
+                            <div className="w-full text-3xl font-bold border-none !bg-transparent !px-0 !shadow-none">
                                 <h1>{title}</h1>
                             </div>
                         </div>
