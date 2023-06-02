@@ -29,7 +29,7 @@ const userSessionLoader = async (data: any) => {
     }
     return userSession;
   } catch (e: any) {
-    return redirect('/logout');
+    return redirect('/sign-in');
   }
 };
 
