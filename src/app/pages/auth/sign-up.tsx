@@ -1,6 +1,6 @@
 import Form from 'rc-field-form';
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import googleIcon from '../../../assets/images/google-icon.svg';
 import logo from "../../../assets/images/formini-logo.svg";
@@ -11,6 +11,10 @@ import useConfirmSignUp from '../../hooks/sign-up/useConfirmSignUp';
 import useSignUp from '../../hooks/sign-up/useSignUp';
 import { ConfirmSignUpRequest, SignUpRequest } from '../../models/sign-up';
 import { showErrorIgnore403 } from '../../util/common';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '../../configurations/firebase';
+import { validateTokenAndLogin } from '../../slices/auth';
+import { useAppDispatch } from '../../hooks/redux-hook';
 
 const SignUp = () => {
 
@@ -20,6 +24,8 @@ const SignUp = () => {
     const { mutateAsync: confirmSignUp, isLoading: isConfirmLoading } = useConfirmSignUp();
     const [countdown, setCountdown] = useState(5);
     const intervalRef = useRef<any>();
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         return () => {
@@ -63,7 +69,7 @@ const SignUp = () => {
                     setCountdown(prev => {
                         if (prev === 0) {
                             clearInterval(intervalRef.current);
-                            window.location.href = process.env.REACT_APP_AUTH_LOGIN_URL || '';
+                            navigate("/sign-in");
                             return prev;
                         }
                         return prev - 1;
@@ -71,6 +77,25 @@ const SignUp = () => {
                 }, 1000)
             }
         });
+    }
+
+    const signInWithGoogle = () => {
+        const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const loadingId = toast.loading("Signing in...");
+                result.user.getIdToken().then((token) => {
+                    dispatch(validateTokenAndLogin(token))
+                    .then(() => {
+                        navigate("/");
+                    }).finally(() => {
+                        toast.done(loadingId);
+                    });
+                })
+            }).catch((error) => {
+                toast.error("An error was occurred. Please try again!");
+            })
     }
 
     return (
@@ -82,13 +107,13 @@ const SignUp = () => {
                     {
                         step === 1 &&
                         <>
-                            <a
-                                href={process.env.REACT_APP_AUTH_GOOGLE_LOGIN_URL}
-                                className="mt-7 w-full flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-steel-gray-900 dark:hover:bg-steel-gray-800 px-3 py-2 border border-slate-900/10 rounded transition"
+                            <span
+                                onClick={signInWithGoogle}
+                                className="mt-7 w-full flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-steel-gray-900 dark:hover:bg-steel-gray-800 px-3 py-2 border border-slate-900/10 rounded transition cursor-pointer"
                             >
                                 <img src={googleIcon} alt="Google" className='h-4' />
                                 <span className='text-sm'>Continue with Google</span>
-                            </a>
+                            </span>
                             <span className='mt-7 text-xs font-semibold'>Or with email</span>
                             <div className='w-full mt-7'>
                                 <Form
@@ -217,7 +242,7 @@ const SignUp = () => {
                         step === 3 &&
                         <>
                             <div className="mt-7 w-20 h-20 bg-emerald-500 rounded-full flex justify-center items-center">
-                                <i className="fi fi-br-check text-3xl"></i>
+                                <i className="fi fi-br-check text-3xl text-white"></i>
                             </div>
                             <div className="mt-4 w-full flex flex-col justify-center items-center gap-3">
                                 <h1 className="text-xl font-semibold">Congratulations!</h1>
@@ -231,12 +256,12 @@ const SignUp = () => {
                                     <br />
 
                                 </p>
-                                <a href={process.env.REACT_APP_AUTH_LOGIN_URL}>
+                                <Link to={"/sing-in"}>
                                     <Button>
-                                        Or click here to login now
+                                        Or click here to sign in now
                                         <i className="fi fi-rr-arrow-right"></i>
                                     </Button>
-                                </a>
+                                </Link>
                             </div>
                         </>
                     }

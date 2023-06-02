@@ -1,6 +1,6 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../../components/common/button";
-import TokenStorageService from "../../../services/token-storage-service";
 import FormSkeleton from "./form-skeleton";
 
 type Props = {
@@ -9,23 +9,12 @@ type Props = {
 
 const FormError401: FC<Props> = ({ }) => {
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log(location.pathname);
+
     const login = () => {
-        const currentUrl = window.location.pathname;
-        const currentUrlEncoded = encodeURIComponent(currentUrl);
-        window.location.href = process.env.REACT_APP_AUTH_LOGIN_URL + `?state=${currentUrlEncoded}`;
-    }
-
-    const existsToken = TokenStorageService.existsToken();
-
-    useEffect(() => {
-        // has an account but token is expired
-        if (existsToken) {
-            login();
-        }
-    }, [existsToken])
-
-    if (existsToken) {
-        return <></>
+        navigate('/sign-in', {state: {prev: location.pathname}});
     }
 
     return (

@@ -1,6 +1,6 @@
 import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import Form from 'rc-field-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import googleIcon from '../../../assets/images/google-icon.svg';
 import logo from "../../../assets/images/formini-logo.svg";
 import Button from '../../components/common/button';
@@ -16,6 +16,15 @@ const SignIn = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const location = useLocation();
+
+    const afterLogin = () => {
+        if (location.state && location.state.prev) {
+            navigate(location.state.prev);
+            return;
+        }
+        navigate("/");
+    }
 
     const signIn = (values: any) => {
         setLoading(true);
@@ -24,7 +33,7 @@ const SignIn = () => {
             result.user.getIdToken().then((token) => {
                 dispatch(validateTokenAndLogin(token))
                 .then(() => {
-                    navigate("/");
+                    afterLogin();
                 });
             })
         }).catch((error) => {
@@ -43,7 +52,7 @@ const SignIn = () => {
                 result.user.getIdToken().then((token) => {
                     dispatch(validateTokenAndLogin(token))
                     .then(() => {
-                        navigate("/");
+                        afterLogin();
                     }).finally(() => {
                         toast.done(loadingId);
                     });
