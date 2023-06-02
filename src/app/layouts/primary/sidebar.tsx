@@ -70,7 +70,7 @@ const SideBar: FC<Props> = ({ collapsed, hideCollapse, setCollapsed = () => { } 
                     className='absolute w-7 h-7 bottom-3 -right-3 rounded bg-zinc-200 dark:bg-steel-gray-900 flex items-center justify-center py-2 cursor-pointer z-[1000]'
                     onClick={() => setCollapsed(false)}
                 >
-                    <ChevronDoubleRightIcon className='w-5 h-5 text-slate-900 dark:text-steel-gray-300' />
+                    <ChevronDoubleRightIcon className='w-5 h-5 text-zinc-500 dark:text-steel-gray-300' />
                 </div>
                 <div className="sticky top-0">
                     <div className='w-full'>
@@ -171,7 +171,7 @@ const SideBar: FC<Props> = ({ collapsed, hideCollapse, setCollapsed = () => { } 
                     className='absolute w-7 h-7 bottom-3 -right-3 rounded bg-zinc-200 dark:bg-steel-gray-900 flex items-center justify-center py-2 cursor-pointer z-[1000]'
                     onClick={() => setCollapsed(true)}
                 >
-                    <ChevronDoubleLeftIcon className='w-5 h-5 text-slate-900 dark:text-steel-gray-300' />
+                    <ChevronDoubleLeftIcon className='w-5 h-5 text-zinc-500 dark:text-steel-gray-300' />
                 </div>
             }
             <div className="sticky top-0">

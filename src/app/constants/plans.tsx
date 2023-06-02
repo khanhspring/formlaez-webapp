@@ -23,7 +23,7 @@ export const FreePlan: PlanInfo = {
     icon: <GiftIcon className='w-full' />,
     price: 0,
     formLimit: 3,
-    documentMergePerMonth: 20,
+    documentMergePerMonth: 10,
     submissionPerMonth: 100,
     fileStorageLimit: '100 MB',
     fileStorageLimitInBytes: 100 * 1024 * 1024,

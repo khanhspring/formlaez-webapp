@@ -179,7 +179,7 @@ function WorkspaceBilling() {
                                             </div>
                                             {
                                                 workspace.type === 'Free' &&
-                                                <span className="mt-2 w-full px-2.5 py-1.5 rounded flex justify-center items-center gap-1 bg-slate-200 dark:bg-steel-gray-800 border border-slate-900/10 dark:border-slate-600">
+                                                <span className="mt-2 w-full px-2.5 py-1.5 rounded flex justify-center items-center gap-1 bg-zinc-200 dark:bg-steel-gray-800 border border-slate-900/10 dark:border-slate-600">
                                                     Current plan
                                                 </span>
                                             }
@@ -197,7 +197,7 @@ function WorkspaceBilling() {
                                             </div>
                                             {
                                                 workspace.type === 'Plus' && currentSubscription?.status !== 'Cancelled' &&
-                                                <span className="mt-2 w-full px-2.5 py-1.5 rounded flex justify-center items-center gap-1 bg-slate-200 dark:bg-steel-gray-800 border border-slate-900/10 dark:border-slate-600">
+                                                <span className="mt-2 w-full px-2.5 py-1.5 rounded flex justify-center items-center gap-1 bg-zinc-200 dark:bg-steel-gray-800 border border-slate-900/10 dark:border-slate-600">
                                                     Current plan
                                                 </span>
                                             }
@@ -251,7 +251,7 @@ function WorkspaceBilling() {
                                             </div>
                                             {
                                                 workspace.type === 'Business' && currentSubscription?.status !== 'Cancelled' &&
-                                                <span className="mt-2 w-full px-2.5 py-1.5 rounded flex justify-center items-center gap-1 bg-slate-200 dark:bg-steel-gray-800 border border-slate-900/10 dark:border-slate-600">
+                                                <span className="mt-2 w-full px-2.5 py-1.5 rounded flex justify-center items-center gap-1 bg-zinc-200 dark:bg-steel-gray-800 border border-slate-900/10 dark:border-slate-600">
                                                     Current plan
                                                 </span>
                                             }

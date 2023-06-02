@@ -49,7 +49,7 @@ const UserMenu: FC<Props> = ({ collapsed }) => {
     return (
         <>
             <Dropdown overlay={userMenu}>
-                <div className="p-3 rounded flex items-center gap-2 group cursor-pointer border border-zinc-300 dark:border-neutral-800">
+                <div className={`p-3 rounded flex items-center gap-2 group cursor-pointer ${!collapsed ? ' border border-zinc-300 dark:border-neutral-800' : ''}`}>
                     <SidebarAvatar name={userInfo?.firstName + ' ' + userInfo?.lastName} className="ring-cyan-400/50 group-hover:ring-2" />
                     {
                         !collapsed &&
