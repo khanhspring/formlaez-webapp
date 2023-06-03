@@ -25,7 +25,6 @@ function WorkspaceSettings() {
     const [rcOpenAISettingForm] = RcForm.useForm();
 
     useEffect(() => {
-        console.log(openAIApiSetting);
         rcOpenAISettingForm.setFieldsValue({ ...openAIApiSetting });
     }, [openAIApiSetting, rcOpenAISettingForm])
 

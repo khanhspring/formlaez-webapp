@@ -22,8 +22,8 @@
     Paddle.Setup({ vendor: +vendorId });
 
     const paddleEnv = "%REACT_APP_PADDLE_ENV%";
-    console.log(paddleEnv);
     if (paddleEnv === 'sandbox') {
+      console.log(paddleEnv);
       Paddle.Environment.set("sandbox");
     }
   </script>
