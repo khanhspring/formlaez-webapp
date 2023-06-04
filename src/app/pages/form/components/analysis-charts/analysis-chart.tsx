@@ -7,6 +7,7 @@ import OpinionScaleChart from "./opinion-scale-chart";
 import RatingChart from "./rating-chart";
 import SwitchChart from "./switch-chart";
 import TextStatistic from "./text-statistic";
+import StatusChoiceChart from "./status-choice-chart";
 
 type Props = {
     analysisItem: FormDataAnalysisItem;
@@ -25,6 +26,8 @@ const AnalysisChart: FC<Props> = ({ analysisItem }) => {
             case 'InputText': return (<TextStatistic analysisItem={analysisItem} />)
             case 'Email': return (<TextStatistic analysisItem={analysisItem} />)
             case 'InputNumber': return (<NumberStatistic analysisItem={analysisItem} />)
+            case 'StatusList': return (<StatusChoiceChart analysisItem={analysisItem} />)
+            case 'InputUrl': return (<TextStatistic analysisItem={analysisItem} />)
             default: return (<></>)
         }
     }

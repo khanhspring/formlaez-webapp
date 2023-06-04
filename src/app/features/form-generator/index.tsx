@@ -1,8 +1,9 @@
 import { ArrowRightIcon, MoonIcon, SunIcon } from '@heroicons/react/24/solid';
 import * as _ from 'lodash';
 import RcForm from "rc-field-form";
-import { ValidateErrorEntity } from "rc-field-form/lib/interface";
+import { FormInstance, ValidateErrorEntity } from "rc-field-form/lib/interface";
 import { FC, useEffect, useRef, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Button from "../../components/common/button";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
 import { Form, FormSection } from "../../models/form";
@@ -10,7 +11,6 @@ import { changeTheme, selectTheme } from "../../slices/app-config";
 import { selectUserInfo } from '../../slices/auth';
 import SectionItem from "./components/section-item";
 import { resetState, updateValues } from "./slice";
-import { useNavigate } from 'react-router-dom';
 
 type Props = {
     formLayout: Form;
@@ -19,13 +19,17 @@ type Props = {
     loading?: boolean;
     hideHeader?: boolean;
     hideFooter?: boolean;
+    hideButton?: boolean;
+    formInstance?: FormInstance<any>;
+    fullWidth?: boolean;
 }
 
-const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, hideHeader = false, hideFooter = false }) => {
+const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, hideHeader = false, hideFooter = false, hideButton = false, formInstance, fullWidth = false }) => {
 
     const dispatch = useAppDispatch();
     const mounted = useRef(false);
-    const [form] = RcForm.useForm();
+    const [rcForm] = RcForm.useForm();
+    const form = formInstance || rcForm;
     const user = useAppSelector(selectUserInfo);
     const navigate = useNavigate();
 
@@ -109,7 +113,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
     const sections = (formLayout?.pages && formLayout.pages[0]?.sections) || [];
 
     return (
-        <div className="min-h-[100vh] flex flex-col justify-center relative">
+        <div className="flex flex-col justify-center relative">
             {
                 !hideHeader &&
                 <div className='mb-10'>
@@ -139,8 +143,8 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                     }
                 </div>
             }
-            <div className='w-full px-4 flex-1'>
-                <div className="w-full max-w-[640px] m-auto">
+            <div className='w-full flex-1'>
+                <div className={`w-full ${!fullWidth ? 'max-w-[670px] m-auto px-4' : ''}`}>
                     <RcForm
                         initialValues={initValues}
                         onFinish={handleOnFinish}
@@ -152,14 +156,17 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
                                 <SectionItem section={item} sectionIndex={index} key={index} />
                             ))
                         }
-                        <div className="w-full flex justify-center py-10">
-                            <Button loading={loading}>
-                                <span className="flex gap-1.5 items-center justify-center py-0.5 w-72 text-white">
-                                    Submit
-                                    <ArrowRightIcon className='w-5 h-5' />
-                                </span>
-                            </Button>
-                        </div>
+                        {
+                            !hideButton &&
+                            <div className="w-full flex justify-center py-10">
+                                <Button loading={loading}>
+                                    <span className="flex gap-1.5 items-center justify-center py-0.5 w-72 text-white">
+                                        Submit
+                                        <ArrowRightIcon className='w-5 h-5' />
+                                    </span>
+                                </Button>
+                            </div>
+                        }
                     </RcForm>
                 </div>
             </div>

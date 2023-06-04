@@ -1,11 +1,12 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { toast } from "react-toastify";
-import Drawer from "../../../components/drawer/drawer";
+import Modal from "../../../components/common/modal";
 import FormGenerator from "../../../features/form-generator";
 import useUpdateSubmission from "../../../hooks/submissions/useUpdateSubmission";
 import { Form } from "../../../models/form";
 import { FormSubmission, UpdateFormSubmissionRequest } from "../../../models/form-submission";
 import { showErrorIgnore403 } from "../../../util/common";
+import RcForm from "rc-field-form";
 
 type Props = {
     submission?: FormSubmission;
@@ -14,9 +15,14 @@ type Props = {
     visible: boolean;
 }
 
-const FormDataEditDrawer: FC<Props> = ({ submission, form, onClose, visible }) => {
+const FormDataEditModal: FC<Props> = ({ submission, form, onClose, visible }) => {
 
     const { mutateAsync: update, isLoading } = useUpdateSubmission();
+    const [rcForm] = RcForm.useForm();
+
+    useEffect(() => {
+        rcForm.setFieldsValue({ ...submission?.data });
+    }, [rcForm, submission?.data]);
 
     const onFinish = (values: any) => {
         if (!submission) {
@@ -35,13 +41,18 @@ const FormDataEditDrawer: FC<Props> = ({ submission, form, onClose, visible }) =
         })
     }
 
+    const submitForm = () => {
+        rcForm.submit();
+    }
+
     return (
-        <Drawer
+        <Modal
             title="Edit submission"
-            open={visible}
-            width={600}
+            visible={visible}
+            width={750}
             onClose={onClose}
             destroyOnClose
+            onOk={submitForm}
         >
             <div>
                 {
@@ -53,11 +64,14 @@ const FormDataEditDrawer: FC<Props> = ({ submission, form, onClose, visible }) =
                         loading={isLoading}
                         hideHeader
                         hideFooter
+                        hideButton
+                        formInstance={rcForm}
+                        fullWidth
                     />
                 }
             </div>
-        </Drawer>
+        </Modal>
     );
 }
 
-export default FormDataEditDrawer;
+export default FormDataEditModal;

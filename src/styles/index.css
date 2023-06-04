@@ -125,7 +125,7 @@ input:-webkit-autofill:active {
     box-shadow: none !important;
 }
 
-hr {
+hr.hr-wave {
     background-image: url("../assets/images/hr.svg");
     border: none;
     height: 4px;

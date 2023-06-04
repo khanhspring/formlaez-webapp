@@ -9,6 +9,8 @@ import PdfBlock from './content-blocks/pdf-block';
 import QRCodeBlock from './content-blocks/qr-code-block';
 import TwitterTweetBlock from './content-blocks/twitter-tweet-block';
 import VideoBlock from './content-blocks/video-block';
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import remarkGfm from 'remark-gfm';
 
 type Props = {
     field: FormField;
@@ -68,10 +70,40 @@ const Field: FC<Props> = ({ field, data, showContentBlocks }) => {
         if (field.type === 'Signature') {
             return (
                 <div className='bg-white max-w-[350px] w-full rounded'>
-                    {rawValue && <img src={rawValue} alt={field.title}/>}
+                    {rawValue && <img src={rawValue} alt={field.title} />}
                 </div>
             )
         }
+        if (field.type === 'StatusList') {
+            const selectedValues = (rawValue || []) as any[];
+            const selected = (field.options || []).filter(option => selectedValues?.includes(option.code));
+            return selected?.map((item, index) =>
+                <span
+                    key={index}
+                    className="mr-1 my-0.5 px-2 inline-block text-white rounded-xl"
+                    style={{ backgroundColor: item.bgColor || '#697689' }}
+                >
+                    {item.label}
+                </span>
+            )
+        }
+        if (field.type === 'InputMarkdown') {
+            return (
+                <div className="prose dark:prose-invert text-slate-950 dark:text-white px-4 py-2">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {rawValue || ''}
+                    </ReactMarkdown>
+                </div>
+            )
+        }
+        if (field.type === 'InputUrl') {
+            return (
+                <>
+                    {rawValue && <a href={rawValue} target='_blank' rel="noreferrer" className='text-blue-500'>{rawValue}</a>}
+                </>
+            )
+        }
+
         return rawValue;
     }
 

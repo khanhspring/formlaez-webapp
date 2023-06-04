@@ -160,6 +160,53 @@ export const FormControlConfigFields: ConfigField[] = [
             required: true,
         })
     },
+    {
+        name: "List of status",
+        description: "Add a list of status",
+        default: () => ({
+            code: nanoid(),
+            type: "StatusList",
+            variableName: newId(),
+            title: "List of status",
+            required: true,
+            options: [
+                {
+                    code: nanoid(),
+                    label: 'Success',
+                    bgColor: '#2196f3'
+                },
+                {
+                    code: nanoid(),
+                    label: 'Failed',
+                    bgColor: '#EB144C'
+                }
+            ]
+        })
+    },
+    {
+        name: "Markdown",
+        description: "Add a input text that allow markdown format",
+        default: () => ({
+            code: nanoid(),
+            type: "InputMarkdown",
+            variableName: newId(),
+            title: "Markdown",
+            placeholder: 'Markdown content...',
+            required: true,
+        })
+    },
+    {
+        name: "URL",
+        description: "Add a input that allow URL only",
+        default: () => ({
+            code: nanoid(),
+            type: "InputUrl",
+            variableName: newId(),
+            title: "URL",
+            placeholder: 'Eg: https://example.com/path?a=b',
+            required: true,
+        })
+    },
 ];
 
 export const DecoratorConfigFields: ConfigField[] = [

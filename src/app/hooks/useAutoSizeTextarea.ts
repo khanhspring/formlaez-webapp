@@ -16,12 +16,12 @@ const useAutoSizeTextarea = (
   useEffect(() => {
     function detectSize() {
       if (!textarea) {
-        return {};
+        return;
       }
 
       const span = createHiddenSpan();
       copyStyles(textarea, span);
-      span.innerHTML = textarea.value;
+      span.innerHTML = textarea.value || textarea.placeholder;
       textarea.style.height = "";
       textarea.style.overflow = "hidden";
 
@@ -30,8 +30,10 @@ const useAutoSizeTextarea = (
         const spanWidth = span.offsetWidth;
         if (maxWidthVal && spanWidth > maxWidthVal) {
           textarea.style.minWidth = maxWidthVal + "px";
+          textarea.style.width = maxWidthVal + "px";
         } else {
-          textarea.style.minWidth = span.offsetWidth + 1 + "px";
+          textarea.style.minWidth = spanWidth + 1 + "px";
+          textarea.style.width = spanWidth + 1 + "px";
         }
       }
 

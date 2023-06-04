@@ -9,18 +9,23 @@ type Props = {
     analysisItem: FormDataAnalysisItem;
 }
 
-const MultiChoiceChart: FC<Props> = ({ analysisItem }) => {
+const StatusChoiceChart: FC<Props> = ({ analysisItem }) => {
 
     const theme = useAppSelector(selectTheme);
 
-    const dropdownOptions = analysisItem.field.options || [];
+    const options = analysisItem.field.options || [];
 
     const getLabel = (val?: any) => {
-        const result = dropdownOptions.find(item => item.code === val);
+        const result = options.find(item => item.code === val);
         return result?.label || 'Unknown';
     }
 
+
     const data: any[] = analysisItem.values.map(item => ({value: item.count, name: getLabel(item.value)})) || [];
+    const colorPalette = analysisItem.values.map(item => {
+        const option = options.find(o => o.code === item.value);
+        return option?.bgColor || '#697689';
+    });
 
     const option: EChartsOption = {
         tooltip: {
@@ -40,7 +45,8 @@ const MultiChoiceChart: FC<Props> = ({ analysisItem }) => {
                 },
                 label: {
                     color: theme === 'dark' ? '#fff' : '#0f172a'
-                }
+                },
+                color: colorPalette
             }
         ]
     };
@@ -60,4 +66,4 @@ const MultiChoiceChart: FC<Props> = ({ analysisItem }) => {
     );
 }
 
-export default MultiChoiceChart;
+export default StatusChoiceChart;

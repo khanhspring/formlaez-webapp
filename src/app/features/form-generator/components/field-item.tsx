@@ -20,6 +20,9 @@ import PdfBlock from "./content-blocks/pdf-block";
 import QRCodeBlock from "./content-blocks/qr-code-block";
 import TwitterTweetBlock from "./content-blocks/twitter-tweet-block";
 import VideoBlock from "./content-blocks/video-block";
+import MarkdownEditor from "../../../components/form/form-controls/markdown-editor";
+import StatusChoice from "../../../components/form/form-controls/status-choice";
+import { GlobeEuropeAfricaIcon } from "@heroicons/react/24/solid";
 
 type Props = {
     field: FormField;
@@ -60,6 +63,9 @@ const FieldItem: FC<Props> = ({ field, name }) => {
         if (field.type === 'InputNumber' && field.max) {
             rules.push({ type: 'number', max: field.max, message: `The value must be equals or less than ${field.max}` })
         }
+        if (field.type === 'InputUrl') {
+            rules.push({ type: 'url', message: 'URL is invalid' });
+        }
 
         return rules;
     }, [field.acceptedDomains, field.max, field.maxLength, field.min, field.minLength, field.required, field.type])
@@ -90,6 +96,12 @@ const FieldItem: FC<Props> = ({ field, name }) => {
                 return <MultipleChoice options={options} multipleSelection={field.multipleSelection} />
             case "Signature":
                 return <SignaturePad />
+            case "InputMarkdown":
+                return <MarkdownEditor placeholder={field.placeholder} className="w-full" autoHeight rows={7} />
+            case "StatusList":
+                return <StatusChoice options={options} multipleSelection={field.multipleSelection} />
+            case "InputUrl":
+                return <Input placeholder={field.placeholder} suffix={<GlobeEuropeAfricaIcon className="w-5 h-5"/>} />
 
             // content blocks
             case "Line":

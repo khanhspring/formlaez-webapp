@@ -13,6 +13,9 @@ const FormControls: FormFieldType[] = [
   "Rating",
   "Switch",
   "Signature",
+  "InputMarkdown",
+  "InputUrl",
+  "StatusList"
 ]
 
 const isFormControl = (field?: FormField): boolean => {

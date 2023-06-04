@@ -1,3 +1,4 @@
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/solid';
 import moment from 'moment';
 import Dropdown from 'rc-dropdown';
 import Menu, { MenuItem } from 'rc-menu';
@@ -5,7 +6,6 @@ import Tooltip from 'rc-tooltip';
 import { FC, useState } from 'react';
 import { FormattedNumber } from 'react-intl';
 import { DocumentTemplate } from '../../models/document-template';
-import { ArrowUpOnSquareIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/solid';
 
 type Props = {
     documentTemplate?: DocumentTemplate;

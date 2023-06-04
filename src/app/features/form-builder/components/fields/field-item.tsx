@@ -22,6 +22,9 @@ import TwitterTweetField from "./twitter-tweet-field";
 import VideoField from "./video-field";
 import { useAppSelector } from "../../../../hooks/redux-hook";
 import { selectSelectedItems } from "../../slice";
+import UrlField from "./url-field";
+import InputMarkdownField from "./input-markdown-field";
+import StatusListField from "./status-list-field";
 
 type Props = {
     type: FormFieldType;
@@ -65,9 +68,11 @@ const FieldItem: FC<Props> = ({ type, sectionIndex, index, section, field, ...dr
             case 'OpinionScale': return <OpinionScaleField field={field} context={actionContext} />;
             case 'Switch': return <SwitchField field={field} context={actionContext} />;
             case 'Dropdown': return <DropdownField field={field} context={actionContext} />;
-            case 'PictureChoice': return <PictureChoiceField field={field} context={actionContext} />;
             case 'MultipleChoice': return <MultipleChoiceField field={field} context={actionContext} />;
             case 'Signature': return <SignatureField field={field} context={actionContext} />;
+            case 'InputUrl': return <UrlField field={field} context={actionContext} />;
+            case 'InputMarkdown': return <InputMarkdownField field={field} context={actionContext} />;
+            case 'StatusList': return <StatusListField field={field} context={actionContext} />;
         }
     }
 

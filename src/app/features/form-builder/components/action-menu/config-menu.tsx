@@ -266,7 +266,7 @@ const ConfigMenu: FC<Props> = ({ context, onMenuClick, visible }) => {
                 </>
             }
             {
-                context.field?.type === 'MultipleChoice' &&
+                (context.field?.type === 'MultipleChoice' || context.field?.type === 'StatusList') &&
                 <>
                     <div
                         className={

@@ -50,7 +50,7 @@ const FormBodySelection: FC<Props> = ({ children }) => {
 
     const onBeforeStart = (e: any) => {
         const className = e.event?.target.className || '';
-        if (!className || !className.includes('selection-area-allowed')) {
+        if (!className || (typeof className === 'string' && !className.includes('selection-area-allowed'))) {
             return false;
         }
     }

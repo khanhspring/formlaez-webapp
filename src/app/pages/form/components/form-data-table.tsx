@@ -24,8 +24,9 @@ import { Form, FormField } from "../../../models/form";
 import { ExportFormSubmissionRequest, FormSubmission } from "../../../models/form-submission";
 import { Workspace } from "../../../models/workspace";
 import { showErrorIgnore403 } from "../../../util/common";
-import FormDataEditDrawer from "./form-data-edit-drawer";
+import FormDataEditModal from "./form-data-edit-modal";
 import MergeDocumentModal from "./merge-document-modal";
+import Modal from "../../../components/common/modal";
 
 type ColumnWidth = {
     index: number;
@@ -140,6 +141,19 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                 <>
                     {rawValue && <i className="fi fi-rr-attribution-pencil"></i>}
                 </>
+            )
+        }
+        if (field.type === 'StatusList') {
+            const selectedValues = (rawValue || []) as any[];
+            const selected = (field.options || []).filter(option => selectedValues?.includes(option.code));
+            return selected?.map((item, index) =>
+                <span
+                    key={index}
+                    className="mr-1 my-0.5 px-2 inline-block text-white rounded-xl"
+                    style={{backgroundColor: item.bgColor || '#697689'}}
+                >
+                    {item.label}
+                </span>
             )
         }
         return rawValue;
@@ -333,10 +347,8 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
         setSelectedSubmission(undefined);
     }
 
-    const afterOpenChange = (visible: boolean) => {
-        if (!visible) {
-            setSelectedSubmission(undefined);
-        }
+    const afterClose = () => {
+        setSelectedSubmission(undefined);
     }
 
     const closeEditSubmission = () => {
@@ -543,25 +555,27 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                 </div>
                 <ExternalScroll target={tableBody} />
 
-                <Drawer
+                <Modal
                     title={
                         <div className="w-full flex justify-between items-center">
                             <span>Submission detail</span>
-                            <label className="text-xs font-normal flex items-center gap-2 cursor-pointer">
+                            <label className="text-xs font-normal flex items-center gap-2 cursor-pointer pr-7">
                                 Show content blocks <Switch checked={showContentBlocks} onChange={setShowContentBlocks} />
                             </label>
                         </div>
                     }
                     onClose={closeSubmission}
-                    open={submissionVisible}
-                    afterOpenChange={afterOpenChange}
-                    width={600}
+                    visible={submissionVisible}
+                    afterClose={afterClose}
+                    width={750}
+                    hideCancel
+                    hideOk
                 >
-                    <div>
+                    <div className="pb-10">
                         <FormDataViewer form={form} submission={selectedSubmission} showContentBlocks={showContentBlocks} />
                     </div>
-                </Drawer>
-                <FormDataEditDrawer
+                </Modal>
+                <FormDataEditModal
                     visible={editSubmissionVisible}
                     onClose={closeEditSubmission}
                     form={form}
