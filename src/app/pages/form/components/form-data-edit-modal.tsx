@@ -67,6 +67,7 @@ const FormDataEditModal: FC<Props> = ({ submission, form, onClose, onReload, vis
                         hideButton
                         formInstance={rcForm}
                         fullWidth
+                        fullHeight={false}
                     />
                 }
             </div>
