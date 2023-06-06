@@ -97,6 +97,10 @@ const router = createBrowserRouter([
                     element: lazyLoad('form/form-data-analysis', true)
                   },
                   {
+                    path: "p/f/:formCode/page-views",
+                    element: lazyLoad('form/page-views', true)
+                  },
+                  {
                     path: "t",
                     element: lazyLoad('team', true)
                   },
@@ -146,6 +150,10 @@ const router = createBrowserRouter([
                       {
                         path: "f/:formCode/analysis",
                         element: lazyLoad('form/form-data-analysis', true)
+                      },
+                      {
+                        path: "f/:formCode/page-views",
+                        element: lazyLoad('form/page-views', true)
                       },
                       {
                         path: "t/:teamCode",
@@ -238,6 +246,20 @@ const router = createBrowserRouter([
           {
             path: "f/v/:formCode/s/:submissionCode",
             element: lazyLoad('form-viewer/form-submitted', false)
+          },
+        ]
+      },
+      {
+        id: 'pageView',
+        element: <BlankLayout />,
+        children: [
+          {
+            path: "pages/:pageViewCode",
+            element: lazyLoad('page-view/page-view', false)
+          },
+          {
+            path: "pages/:pageViewCode/:pageViewDetailCode",
+            element: lazyLoad('page-view/page-view-detail', false)
           },
         ]
       },

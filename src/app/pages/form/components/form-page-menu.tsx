@@ -45,6 +45,11 @@ const FormPageMenu: FC<Props> = ({ form }) => {
                     Analysis
                 </Link>
             </MenuItem>
+            <MenuItem key="page-views">
+                <Link to={`/${urlPrefix}/f/${params.formCode}/page-views`}>
+                    Page views
+                </Link>
+            </MenuItem>
             <MenuItem key="builder">
                 <Link to={`/f/${params.formCode}/builder`}>
                     Builder
@@ -80,6 +85,14 @@ const FormPageMenu: FC<Props> = ({ form }) => {
                         + ` ${isActive('analysis') ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`
                     }>
                         Analysis
+                    </span>
+                </Link>
+                <Link to={`/${urlPrefix}/f/${params.formCode}/page-views`}>
+                    <span className={
+                        `text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 cursor-pointer whitespace-nowrap`
+                        + ` ${isActive('page-views') ? '!text-slate-900 dark:!text-white border-b border-slate-800 dark:border-slate-500' : ''}`
+                    }>
+                        Page views
                     </span>
                 </Link>
                 <Link to={`/f/${params.formCode}/builder`}>

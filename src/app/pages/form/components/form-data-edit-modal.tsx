@@ -12,17 +12,14 @@ type Props = {
     submission?: FormSubmission;
     form?: Form;
     onClose?: () => void;
+    onReload?: () => void;
     visible: boolean;
 }
 
-const FormDataEditModal: FC<Props> = ({ submission, form, onClose, visible }) => {
+const FormDataEditModal: FC<Props> = ({ submission, form, onClose, onReload, visible }) => {
 
     const { mutateAsync: update, isLoading } = useUpdateSubmission();
     const [rcForm] = RcForm.useForm();
-
-    useEffect(() => {
-        rcForm.setFieldsValue({ ...submission?.data });
-    }, [rcForm, submission?.data]);
 
     const onFinish = (values: any) => {
         if (!submission) {
@@ -35,7 +32,10 @@ const FormDataEditModal: FC<Props> = ({ submission, form, onClose, visible }) =>
         }
         return update(request, {
             onError: (e) => showErrorIgnore403(e),
-            onSuccess: () => toast.success("Update submission successfully!")
+            onSuccess: () => {
+                toast.success("Update submission successfully!");
+                onReload?.();
+            }
         }).then((response) => {
             onClose?.();
         })

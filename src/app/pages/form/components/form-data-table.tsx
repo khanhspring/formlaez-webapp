@@ -580,6 +580,7 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                     onClose={closeEditSubmission}
                     form={form}
                     submission={selectedSubmission}
+                    onReload={refetch}
                 />
                 <MergeDocumentModal
                     visible={documentMergeVisible}

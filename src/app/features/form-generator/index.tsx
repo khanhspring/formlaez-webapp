@@ -52,12 +52,13 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
 
     useEffect(() => {
         mounted.current = true;
-        dispatch(updateValues(initValues));
+        dispatch(updateValues({...initValues}));
+        form.setFieldsValue({...initValues})
         return () => {
             mounted.current = false;
             dispatch(resetState());
         }
-    }, [dispatch, initValues]);
+    }, [dispatch, form, initValues]);
 
     const handleOnFinish = (values: any) => {
         onFinish?.(values)
@@ -146,7 +147,6 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
             <div className='w-full flex-1'>
                 <div className={`w-full ${!fullWidth ? 'max-w-[670px] m-auto px-4' : ''}`}>
                     <RcForm
-                        initialValues={initValues}
                         onFinish={handleOnFinish}
                         onFinishFailed={onFinishFailed}
                         form={form}

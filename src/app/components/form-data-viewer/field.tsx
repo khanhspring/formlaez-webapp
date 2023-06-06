@@ -89,7 +89,7 @@ const Field: FC<Props> = ({ field, data, showContentBlocks }) => {
         }
         if (field.type === 'InputMarkdown') {
             return (
-                <div className="prose dark:prose-invert text-slate-950 dark:text-white px-4 py-2">
+                <div className="prose dark:prose-invert text-slate-950 dark:text-white py-2 max-w-full">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                         {rawValue || ''}
                     </ReactMarkdown>
