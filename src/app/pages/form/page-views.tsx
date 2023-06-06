@@ -19,6 +19,8 @@ import { toast } from "react-toastify";
 import useUnPublishPageView from "../../hooks/page-views/useUnPublishPageView";
 import confirm from "../../components/common/confirm/confirm";
 import useRemovePageView from "../../hooks/page-views/useRemovePageView";
+import UpdatePageViewDetailModal from "./components/update-page-view-detail-modal";
+import { PageView } from "../../models/page-view";
 
 function PageViews() {
 
@@ -32,6 +34,8 @@ function PageViews() {
     const [createModalVisible, setCreateModalVisible] = useState(false);
     const [detailModalVisible, setDetailModalVisible] = useState(false);
     const [selectedTemplateCode, setSelectedTemplateCode] = useState<string>();
+    const [updateModalVisible, setUpdateModalVisible] = useState(false);
+    const [selectedPageView, setSelectedPageView] = useState<PageView>();
 
     const isEmpty = !isLoading && pageViews?.length === 0;
 
@@ -79,6 +83,11 @@ function PageViews() {
         })
     }
 
+    const onEdit = (pageView: PageView) => {
+        setSelectedPageView(pageView);
+        setUpdateModalVisible(true);
+    }
+
     return (
         <>
             <div className="flex-1 w-full flex flex-col gap-2">
@@ -115,6 +124,7 @@ function PageViews() {
                                 onPublish={() => onPublish(item.id)}
                                 onUnPublish={() => onUnPublish(item.id)}
                                 onDelete={() => onDelete(item.id)}
+                                onEdit={() => onEdit(item)}
                             />
                         ))
                     }
@@ -137,6 +147,16 @@ function PageViews() {
                     form={form}
                     templateCode={selectedTemplateCode}
                     onSuccess={refetch}
+                />
+            }
+            {
+                form && selectedPageView &&
+                <UpdatePageViewDetailModal
+                    visible={updateModalVisible}
+                    pageView={selectedPageView}
+                    form={form}
+                    onSuccess={refetch}
+                    onClose={() => setUpdateModalVisible(false)}
                 />
             }
         </>

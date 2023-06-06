@@ -575,13 +575,16 @@ const FormDataTable: FC<Props> = ({ form, sticky, pageSize = 25, fullscreen }) =
                         <FormDataViewer form={form} submission={selectedSubmission} showContentBlocks={showContentBlocks} />
                     </div>
                 </Modal>
-                <FormDataEditModal
-                    visible={editSubmissionVisible}
-                    onClose={closeEditSubmission}
-                    form={form}
-                    submission={selectedSubmission}
-                    onReload={refetch}
-                />
+                {
+                    editSubmissionVisible &&
+                    <FormDataEditModal
+                        visible={editSubmissionVisible}
+                        onClose={closeEditSubmission}
+                        form={form}
+                        submission={selectedSubmission}
+                        onReload={refetch}
+                    />
+                }
                 <MergeDocumentModal
                     visible={documentMergeVisible}
                     form={form}

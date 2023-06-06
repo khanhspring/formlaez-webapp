@@ -1,20 +1,41 @@
 import RcForm from "rc-field-form";
 import { FormInstance } from "rc-field-form/lib/interface";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Dropdown from "../../../../components/form/form-controls/dropdown";
 import Input from "../../../../components/form/form-controls/input";
 import Textarea from "../../../../components/form/form-controls/textarea";
 import FormItem from "../../../../components/form/form-item";
 import FieldUtil from "../../../../features/form-builder/utils/field-util";
 import { Form } from "../../../../models/form";
+import { PageView } from "../../../../models/page-view";
 
 type Props = {
     form: Form;
     onFinish: (values?: any) => void;
     formInstant: FormInstance<any>;
+    pageView?: PageView;
 }
 
-const SimpleListPageViewForm: FC<Props> = ({ form, onFinish, formInstant }) => {
+const SimpleListPageViewForm: FC<Props> = ({ form, onFinish, formInstant, pageView }) => {
+
+    useEffect(() => {
+        if (pageView) {
+            const fieldsValue = {
+                title: pageView.listingFields.find(f => f.fieldCode === 'title')?.targetFieldCode,
+                titleUrl: pageView.listingFields.find(f => f.fieldCode === 'titleUrl')?.targetFieldCode,
+                description: pageView.listingFields.find(f => f.fieldCode === 'description')?.targetFieldCode,
+                status: pageView.listingFields.find(f => f.fieldCode === 'status')?.targetFieldCode,
+            }
+
+            const values = {
+                code: pageView.code,
+                title: pageView.title,
+                description: pageView.description,
+                fields: fieldsValue
+            }
+            formInstant.setFieldsValue(values);
+        }
+    }, [formInstant, pageView]);
 
     const [fieldHovered, setFieldHovered] = useState<string>();
 
