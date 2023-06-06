@@ -21,12 +21,6 @@ const UpdatePageViewDetailModal: FC<Props> = ({ form, visible, onClose, onSucces
     const [rcForm] = RcForm.useForm();
     const { mutateAsync: updatePageView, isLoading: submitting } = useUpdatePageView();
 
-    useEffect(() => {
-        if (!visible) {
-            rcForm.resetFields();
-        }
-    }, [visible, rcForm]);
-
     const onOk = () => {
         rcForm.submit();
     }
