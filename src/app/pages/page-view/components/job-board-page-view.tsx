@@ -32,7 +32,7 @@ const JobBoardPageView: FC<Props> = ({ pageView }) => {
     }
 
     return (
-        <div className="w-full max-w-2xl m-auto py-10">
+        <div className="w-full max-w-2xl m-auto py-10 px-5">
             <div className="mb-10">
                 <h1 className="font-semibold text-2xl">{pageView.title}</h1>
                 {

@@ -19,7 +19,6 @@ type Props = {
 const PageViewItem: FC<Props> = ({ pageView, onClick, onEdit, onDelete, onPublish, onUnPublish }) => {
 
     const [menuVisible, setMenuVisible] = useState(false);
-    const { mutateAsync: publish } = usePublishPageView();
 
     if (!pageView) {
         return <></>
@@ -90,7 +89,7 @@ const PageViewItem: FC<Props> = ({ pageView, onClick, onEdit, onDelete, onPublis
             className="flex items-center gap-2 p-2 rounded-md border border-slate-900/10 bg-zinc-50 dark:border-transparent dark:bg-steel-gray-900 relative"
         >
             <div className='w-20 h-20 rounded flex items-center justify-center bg-gradient-to-r from-cyan-500 to-blue-500 transition'>
-                <RectangleStackIcon className='w-7 h-7' />
+                <RectangleStackIcon className='w-7 h-7 text-white' />
             </div>
 
             <div className='flex-1 flex flex-col gap-1 justify-center overflow-hidden'>
@@ -123,7 +122,7 @@ const PageViewItem: FC<Props> = ({ pageView, onClick, onEdit, onDelete, onPublis
                         <a
                             href={`${process.env.REACT_APP_DOMAIN}/pages/${pageView.code}`}
                             target='_blank' rel="noreferrer"
-                            className='text-zinc-500 dark:text-zinc-200 flex items-center gap-1 group'
+                            className='text-zinc-700 dark:text-zinc-200 flex items-center gap-1 group'
                         >
                             <LinkIcon className='w-3 h-3' />
                             <span className='whitespace-nowrap group-hover:underline'>/{pageView.code}</span>
@@ -131,7 +130,7 @@ const PageViewItem: FC<Props> = ({ pageView, onClick, onEdit, onDelete, onPublis
                     }
                     {
                         pageView.status !== 'Published' &&
-                        <span className='text-zinc-500 dark:text-zinc-200 flex items-center gap-1 cursor-not-allowed'>
+                        <span className='text-zinc-700 dark:text-zinc-200 flex items-center gap-1 cursor-not-allowed'>
                             <LinkIcon className='w-3 h-3' />
                             <span className='whitespace-nowrap'>/{pageView.code}</span>
                         </span>

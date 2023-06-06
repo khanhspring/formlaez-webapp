@@ -31,7 +31,7 @@ const SimpleListPageView: FC<Props> = ({ pageView }) => {
     }
 
     return (
-        <div className="w-full max-w-2xl m-auto py-10">
+        <div className="w-full max-w-2xl m-auto py-10 px-5">
             <div className="mb-7">
                 <h1 className="font-semibold text-lg">{pageView.title}</h1>
                 {
