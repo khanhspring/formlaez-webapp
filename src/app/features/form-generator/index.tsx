@@ -114,7 +114,7 @@ const FormGenerator: FC<Props> = ({ formLayout, initValues, onFinish, loading, h
     const sections = (formLayout?.pages && formLayout.pages[0]?.sections) || [];
 
     return (
-        <div className="flex flex-col justify-center relative">
+        <div className="min-h-screen flex flex-col justify-center relative">
             {
                 !hideHeader &&
                 <div className='mb-10'>

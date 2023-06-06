@@ -130,7 +130,7 @@ function WorkspaceSettings() {
                             <FormItem
                                 name={'model'}
                             >
-                                <Dropdown options={gptModels} placeholder='GPT model'></Dropdown>
+                                <Dropdown options={gptModels} placeholder='GPT model' allowClear></Dropdown>
                             </FormItem>
                         </div>
                         <div className='flex'>

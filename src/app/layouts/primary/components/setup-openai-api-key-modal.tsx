@@ -58,7 +58,7 @@ const SetupOpenAIApiKeyModal: FC<Props> = ({ visible, onClose }) => {
                     title='Model'
                     name={'model'}
                 >
-                    <Dropdown options={gptModels} placeholder='GPT model'></Dropdown>
+                    <Dropdown options={gptModels} placeholder='GPT model' allowClear></Dropdown>
                 </FormItem>
             </Form>
         </Modal>

@@ -8,6 +8,7 @@ import FormItem from "../../../../components/form/form-item";
 import FieldUtil from "../../../../features/form-builder/utils/field-util";
 import { Form } from "../../../../models/form";
 import { PageView } from "../../../../models/page-view";
+import exampleImg from "../../../../../assets/images/example-page-view-img.jpg";
 
 type Props = {
     form: Form;
@@ -151,7 +152,7 @@ const JobBoardPageViewForm: FC<Props> = ({ form, onFinish, formInstant, pageView
 
                     <div className="bg-zinc-100 dark:bg-steel-gray-900 shadow hover:shadow-sm transition px-5 py-4 rounded-2xl flex items-center gap-5">
                         <div className={`w-20 h-20 rounded-2xl ${fieldHovered === 'imageUrl' ? 'outline outline-2 outline-red-500' : ''}`}>
-                            <img src="https://img.freepik.com/free-vector/finger-person-drawing-tablet-screen-3d-illustration-hand-designer-digital-artist-electronic-device-3d-style-white-background-technology-creativity-multimedia-concept_778687-674.jpg" alt="Job" className="w-full h-full rounded-2xl" />
+                            <img src={exampleImg} alt="Job" className="w-full h-full rounded-2xl" />
                         </div>
                         <div className="flex-1 flex flex-col gap-2">
                             <div className="flex w-full items-center justify-between">
@@ -201,7 +202,7 @@ const JobBoardPageViewForm: FC<Props> = ({ form, onFinish, formInstant, pageView
                             name={['fields', 'titleUrl']}
                             help="Allow URL field only"
                         >
-                            <Dropdown options={urlFields} />
+                            <Dropdown options={urlFields} allowClear/>
                         </FormItem>
                     </div>
 

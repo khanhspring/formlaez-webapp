@@ -165,7 +165,7 @@ const SimpleListPageViewForm: FC<Props> = ({ form, onFinish, formInstant, pageVi
                             name={['fields', 'titleUrl']}
                             help="Allow URL field only"
                         >
-                            <Dropdown options={urlFields} />
+                            <Dropdown options={urlFields} allowClear/>
                         </FormItem>
                     </div>
 

@@ -51,7 +51,7 @@ function FormViewer() {
     }
 
     return (
-        <div>
+        <div className="min-h-screen">
             {
                 formDetail &&
                 <FormGenerator
