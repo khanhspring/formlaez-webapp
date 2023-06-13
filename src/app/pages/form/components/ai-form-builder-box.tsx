@@ -13,6 +13,8 @@ import { AIFormRequest, AIFormResult } from '../../../models/ai-form-builder';
 import { AddFormSections, Form, FormSection, SelectionItem } from '../../../models/form';
 import StorageService from '../../../services/storage-service';
 import { showError, showErrorByCondition, showErrorIgnore403 } from '../../../util/common';
+import Drawer from '../../../components/drawer/drawer';
+import Button from '../../../components/common/button';
 
 type Props = {
     visible: boolean;
@@ -20,7 +22,7 @@ type Props = {
     refetch?: () => void;
     formDetail: Form;
 }
-const AIFormBuilderModal: FC<Props> = ({ formDetail, visible, onClose, refetch }) => {
+const AIFormBuilderBox: FC<Props> = ({ formDetail, visible, onClose, refetch }) => {
 
     const [rcForm] = RcForm.useForm();
     const { mutateAsync: aiGenerateForm, isLoading: submitting } = useAIGenerateForm();
@@ -62,7 +64,7 @@ const AIFormBuilderModal: FC<Props> = ({ formDetail, visible, onClose, refetch }
             onSuccess: (response) => { onAddSections(response) },
             onError: (e: any) => {
                 if (e.response.data.code === '991') {
-                    toast.error("OpenAI API key is not set, please ask workspace owner or add your own API in user menu", {autoClose: 6500});
+                    toast.error("OpenAI API key is not set, please ask workspace owner or add your own API in user menu", { autoClose: 6500 });
                     return;
                 }
                 if (e.response.data.code === '990') {
@@ -72,7 +74,7 @@ const AIFormBuilderModal: FC<Props> = ({ formDetail, visible, onClose, refetch }
                     } else {
                         message = "Something went wrong. Please try again!";
                     }
-                    toast.error(message, {autoClose: 5000});
+                    toast.error(message, { autoClose: 5000 });
                     return;
                 }
                 showError();
@@ -85,7 +87,7 @@ const AIFormBuilderModal: FC<Props> = ({ formDetail, visible, onClose, refetch }
 
     const onAddSections = (aiFormResult: AIFormResult) => {
         if (!aiFormResult || !aiFormResult.fields) {
-            toast.error("Could not generate the form according to your description. Please try again!", {autoClose: 5000});
+            toast.error("Could not generate the form according to your description. Please try again!", { autoClose: 5000 });
             return;
         }
         const sections = formDetail.pages[0].sections || [];
@@ -126,46 +128,49 @@ const AIFormBuilderModal: FC<Props> = ({ formDetail, visible, onClose, refetch }
                     })
                 }
                 dispatch(setSelectedItems(selectedItems));
+                scrollToBottom();
             });
     }
 
+    const scrollToBottom = () => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        })
+    }
+
+    const onKeyDown = (e: any) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            onClose();
+            e.preventDefault();
+        }
+    }
+
     return (
-        <Modal
-            visible={visible}
+        <Drawer
+            open={visible}
             onClose={onClose}
-            title="Ask AI to build your form"
-            onOk={onOk}
-            loading={submitting}
-            width={700}
-            okText='Generate'
+            placement='bottom'
+            width={'100wv'}
         >
-            <RcForm
-                onFinish={onFinish}
-                form={rcForm}
-            >
-                <FormItem
-                    title='Message'
-                    name={'message'}
-                    rules={[
-                        { required: true, message: "This field is required" },
-                    ]}
+            <div className='m-auto w-full max-w-[640px]'>
+                <RcForm
+                    onFinish={onFinish}
+                    form={rcForm}
+                    onKeyDown={onKeyDown}
                 >
-                    <Textarea placeholder="Description of the form you want the AI to build..." rows={3} autoHeight autoFocus />
-                </FormItem>
-                <FormItem
-                    title='Document file (Optional)'
-                    name={'files'}
-                    help='This document file helps the AI know the details of your request. For example, you can upload a document and ask the AI to create a form based on that document'
-                >
-                    <FileUpload
-                        accept='.docx,.pdf'
-                        placeholder='Drag .DOCX, .PDF file here or click to upload'
-                        className=''
-                    />
-                </FormItem>
-            </RcForm>
-        </Modal>
+                    <FormItem
+                        name={'message'}
+                        rules={[
+                            { required: true, message: "This field is required" },
+                        ]}
+                    >
+                        <Textarea placeholder="Description of the form you want the AI to build..." rows={3} autoHeight autoFocus className='rounded-3xl'/>
+                    </FormItem>
+                </RcForm>
+            </div>
+        </Drawer>
     );
 }
 
-export default AIFormBuilderModal;
+export default AIFormBuilderBox;

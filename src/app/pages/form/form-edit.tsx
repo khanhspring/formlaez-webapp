@@ -18,7 +18,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
 import StorageService from "../../services/storage-service";
 import { changeTheme, selectTheme } from "../../slices/app-config";
 import { showErrorIgnore403 } from "../../util/common";
-import AIFormBuilderModal from "./components/ai-form-builder-modal";
+import AIFormBuilderBox from "./components/ai-form-builder-box";
 import CustomizeEndingModal from "./components/customize-ending-modal";
 
 function FormEdit() {
@@ -76,6 +76,18 @@ function FormEdit() {
             title: 'Confirm',
             content: 'Are you sure you want to publish this form?',
             onOkAsync: onPublish
+        })
+    }
+
+    const openAIBuilder = () => {
+        setAIFormBuilderVisible(true);
+        scrollToBottom();
+    }
+
+    const scrollToBottom = () => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
         })
     }
 
@@ -177,7 +189,7 @@ function FormEdit() {
                 <Tooltip overlay="Ctrl+Enter" placement="bottom">
                     <div
                         className="w-12 h-12 flex items-center justify-center rounded-full bg-[#4aa181] p-2 cursor-pointer shadow-lg hover:rotate-180 transition relative color-border"
-                        onClick={() => setAIFormBuilderVisible(true)}
+                        onClick={openAIBuilder}
                     >
                         <ChatGPTIcon className="fill-white text-white" />
                     </div>
@@ -202,7 +214,7 @@ function FormEdit() {
             }
             {
                 currentForm &&
-                <AIFormBuilderModal
+                <AIFormBuilderBox
                     visible={aiFormBuilderVisible}
                     formDetail={currentForm}
                     onClose={() => setAIFormBuilderVisible(false)}

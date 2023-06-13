@@ -311,3 +311,14 @@ hr.hr-wave {
     background: rgba(46, 115, 252, 0.11);
     border-radius: 0.1em;
 }
+
+.rc-drawer-top .rc-drawer-content-wrapper {
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+  .rc-drawer-bottom .rc-drawer-content-wrapper {
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
