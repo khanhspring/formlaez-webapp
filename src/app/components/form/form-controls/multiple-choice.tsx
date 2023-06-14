@@ -62,7 +62,7 @@ const MultipleChoice: FC<Props> = ({ className = '', status, onChange, value, op
                             + `${_.includes(value, item?.value) ? '!bg-blue-700 !border-blue-700 text-white' : ''} `
                         }
                     >
-                        {item?.label}
+                        {item?.label || 'Unlabeled option'}
                     </span>
                 ))
             }

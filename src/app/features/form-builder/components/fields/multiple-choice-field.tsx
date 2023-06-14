@@ -25,11 +25,6 @@ const MultipleChoiceField: FC<Props> = ({ field, context }) => {
 
     const onValuesChange = (changed: any, formValues: any) => {
         const options = [...formValues.options] || [];
-        if (options.length > 0) {
-            options.forEach(o => {
-                o.label = o.label || 'Unlabeled option'
-            })
-        }
         updateOptions({ options: options });
     }
 

@@ -31,7 +31,6 @@ const StatusListField: FC<Props> = ({ field, context }) => {
         const options = [...formValues.options] || [];
         if (options.length > 0) {
             options.forEach(o => {
-                o.label = o.label || 'Unlabeled status';
                 o.bgColor = colors[o.code];
             })
         }

@@ -71,7 +71,9 @@ const FieldItem: FC<Props> = ({ field, name }) => {
     }, [field.acceptedDomains, field.max, field.maxLength, field.min, field.minLength, field.required, field.type])
 
     const renderField = () => {
-        const options = field.options?.map(item => ({ ...item, value: item.code, label: item.label }));
+        const options = (defaultLabel: string) => {
+            return field.options?.map(item => ({ ...item, value: item.code, label: item.label || defaultLabel }))
+        };
 
         switch (field.type) {
             case "InputText":
@@ -85,7 +87,7 @@ const FieldItem: FC<Props> = ({ field, name }) => {
             case "Datetime":
                 return <DatetimePicker placeholder={field.placeholder} showTime={field.showTime} />
             case "Dropdown":
-                return <Dropdown placeholder={field.placeholder} options={options} />
+                return <Dropdown placeholder={field.placeholder} options={options('Unlabeled option')} />
             case "Switch":
                 return <Switch />
             case "OpinionScale":
@@ -93,13 +95,13 @@ const FieldItem: FC<Props> = ({ field, name }) => {
             case "Rating":
                 return <Rating />
             case "MultipleChoice":
-                return <MultipleChoice options={options} multipleSelection={field.multipleSelection} />
+                return <MultipleChoice options={options('Unlabeled option')} multipleSelection={field.multipleSelection} />
             case "Signature":
                 return <SignaturePad />
             case "InputMarkdown":
                 return <MarkdownEditor placeholder={field.placeholder} className="w-full" autoHeight rows={7} />
             case "StatusList":
-                return <StatusChoice options={options} multipleSelection={field.multipleSelection} />
+                return <StatusChoice options={options('Unlabeled status')} multipleSelection={field.multipleSelection} />
             case "InputUrl":
                 return <Input placeholder={field.placeholder} suffix={<GlobeEuropeAfricaIcon className="w-5 h-5"/>} />
 

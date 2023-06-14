@@ -63,7 +63,7 @@ const StatusChoice: FC<Props> = ({ className = '', status, onChange, value, opti
                         style={options?.[index].bgColor ? { backgroundColor: options?.[index].bgColor } : { backgroundColor: '#697689' }}
                     >
                         <span className="flex items-center justify-center gap-1">
-                            {item?.label}
+                            {item?.label || 'Unlabeled status'}
                             {
                                 _.includes(value, item?.value) &&
                                 <CheckCircleIcon className="w-5 h-5 text-white -mr-1" />
